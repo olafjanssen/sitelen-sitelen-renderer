@@ -22,3 +22,17 @@ Taken from: http://blog.iconfinder.com/how-to-export-multiple-layers-to-svg-file
 ### GroupToLayer.jsx
 Allows for converting groups into layers in Illustrator.
 Taken from: https://forums.adobe.com/thread/892733?tstart=0 (Dec 29, 2016)
+
+## cyk-js-master
+A parser that takes CNF grammar as input.
+
+Taken from: https://github.com/lagodiuk/cyk-js
+
+## formalgrammar
+A formal grammar of Toki Pona in CFG form, includes Python source to create CNF grammar.
+
+Taken from: http://www2.hawaii.edu/~chin/661F12/projects.html
+
+### derivative works
+Several adjustments have been made to the formal grammar to be able to parse correct sentences:
+1. anpa has been added as a noun

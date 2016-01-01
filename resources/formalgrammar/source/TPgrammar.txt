@@ -1,0 +1,53 @@
+S -> Interjection | VocativeS | Sent | YNAnswer
+
+VocativeS -> NP o | NP o , Sent | NP o Pred | o Pred | Conditional o Pred
+YNAnswer -> V | V ala
+
+Sent -> SubjPred | Conditional SubjPred | taso SubjPred
+
+Conditional -> SubjPred la | Context la | NP la
+
+SubjPred -> mi Pred | sina Pred | NP_NoMiSina li Pred | CompoundSubj li Pred
+
+CompoundSubj -> NP en CompoundSubj
+
+NP_NoMiSina -> N_NoMiSina | CompNP
+NP -> N | CompNP
+CompNP -> NMod | NPpi | NP anu NP
+NPpi -> NP pi N Modifier | NP pi Name
+NMod -> N Modifier | N N | N N Modifier
+
+Modifier -> Mod | Mod Modifier 
+Pred -> VP | VP li Pred
+
+VP -> IntransVP | TransVP | VP PrepPh
+IntransVP -> Verb | lon NP | tawa NP | Modal lon NP | Modal tawa NP | Modifier | NP
+TransVP -> Verb DO | Modal Verb DO
+DO -> e NP | e NP DO
+Verb -> V | Modal V | V Mod | YnV | Modal YnV | YnV Mod
+YnV -> V ala V
+
+PrepPh -> Prep NP | Prep NP PrepPh
+
+Context -> ante | ken 
+
+Modal -> PosModal | PosModal ala | YnModal
+PosModal -> kama | ken | wile 
+YnModal -> kama ala kama | ken ala ken | wile ala wile
+
+V -> anpa | ante | awen | ijo | ike | jaki | jan | jo | kalama | kama | ken | kepeken | kule | lape | lawa | lete | lili | lon | lukin | moku | moli | musi | mute | nasa | olin | open | pakala | pali | pana | pilin | pimeja | pini | poka | pona | seli | sin | sitelen | sona | suli | suwi | tawa | telo | toki | tomo | tu | unpa | utala | wan | wawa | weka | wile
+
+N -> mi | sina | N_NoMiSina
+
+N_NoMiSina -> Name | akesi | ala | ale | ali | ante | ijo | ike | ilo | insa | jaki | jan | jo | kala | kalama | kama | kasi | ken | kili | kiwen | kule | kute | kulupu | lawa | len | lete | lili | linja | lipu | luka | lupa | ma | mama | mani | meli | mije | moku | moli | monsi | mun | musi | mute | nanpa | nasin | nena | ni | nimi | noka | oko | olin | ona | pakala | pali | palisa | pana | pilin | pimeja | pini | pipi | poki | poka | pona | seli | selo | seme | sewi | sijelo | sike | sinpin | sitelen | sona | soweli | suli | suno | supa | suwi | tan | tawa | telo | tenpo | toki | tomo | tu | unpa | uta | utala | walo | wan | waso | wawa | weka | wile
+
+Mod -> ala | ale | ali | ante | awen | ijo | ike | insa | jaki | jan | jelo | kalama | kama | kin | kiwen | kule | kute | kulupu | laso | lape | lawa | lete | lili | loje | lukin | mama | meli | mi | mije | moku | moli | monsi | mun | musi | mute | nasa | ni | olin | ona | pakala | pali | pimeja | pini | poka | pona | sama | seli | seme | sewi | sike | sin | sina | suli | suwi | taso | tawa | telo | toki | tomo | tu | unpa | uta | walo | wan | wawa | weka | wike
+
+Prep -> kepeken | lon | poka | sama | tan | tawa 
+
+Interjection -> a | a a | a a a | ala | ike | jaki | mu | o | pakala | pona | toki
+
+Name -> jan 'Name' | ma 'Name' | ma tomo 'Name' | toki 'Name' | soweli 'Name' 
+
+
+# New words not included here: alasa, esun, pan, kipisi, pu
