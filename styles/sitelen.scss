@@ -218,8 +218,7 @@ body {
     }
   }
 
-
-  &.toki-e{
+  &.toki-e[data-toki-size="regular"]{
     justify-content: flex-start;
 
     & > * {
