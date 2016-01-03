@@ -140,6 +140,16 @@ window.onload = function () {
     ]);
 
     addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
+        {rule: 'addGlyph', glyph: 'mi'},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'openContainer', glyph: 'e', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'kili'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
+    ]);
+
+    addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'jan'},
         {rule: 'addGlyph', glyph: 'pona'},
@@ -169,11 +179,26 @@ window.onload = function () {
         {rule: 'addGlyph', glyph: 'wile'},
         {rule: 'addGlyph', glyph: 'moku'},
         {rule: 'closeContainer'},
-        {rule: 'openContainer', glyph: 'li', size: 'wide', children: 2},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'kili'},
         {rule: 'addGlyph', glyph: 'suwi'},
         {rule: 'closeContainer'}
     ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'kili'},
+        {rule: 'addGlyph', glyph: 'suwi'},
+        {rule: 'closeContainer'}
+    ]);
+
 
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 1},

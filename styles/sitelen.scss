@@ -1,18 +1,19 @@
 body {
   font-size: 48px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
 }
 
 .toki-word {
   position: relative;
-  font-size: 0.9em;
+  font-size: 0.875em;
 }
 
 .toki-sentence {
-  margin: 1em 0;
+  margin: 1em;
   width: 2em;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .toki-sentence > .toki-container {
@@ -174,6 +175,9 @@ body {
   &.toki-kili::before {
     background-image: url(../images/wordglyphs/tp-wg-kili.svg);
   }
+  &.toki-mi::before {
+    background-image: url(../images/wordglyphs/tp-wg-mi.svg);
+  }
   &.toki-suwi::before {
     background-image: url(../images/wordglyphs/tp-wg-suwi.svg);
   }
@@ -213,4 +217,27 @@ body {
       background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
     }
   }
+
+
+  &.toki-e{
+    justify-content: flex-start;
+
+    & > * {
+      font-size: 0.55em;
+    }
+
+    &::before {
+      background-image: url(../images/wordglyphs/tp-wg-e.svg);
+    }
+  }
+
+  &[data-toki-size="wide"].toki-e {
+    margin-bottom: 0.2em;
+    justify-content: flex-start;
+
+    &::before {
+      background-image: url(../images/wordglyphs/tp-wg-e-wide.svg);
+    }
+  }
+
 }
