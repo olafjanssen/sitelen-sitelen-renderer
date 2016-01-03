@@ -182,6 +182,35 @@ body {
   &.toki-suwi::before {
     background-image: url(../images/wordglyphs/tp-wg-suwi.svg);
   }
+
+
+  &::after {
+    background-size: 100% 100%;
+    margin: -0.1em 0 0 -0.1em;
+    position: absolute;
+    padding: 0.1em;
+    height: 100%;
+    width: 100%;
+    content: '';
+    top: 50%;
+    left: 0;
+  }
+
+  &.toki-mod-lili::after {
+    background-image: url(../images/wordglyphs/tp-wg-lili.svg);
+  }
+
+  &.toki-mod-mute::after {
+    background-image: url(../images/wordglyphs/tp-wg-mute.svg);
+  }
+
+  &.toki-mod-kon::after {
+    background-image: url(../images/wordglyphs/tp-wg-kon.svg);
+  }
+
+  &.toki-mod-sin::after {
+    background-image: url(../images/wordglyphs/tp-wg-sin.svg);
+  }
 }
 
 .toki-punctuation {

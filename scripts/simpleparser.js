@@ -5,7 +5,10 @@ function addGlyph(instruction, target) {
     fragment.setAttribute('data-toki', instruction.glyph);
     fragment.classList.add('toki-word');
     fragment.classList.add('toki-' + instruction.glyph);
-    fragment.setAttribute('data-toki-dir',instruction.direction);
+    if (instruction.modifier) {
+        fragment.classList.add('toki-mod-' + instruction.modifier);
+    }
+    fragment.setAttribute('data-toki-dir', instruction.direction);
     target.appendChild(fragment);
     return fragment;
 }
@@ -32,22 +35,22 @@ function openContainer(instruction, target) {
 }
 
 
-function renderInstructions(instructions, target){
-    instructions.forEach(function(instruction) {
-       switch (instruction.rule){
-           case 'openContainer':
-               target = openContainer(instruction, target);
-               break;
-           case 'addGlyph':
-               addGlyph(instruction, target);
-               break;
-           case 'closeContainer':
-               target = target.parentNode;
-               break;
-           case 'addPunctuation':
-               addPunctuation(instruction, target);
-               break;
-       }
+function renderInstructions(instructions, target) {
+    instructions.forEach(function (instruction) {
+        switch (instruction.rule) {
+            case 'openContainer':
+                target = openContainer(instruction, target);
+                break;
+            case 'addGlyph':
+                addGlyph(instruction, target);
+                break;
+            case 'closeContainer':
+                target = target.parentNode;
+                break;
+            case 'addPunctuation':
+                addPunctuation(instruction, target);
+                break;
+        }
     });
 }
 
@@ -60,6 +63,52 @@ function addSentence(instructions) {
 }
 
 window.onload = function () {
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan', modifier: 'lili'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan', modifier: 'mute'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan', modifier: 'kon'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan', modifier: 'sin'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
 
     // jan li moku.
     addSentence([
