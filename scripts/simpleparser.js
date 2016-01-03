@@ -61,6 +61,7 @@ function addSentence(instructions) {
 
 window.onload = function () {
 
+    // jan li moku.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'jan'},
@@ -71,6 +72,7 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // jan pona li moku.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
         {rule: 'addGlyph', glyph: 'jan'},
@@ -82,6 +84,7 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // mi moku e kili.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
         {rule: 'addGlyph', glyph: 'mi'},
@@ -93,6 +96,19 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // mi moku e kili.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'mi'},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'kili'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // jan pona li moku.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'jan'},
@@ -104,6 +120,21 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // jan utala pona li moku.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'double', children: 4},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'utala'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+
+    // jan pona li wile moku.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'jan'},
@@ -116,6 +147,7 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // jan pona li wile moku kili suwi.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'jan'},
@@ -132,6 +164,7 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // jan pona li moku e kili suwi.
     addSentence([
         {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
         {rule: 'addGlyph', glyph: 'jan'},
