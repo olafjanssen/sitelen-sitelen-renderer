@@ -164,11 +164,17 @@ body {
   &.toki-pona::before {
     background-image: url(../images/wordglyphs/tp-wg-pona.svg);
   }
+  &.toki-sina::before {
+    background-image: url(../images/wordglyphs/tp-wg-sina.svg);
+  }
   &.toki-kili::before {
     background-image: url(../images/wordglyphs/tp-wg-kili.svg);
   }
   &.toki-mi::before {
     background-image: url(../images/wordglyphs/tp-wg-mi.svg);
+  }
+  &.toki-tawa::before {
+    background-image: url(../images/wordglyphs/tp-wg-tawa.svg);
   }
   &.toki-utala::before {
     background-image: url(../images/wordglyphs/tp-wg-utala.svg);
@@ -239,6 +245,28 @@ body {
 
     &::before {
       background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
+    }
+  }
+
+  &.toki-tawa::before {
+    background-image: url(../images/wordglyphs/tp-wg-tawa.svg);
+  }
+
+  &[data-toki-size="wide"].toki-tawa {
+    margin-bottom: 0.2em;
+    justify-content: flex-start;
+
+    &[data-toki-children="1"] {
+      justify-content: center;
+    }
+
+    & + .toki-punctuation {
+      margin-top: -0.2em;
+    }
+
+    &::before {
+      background-image: url(../images/wordglyphs/tp-c-tawa-wide.svg);
+      padding-right: 0.5em;
     }
   }
 
