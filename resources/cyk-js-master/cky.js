@@ -137,9 +137,10 @@ function traverseParseTable(parseTable, left, right, rootIndex) {
                 });
                 console.log(grammar);
 
-                var parseTable = parse(grammarToHashMap(grammar), 'mi toki ala e akesi e ma kasi e sike sewi lili tawa ona tan ni'.split(' '));
+                //var parseTable = parse(grammarToHashMap(grammar), 'mi toki ala e akesi e ma kasi e sike sewi lili tawa ona tan ni'.split(' '));
                 //var parseTable = parse(grammarToHashMap(grammar), 'mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa'.split(' '));
-                //var parseTable = parse(grammarToHashMap(grammar), 'mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa'.split(' '));
+                var parseTable = parse(grammarToHashMap(grammar), 'mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa'.split(' '));
+                //var parseTable = parse(grammarToHashMap(grammar), 'jan suli li toki ala e ma kasi e sike sewi lili tawa ona tan ni'.split(' '));
 
                 console.log(parseTable);
                 for (var i in parseTable[0][parseTable.length - 1]) {

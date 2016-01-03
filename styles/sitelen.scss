@@ -1,0 +1,142 @@
+body {
+    font-size: 48px;
+}
+
+.toki-word {
+    position: relative;
+}
+
+.toki-sentence {
+    margin: 1em 0;
+    width: 2em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.toki-container {
+    background-size: 100% 100%;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
+    display: inline-flex;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.toki-container[data-toki-size="regular"] {
+    width: 1em;
+    height: 1em;
+}
+
+.toki-container[data-toki-size="wide"] {
+    flex-direction: row;
+    width: 2em;
+
+
+    &[data-toki-children="1"] {
+        padding-bottom: 0;
+
+        & > .toki-word {
+            flex: 1 1 100%;
+            height: 2em;
+        }
+    }
+
+    &[data-toki-children="2"] {
+        padding-bottom: 0.1em;
+
+        & > .toki-word {
+            flex: 1 1 50%;
+            height: 1em;
+        }
+    }
+
+    &[data-toki-children="3"] {
+        padding-bottom: 0.2em;
+
+        & > .toki-word {
+            flex: 1 1 1/3*100%;
+            height: 2/3*1em;
+        }
+    }
+}
+
+.toki-container[data-toki-size="tall"] {
+    flex-direction: column;
+    height: 2em;
+
+    &[data-toki-children="1"] {
+        padding-bottom: 0;
+
+        & > .toki-word {
+            flex: 1 1 100%;
+            width: 2em;
+        }
+    }
+
+    &[data-toki-children="2"] {
+        padding-bottom: 0.1em;
+
+        & > .toki-word {
+            flex: 1 1 50%;
+            width: 1em;
+        }
+    }
+
+    &[data-toki-children="3"] {
+        padding-bottom: 0.2em;
+
+        & > .toki-word {
+            flex: 1 1 1/3*100%;
+            width: 2/3*1em;
+        }
+    }
+}
+
+.toki-container[data-toki-size="double"] {
+    flex-direction: column;
+    height: 2em;
+    width: 2em;
+
+    &[data-toki-children="4"] {
+        & > .toki-word {
+            flex: 1 1 50%;
+            width: 50%;
+        }
+    }
+
+    &[data-toki-children="5"] {
+        & > .toki-word {
+            flex: 1 1 1/3*100%;
+            width: 50%;
+        }
+    }
+
+    &[data-toki-children="6"] {
+        & > .toki-word {
+            flex: 1 1 1/3*100%;
+            width: 50%;
+        }
+    }
+
+    &[data-toki-children="7"],
+    &[data-toki-children="8"],
+    &[data-toki-children="9"] {
+        & > .toki-word {
+            flex: 1 1 1/3*100%;
+            width: 1/3*100%;
+        }
+    }
+}
+
+.toki-word.toki-jan::before {
+    background-image: url(../images/wordglyphs/tp-wg-jan.svg);
+    background-size: 100% 100%;
+    margin: -0.1em 0 0 -0.1em;
+    position: absolute;
+    padding: 0.2em;
+    height: 100%;
+    width: 100%;
+    content: '';
+}
