@@ -1,205 +1,216 @@
 body {
-    font-size: 48px;
+  font-size: 48px;
 }
 
 .toki-word {
-    position: relative;
-    font-size:0.9em;
+  position: relative;
+  font-size: 0.9em;
 }
 
 .toki-sentence {
-    margin: 1em 0;
-    width: 2em;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  margin: 1em 0;
+  width: 2em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .toki-sentence > .toki-container {
-    //margin-bottom: 0.1em;
-    //padding-top: 0.1em;
+  //margin-bottom: 0.1em;
+  //padding-top: 0.1em;
 }
 
 .toki-container {
-    background: #888;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    display: inline-flex;
-    position: relative;
-    flex-wrap: wrap;
+  background: #888;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  display: inline-flex;
+  position: relative;
+  flex-wrap: wrap;
 }
 
 .toki-sentence > .toki-container:first-child > * {
-    font-size: 1em;
+  font-size: 1em;
 }
 
 .toki-container[data-toki-size="regular"] {
 
-    flex-direction: row;
+  flex-direction: row;
 
-        & > * {
-            width: 1em;
-            height: 1em;
-        }
+  & > * {
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .toki-container[data-toki-size="wide"] {
-    flex-direction: row;
-    height: 1em;
-    width: 2em;
+  flex-direction: row;
+  height: 1em;
+  width: 2em;
 
-    &[data-toki-children="1"] {
+  &[data-toki-children="1"] {
 
-        & > * {
-            flex: 0 0 1em;
-            height: 1em;
-        }
+    & > * {
+      flex: 0 0 1em;
+      height: 1em;
     }
+  }
 
-    &[data-toki-children="2"] {
+  &[data-toki-children="2"] {
 
-        & > * {
-            flex: 0 0 1em;
-            height: 1em;
-        }
+    & > * {
+      flex: 0 0 1em;
+      height: 1em;
     }
+  }
 
-    &[data-toki-children="3"] {
-        height: 2 / 3 * 1em;
+  &[data-toki-children="3"] {
+    height: 2 / 3 * 1em;
 
-        & > * {
-            flex: 0 0 2 / 3 * 1em;
-            height: 2 / 3 * 1em;
-        }
+    & > * {
+      flex: 0 0 2 / 3 * 1em;
+      height: 2 / 3 * 1em;
     }
+  }
 }
 
 .toki-container[data-toki-size="tall"] {
-    flex-direction: column;
-    height: 2em;
+  flex-direction: column;
+  height: 2em;
 
-    &[data-toki-children="1"] {
-        padding-bottom: 0;
+  &[data-toki-children="1"] {
+    padding-bottom: 0;
 
-        & > .toki-word {
-            flex: 0 0 100%;
-            width: 2em;
-        }
+    & > .toki-word {
+      flex: 0 0 100%;
+      width: 2em;
     }
+  }
 
-    &[data-toki-children="2"] {
-        padding-bottom: 0.1em;
+  &[data-toki-children="2"] {
+    padding-bottom: 0.1em;
 
-        & > .toki-word {
-            flex: 0 0 50%;
-            width: 1em;
-        }
+    & > .toki-word {
+      flex: 0 0 50%;
+      width: 1em;
     }
+  }
 
-    &[data-toki-children="3"] {
-        padding-bottom: 0.2em;
+  &[data-toki-children="3"] {
+    padding-bottom: 0.2em;
 
-        & > .toki-word {
-            flex: 0 0 1/3*100%;
-            width: 2/3*1em;
-        }
+    & > .toki-word {
+      flex: 0 0 1/3*100%;
+      width: 2/3*1em;
     }
+  }
 }
 
 .toki-container[data-toki-size="double"] {
-    flex-direction: column;
-    height: 2em;
-    width: 2em;
+  flex-direction: column;
+  height: 2em;
+  width: 2em;
 
-    &[data-toki-children="4"] {
-        & > .toki-word {
-            flex: 0 0 50%;
-            width: 50%;
-        }
+  &[data-toki-children="4"] {
+    & > .toki-word {
+      flex: 0 0 50%;
+      width: 50%;
     }
+  }
 
-    &[data-toki-children="5"] {
-        & > .toki-word {
-            flex: 1 1 1/3*100%;
-            width: 50%;
-        }
+  &[data-toki-children="5"] {
+    & > .toki-word {
+      flex: 1 1 1/3*100%;
+      width: 50%;
     }
+  }
 
-    &[data-toki-children="6"] {
-        & > .toki-word {
-            flex: 1 1 1/3*100%;
-            width: 50%;
-        }
+  &[data-toki-children="6"] {
+    & > .toki-word {
+      flex: 1 1 1/3*100%;
+      width: 50%;
     }
+  }
 
-    &[data-toki-children="7"],
-    &[data-toki-children="8"],
-    &[data-toki-children="9"] {
-        & > .toki-word {
-            flex: 1 1 1/3*100%;
-            width: 1/3*100%;
-        }
+  &[data-toki-children="7"],
+  &[data-toki-children="8"],
+  &[data-toki-children="9"] {
+    & > .toki-word {
+      flex: 1 1 1/3*100%;
+      width: 1/3*100%;
     }
+  }
 }
 
 .toki-word {
-    &::before {
-        background-size: 100% 100%;
-        margin: -0.1em 0 0 -0.1em;
-        position: absolute;
-        padding: 0.1em;
-        height: 100%;
-        width: 100%;
-        content: '';
-        left: 0;
-        top: 0;
-    }
-    &.toki-jan::before {
-        background-image: url(../images/wordglyphs/tp-wg-jan.svg);
-    }
-    &.toki-moku::before {
-        background-image: url(../images/wordglyphs/tp-wg-moku.svg);
-    }
-    &.toki-wile::before {
-        background-image: url(../images/wordglyphs/tp-wg-wile.svg);
-    }
-    &.toki-li::before {
-        background-image: url(../images/wordglyphs/tp-wg-li.svg);
-    }
-    &.toki-pona::before {
-        background-image: url(../images/wordglyphs/tp-wg-pona.svg);
-    }
+  &::before {
+    background-size: 100% 100%;
+    margin: -0.1em 0 0 -0.1em;
+    position: absolute;
+    padding: 0.1em;
+    height: 100%;
+    width: 100%;
+    content: '';
+    left: 0;
+    top: 0;
+  }
+
+  &.toki-jan::before {
+    background-image: url(../images/wordglyphs/tp-wg-jan.svg);
+  }
+  &.toki-moku::before {
+    background-image: url(../images/wordglyphs/tp-wg-moku.svg);
+  }
+  &.toki-wile::before {
+    background-image: url(../images/wordglyphs/tp-wg-wile.svg);
+  }
+  &.toki-li::before {
+    background-image: url(../images/wordglyphs/tp-wg-li.svg);
+  }
+  &.toki-pona::before {
+    background-image: url(../images/wordglyphs/tp-wg-pona.svg);
+  }
+  &.toki-kili::before {
+    background-image: url(../images/wordglyphs/tp-wg-kili.svg);
+  }
+  &.toki-suwi::before {
+    background-image: url(../images/wordglyphs/tp-wg-suwi.svg);
+  }
 }
 
 .toki-container {
+  &::before {
+    background-size: 100% 100%;
+    margin: -0.1em 0 0 -0.1em;
+    position: absolute;
+    padding: 0.1em;
+    height: 100%;
+    width: 100%;
+    content: '';
+    left: 0;
+    top: 0;
+  }
+
+  &[data-toki-size="regular"]::before {
+    margin: -0.15em 0 0 -0.15em;
+    padding: 0.15em;
+  }
+
+  &[data-toki-size="wide"]::before {
+    margin: -0.3em 0 0 -0.15em;
+    padding: 0.3em 0.15em;
+  }
+
+  &.toki-li::before {
+    background-image: url(../images/wordglyphs/tp-wg-li.svg);
+  }
+
+  &[data-toki-size="wide"].toki-li {
+    margin-bottom: 0.2em;
+
     &::before {
-        background-size: 100% 100%;
-        margin: -0.1em 0 0 -0.1em;
-        position: absolute;
-        padding: 0.1em;
-        height: 100%;
-        width: 100%;
-        content: '';
-        left: 0;
-        top: 0;
+      background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
     }
-
-    &[data-toki-size="regular"]::before {
-        margin: -0.15em 0 0 -0.15em;
-        padding: 0.15em;
-    }
-
-    &[data-toki-size="wide"]::before {
-        margin: -0.3em 0 0 -0.15em;
-        padding: 0.3em 0.15em;
-    }
-
-    &.toki-li::before {
-        background-image: url(../images/wordglyphs/tp-wg-li.svg);
-    }
-
-    &[data-toki-size="wide"].toki-li::before {
-        background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
-    }
+  }
 }
