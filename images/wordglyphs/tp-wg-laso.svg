@@ -2,35 +2,35 @@
 <!-- Generator: Adobe Illustrator 19.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 140 140" style="enable-background:new 0 0 140 140;" xml:space="preserve">
+	 viewBox="0 0 125.045 125.25" style="enable-background:new 0 0 125.045 125.25;" xml:space="preserve">
 <g id="laso">
-	<g id="laso_3_">
-		<ellipse style="fill:#FFFFFF;" cx="70.333" cy="66.351" rx="55.08" ry="57.569"/>
+	<g id="laso_2_">
+		<ellipse style="fill:#FFFFFF;" cx="62.443" cy="58.047" rx="55.08" ry="57.569"/>
 		<g>
 			<path style="fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-				M88.053,80.76c0-11.704,9.488-21.191,21.191-21.191s21.191,9.488,21.191,21.191l-0.045,20.295c0,16.569-13.431,30-30,30h-60
-				c-16.569,0-30-13.431-30-30V80.76c0-11.704,9.488-21.191,21.191-21.191s21.191,9.488,21.191,21.191
-				c0-9.742,7.898-17.64,17.64-17.64S88.053,71.017,88.053,80.76z"/>
+				M80.162,72.455c0-11.704,9.488-21.191,21.191-21.191s21.191,9.488,21.191,21.191L122.5,92.75c0,16.569-13.431,30-30,30h-60
+				c-16.569,0-30-13.431-30-30V72.455c0-11.704,9.488-21.191,21.191-21.191s21.191,9.488,21.191,21.191
+				c0-9.742,7.898-17.64,17.64-17.64S80.162,62.713,80.162,72.455z"/>
 		</g>
 		<path style="fill:none;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-			M15.413,65.804c0-30.376,24.624-55,55-55s55,24.624,55,55"/>
+			M7.522,57.5c0-30.376,24.624-55,55-55s55,24.624,55,55"/>
 		<path style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-			M30.509,59.331c3.182-19.165,19.837-33.777,39.904-33.777c20.114,0,36.799,14.68,39.926,33.91"/>
+			M22.618,51.027C25.8,31.862,42.455,17.25,62.522,17.25c20.114,0,36.799,14.68,39.926,33.91"/>
 		<path style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-			M37.882,61.096c2.594-15.625,16.173-27.538,32.533-27.538c16.399,0,30.002,11.968,32.551,27.647"/>
+			M29.991,52.792c2.594-15.625,16.173-27.538,32.533-27.538c16.399,0,30.002,11.968,32.551,27.647"/>
 		<g>
 			
-				<circle style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" cx="60.09" cy="51.054" r="8.167"/>
+				<circle style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" cx="52.199" cy="42.75" r="8.167"/>
 			
-				<circle style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" cx="80.757" cy="51.054" r="8.167"/>
+				<circle style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" cx="72.866" cy="42.75" r="8.167"/>
 		</g>
 		<g>
 			
-				<line style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="79.308" y1="26.471" x2="85.224" y2="12.721"/>
+				<line style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="71.417" y1="18.167" x2="77.333" y2="4.417"/>
 			
-				<line style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="70.325" y1="25.554" x2="70.325" y2="10.804"/>
+				<line style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="62.434" y1="17.25" x2="62.434" y2="2.5"/>
 			
-				<line style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="61.431" y1="26.552" x2="55.391" y2="12.804"/>
+				<line style="fill:none;stroke:#000000;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="53.54" y1="18.248" x2="47.5" y2="4.5"/>
 		</g>
 	</g>
 </g>

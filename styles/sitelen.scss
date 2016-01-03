@@ -4,6 +4,7 @@ body {
 
 .toki-word {
     position: relative;
+    font-size:0.9em;
 }
 
 .toki-sentence {
@@ -14,50 +15,62 @@ body {
     flex-wrap: wrap;
 }
 
+.toki-sentence > .toki-container {
+    //margin-bottom: 0.1em;
+    //padding-top: 0.1em;
+}
+
 .toki-container {
-    background-size: 100% 100%;
-    align-content: flex-start;
-    align-items: flex-start;
+    background: #888;
+    align-content: center;
+    align-items: center;
     justify-content: center;
     display: inline-flex;
     position: relative;
     flex-wrap: wrap;
 }
 
+.toki-sentence > .toki-container:first-child > * {
+    font-size: 1em;
+}
+
 .toki-container[data-toki-size="regular"] {
-    width: 1em;
-    height: 1em;
+
+    flex-direction: row;
+
+        & > * {
+            width: 1em;
+            height: 1em;
+        }
 }
 
 .toki-container[data-toki-size="wide"] {
     flex-direction: row;
+    height: 1em;
     width: 2em;
 
-
     &[data-toki-children="1"] {
-        padding-bottom: 0;
 
-        & > .toki-word {
-            flex: 1 1 100%;
-            height: 2em;
+        & > * {
+            flex: 0 0 1em;
+            height: 1em;
         }
     }
 
     &[data-toki-children="2"] {
-        padding-bottom: 0.1em;
 
-        & > .toki-word {
-            flex: 1 1 50%;
+        & > * {
+            flex: 0 0 1em;
             height: 1em;
         }
     }
 
     &[data-toki-children="3"] {
-        padding-bottom: 0.2em;
+        height: 2 / 3 * 1em;
 
-        & > .toki-word {
-            flex: 1 1 1/3*100%;
-            height: 2/3*1em;
+        & > * {
+            flex: 0 0 2 / 3 * 1em;
+            height: 2 / 3 * 1em;
         }
     }
 }
@@ -70,7 +83,7 @@ body {
         padding-bottom: 0;
 
         & > .toki-word {
-            flex: 1 1 100%;
+            flex: 0 0 100%;
             width: 2em;
         }
     }
@@ -79,7 +92,7 @@ body {
         padding-bottom: 0.1em;
 
         & > .toki-word {
-            flex: 1 1 50%;
+            flex: 0 0 50%;
             width: 1em;
         }
     }
@@ -88,7 +101,7 @@ body {
         padding-bottom: 0.2em;
 
         & > .toki-word {
-            flex: 1 1 1/3*100%;
+            flex: 0 0 1/3*100%;
             width: 2/3*1em;
         }
     }
@@ -101,7 +114,7 @@ body {
 
     &[data-toki-children="4"] {
         & > .toki-word {
-            flex: 1 1 50%;
+            flex: 0 0 50%;
             width: 50%;
         }
     }
@@ -130,13 +143,63 @@ body {
     }
 }
 
-.toki-word.toki-jan::before {
-    background-image: url(../images/wordglyphs/tp-wg-jan.svg);
-    background-size: 100% 100%;
-    margin: -0.1em 0 0 -0.1em;
-    position: absolute;
-    padding: 0.2em;
-    height: 100%;
-    width: 100%;
-    content: '';
+.toki-word {
+    &::before {
+        background-size: 100% 100%;
+        margin: -0.1em 0 0 -0.1em;
+        position: absolute;
+        padding: 0.1em;
+        height: 100%;
+        width: 100%;
+        content: '';
+        left: 0;
+        top: 0;
+    }
+    &.toki-jan::before {
+        background-image: url(../images/wordglyphs/tp-wg-jan.svg);
+    }
+    &.toki-moku::before {
+        background-image: url(../images/wordglyphs/tp-wg-moku.svg);
+    }
+    &.toki-wile::before {
+        background-image: url(../images/wordglyphs/tp-wg-wile.svg);
+    }
+    &.toki-li::before {
+        background-image: url(../images/wordglyphs/tp-wg-li.svg);
+    }
+    &.toki-pona::before {
+        background-image: url(../images/wordglyphs/tp-wg-pona.svg);
+    }
+}
+
+.toki-container {
+    &::before {
+        background-size: 100% 100%;
+        margin: -0.1em 0 0 -0.1em;
+        position: absolute;
+        padding: 0.1em;
+        height: 100%;
+        width: 100%;
+        content: '';
+        left: 0;
+        top: 0;
+    }
+
+    &[data-toki-size="regular"]::before {
+        margin: -0.15em 0 0 -0.15em;
+        padding: 0.15em;
+    }
+
+    &[data-toki-size="wide"]::before {
+        margin: -0.3em 0 0 -0.15em;
+        padding: 0.3em 0.15em;
+    }
+
+    &.toki-li::before {
+        background-image: url(../images/wordglyphs/tp-wg-li.svg);
+    }
+
+    &[data-toki-size="wide"].toki-li::before {
+        background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
+    }
 }

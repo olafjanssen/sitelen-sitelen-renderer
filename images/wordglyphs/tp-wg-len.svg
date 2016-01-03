@@ -2,23 +2,23 @@
 <!-- Generator: Adobe Illustrator 19.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 140 140" style="enable-background:new 0 0 140 140;" xml:space="preserve">
+	 viewBox="0 0 128.125 125" style="enable-background:new 0 0 128.125 125;" xml:space="preserve">
 <g id="len">
-	<g id="len_3_">
+	<g id="len_2_">
 		<path style="fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-			M126.476,99.919c0,16.569-13.431,30-30,30H38.851c-16.569,0-30-13.431-30-30v-30c0-33.137,26.863-60,60-60c28,0,27.375,0,63.125,0
-			c-2.875,6.875-5.5,11.5-5.5,30.25S126.476,99.919,126.476,99.919z"/>
+			M120.125,92.5c0,16.569-13.431,30-30,30H32.5c-16.569,0-30-13.431-30-30v-30c0-33.137,26.863-60,60-60c28,0,27.375,0,63.125,0
+			c-2.875,6.875-5.5,11.5-5.5,30.25S120.125,92.5,120.125,92.5z"/>
 		<path style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-			M126.351,47.916h-26.5c-11.23,0-20.333,8.764-20.333,19.576v6.512c0,10.811-9.104,19.576-20.333,19.576H8.851"/>
+			M120,40.497H93.5c-11.23,0-20.333,8.764-20.333,19.576v6.512c0,10.811-9.104,19.576-20.333,19.576H2.5"/>
 		<g>
 			<path style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-				M85.183,110.642c-4.082,1.752-8.551,2.717-13.235,2.717"/>
+				M78.832,103.223c-4.082,1.752-8.551,2.717-13.235,2.717"/>
 			<path style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-				M101.242,90.108c-0.875,3.915-2.593,7.63-5.001,10.962"/>
+				M94.892,82.689c-0.875,3.915-2.593,7.63-5.001,10.962"/>
 			
-				<line style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="43.023" y1="113.359" x2="55.813" y2="113.359"/>
+				<line style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="36.672" y1="105.94" x2="49.463" y2="105.94"/>
 			
-				<line style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-miterlimit:10;" x1="102.269" y1="76.276" x2="102.269" y2="64.36"/>
+				<line style="fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-miterlimit:10;" x1="95.918" y1="68.858" x2="95.918" y2="56.941"/>
 		</g>
 	</g>
 </g>

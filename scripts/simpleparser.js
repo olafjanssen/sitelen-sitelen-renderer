@@ -28,100 +28,6 @@ var sentence = [
     ["."]
 ];
 
-var instructions = [
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 1},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'}
-];
-
-var instructions2 = [
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'tall', children: 1},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'tall', children: 2},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'tall', children: 3},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'}
-];
-
-var instructions3 = [
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 4},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 5},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 6},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 7},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 8},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'},
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 9},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'}
-
-];
-
-var instructions4 = [
-    {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 4},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'addGlyph', glyph: 'jan'},
-    {rule: 'closeContainer'}
-];
-
 
 function addGlyph(instruction, target) {
     var fragment = document.createElement('div');
@@ -137,6 +43,7 @@ function openContainer(instruction, target) {
     var fragment = document.createElement('div');
     fragment.setAttribute('data-toki-size', instruction.size);
     fragment.setAttribute('data-toki-children', instruction.children);
+    fragment.classList.add('toki-' + instruction.glyph);
 
     fragment.classList.add('toki-container');
     target.appendChild(fragment);
@@ -212,10 +119,121 @@ function addSentence(instructions) {
 }
 
 window.onload = function () {
-    addSentence(instructions);
-    addSentence(instructions2);
-    addSentence(instructions3);
-    addSentence(instructions4);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'li', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'wile'},
+        {rule: 'addGlyph', glyph: 'moku'},
+        {rule: 'closeContainer'}
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'wide', children: 3},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'}
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'tall', children: 1},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'tall', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'tall', children: 3},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'}
+    ]);
+
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 4},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 5},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 6},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 7},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 8},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: undefined, direction: 'row', size: 'double', children: 9},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'closeContainer'}
+
+    ]);
 
 }
 
