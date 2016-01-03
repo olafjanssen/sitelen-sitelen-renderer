@@ -6,19 +6,9 @@ body {
 
 }
 
-.toki-word {
-  position: relative;
-  font-size: 0.875em;
-}
-
 .toki-sentence {
   margin: 1em;
   width: 2em;
-}
-
-.toki-sentence > .toki-container {
-  //margin-bottom: 0.1em;
-  //padding-top: 0.1em;
 }
 
 .toki-container {
@@ -145,6 +135,9 @@ body {
 }
 
 .toki-word {
+  position: relative;
+  font-size: 0.875em;
+
   &::before {
     background-size: 100% 100%;
     margin: -0.1em 0 0 -0.1em;
@@ -183,6 +176,31 @@ body {
   }
 }
 
+.toki-punctuation {
+  position: relative;
+  width: 2em;
+  height: 0.35em;
+
+  &::before {
+    background-size: 100% 100%;
+    margin: -0.25em 0 0 -0.25em;
+    position: absolute;
+    padding: 0.25em;
+    height: 100%;
+    width: 100%;
+    content: '';
+    z-index: -1;
+    left: 0;
+    top: 0;
+  }
+
+  &[data-toki-size="wide"].toki-period::before {
+    background-image: url(../images/wordglyphs/tp-p-period-wide.svg);
+  }
+}
+
+
+
 .toki-container {
   &::before {
     background-size: 100% 100%;
@@ -213,6 +231,10 @@ body {
   &[data-toki-size="wide"].toki-li {
     margin-bottom: 0.2em;
 
+    & + .toki-punctuation {
+      margin-top: -0.2em;
+    }
+
     &::before {
       background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
     }
@@ -233,6 +255,10 @@ body {
   &[data-toki-size="wide"].toki-e {
     margin-bottom: 0.2em;
     justify-content: flex-start;
+
+    & + .toki-punctuation {
+      margin-top: -0.2em;
+    }
 
     &::before {
       background-image: url(../images/wordglyphs/tp-wg-e-wide.svg);
