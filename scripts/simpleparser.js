@@ -66,7 +66,61 @@ function addSentence(instructions) {
     document.body.appendChild(container);
 }
 
+function convertToInstructions(structuredSentence) {
+    var instructions = [],
+        size;
+
+    structuredSentence.forEach(function (part) {
+
+        switch (part.part) {
+            case 'subject':
+                size = part.tokens.length < 4 ? 'wide' : 'double';
+                instructions.push({rule: 'openContainer', glyph: undefined, size: size, children: part.tokens.length});
+                part.tokens.forEach(function (token) {
+                    instructions.push({rule: 'addGlyph', glyph: token});
+                });
+                instructions.push({rule: 'closeContainer'});
+                break;
+            case 'verbPhrase':
+                size = part.tokens.length < 4 ? 'wide' : 'double';
+                instructions.push({rule: 'openContainer', glyph: part.sep, size: size, children: part.tokens.length});
+                part.tokens.forEach(function (token) {
+                    instructions.push({rule: 'addGlyph', glyph: token});
+                });
+                instructions.push({rule: 'closeContainer'});
+                break;
+            case 'directObject':
+                size = part.tokens.length < 4 ? 'wide' : 'double';
+                instructions.push({rule: 'openContainer', glyph: part.sep, size: size, children: part.tokens.length});
+                part.tokens.forEach(function (token) {
+                    instructions.push({rule: 'addGlyph', glyph: token});
+                });
+                instructions.push({rule: 'closeContainer'});
+                break;
+            case 'punctuation':
+                instructions.push({rule: 'addPunctuation', glyph: part.token === '.' ? 'period' : '', size: 'wide'});
+                break;
+            default:
+                console.log('ERR: unknown part');
+                break;
+        }
+    });
+
+    return instructions;
+}
+
+
 window.onload = function () {
+
+    var sentence = [
+        {part: 'subject', tokens: ['ale']},
+        {part: 'verbPhrase', sep: ['li'], tokens: ['jo']},
+        {part: 'directObject', sep: ['e'], tokens: ['tenpo']},
+        {part: 'punctuation', token: '.'}
+    ];
+
+    addSentence(convertToInstructions(sentence));
+
 
     // toki pona proverbs
 
@@ -195,12 +249,6 @@ window.onload = function () {
         {rule: 'closeContainer'},
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
-
-
-
-
-
-
 
     addSentence([
         {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
