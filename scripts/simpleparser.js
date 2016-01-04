@@ -4,7 +4,11 @@ function addGlyph(instruction, target) {
     var fragment = document.createElement('div');
     fragment.setAttribute('data-toki', instruction.glyph);
     fragment.classList.add('toki-word');
-    fragment.classList.add('toki-' + instruction.glyph);
+    if (instruction.glyph) {
+        fragment.classList.add('toki-' + instruction.glyph);
+    } else if (instruction.syllable) {
+        fragment.classList.add('toki-syl-' + instruction.syllable);
+    }
     if (instruction.modifier) {
         fragment.classList.add('toki-mod-' + instruction.modifier);
     }
@@ -132,7 +136,7 @@ window.onload = function () {
     // o olin e jan poka.
     addSentence([
         {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
-        {rule: 'addGlyph', glyph: 'o'},
+        {rule: 'addGlyph', syllable: 'o'},
         {rule: 'addGlyph', glyph: 'olin'},
         {rule: 'closeContainer'},
         {rule: 'openContainer', glyph: 'e', size: 'wide', children: 2},
@@ -180,7 +184,7 @@ window.onload = function () {
     // o pana e pona tawa ma.
     addSentence([
         {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
-        {rule: 'addGlyph', glyph: 'o'},
+        {rule: 'addGlyph', syllable: 'o'},
         {rule: 'addGlyph', glyph: 'pana'},
         {rule: 'closeContainer'},
         {rule: 'openContainer', glyph: 'e', size: 'wide', children: 1},
