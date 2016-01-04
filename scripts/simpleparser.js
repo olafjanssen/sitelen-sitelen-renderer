@@ -64,6 +64,126 @@ function addSentence(instructions) {
 
 window.onload = function () {
 
+    // toki pona proverbs
+
+    // ale li jo e tenpo
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'ale'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'jo'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'tenpo'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // ale li pona
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'ale'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // toki pona li toki pona
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'toki'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'li', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'toki'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // nasin pona li mute
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'nasin'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'li', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'mute'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // jan sona li jan nasa.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'sona'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'li', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'nasa'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // o olin e jan poka.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'o'},
+        {rule: 'addGlyph', glyph: 'olin'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'addGlyph', glyph: 'poka'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+    // jan li suli mute. mani li suli lili.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'jan'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'suli', modifier: 'mute'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'},
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'mani'},
+        {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
+        {rule: 'addGlyph', glyph: 'suli', modifier: 'lili'},
+        {rule: 'closeContainer'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+
+    // pilin pona li pana e sijelo pona.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'pilin'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'li', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'pana'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'sijelo'},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
+
+
+
+
+
+
+
+
     addSentence([
         {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
         {rule: 'addGlyph', glyph: 'jan', modifier: 'lili'},

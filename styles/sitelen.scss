@@ -24,6 +24,29 @@ body {
   font-size: 1em;
 }
 
+.toki-sentence > .toki-container:nth-child(1) {
+  z-index: 10;
+}
+.toki-sentence > .toki-container:nth-child(2) {
+  z-index: 9;
+}
+.toki-sentence > .toki-container:nth-child(3) {
+  z-index: 8;
+}
+.toki-sentence > .toki-container:nth-child(4) {
+  z-index: 7;
+}
+.toki-sentence > .toki-container:nth-child(5) {
+  z-index: 6;
+}
+.toki-sentence > .toki-container:nth-child(6) {
+  z-index: 5;
+}
+.toki-sentence > .toki-container:nth-child(7) {
+  z-index: 4;
+}
+
+
 .toki-container[data-toki-size="regular"] {
 
   flex-direction: row;
@@ -149,40 +172,12 @@ body {
     top: 0;
   }
 
-  &.toki-jan::before {
-    background-image: url(../images/wordglyphs/tp-wg-jan.svg);
+  $word-list: ale ali jan jo li mi mani moku mute nasa nasin o olin poka sina pana pilin pona kili sijelo sona suli tawa tenpo toki utala suwi wile;
+  @each $current-word in $word-list {
+    &.toki-#{$current-word}::before {
+      background-image: url(../images/wordglyphs/tp-wg-#{$current-word}.svg);
+    }
   }
-  &.toki-moku::before {
-    background-image: url(../images/wordglyphs/tp-wg-moku.svg);
-  }
-  &.toki-wile::before {
-    background-image: url(../images/wordglyphs/tp-wg-wile.svg);
-  }
-  &.toki-li::before {
-    background-image: url(../images/wordglyphs/tp-wg-li.svg);
-  }
-  &.toki-pona::before {
-    background-image: url(../images/wordglyphs/tp-wg-pona.svg);
-  }
-  &.toki-sina::before {
-    background-image: url(../images/wordglyphs/tp-wg-sina.svg);
-  }
-  &.toki-kili::before {
-    background-image: url(../images/wordglyphs/tp-wg-kili.svg);
-  }
-  &.toki-mi::before {
-    background-image: url(../images/wordglyphs/tp-wg-mi.svg);
-  }
-  &.toki-tawa::before {
-    background-image: url(../images/wordglyphs/tp-wg-tawa.svg);
-  }
-  &.toki-utala::before {
-    background-image: url(../images/wordglyphs/tp-wg-utala.svg);
-  }
-  &.toki-suwi::before {
-    background-image: url(../images/wordglyphs/tp-wg-suwi.svg);
-  }
-
 
   &::after {
     background-size: 100% 100%;
@@ -196,20 +191,11 @@ body {
     left: 0;
   }
 
-  &.toki-mod-lili::after {
-    background-image: url(../images/wordglyphs/tp-wg-lili.svg);
-  }
-
-  &.toki-mod-mute::after {
-    background-image: url(../images/wordglyphs/tp-wg-mute.svg);
-  }
-
-  &.toki-mod-kon::after {
-    background-image: url(../images/wordglyphs/tp-wg-kon.svg);
-  }
-
-  &.toki-mod-sin::after {
-    background-image: url(../images/wordglyphs/tp-wg-sin.svg);
+  $mod-list: lili mute kon sin;
+  @each $current-word in $mod-list {
+    &.toki-mod-#{$current-word}::after {
+      background-image: url(../images/wordglyphs/tp-wg-#{$current-word}.svg);
+    }
   }
 }
 
@@ -226,7 +212,7 @@ body {
     height: 100%;
     width: 100%;
     content: '';
-    z-index: -1;
+    z-index: -2;
     left: 0;
     top: 0;
   }
@@ -242,6 +228,7 @@ body {
   &::before {
     background-size: 100% 100%;
     margin: -0.1em 0 0 -0.1em;
+    z-index: -1;
     position: absolute;
     padding: 0.1em;
     height: 100%;
@@ -267,6 +254,7 @@ body {
 
   &[data-toki-size="wide"].toki-li {
     margin-bottom: 0.2em;
+    margin-top: 0.15em;
 
     & + .toki-punctuation {
       margin-top: -0.2em;
@@ -312,8 +300,12 @@ body {
   }
 
   &[data-toki-size="wide"].toki-e {
-    margin-bottom: 0.2em;
+    margin-bottom: 0.25em;
     justify-content: flex-start;
+
+    .toki-container.toki-undefined + & {
+      margin-top: 0.15em;
+    }
 
     &[data-toki-children="1"] {
       justify-content: center;
