@@ -256,7 +256,7 @@ window.onload = function () {
         {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
         {rule: 'addGlyph', glyph: 'moku'},
         {rule: 'closeContainer'},
-        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
     ]);
 
     addSentence([
@@ -265,7 +265,7 @@ window.onload = function () {
         {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
         {rule: 'addGlyph', glyph: 'moku'},
         {rule: 'closeContainer'},
-        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
     ]);
 
     addSentence([
@@ -274,7 +274,7 @@ window.onload = function () {
         {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
         {rule: 'addGlyph', glyph: 'moku'},
         {rule: 'closeContainer'},
-        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
     ]);
 
     addSentence([
@@ -283,7 +283,7 @@ window.onload = function () {
         {rule: 'openContainer', glyph: 'li', size: 'regular', children: 1},
         {rule: 'addGlyph', glyph: 'moku'},
         {rule: 'closeContainer'},
-        {rule: 'closeContainer'},
+        {rule: 'closeContainer'}
     ]);
 
     addSentence([
@@ -534,6 +534,6 @@ window.onload = function () {
 
     ]);
 
-}
+};
 
 
