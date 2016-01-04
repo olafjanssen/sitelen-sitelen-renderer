@@ -177,6 +177,20 @@ window.onload = function () {
         {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
     ]);
 
+    // o pana e pona tawa ma.
+    addSentence([
+        {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+        {rule: 'addGlyph', glyph: 'o'},
+        {rule: 'addGlyph', glyph: 'pana'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'e', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'pona'},
+        {rule: 'closeContainer'},
+        {rule: 'openContainer', glyph: 'tawa', size: 'wide', children: 1},
+        {rule: 'addGlyph', glyph: 'ma'},
+        {rule: 'closeContainer'},
+        {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+    ]);
 
 
 

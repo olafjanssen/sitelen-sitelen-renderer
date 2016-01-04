@@ -172,7 +172,7 @@ body {
     top: 0;
   }
 
-  $word-list: ale ali jan jo li mi mani moku mute nasa nasin o olin poka sina pana pilin pona kili sijelo sona suli tawa tenpo toki utala suwi wile;
+  $word-list: ale ali jan jo li ma mi mani moku mute nasa nasin o olin poka sina pana pilin pona kili sijelo sona suli tawa tenpo toki utala suwi wile;
   @each $current-word in $word-list {
     &.toki-#{$current-word}::before {
       background-image: url(../images/wordglyphs/tp-wg-#{$current-word}.svg);
@@ -278,7 +278,7 @@ body {
     }
 
     & + .toki-punctuation {
-      margin-top: -0.2em;
+      margin-top: -0.15em;
     }
 
     &::before {
@@ -300,7 +300,7 @@ body {
   }
 
   &[data-toki-size="wide"].toki-e {
-    margin-bottom: 0.25em;
+    margin-bottom: 0.2em;
     justify-content: flex-start;
 
     .toki-container.toki-undefined + & {
@@ -312,7 +312,7 @@ body {
     }
 
     & + .toki-punctuation {
-      margin-top: -0.2em;
+      margin-top: -0.15em;
     }
 
     &::before {
