@@ -54,6 +54,7 @@ function parse(grammar, tokens) {
             }
         }
     }
+    console.log(parseTable);
     return parseTable;
 }
 
@@ -139,14 +140,18 @@ function traverseParseTable(parseTable, left, right, rootIndex) {
 
                 //var parseTable = parse(grammarToHashMap(grammar), 'mi toki ala e akesi e ma kasi e sike sewi lili tawa ona tan ni'.split(' '));
                 //var parseTable = parse(grammarToHashMap(grammar), 'mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa'.split(' '));
-                var parseTable = parse(grammarToHashMap(grammar), 'mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa'.split(' '));
+                //var parseTable = parse(grammarToHashMap(grammar), 'mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa'.split(' '));
                 //var parseTable = parse(grammarToHashMap(grammar), 'jan suli li toki ala e ma kasi e sike sewi lili tawa ona tan ni'.split(' '));
 
-                console.log(parseTable);
+                var parseTable = parse(grammarToHashMap(grammar), 'ale li jo'.split(' '));
+
+
                 for (var i in parseTable[0][parseTable.length - 1]) {
                     if (parseTable[0][parseTable.length-1][i].rule !== 'S') {
                         continue;
                     }
+                    console.log(i);
+                    console.log(parseTable);
                     document.body.innerHTML += '<div class="tree" id="displayTree"><ul>' + traverseParseTable(parseTable, 0, parseTable.length - 1, i) + '</ul></div><br/>';
                     break;
                 }

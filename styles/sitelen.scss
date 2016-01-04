@@ -1,10 +1,21 @@
-body {
+/* Boiler Plate */
+
+#tokiInput {
+  margin: 1em;
+  width: 50em;
+  font-size: 1em;
+}
+
+#sitelen {
   font-size: 48px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 
 }
+
+/* ----- */
+
 
 .toki-sentence {
   margin: 1em;
@@ -228,8 +239,6 @@ body {
     background-image: url(../images/wordglyphs/tp-p-period-wide.svg);
   }
 }
-
-
 
 .toki-container {
   &::before {

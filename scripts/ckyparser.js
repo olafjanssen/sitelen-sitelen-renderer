@@ -19,8 +19,7 @@ var ckyparser = function () {
         if (typeof obj === 'string') {
             obj = [obj];
         }
-        var x = JSON.stringify(obj, null, 0);
-        return x;
+        return JSON.stringify(obj, null, 0);
     }
 
     function parse(grammar, tokens) {
@@ -44,7 +43,7 @@ var ckyparser = function () {
                         for (var rightRootIndx in rightSubtreeRoots) {
                             var rls = grammar[makeKey([leftSubtreeRoots[leftRootIndx]['rule'], rightSubtreeRoots[rightRootIndx]['rule']])];
                             if (rls) {
-                                for (var r in rls) {
+                                for (r in rls) {
                                     parseTable[left][right].push({
                                         rule: rls[r],
                                         middle: mid,
@@ -95,58 +94,54 @@ var ckyparser = function () {
         },
         getParse: function (sentence) {
             var parseTable = parse(hashMap, sentence.split(' '));
-            console.log(parseTable);
-
             return parseTable;
         }
     }
 }();
 
 
-function parseTableToSitelenHierarchy(parseTable) {
-    var state = {},
-        sentence = {children: [], parent: undefined},
-        container = sentence;
+function getStructuredSentence(parseTable) {
+    var part = {part: 'subject', tokens: []},
+        sentence = [part],
+        foundLi = false, steps = 0;
 
     function traverseParseTable(parseTable, left, right, rootIndex, depth) {
-        if (!parseTable[left][right][rootIndex]['middle']) {
-            if (state && (state.rule === 'DO' || state.rule === 'PrepPh')) {
-                if (state.depth < depth) {
-                    container.children.push({token: parseTable[left][right][rootIndex]['token'], children: []});
-                    state.items++;
+        if (!parseTable[left][right][rootIndex]){
+            return;
+        }
 
-                    if (state.items == 1) {
-                        container.children[container.children.length - 1].parent = container;
-                        container = container.children[container.children.length - 1];
-                    }
-                }
-            } else {
-                container.children.push({token: parseTable[left][right][rootIndex]['token'], children: []});
-            }
+        var token = parseTable[left][right][rootIndex]['token'],
+            rule = parseTable[left][right][rootIndex]['rule'];
+
+        steps++;
+
+        if (rule === 'Pred') {
+            sentence.push({part: 'verbPhrase', sep: foundLi ? 'li' : '', tokens: []});
+            part = sentence[sentence.length - 1];
+        }
+        if (rule === 'DO') {
+            sentence.push({part: 'directObject', sep: 'e', tokens: []});
+            part = sentence[sentence.length - 1];
+        }
+
+        if (token === 'li') {
+            foundLi = true;
+            return;
+        }
+        if (token === 'e') {
+            return;
+        }
+
+        if (token) {
+            part.tokens.push(token);
         } else {
-            var rule = parseTable[left][right][rootIndex]['rule'];
-            if (rule === 'DO' ||
-                rule === 'PrepPh') {
-                if (container.parent) {
-                    container = container.parent;
-                }
-                state = {rule: rule, items: 0, depth: depth};
-            }
-
             traverseParseTable(parseTable, left, parseTable[left][right][rootIndex]['middle'], parseTable[left][right][rootIndex]['leftRootIndex'], depth + 1);
             traverseParseTable(parseTable, parseTable[left][right][rootIndex]['middle'], right, parseTable[left][right][rootIndex]['rightRootIndex'], depth + 1);
         }
     }
+    traverseParseTable(parseTable, 0, parseTable.length - 1, 0, 0);
 
-    for (var i in parseTable[0][parseTable.length - 1]) {
-        if (parseTable[0][parseTable.length - 1][i].rule !== 'S') {
-            continue;
-        }
-        traverseParseTable(parseTable, 0, parseTable.length - 1, i, 0);
-        break;
-    }
-
-    console.log(sentence);
+    return steps === 0 ? null : sentence;
 }
 
 
@@ -156,13 +151,9 @@ function loadTokiPonaGrammar() {
     xmlhttp.onreadystatechange = function () {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
             var grammar = xmlhttp.responseText.split('\n');
-
             ckyparser.setGrammar(grammar);
-
-            var parseTable = ckyparser.getParse('mi toki ala e akesi e ma kasi e sike sewi lili tawa ona tan ni');
-            parseTableToSitelenHierarchy(parseTable);
         }
-    }
+    };
     xmlhttp.open("GET", "toki-pona-cnf-grammar.txt", true);
     xmlhttp.send();
 }

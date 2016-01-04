@@ -63,7 +63,8 @@ function addSentence(instructions) {
     var container = document.createElement('div');
     container.classList.add('toki-sentence');
     renderInstructions(instructions, container);
-    document.body.appendChild(container);
+    document.getElementById('sitelen').innerHTML = '';
+    document.getElementById('sitelen').appendChild(container);
 }
 
 function convertToInstructions(structuredSentence) {
@@ -110,18 +111,30 @@ function convertToInstructions(structuredSentence) {
 }
 
 
+
+
 window.onload = function () {
 
-    var sentence = [
-        {part: 'subject', tokens: ['ale']},
-        {part: 'verbPhrase', sep: ['li'], tokens: ['jo']},
-        {part: 'directObject', sep: ['e'], tokens: ['tenpo']},
-        {part: 'punctuation', token: '.'}
-    ];
+    document.getElementById('tokiInput').addEventListener('input', function(e){
+        var parseTable = ckyparser.getParse(document.getElementById('tokiInput').value),
+            structuredSentence = getStructuredSentence(parseTable);
 
-    addSentence(convertToInstructions(sentence));
+        if (structuredSentence) {
+            addSentence(convertToInstructions(structuredSentence));
+        }
+    });
 
 
+    //var sentence = [
+    //    {part: 'subject', tokens: ['ale']},
+    //    {part: 'verbPhrase', sep: ['li'], tokens: ['jo']},
+    //    {part: 'directObject', sep: ['e'], tokens: ['tenpo']},
+    //    {part: 'punctuation', token: '.'}
+    //];
+    //
+    //addSentence(convertToInstructions(sentence));
+
+/*
     // toki pona proverbs
 
     // ale li jo e tenpo
@@ -533,6 +546,7 @@ window.onload = function () {
         {rule: 'closeContainer'}
 
     ]);
+*/
 
 };
 
