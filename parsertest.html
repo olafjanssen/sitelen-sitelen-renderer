@@ -1,0 +1,28 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles/sitelen.css">
+    <script type="text/javascript" src="scripts/simpleparser.js"></script>
+    <script type="text/javascript" src="scripts/renderer.js"></script>
+</head>
+<body>
+
+<div id="sitelen">
+
+</div>
+
+<script>
+    window.onload = function () {
+
+        var sentence = [
+            {part: 'subject', tokens: ['ale']},
+            {part: 'verbPhrase', sep: ['li'], tokens: ['jo']},
+            {part: 'directObject', sep: ['e'], tokens: ['tenpo']},
+            {part: 'punctuation', token: '.'}
+        ];
+
+        addSentence(convertToInstructions(sentence));
+
+    };
+</script>
+</body>
+</html>

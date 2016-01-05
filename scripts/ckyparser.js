@@ -158,5 +158,4 @@ function loadTokiPonaGrammar() {
     xmlhttp.send();
 }
 
-
 loadTokiPonaGrammar();
