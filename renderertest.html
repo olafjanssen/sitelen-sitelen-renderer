@@ -13,6 +13,26 @@
 
         // toki pona proverbs
 
+        // testing 3 in wide li/e container
+        addSentence([
+            {rule: 'openContainer', glyph: undefined, size: 'wide', children: 3},
+            {rule: 'addGlyph', glyph: 'jan'},
+            {rule: 'addGlyph', glyph: 'utala'},
+            {rule: 'addGlyph', glyph: 'pona'},
+            {rule: 'closeContainer'},
+            {rule: 'openContainer', glyph: 'li', size: 'wide', children: 3},
+            {rule: 'addGlyph', glyph: 'wile'},
+            {rule: 'addGlyph', glyph: 'moku'},
+            {rule: 'addGlyph', glyph: 'pona'},
+            {rule: 'closeContainer'},
+            {rule: 'openContainer', glyph: 'e', size: 'wide', children: 3},
+            {rule: 'addGlyph', glyph: 'wile'},
+            {rule: 'addGlyph', glyph: 'moku'},
+            {rule: 'addGlyph', glyph: 'pona'},
+            {rule: 'closeContainer'},
+            {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+        ]);
+
         // ale li jo e tenpo
         addSentence([
             {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},

@@ -90,7 +90,9 @@
   }
 
   &[data-toki-children="3"] {
-    height: 2 / 3 * 1em;
+    &.toki-undefined {
+      height: 2/3*1em;
+    }
 
     & > * {
       flex: 0 0 2 / 3 * 1em;
