@@ -2,17 +2,15 @@
 
 function addGlyph(instruction, target) {
     var fragment = document.createElement('div');
-    fragment.setAttribute('data-toki', instruction.glyph);
     fragment.classList.add('toki-word');
     if (instruction.glyph) {
-        fragment.classList.add('toki-' + instruction.glyph);
+        fragment.setAttribute('data-toki-word', instruction.glyph);
     } else if (instruction.syllable) {
-        fragment.classList.add('toki-syl-' + instruction.syllable);
+        fragment.setAttribute('data-toki-syl', instruction.syllable);
     }
     if (instruction.modifier) {
-        fragment.classList.add('toki-mod-' + instruction.modifier);
+        fragment.setAttribute('data-toki-mod', instruction.modifier);
     }
-    fragment.setAttribute('data-toki-dir', instruction.direction);
     target.appendChild(fragment);
     return fragment;
 }

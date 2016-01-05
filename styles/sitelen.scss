@@ -187,19 +187,19 @@
 
   $word-list: a o sama pi anu mi sina anpa awen kepeken lape lon lukin nasa open sin akesi ala ale ali ante ijo ike ilo insa jaki jan jo kala kalama kama kasi ken kili kiwen kule kute kulupu lawa len lete li lili linja lipu luka lupa ma mama mani meli mije moku moli monsi mun musi mute nanpa nasin nena ni nimi noka oko olin ona pakala pali palisa pana pilin pimeja pini pipi poki poka pona seli selo seme sewi sijelo sike sinpin sitelen sona soweli suli suno supa suwi tan tawa telo tenpo toki tomo tu unpa uta utala walo wan waso wawa weka wile;
   @each $current-word in $word-list {
-    &.toki-#{$current-word}::before {
+    &[data-toki-word="#{$current-word}"]::before {
       background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
     }
   }
 
   $syl-list: o a e i;
   @each $current-syl in $syl-list {
-    &.toki-syl-#{$current-syl}::before {
+    &[data-toki-syl="#{$current-syl}"]::before {
       background-image: url(../images/glyphs/tp-syl-#{$current-syl}.svg);
     }
   }
 
-  &::after {
+  &[data-toki-mod]::after {
     background-size: 100% 100%;
     margin: -0.1em 0 0 -0.1em;
     position: absolute;
@@ -213,7 +213,7 @@
 
   $mod-list: lili mute kon sin;
   @each $current-word in $mod-list {
-    &.toki-mod-#{$current-word}::after {
+    &[data-toki-mod="#{$current-word}"]::after {
       background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
     }
   }
