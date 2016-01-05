@@ -237,7 +237,7 @@
     top: 0;
   }
 
-  &[data-toki-size="wide"].toki-period::before {
+  &[data-toki-size="wide"][data-toki-glyph="period"]::before {
     background-image: url(../images/glyphs/tp-p-period-wide.svg);
   }
 }
@@ -321,7 +321,7 @@
     margin-bottom: 0.2em;
     justify-content: flex-start;
 
-    .toki-container:not([toki-data-glyph]) + & {
+    .toki-container:not([data-toki-glyph]) + & {
       margin-top: 0.15em;
     }
 

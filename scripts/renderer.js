@@ -19,8 +19,10 @@ function addPunctuation(instruction, target) {
     var fragment = document.createElement('div');
     fragment.setAttribute('data-toki', instruction.glyph);
     fragment.setAttribute('data-toki-size', instruction.size);
+    if (instruction.glyph){
+        fragment.setAttribute('data-toki-glyph', instruction.glyph);
+    }
     fragment.classList.add('toki-punctuation');
-    fragment.classList.add('toki-' + instruction.glyph);
     target.appendChild(fragment);
     return fragment;
 }
