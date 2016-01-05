@@ -29,8 +29,9 @@ function openContainer(instruction, target) {
     var fragment = document.createElement('div');
     fragment.setAttribute('data-toki-size', instruction.size);
     fragment.setAttribute('data-toki-children', instruction.children);
-    fragment.classList.add('toki-' + instruction.glyph);
-
+    if (instruction.glyph) {
+        fragment.setAttribute('data-toki-glyph', instruction.glyph);
+    }
     fragment.classList.add('toki-container');
     target.appendChild(fragment);
     return fragment;
