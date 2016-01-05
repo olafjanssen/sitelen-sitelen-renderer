@@ -111,8 +111,6 @@ function convertToInstructions(structuredSentence) {
 }
 
 
-
-
 window.onload = function () {
 
     document.getElementById('tokiInput').addEventListener('input', function(e){
@@ -123,7 +121,6 @@ window.onload = function () {
             addSentence(convertToInstructions(structuredSentence));
         }
     });
-
 
     //var sentence = [
     //    {part: 'subject', tokens: ['ale']},

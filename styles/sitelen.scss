@@ -186,14 +186,14 @@
   $word-list: ale ali jan jo li ma mi mani moku mute nasa nasin o olin poka sina pana pilin pona kili sijelo sona suli tawa tenpo toki utala suwi wile;
   @each $current-word in $word-list {
     &.toki-#{$current-word}::before {
-      background-image: url(../images/wordglyphs/tp-wg-#{$current-word}.svg);
+      background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
     }
   }
 
   $syl-list: o a e i;
   @each $current-syl in $syl-list {
     &.toki-syl-#{$current-syl}::before {
-      background-image: url(../images/wordglyphs/tp-syl-#{$current-syl}.svg);
+      background-image: url(../images/glyphs/tp-syl-#{$current-syl}.svg);
     }
   }
 
@@ -212,7 +212,7 @@
   $mod-list: lili mute kon sin;
   @each $current-word in $mod-list {
     &.toki-mod-#{$current-word}::after {
-      background-image: url(../images/wordglyphs/tp-wg-#{$current-word}.svg);
+      background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
     }
   }
 }
@@ -236,7 +236,7 @@
   }
 
   &[data-toki-size="wide"].toki-period::before {
-    background-image: url(../images/wordglyphs/tp-p-period-wide.svg);
+    background-image: url(../images/glyphs/tp-p-period-wide.svg);
   }
 }
 
@@ -265,7 +265,7 @@
   }
 
   &.toki-li::before {
-    background-image: url(../images/wordglyphs/tp-wg-li.svg);
+    background-image: url(../images/glyphs/tp-wg-li.svg);
   }
 
   &[data-toki-size="wide"].toki-li {
@@ -277,12 +277,12 @@
     }
 
     &::before {
-      background-image: url(../images/wordglyphs/tp-wg-li-wide.svg);
+      background-image: url(../images/glyphs/tp-wg-li-wide.svg);
     }
   }
 
   &.toki-tawa::before {
-    background-image: url(../images/wordglyphs/tp-wg-tawa.svg);
+    background-image: url(../images/glyphs/tp-wg-tawa.svg);
   }
 
   &[data-toki-size="wide"].toki-tawa {
@@ -298,7 +298,7 @@
     }
 
     &::before {
-      background-image: url(../images/wordglyphs/tp-c-tawa-wide.svg);
+      background-image: url(../images/glyphs/tp-c-tawa-wide.svg);
       padding-right: 0.5em;
     }
   }
@@ -311,7 +311,7 @@
     }
 
     &::before {
-      background-image: url(../images/wordglyphs/tp-wg-e.svg);
+      background-image: url(../images/glyphs/tp-wg-e.svg);
     }
   }
 
@@ -332,7 +332,7 @@
     }
 
     &::before {
-      background-image: url(../images/wordglyphs/tp-wg-e-wide.svg);
+      background-image: url(../images/glyphs/tp-wg-e-wide.svg);
     }
   }
 
