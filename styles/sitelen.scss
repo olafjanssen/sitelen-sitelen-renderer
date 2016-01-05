@@ -185,7 +185,7 @@
     top: 0;
   }
 
-  $word-list: ale ali jan jo li ma mi mani moku mute nasa nasin o olin poka sina pana pilin pona kili sijelo sona suli tawa tenpo toki utala suwi wile;
+  $word-list: a o sama pi anu mi sina anpa awen kepeken lape lon lukin nasa open sin akesi ala ale ali ante ijo ike ilo insa jaki jan jo kala kalama kama kasi ken kili kiwen kule kute kulupu lawa len lete li lili linja lipu luka lupa ma mama mani meli mije moku moli monsi mun musi mute nanpa nasin nena ni nimi noka oko olin ona pakala pali palisa pana pilin pimeja pini pipi poki poka pona seli selo seme sewi sijelo sike sinpin sitelen sona soweli suli suno supa suwi tan tawa telo tenpo toki tomo tu unpa uta utala walo wan waso wawa weka wile;
   @each $current-word in $word-list {
     &.toki-#{$current-word}::before {
       background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
