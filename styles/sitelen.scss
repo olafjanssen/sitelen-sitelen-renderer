@@ -16,7 +16,6 @@
 
 /* ----- */
 
-
 .toki-sentence {
   margin: 1em;
   width: 2em;
@@ -38,25 +37,30 @@
 .toki-sentence > .toki-container:nth-child(1) {
   z-index: 10;
 }
+
 .toki-sentence > .toki-container:nth-child(2) {
   z-index: 9;
 }
+
 .toki-sentence > .toki-container:nth-child(3) {
   z-index: 8;
 }
+
 .toki-sentence > .toki-container:nth-child(4) {
   z-index: 7;
 }
+
 .toki-sentence > .toki-container:nth-child(5) {
   z-index: 6;
 }
+
 .toki-sentence > .toki-container:nth-child(6) {
   z-index: 5;
 }
+
 .toki-sentence > .toki-container:nth-child(7) {
   z-index: 4;
 }
-
 
 .toki-container[data-toki-size="regular"] {
 
@@ -266,7 +270,7 @@
     padding: 0.3em 0.15em;
   }
 
-  &.toki-li::before {
+  &[data-toki-size="regular"][data-toki-glyph="li"]::before {
     background-image: url(../images/glyphs/tp-wg-li.svg);
   }
 
@@ -283,7 +287,7 @@
     }
   }
 
-  &.toki-tawa::before {
+  &[data-toki-size="regular"][data-toki-glyph="tawa"]::before {
     background-image: url(../images/glyphs/tp-wg-tawa.svg);
   }
 
@@ -305,7 +309,7 @@
     }
   }
 
-  &.toki-e[data-toki-size="regular"]{
+  &[data-toki-size="regular"][data-toki-glyph="e"] {
     justify-content: flex-start;
 
     & > * {

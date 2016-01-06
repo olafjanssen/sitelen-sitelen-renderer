@@ -8,7 +8,7 @@ function convertToInstructions(structuredSentence) {
 
         switch (part.part) {
             case 'subject':
-                size = part.tokens.length < 4 ? 'wide' : 'double';
+                size = part.tokens.length == 1 ? 'regular' : part.tokens.length < 4 ? 'wide' : 'double';
                 instructions.push({rule: 'openContainer', glyph: undefined, size: size, children: part.tokens.length});
                 part.tokens.forEach(function (token) {
                     instructions.push({rule: 'addGlyph', glyph: token});
@@ -16,7 +16,7 @@ function convertToInstructions(structuredSentence) {
                 instructions.push({rule: 'closeContainer'});
                 break;
             case 'verbPhrase':
-                size = part.tokens.length < 4 ? 'wide' : 'double';
+                size =  part.tokens.length == 1 ? 'regular' : part.tokens.length < 4 ? 'wide' : 'double';
                 instructions.push({rule: 'openContainer', glyph: part.sep, size: size, children: part.tokens.length});
                 part.tokens.forEach(function (token) {
                     instructions.push({rule: 'addGlyph', glyph: token});

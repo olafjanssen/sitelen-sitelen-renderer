@@ -176,8 +176,9 @@ function preformat(text) {
 
         var body = sentence.substr(0, sentence.length - 1);
 
-        // remove the comma before the la-clause.
+        // remove the comma before the la-clause and before a repeating li clause
         body = body.replace(', la ', ' la ');
+        body = body.replace(', li ', ' li ');
 
         // split on context separators comma and colon
         var colonparts = body.split(/:/);
