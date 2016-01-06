@@ -106,7 +106,7 @@ function getStructuredSentence(parseTable) {
         foundLi = false, steps = 0;
 
     function traverseParseTable(parseTable, left, right, rootIndex, depth) {
-        if (!parseTable[left][right][rootIndex]){
+        if (!parseTable[left][right][rootIndex]) {
             return;
         }
 
@@ -139,6 +139,7 @@ function getStructuredSentence(parseTable) {
             traverseParseTable(parseTable, parseTable[left][right][rootIndex]['middle'], right, parseTable[left][right][rootIndex]['rightRootIndex'], depth + 1);
         }
     }
+
     traverseParseTable(parseTable, 0, parseTable.length - 1, 0, 0);
 
     return steps === 0 ? null : sentence;
@@ -159,3 +160,73 @@ function loadTokiPonaGrammar() {
 }
 
 loadTokiPonaGrammar();
+
+
+//
+function preformat(text) {
+    var result = text.match(/[^\.!\?]+[\.!\?]+/g);
+
+    var parsableParts = [];
+
+    result.forEach(function (sentence) {
+        sentence = sentence.trim();
+
+        var parsableSentence = [];
+        parsableParts.push(parsableSentence);
+
+        var body = sentence.substr(0, sentence.length - 1);
+
+        // remove the comma before the la-clause.
+        body = body.replace(', la ', ' la ');
+
+        // split on context separators comma and colon
+        var colonparts = body.split(/:/);
+        colonparts.forEach(function (colonpart, index) {
+            var commaparts = colonpart.split(/,/);
+            commaparts.forEach(function (commapart, index) {
+                commapart = commapart.trim();
+
+                parsableSentence.push({content: commapart});
+                if (index < commaparts.length - 1) {
+                    parsableSentence.push({punctuation: ','});
+                }
+            });
+
+            if (index < colonparts.length - 1) {
+                parsableSentence.push({punctuation: ':'});
+            }
+        });
+
+        var terminator = sentence.substr(-1);
+        parsableSentence.push({punctuation: terminator});
+
+    });
+
+    return parsableParts;
+}
+
+function parseSentence(sentence) {
+    var structuredSentence = [];
+
+    sentence.forEach(function (part) {
+        if (part.content) {
+            var parseTable = ckyparser.getParse(part.content);
+            structuredSentence.push.apply(structuredSentence, getStructuredSentence(parseTable));
+        } else if (part.punctuation) {
+            structuredSentence.push({part: 'punctuation', token: part.punctuation});
+        }
+    });
+
+    return structuredSentence;
+}
+
+
+
+
+
+
+
+
+
+
+

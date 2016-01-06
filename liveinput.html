@@ -24,6 +24,20 @@
             }
         });
 
+        function renderText(text) {
+            var parsableText = preformat(text);
+            parsableText.forEach(function (sentence) {
+                var structuredSentence = parseSentence(sentence);
+                addSentence(convertToInstructions(structuredSentence));
+            });
+        }
+
+        var text = "tenpo suno pi nanpa tu tu tu la jan sewi li pali e soweli mute. mi moku, la mi pilin pona. ona li pali e soweli pi pona lukin e soweli pi ike lukin. ona li pona, ona li pali e soweli wawa e soweli wawa ala. tenpo suno ni la jan sewi li pali kin e jan. jan sewi li pali pini. ona li toki e ni: jan li pona.";
+
+        setTimeout(function () {
+            renderText(text);
+        }, 500);
+
     };
 </script>
 </body>
