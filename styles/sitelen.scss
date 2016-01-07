@@ -108,31 +108,27 @@
 
 .toki-container[data-toki-size="tall"] {
   flex-direction: column;
+  flex: 0 0 2em !important; // TODO improve how to handle this!
+  width: 1em;
   height: 2em;
 
   &[data-toki-children="1"] {
-    padding-bottom: 0;
-
     & > .toki-word {
-      flex: 0 0 100%;
-      width: 2em;
+      flex: 0 0 1em;
+      width: 1em;
     }
   }
 
   &[data-toki-children="2"] {
-    padding-bottom: 0.1em;
-
     & > .toki-word {
-      flex: 0 0 50%;
+      flex: 0 0 1em;
       width: 1em;
     }
   }
 
   &[data-toki-children="3"] {
-    padding-bottom: 0.2em;
-
     & > .toki-word {
-      flex: 0 0 1/3*100%;
+      flex: 0 0 2/3*1em;
       width: 2/3*1em;
     }
   }
@@ -398,5 +394,26 @@
       background-image: url(../images/glyphs/tp-c-e-double.svg);
     }
   }
+
+  // PI
+
+  &[data-toki-size="tall"][data-toki-glyph="pi"] {
+
+    &::before {
+      margin: -0.1em 0 0 -1.15em;
+    }
+
+    & > * {
+      font-size: 0.75em;
+    }
+
+    &::before {
+      background-image: url(../images/glyphs/tp-c-pi-tall.svg);
+      padding-right: 1.1em;
+    }
+  }
+
+
+
 
 }

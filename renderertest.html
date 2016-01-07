@@ -11,7 +11,16 @@
 <script>
     window.onload = function () {
 
-        // toki pona proverbs
+        // testing pi
+        addSentence([
+            {rule: 'openContainer', glyph: undefined, size: 'double', children: 4},
+            {rule: 'addGlyph', glyph: 'soweli'},
+            {rule: 'openContainer', glyph: 'pi', size: 'tall', children: 2},
+            {rule: 'addGlyph', glyph: 'pona'},
+            {rule: 'addGlyph', glyph: 'lukin'},
+            {rule: 'closeContainer'},
+            {rule: 'closeContainer'}
+        ]);
 
         // testing 3 in wide li/e container
         addSentence([
@@ -31,6 +40,24 @@
             {rule: 'addGlyph', glyph: 'pona'},
             {rule: 'closeContainer'},
             {rule: 'addPunctuation', glyph: 'period', size: 'wide'}
+        ]);
+
+        // toki pona proverbs
+
+
+        // lupa meli li mama pi ijo ale
+        addSentence([
+            {rule: 'openContainer', glyph: undefined, size: 'wide', children: 2},
+            {rule: 'addGlyph', glyph: 'lupa'},
+            {rule: 'addGlyph', glyph: 'meli'},
+            {rule: 'closeContainer'},
+            {rule: 'openContainer', glyph: undefined, size: 'double', children: 4},
+            {rule: 'addGlyph', glyph: 'mama'},
+            {rule: 'openContainer', glyph: 'pi', size: 'tall', children: 2},
+            {rule: 'addGlyph', glyph: 'ijo'},
+            {rule: 'addGlyph', glyph: 'ale'},
+            {rule: 'closeContainer'},
+            {rule: 'closeContainer'}
         ]);
 
         // ale li jo e tenpo
