@@ -1,4 +1,8 @@
 /* Boiler Plate */
+$word-list: a o sama pi anu mi sina anpa awen kepeken lape lon lukin nasa open sin akesi ala ale ali ante ijo ike ilo insa jaki jan jo kala kalama kama kasi ken kili kiwen kule kute kulupu lawa len lete li lili linja lipu luka lupa ma mama mani meli mije moku moli monsi mun musi mute nanpa nasin nena ni nimi noka oko olin ona pakala pali palisa pana pilin pimeja pini pipi poki poka pona seli selo seme sewi sijelo sike sinpin sitelen sona soweli suli suno supa suwi tan tawa telo tenpo toki tomo tu unpa uta utala walo wan waso wawa weka wile;
+$mod-list: lili mute kon sin;
+$narrow-list: wan tu;
+$syl-list: o a e i;
 
 #tokiInput {
   margin: 1em;
@@ -84,13 +88,15 @@
   }
 
   &[data-toki-children="3"] {
-    &:not([data-toki-glyph]) {
-      height: 2/3*1em;
-    }
-
     & > * {
       flex: 0 0 2 / 3 * 1em;
       height: 2 / 3 * 1em;
+    }
+
+    @each $current-word in $narrow-list {
+      & > [data-toki-word="#{$current-word}"] {
+        flex: 0 0 2 /3 * 0.5em;
+      }
     }
   }
 }
@@ -133,8 +139,14 @@
       flex: 0 0 1em;
       width: 1em;
     }
-  }
 
+    @each $current-word in $narrow-list {
+      & > [data-toki-word="#{$current-word}"] {
+        width: 0.5em;
+      }
+    }
+  }
+  
   &[data-toki-children="5"] {
     & > * {
       flex: 0 0 1/3*1em;
@@ -175,14 +187,18 @@
     top: 0;
   }
 
-  $word-list: a o sama pi anu mi sina anpa awen kepeken lape lon lukin nasa open sin akesi ala ale ali ante ijo ike ilo insa jaki jan jo kala kalama kama kasi ken kili kiwen kule kute kulupu lawa len lete li lili linja lipu luka lupa ma mama mani meli mije moku moli monsi mun musi mute nanpa nasin nena ni nimi noka oko olin ona pakala pali palisa pana pilin pimeja pini pipi poki poka pona seli selo seme sewi sijelo sike sinpin sitelen sona soweli suli suno supa suwi tan tawa telo tenpo toki tomo tu unpa uta utala walo wan waso wawa weka wile;
   @each $current-word in $word-list {
     &[data-toki-word="#{$current-word}"]::before {
       background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
     }
   }
 
-  $syl-list: o a e i;
+  @each $current-word in $narrow-list {
+    &[data-toki-word="#{$current-word}"] {
+      flex: 0 0 0.5em;
+    }
+  }
+
   @each $current-syl in $syl-list {
     &[data-toki-syl="#{$current-syl}"]::before {
       background-image: url(../images/glyphs/tp-syl-#{$current-syl}.svg);
@@ -201,7 +217,6 @@
     left: 0;
   }
 
-  $mod-list: lili mute kon sin;
   @each $current-word in $mod-list {
     &[data-toki-mod="#{$current-word}"]::after {
       background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
@@ -401,8 +416,5 @@
       padding-right: 1.1em;
     }
   }
-
-
-
 
 }

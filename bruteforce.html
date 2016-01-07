@@ -1,0 +1,33 @@
+<html>
+<head>
+    <link rel="stylesheet" href="styles/sitelen.css">
+    <script type="text/javascript" src="src/ckyparser.js"></script>
+    <script type="text/javascript" src="src/simpleparser.js"></script>
+    <script type="text/javascript" src="src/renderer.js"></script>
+</head>
+<body>
+    <input type="text" id="tokiInput">
+
+    <div id="sitelen">
+
+    </div>
+
+<script>
+    window.onload = function () {
+
+        setTimeout(function(){
+
+        },500);
+
+        function renderText(text) {
+            var parsableText = preformat(text);
+            parsableText.forEach(function (sentence) {
+                var structuredSentence = parseSentence(sentence);
+                addSentence(convertToInstructions(structuredSentence));
+            });
+        }
+
+    };
+</script>
+</body>
+</html>

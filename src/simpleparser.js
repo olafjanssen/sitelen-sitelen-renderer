@@ -1,6 +1,7 @@
 'use strict';
 
-var smallModifiers = ['kon', 'lili', 'mute', 'sin']
+var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
+    narrowModifiers = ['wan', 'tu'];
 
 function convertNounPhrase(part) {
     var instructions = [];
@@ -39,7 +40,6 @@ function convertToInstructions(structuredSentence) {
         }
     });
 
-    console.log(instructions);
     // determine container sizes
     for (var i = 0; i < instructions.length; i++) {
         if (instructions[i].rule === 'openContainer') {
@@ -52,13 +52,17 @@ function convertToInstructions(structuredSentence) {
                     case 'closeContainer':
                         closure--;
                         if (closure === 0) {
+                            // round narrow glyphs
+                            glyphs = Math.round(glyphs);
+                            // add metadata to the container
                             instructions[i].size = glyphs === 1 ? 'regular' : glyphs > 3 ? 'double' : 'wide';
                             instructions[i].children = glyphs;
                             closure = -1;
                         }
                         break;
                     case 'addGlyph':
-                        glyphs++;
+                        // narrow glyphs only count as half
+                        glyphs += narrowModifiers.indexOf(instructions[j].glyph) > -1 ? 0.5 : 1;
                         break;
                 }
                 if (closure === -1) {
