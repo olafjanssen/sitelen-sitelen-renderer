@@ -22,10 +22,11 @@
 }
 
 .toki-container {
-  align-content: center;
-  align-items: center;
   justify-content: center;
+  vertical-align: middle;
+  align-content: center;
   display: inline-flex;
+  align-items: center;
   position: relative;
   flex-wrap: wrap;
 }
@@ -151,14 +152,14 @@
 
   &[data-toki-children="5"] {
     & > * {
-      flex: 1 1 1/3*100%;
+      flex: 0 0 1/3*1em;
       width: 1em;
     }
   }
 
   &[data-toki-children="6"] {
     & > * {
-      flex: 1 1 1/3*100%;
+      flex: 1 1 1/3*1em;
       width: 1em;
     }
   }
@@ -167,8 +168,8 @@
   &[data-toki-children="8"],
   &[data-toki-children="9"] {
     & > * {
-      flex: 1 1 1/3*100%;
-      width: 1/3*100%;
+      flex: 1 1 1/3*1em;
+      width: 1/3*1em;
     }
   }
 }
@@ -266,8 +267,13 @@
   }
 
   &[data-toki-size="wide"]::before {
-    margin: -0.3em 0 0 -0.15em;
-    padding: 0.3em 0.15em;
+    margin: -0.15em 0 0 -0.15em;
+    padding: 0.15em;
+  }
+
+  &[data-toki-size="double"]::before {
+    margin: -0.15em 0 0 -0.15em;
+    padding: 0.15em;
   }
 
   &[data-toki-size="regular"][data-toki-glyph="li"]::before {
@@ -275,11 +281,10 @@
   }
 
   &[data-toki-size="wide"][data-toki-glyph="li"] {
-    margin-bottom: 0.2em;
-    margin-top: 0.15em;
+    margin: 0.15em 0 0.1em;
 
     & + .toki-punctuation {
-      margin-top: -0.2em;
+      margin-top: -0.05em;
     }
 
     &::before {
@@ -292,15 +297,29 @@
   }
 
   &[data-toki-size="wide"][data-toki-glyph="tawa"] {
-    margin-bottom: 0.2em;
+    margin: 0.15em 0 0.1em 0.1em;
     justify-content: flex-start;
+
+    &::before {
+      margin: -0.15em -0.25em 0 -0.25em;
+      padding: 0.15em;
+    }
+
+    & > * {
+      font-size: 0.8em;
+    }
 
     &[data-toki-children="1"] {
       justify-content: center;
+      margin: 0.15em 0 0.1em;
+
+      &::before {
+        margin: -0.15em 0 0 -0.15em;
+      }
     }
 
     & + .toki-punctuation {
-      margin-top: -0.15em;
+      margin-top: -0.05em;
     }
 
     &::before {
@@ -322,8 +341,16 @@
   }
 
   &[data-toki-size="wide"][data-toki-glyph="e"] {
-    margin-bottom: 0.2em;
-    justify-content: flex-start;
+    margin: 0.15em 0 0.1em -0.1em;
+
+    &::before {
+      margin: -0.15em 0.05em 0 -0.05em;
+      padding: 0.15em;
+    }
+
+    & > * {
+      font-size: 0.8em;
+    }
 
     .toki-container:not([data-toki-glyph]) + & {
       margin-top: 0.15em;
@@ -334,11 +361,41 @@
     }
 
     & + .toki-punctuation {
-      margin-top: -0.15em;
+      margin-top: -0.05em;
     }
 
     &::before {
-      background-image: url(../images/glyphs/tp-wg-e-wide.svg);
+      background-image: url(../images/glyphs/tp-c-e-wide.svg);
+    }
+  }
+
+  &[data-toki-size="double"][data-toki-glyph="e"] {
+    margin: 0.15em 0 0.1em -0.1em;
+    align-items: flex-start;
+
+    .toki-container:not([data-toki-glyph]) + & {
+      margin-top: 0.15em;
+    }
+
+    &::before {
+      margin: -0.15em 0.05em 0 -0.05em;
+      padding: 0.15em;
+    }
+
+    & > * {
+      font-size: 0.8em;
+    }
+
+    &[data-toki-children="1"] {
+      justify-content: center;
+    }
+
+    & + .toki-punctuation {
+      margin-top: -0.05em;
+    }
+
+    &::before {
+      background-image: url(../images/glyphs/tp-c-e-double.svg);
     }
   }
 
