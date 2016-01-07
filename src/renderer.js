@@ -61,6 +61,12 @@ function renderInstructions(instructions, target) {
 
 
 function addSentence(instructions, reset) {
+    if (!document.getElementById('sitelen')) {
+        var sitelen = document.createElement('div');
+        sitelen.id = 'sitelen';
+        document.querySelector('body').appendChild(sitelen);
+    }
+
     console.log(instructions);
     var container = document.createElement('div');
     container.classList.add('toki-sentence');

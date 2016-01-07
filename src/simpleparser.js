@@ -1,6 +1,8 @@
 'use strict';
 
 function convertToInstructions(structuredSentence) {
+    var smallModifiers = ['kon', 'lili', 'mute', 'sin']
+
     var instructions = [],
         size;
 
@@ -11,12 +13,16 @@ function convertToInstructions(structuredSentence) {
                 size = part.tokens.length == 1 ? 'regular' : part.tokens.length < 4 ? 'wide' : 'double';
                 instructions.push({rule: 'openContainer', glyph: undefined, size: size, children: part.tokens.length});
                 part.tokens.forEach(function (token) {
-                    instructions.push({rule: 'addGlyph', glyph: token});
+                    if (smallModifiers.indexOf(token) >= 0) {
+                        instructions[instructions.length - 1].modifier = token;
+                    } else {
+                        instructions.push({rule: 'addGlyph', glyph: token});
+                    }
                 });
                 instructions.push({rule: 'closeContainer'});
                 break;
             case 'verbPhrase':
-                size =  part.tokens.length == 1 ? 'regular' : part.tokens.length < 4 ? 'wide' : 'double';
+                size = part.tokens.length == 1 ? 'regular' : part.tokens.length < 4 ? 'wide' : 'double';
                 instructions.push({rule: 'openContainer', glyph: part.sep, size: size, children: part.tokens.length});
                 part.tokens.forEach(function (token) {
                     instructions.push({rule: 'addGlyph', glyph: token});
