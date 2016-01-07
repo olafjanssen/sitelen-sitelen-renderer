@@ -78,20 +78,9 @@
   height: 1em;
   width: 2em;
 
-  &[data-toki-children="1"] {
-
-    & > * {
-      flex: 0 0 1em;
-      height: 1em;
-    }
-  }
-
-  &[data-toki-children="2"] {
-
-    & > * {
-      flex: 0 0 1em;
-      height: 1em;
-    }
+  & > * {
+    flex: 0 0 1em;
+    height: 1em;
   }
 
   &[data-toki-children="3"] {
