@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
     narrowModifiers = ['wan', 'tu'];
@@ -43,7 +43,7 @@ function convertToInstructions(structuredSentence) {
     // determine container sizes
     for (var i = 0; i < instructions.length; i++) {
         if (instructions[i].rule === 'openContainer') {
-            var closure = 0, glyphs = 0;
+            var closure = 0, regularGlyphs = 0, narrowGlyphs = 0;
             for (var j = i; j < instructions.length; j++) {
                 switch (instructions[j].rule) {
                     case 'openContainer':
@@ -53,16 +53,21 @@ function convertToInstructions(structuredSentence) {
                         closure--;
                         if (closure === 0) {
                             // round narrow glyphs
-                            glyphs = Math.round(glyphs);
+                            var roundglyphs = Math.round(regularGlyphs + narrowGlyphs / 2);
                             // add metadata to the container
-                            instructions[i].size = glyphs === 1 ? 'regular' : glyphs > 3 ? 'double' : 'wide';
-                            instructions[i].children = glyphs;
+                            instructions[i].size = roundglyphs === 1 ? 'regular' :
+                                roundglyphs > 3 || (roundglyphs === 3 && narrowGlyphs === 1) ? 'double' : 'wide';
+                            instructions[i].children = roundglyphs;
                             closure = -1;
                         }
                         break;
                     case 'addGlyph':
                         // narrow glyphs only count as half
-                        glyphs += narrowModifiers.indexOf(instructions[j].glyph) > -1 ? 0.5 : 1;
+                        if (narrowModifiers.indexOf(instructions[j].glyph) > -1) {
+                            narrowGlyphs++;
+                        } else {
+                            regularGlyphs++;
+                        }
                         break;
                 }
                 if (closure === -1) {

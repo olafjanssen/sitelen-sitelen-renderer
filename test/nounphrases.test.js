@@ -1,3 +1,24 @@
+beforeEach(function () {
+    jasmine.addMatchers({
+        toBeTheSameInstructions: function () {
+            return {
+                compare: function (a,b) {
+                    var result = {pass: true, message: "Expected instructions converted."};
+
+                    for (var i = 0; i < b.length; i++) {
+                        if (JSON.stringify(a[i]) !== JSON.stringify(b[i])) {
+                            result.pass = false;
+                            result.message = "Discrepancy of instruction " + i + ": expected\n" + JSON.stringify(a[i]) + "\n but got \n" + JSON.stringify(b[i]);
+                            return result;
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+    });
+});
+
 describe("Testing Noun Phrases", function () {
     it("jan -- Single Noun", function () {
         var structured = [
@@ -85,9 +106,9 @@ describe("Testing Noun Phrases", function () {
             {rule: 'closeContainer'}
         ];
 
-        expect(JSON.stringify(convertToInstructions(structured))).toBe(JSON.stringify(instructions));
+        expect(convertToInstructions(structured)).toBeTheSameInstructions(instructions);
 
-        addSentence(instructions);
+        addSentence(convertToInstructions(structured));
     });
 
     it("jan tu tu tu wan -- Single Noun with Quadruple Narrow Modifier", function () {
@@ -172,20 +193,35 @@ describe("Testing Noun Phrases", function () {
         addSentence(instructions);
     });
 
+    it("jan utala tu -- Double Noun with Narrow Modifier", function () {
+        var structured = [
+            {part: 'subject', tokens: ['jan', 'utala', 'tu']}
+        ], instructions = [
+            {rule: 'openContainer', glyph: undefined, size: 'double', children: 3},
+            {rule: 'addGlyph', glyph: 'jan'},
+            {rule: 'addGlyph', glyph: 'utala'},
+            {rule: 'addGlyph', glyph: 'tu'},
+            {rule: 'closeContainer'}
+        ];
+
+        expect(convertToInstructions(structured)).toBeTheSameInstructions(instructions);
+
+        addSentence(instructions);
+    });
+
     it("jan utala pona tu -- Triple Noun with Narrow Modifier", function () {
         var structured = [
-            {part: 'subject', tokens: ['jan', 'utala', 'pona', 'tu','tu']}
+            {part: 'subject', tokens: ['jan', 'utala', 'pona', 'tu']}
         ], instructions = [
             {rule: 'openContainer', glyph: undefined, size: 'double', children: 4},
             {rule: 'addGlyph', glyph: 'jan'},
             {rule: 'addGlyph', glyph: 'utala'},
             {rule: 'addGlyph', glyph: 'pona'},
             {rule: 'addGlyph', glyph: 'tu'},
-            {rule: 'addGlyph', glyph: 'tu'},
             {rule: 'closeContainer'}
         ];
 
-        expect(JSON.stringify(convertToInstructions(structured))).toBe(JSON.stringify(instructions));
+        expect(convertToInstructions(structured)).toBeTheSameInstructions(instructions);
 
         addSentence(instructions);
     });

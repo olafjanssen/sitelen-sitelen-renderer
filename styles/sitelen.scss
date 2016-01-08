@@ -87,6 +87,12 @@ $syl-list: o a e i;
     height: 1em;
   }
 
+  @each $current-word in $narrow-list {
+    & > [data-toki-word="#{$current-word}"] {
+      flex: 0 0 0.5em;
+    }
+  }
+
   &[data-toki-children="3"] {
     & > * {
       flex: 0 0 2 / 3 * 1em;
@@ -134,19 +140,28 @@ $syl-list: o a e i;
   height: 2em;
   width: 2em;
 
-  &[data-toki-children="4"] {
-    & > * {
-      flex: 0 0 1em;
-      width: 1em;
-    }
+  & > * {
+    flex: 0 0 1em;
+    width: 1em;
+  }
 
+  &[data-toki-children="3"] {
     @each $current-word in $narrow-list {
       & > [data-toki-word="#{$current-word}"] {
-        width: 0.5em;
+        flex: 0 0 2em;
+        width: 1em;
       }
     }
   }
-  
+
+  &[data-toki-children="4"] {
+    @each $current-word in $narrow-list {
+      & > [data-toki-word="#{$current-word}"]::before {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
   &[data-toki-children="5"] {
     & > * {
       flex: 0 0 1/3*1em;
@@ -190,12 +205,6 @@ $syl-list: o a e i;
   @each $current-word in $word-list {
     &[data-toki-word="#{$current-word}"]::before {
       background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
-    }
-  }
-
-  @each $current-word in $narrow-list {
-    &[data-toki-word="#{$current-word}"] {
-      flex: 0 0 0.5em;
     }
   }
 
