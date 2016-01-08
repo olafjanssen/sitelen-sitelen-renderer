@@ -6,18 +6,51 @@
     <script type="text/javascript" src="src/renderer.js"></script>
 </head>
 <body>
-    <input type="text" id="tokiInput">
+<input type="text" id="tokiInput">
 
-    <div id="sitelen">
+<div id="sitelen">
 
-    </div>
+</div>
+
 
 <script>
+    var types = ['jan', 'lili', 'wan', 'pi'];
+    var hash = [];
+
+    function appendSentence(base, index, depth) {
+
+        var parseTable = ckyparser.getParse(base.join(' ')),
+                structuredSentence = getStructuredSentence(parseTable);
+        if (structuredSentence) {
+            console.log(base, index, depth);
+            addSentence(convertToInstructions(structuredSentence));
+        }
+
+        if (depth === 3) {
+            return;
+        }
+
+        var newBase = base.slice(0);
+        newBase.push(types[index]);
+
+        setTimeout(function () {
+            if (index + 1 < types.length) {
+                appendSentence(base, index + 1, depth);
+            }
+            appendSentence(newBase, index, depth + 1);
+        }, 1);
+    }
+
     window.onload = function () {
+        // li-less subject, noun, small mod, narrow mod, pi-container, interjection, li-container, e-container, preposition
 
-        setTimeout(function(){
+        setTimeout(function () {
 
-        },500);
+            var base = [];
+
+            appendSentence(base, 0, 0);
+
+        }, 500);
 
         function renderText(text) {
             var parsableText = preformat(text);

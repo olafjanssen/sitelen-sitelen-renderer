@@ -1,17 +1,1 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 125 125" style="enable-background:new 0 0 125 125;" xml:space="preserve">
-<g id="sike">
-	<g id="sike_2_">
-		<circle style="fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-miterlimit:10;" cx="62.5" cy="62.5" r="60"/>
-		<path style="fill:#FFFFFF;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-			M79.381,29.576c-5.91,0.155-10.403-0.43-17.092-1.955c1.66,5.641,2.696,11.12,2.852,17.03s-0.735,11.624-1.955,17.092
-			c5.641-1.811,11.12-2.696,17.03-2.852c5.91-0.155,11.624,0.584,17.092,1.955c-1.811-5.487-2.696-11.12-2.852-17.03
-			s0.736-12.08,1.955-17.092C90.924,28.537,85.291,29.421,79.381,29.576z"/>
-	</g>
-</g>
-<g id="Layer_1">
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 129 129"><g id="sike" fill="#FFF" stroke="#000" stroke-miterlimit="10"><circle cx="62.5" cy="62.5" r="60" stroke-width="5"/><path d="M79.38 29.576c-5.91.155-10.402-.43-17.09-1.955 1.66 5.642 2.695 11.12 2.85 17.03s-.734 11.625-1.954 17.093c5.64-1.81 11.12-2.696 17.03-2.852 5.91-.154 11.624.585 17.092 1.956-1.81-5.487-2.696-11.12-2.852-17.03s.736-12.08 1.955-17.092c-5.486 1.813-11.12 2.697-17.03 2.852z" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></g><style>path{stroke-width:2;vector-effect:non-scaling-stroke}</style></svg>
