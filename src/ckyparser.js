@@ -206,18 +206,27 @@ function preformat(text) {
     return parsableParts;
 }
 
+var parseHash = JSON.parse(localStorage.getItem('parseHash'));
+
+
 function parseSentence(sentence) {
     var structuredSentence = [];
 
     sentence.forEach(function (part) {
         if (part.content) {
-            var parseTable = ckyparser.getParse(part.content);
-            structuredSentence.push.apply(structuredSentence, getStructuredSentence(parseTable));
+            var key = part.content, value = [];
+            if (!parseHash[key]) {
+                var parseTable = ckyparser.getParse(part.content);
+                value = getStructuredSentence(parseTable);
+                parseHash[key] = value;
+            }
+            structuredSentence.push.apply(structuredSentence, parseHash[key]);
         } else if (part.punctuation) {
             structuredSentence.push({part: 'punctuation', token: part.punctuation});
         }
     });
 
+    localStorage.setItem('parseHash', JSON.stringify(parseHash));
     return structuredSentence;
 }
 

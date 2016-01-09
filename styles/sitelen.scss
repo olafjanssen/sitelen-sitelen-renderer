@@ -161,8 +161,13 @@ $syl-list: o a e i;
 
   &[data-toki-children="4"] {
     @each $current-word in $narrow-list {
-      & > [data-toki-word="#{$current-word}"]::before {
-        transform: rotate(-45deg);
+      & > [data-toki-word="#{$current-word}"] {
+        width: 0.5em;
+        
+        &::before {
+          transform: rotate(-45deg);
+        }
+
       }
     }
   }
