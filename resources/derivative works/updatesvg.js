@@ -32,12 +32,12 @@ files.forEach(function (filename) {
 
     svg.attributes[5].nodeValue = newViewBoxValues;
     svg.attributes[5].value = newViewBoxValues;
+    svg.setAttribute('preserveAspectRatio','none');
 
     var style = doc.createElement('style');
-    style.textContent = 'path { stroke-width: 2; vector-effect: non-scaling-stroke;}';
+    style.textContent = 'ellipse, polygon, polyline, rect, circle, line, path { stroke-width: 2; vector-effect: non-scaling-stroke;}';
 
     svg.appendChild(style);
-
 
     var svgolib = require('svgo'),
         svgo = new svgolib();

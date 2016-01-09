@@ -75,6 +75,11 @@ $syl-list: o a e i;
     width: 1em;
     height: 1em;
   }
+
+  .toki-container[data-toki-size="wide"][data-toki-children="3"] > & > * {
+    height: 2/3*1em;
+    flex: 0 0 2/3*1em;
+  }
 }
 
 .toki-container[data-toki-size="wide"] {
@@ -219,10 +224,10 @@ $syl-list: o a e i;
     margin: -0.1em 0 0 -0.1em;
     position: absolute;
     padding: 0.1em;
-    height: 100%;
+    bottom: -0.2em;
+    height: 40%;
     width: 100%;
     content: '';
-    top: 50%;
     left: 0;
   }
 
@@ -283,6 +288,10 @@ $syl-list: o a e i;
   &[data-toki-size="double"]::before {
     margin: -0.15em 0 0 -0.15em;
     padding: 0.15em;
+  }
+
+  &:not([data-toki-glyph])[data-toki-size="wide"][data-toki-children="3"] {
+    height: 2/3*1em;
   }
 
   &[data-toki-size="regular"][data-toki-glyph="li"]::before {
