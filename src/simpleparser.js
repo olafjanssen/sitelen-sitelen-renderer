@@ -13,72 +13,90 @@ function getSizeOf(token) {
     }
 }
 
-var options = [];
+var options = [], hash = {};
 
 function go(tokens, state, size, direction, index, length) {
+
     var newState = state.slice(0),
         newSize = size.slice(0);
 
     var prevSize = getSizeOf(tokens[index]),
         glyphPosition = [direction === 'right' ? size[0] : 0, direction === 'down' ? size[1] : 0];
 
+    var sizeSum = [0, 0], addSize;
+    // determine size sum
     for (var i = index; i < index + length; i++) {
-        var addSize = getSizeOf(tokens[i]),
-            glyphSize = [];
+        addSize = getSizeOf(tokens[i]);
+        if ((direction === 'down' && addSize[1] !== prevSize[1]) ||
+            (direction === 'right' && addSize[0] !== prevSize[0])) {
+
+            console.log('returning ', state.length, index, length);
+            return;
+        }
+        sizeSum = [sizeSum[0] + addSize[0], sizeSum[1] + addSize[1]];
+    }
+
+    var actualAdded = 0;
+    // now add the glyphs one by one
+    for (var i = index; i < index + length; i++) {
+        var glyphSize = [], addX = 0, addY = 0;
+        addSize = getSizeOf(tokens[i]);
+
         switch (direction) {
-            case 'right':
-                // check if all have the same height
-                if (addSize[1] !== prevSize[1]) {
-                    // if not skip this option
-                    return;
-                }
-                glyphSize = [addSize[0] / addSize[1] * size[1], newSize[1]];
-                newSize[0] += glyphSize[0];
-                break;
             case 'down':
-                // check if all have the same width
-                if (addSize[0] !== prevSize[0]) {
-                    // if not skip this option
-                    return;
-                }
-                glyphSize = [newSize[0], addSize[1] / addSize[0] * size[0]];
-                newSize[1] += addSize[1] / addSize[0] * size[0];
+                addY = addSize[1] * size[0] / sizeSum[0];
+                glyphSize = [addSize[0] * addY / addSize[1], addY];
+
+                newSize = [size[0], size[1] + addY];
+
+                break;
+            case 'right':
+                addX = addSize[0] * size[1] / sizeSum[1];
+                glyphSize = [addX, addSize[1] * addX / addSize[0]];
+
+                newSize = [size[0] + addX, size[1]];
                 break;
         }
         prevSize = addSize;
-        newState.push({token: tokens[i], direction: direction, size: glyphSize, position: glyphPosition});
+        newState.push({token: tokens[i], size: glyphSize, position: glyphPosition});
+        actualAdded++;
 
         // update glyphposition
-        glyphPosition = [glyphPosition[0] + (direction === 'right' ? glyphSize[0] : 0),
-            glyphPosition[1] + (direction === 'down' ? glyphSize[1] : 0)];
+        glyphPosition = [glyphPosition[0] + (direction === 'down' ? glyphSize[0] : 0),
+            glyphPosition[1] + (direction === 'right' ? glyphSize[1] : 0)];
     }
 
-    if (index + length === tokens.length) {
-        options.push({
+    if (index + actualAdded === tokens.length) {
+        var newOption = {
             state: newState,
             size: newSize,
             ratio: newSize[0] / newSize[1],
             normedRatio: newSize[0] / newSize[1] < 1 ? newSize[0] / newSize[1] : newSize[1] / newSize[0],
             surface: newSize[0] * newSize[1]
-        });
+        };
+        if (!hash[JSON.stringify(newOption)]) {
+            options.push(newOption);
+            hash[JSON.stringify(newOption)] = newOption;
+        }
         return;
     }
 
     for (var j = 1; j < tokens.length - index; j++) {
-        go(tokens, newState, newSize, 'right', index + length, j);
-        go(tokens, newState, newSize, 'down', index + length, j);
+        go(tokens, newState, newSize, 'right', index + actualAdded, j);
+        go(tokens, newState, newSize, 'down', index + actualAdded, j);
     }
 }
 
 
 function convertNounPhrase(tokens) {
     // choose both to go right and down
-    go(tokens, [{token: tokens[0], size: [1, 1], position: [0, 0]}], [1, 1], 'right', 1, 1);
-    go(tokens, [{token: tokens[0], size: [1, 1], position: [0, 0]}], [1, 1], 'down', 1, 1);
+    for (var j = 1; j < tokens.length; j++) {
+        go(tokens, [{token: tokens[0], size: [1, 1], position: [0, 0]}], [1, 1], 'right', 1, j);
+        go(tokens, [{token: tokens[0], size: [1, 1], position: [0, 0]}], [1, 1], 'down', 1, j);
+    }
 
     options.sort(function (a, b) {
         return a.surface - b.surface;
-        //return b.ratio - a.ratio;
     });
 
     console.log(options);
@@ -108,6 +126,8 @@ function renderOption(option) {
 }
 
 var tokens = ['jan', 'utala', 'pona', 'wan', 'lili', 'wan'];
+//var tokens = ['jan', 'utala', 'pona', 'mi', 'wan'];
+//var tokens = ['jan', 'wan'];
 
 setTimeout(function () {
     convertNounPhrase(tokens);
