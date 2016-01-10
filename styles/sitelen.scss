@@ -163,7 +163,7 @@ $syl-list: o a e i;
     @each $current-word in $narrow-list {
       & > [data-toki-word="#{$current-word}"] {
         width: 0.5em;
-        
+
         &::before {
           transform: rotate(-45deg);
         }
@@ -441,3 +441,33 @@ $syl-list: o a e i;
   }
 
 }
+
+.toki-nounphrase {
+  position: relative;
+  margin: 1em;
+
+  & > [data-toki-word] {
+    position: absolute;
+
+    &::before {
+      background-size: 100% 100%;
+      margin: -10% 0 0 -10%;
+      position: absolute;
+      padding: 10%;
+      height: 100%;
+      width: 100%;
+      content: '';
+      left: 0;
+      top: 0;
+    }
+
+    @each $current-word in $word-list {
+      &[data-toki-word="#{$current-word}"]::before {
+        background-image: url(../images/glyphs/tp-wg-#{$current-word}.svg);
+      }
+    }
+  }
+}
+
+
+
