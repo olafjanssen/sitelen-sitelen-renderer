@@ -44,10 +44,23 @@ function layoutContainer(units) {
                 forbidden: [JSON.stringify(singleSize)]
             };
 
+            if (units.length === 1) {
+                var newOption = {
+                    state: newState,
+                    size: singleSize,
+                    ratio: singleSize[0] / singleSize[1],
+                    normedRatio: singleSize[0] / singleSize[1] < 1 ? singleSize[0] / singleSize[1] : singleSize[1] / singleSize[0],
+                    surface: singleSize[0] * singleSize[1]
+                };
+                options.push(newOption);
+                hash[JSON.stringify(newOption)] = newOption;
+                return;
+            }
             for (j = 1; j < units.length; j++) {
                 go(units, newState, {goesDown: false, index: 1, length: j});
                 go(units, newState, {goesDown: true, index: 1, length: j});
             }
+
             return;
         }
 
@@ -156,6 +169,7 @@ function convertNounPhrase(tokens) {
     });
 
     options = layoutContainer(units);
+    console.log(units, options);
 
     //options.sort(function (a, b) {
     //    return a.surface - b.surface;
@@ -199,15 +213,17 @@ var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 
 function layoutCompound() {
     var data = [
-        ['jan', 'utala', 'pona'],
-        ['wile', 'moku'],
-        ['kili', 'suwi']
+        ['jan'],
+        ['wile'],
+        ['kili']
     ], hashMap = [], compoundOptions = [];
 
     data.forEach(function (datum) {
         var npOptions = convertNounPhrase(datum);
         hashMap.push(npOptions);
     });
+
+    console.log('map:', hashMap);
 
     function go(index, units) {
         hashMap[index].forEach(function (option) {
@@ -225,7 +241,7 @@ function layoutCompound() {
     go(0, []);
 
 
-    for(var i=0;i<compoundOptions.length;i++) {
+    for (var i = 0; i < compoundOptions.length; i++) {
         var sentence = document.createElement('div');
         sentence.classList.add('toki-sentence');
 
