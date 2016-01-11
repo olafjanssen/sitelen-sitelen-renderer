@@ -13,7 +13,7 @@ function getSizeOf(token) {
     }
 }
 
-var options = [], hash = {};
+var options = [], hash = {}, minSurface = 1e6;
 
 function go(units, state, iterator) {
     console.log(state, iterator);
@@ -112,7 +112,10 @@ function go(units, state, iterator) {
 
         newOption = normalizeOption(JSON.stringify(newOption));
 
-        if (!hash[JSON.stringify(newOption)]) {
+        minSurface = Math.min(minSurface, newOption.surface);
+
+        // surface can't be 3 times larger than the optimum
+        if (!hash[JSON.stringify(newOption)] && newOption.surface / minSurface < 3) {
             options.push(newOption);
             hash[JSON.stringify(newOption)] = newOption;
         }
@@ -183,7 +186,7 @@ function normalizeOption(option) {
     return option;
 }
 
-var tokens = ['jan', 'tu', 'utala', 'mute','pona', 'wan', 'lili', 'wan'];
+var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 //var tokens = ['jan', 'utala', 'pona', 'mi', 'wan'];
 //var tokens = ['jan', 'lili', 'pona'];
 //tokens = 'kili suli pona mi'.split(' ');
