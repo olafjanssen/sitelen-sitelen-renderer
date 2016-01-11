@@ -45,8 +45,6 @@ function go(units, state, iterator) {
     var prevSize = getSizeOf(units[index]),
         glyphPosition = [!goesDown ? state.size[0] : 0, goesDown ? state.size[1] : 0];
 
-    console.log(glyphPosition);
-
     var sizeSum = [0, 0], addSize;
     // determine size sum
     for (i = index; i < index + length; i++) {
@@ -61,41 +59,30 @@ function go(units, state, iterator) {
     var actualAdded = 0;
     // now add the glyphs one by one
     for (i = index; i < index + length; i++) {
-        console.log('i: ', i);
-        var glyphSize = [], addX = 0, addY = 0;
+        var glyphSize = [], add = 0,
+            addAxis = goesDown ? 1 : 0,
+            fixedAxis = goesDown ? 0 : 1;
+
         addSize = getSizeOf(units[i]);
 
-        if (goesDown) {
-            addY = addSize[1] * state.size[0] / sizeSum[0];
-            glyphSize = [addSize[0] * addY / addSize[1], addY];
+        add = addSize[addAxis] * state.size[fixedAxis] / sizeSum[fixedAxis];
+        glyphSize[addAxis] = add;
+        glyphSize[fixedAxis] = addSize[fixedAxis] * add / addSize[addAxis];
 
-            if (i === index) {
-                newSize[1] += addY;
-            }
-            if (newForbidden.indexOf(JSON.stringify(glyphPosition)) > -1) {
-                return;
-            }
-        } else {
-            addX = addSize[0] * state.size[1] / sizeSum[1];
-            glyphSize = [addX, addSize[1] * addX / addSize[0]];
-
-            if (i === index) {
-                newSize[0] += addX;
-            }
-
-            console.log(addX, glyphSize, newSize, goesDown, state.size);
+        if (i === index) {
+            newSize[addAxis] += add;
+        }
+        if (goesDown && newForbidden.indexOf(JSON.stringify(glyphPosition)) > -1) {
+            return;
         }
 
         prevSize = addSize;
-        console.log(units[i], glyphPosition);
         newState.units.push({token: units[i], size: glyphSize, position: glyphPosition});
         actualAdded++;
 
         // update glyph position
         glyphPosition = [glyphPosition[0] + (goesDown ? glyphSize[0] : 0),
             glyphPosition[1] + (!goesDown ? glyphSize[1] : 0)];
-
-        console.log('update:' + glyphPosition);
 
         newForbidden.push(JSON.stringify([glyphPosition[0] + (!goesDown ? glyphSize[0] : 0), glyphPosition[1] + (goesDown ? glyphSize[1] : 0)]));
     }
@@ -134,7 +121,6 @@ function convertNounPhrase(tokens) {
 
     options.sort(function (a, b) {
         return a.surface - b.surface;
-        //return b.normedRatio - a.normedRatio;
     });
 
     options.forEach(function (option) {
