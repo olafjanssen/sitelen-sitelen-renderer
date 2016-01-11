@@ -15,36 +15,44 @@ function getSizeOf(token) {
 
 var options = [], hash = {};
 
-function go(tokens, state, size, direction, index, length, forbidden) {
+function go(units, state, iterator) {
+    console.log(state, iterator);
     var newSize, newState, newForbidden, i, j;
 
     if (!state) {
-        newSize = getSizeOf(tokens[0]);
-        newState = [{token: tokens[0], size: newSize, position: [0, 0]}];
-        newForbidden = [];
-        newForbidden.push(JSON.stringify(newSize));
+        var singleSize = getSizeOf(units[0]);
+        newState = {
+            units: [{token: units[0], size: singleSize, position: [0, 0]}],
+            size: singleSize,
+            forbidden: [JSON.stringify(singleSize)]
+        };
 
-
-        for (j = 1; j < tokens.length; j++) {
-            go(tokens, newState, newSize, 'right', 1, j, newForbidden);
-            go(tokens, newState, newSize, 'down', 1, j, newForbidden);
+        for (j = 1; j < units.length; j++) {
+            go(units, newState, {goesDown: false, index: 1, length: j});
+            go(units, newState, {goesDown: true, index: 1, length: j});
         }
         return;
     }
 
-    newState = state.slice(0);
-    newSize = size.slice(0);
-    newForbidden = forbidden.slice(0);
+    var goesDown = iterator.goesDown,
+        index = iterator.index,
+        length = iterator.length;
 
-    var prevSize = getSizeOf(tokens[index]),
-        glyphPosition = [direction === 'right' ? size[0] : 0, direction === 'down' ? size[1] : 0];
+    newState = JSON.parse(JSON.stringify(state));
+    newSize = newState.size;
+    newForbidden = newState.forbidden;
+
+    var prevSize = getSizeOf(units[index]),
+        glyphPosition = [!goesDown ? state.size[0] : 0, goesDown ? state.size[1] : 0];
+
+    console.log(glyphPosition);
 
     var sizeSum = [0, 0], addSize;
     // determine size sum
-    for (var i = index; i < index + length; i++) {
-        addSize = getSizeOf(tokens[i]);
-        if ((direction === 'down' && addSize[1] !== prevSize[1]) ||
-            (direction === 'right' && addSize[0] !== prevSize[0])) {
+    for (i = index; i < index + length; i++) {
+        addSize = getSizeOf(units[i]);
+        if ((goesDown && addSize[1] !== prevSize[1]) ||
+            (!goesDown && addSize[0] !== prevSize[0])) {
             return;
         }
         sizeSum = [sizeSum[0] + addSize[0], sizeSum[1] + addSize[1]];
@@ -52,41 +60,47 @@ function go(tokens, state, size, direction, index, length, forbidden) {
 
     var actualAdded = 0;
     // now add the glyphs one by one
-    for (var i = index; i < index + length; i++) {
+    for (i = index; i < index + length; i++) {
+        console.log('i: ', i);
         var glyphSize = [], addX = 0, addY = 0;
-        addSize = getSizeOf(tokens[i]);
+        addSize = getSizeOf(units[i]);
 
-        switch (direction) {
-            case 'down':
-                addY = addSize[1] * size[0] / sizeSum[0];
-                glyphSize = [addSize[0] * addY / addSize[1], addY];
+        if (goesDown) {
+            addY = addSize[1] * state.size[0] / sizeSum[0];
+            glyphSize = [addSize[0] * addY / addSize[1], addY];
 
-                newSize = [size[0], size[1] + addY];
-                break;
-            case 'right':
-                addX = addSize[0] * size[1] / sizeSum[1];
-                glyphSize = [addX, addSize[1] * addX / addSize[0]];
-
-                newSize = [size[0] + addX, size[1]];
-                break;
-        }
-
-        if (direction === 'down' && newForbidden.indexOf(JSON.stringify(glyphPosition)) > -1) {
-            return;
+            if (i === index) {
+                newSize[1] += addY;
+            }
+            if (newForbidden.indexOf(JSON.stringify(glyphPosition)) > -1) {
+                return;
+            }
         } else {
-            prevSize = addSize;
-            newState.push({token: tokens[i], size: glyphSize, position: glyphPosition});
-            actualAdded++;
+            addX = addSize[0] * state.size[1] / sizeSum[1];
+            glyphSize = [addX, addSize[1] * addX / addSize[0]];
 
-            // update glyphposition
-            glyphPosition = [glyphPosition[0] + (direction === 'down' ? glyphSize[0] : 0),
-                glyphPosition[1] + (direction === 'right' ? glyphSize[1] : 0)];
+            if (i === index) {
+                newSize[0] += addX;
+            }
 
-            newForbidden.push(JSON.stringify([glyphPosition[0] + glyphSize[0], glyphPosition[1] + glyphSize[1]]));
+            console.log(addX, glyphSize, newSize, goesDown, state.size);
         }
+
+        prevSize = addSize;
+        console.log(units[i], glyphPosition);
+        newState.units.push({token: units[i], size: glyphSize, position: glyphPosition});
+        actualAdded++;
+
+        // update glyph position
+        glyphPosition = [glyphPosition[0] + (goesDown ? glyphSize[0] : 0),
+            glyphPosition[1] + (!goesDown ? glyphSize[1] : 0)];
+
+        console.log('update:' + glyphPosition);
+
+        newForbidden.push(JSON.stringify([glyphPosition[0] + (!goesDown ? glyphSize[0] : 0), glyphPosition[1] + (goesDown ? glyphSize[1] : 0)]));
     }
 
-    if (index + actualAdded === tokens.length) {
+    if (index + actualAdded === units.length) {
         var newOption = {
             state: newState,
             size: newSize,
@@ -94,6 +108,8 @@ function go(tokens, state, size, direction, index, length, forbidden) {
             normedRatio: newSize[0] / newSize[1] < 1 ? newSize[0] / newSize[1] : newSize[1] / newSize[0],
             surface: newSize[0] * newSize[1]
         };
+        console.log('ADD OPTION ', newOption);
+
         newOption = normalizeOption(JSON.stringify(newOption));
 
         if (!hash[JSON.stringify(newOption)]) {
@@ -103,9 +119,9 @@ function go(tokens, state, size, direction, index, length, forbidden) {
         return;
     }
 
-    for (var j = 1; j < tokens.length - index; j++) {
-        go(tokens, newState, newSize, 'right', index + actualAdded, j, newForbidden);
-        go(tokens, newState, newSize, 'down', index + actualAdded, j, newForbidden);
+    for (j = 1; j < units.length - index; j++) {
+        go(units, newState, {goesDown: false, index: index + actualAdded, length: j});
+        go(units, newState, {goesDown: true, index: index + actualAdded, length: j});
     }
 }
 
@@ -121,7 +137,6 @@ function convertNounPhrase(tokens) {
     options.forEach(function (option) {
         renderOption(option);
     });
-
 }
 
 function renderOption(option) {
@@ -129,9 +144,8 @@ function renderOption(option) {
     container.classList.add('toki-nounphrase');
     container.style.width = option.size[0] + 'em';
     container.style.height = option.size[1] + 'em';
-    //container.style.fontSize = getNormalizerScale(option)/2 + 'em';
 
-    option.state.forEach(function (glyph) {
+    option.state.units.forEach(function (glyph) {
         var element = document.createElement('div');
         element.style.width = glyph.size[0] + 'em';
         element.style.height = glyph.size[1] + 'em';
@@ -148,7 +162,7 @@ function normalizeOption(option) {
     option = JSON.parse(option);
 
     var minSize = 1;
-    option.state.forEach(function (glyph) {
+    option.state.units.forEach(function (glyph) {
         if (glyph.size[0] < minSize) {
             minSize = glyph.size[0];
         }
@@ -159,8 +173,7 @@ function normalizeOption(option) {
 
     option.size = [option.size[0] / minSize, option.size[1] / minSize];
     option.surface /= minSize * minSize;
-    option.state.forEach(function (glyph) {
-        console.log(glyph);
+    option.state.units.forEach(function (glyph) {
         glyph.size[0] /= minSize;
         glyph.size[1] /= minSize;
         glyph.position[0] /= minSize;
@@ -170,10 +183,10 @@ function normalizeOption(option) {
     return option;
 }
 
-var tokens = ['jan', 'utala', 'pona', 'wan', 'lili', 'wan'];
+var tokens = ['jan', 'tu', 'utala', 'mute','pona', 'wan', 'lili', 'wan'];
 //var tokens = ['jan', 'utala', 'pona', 'mi', 'wan'];
 //var tokens = ['jan', 'lili', 'pona'];
-//tokens = 'kili suli pona wan mi'.split(' ');
+//tokens = 'kili suli pona mi'.split(' ');
 
 setTimeout(function () {
     convertNounPhrase(tokens);
