@@ -22,7 +22,7 @@ $syl-list: o a e i;
 
 .toki-sentence {
   margin: 1em;
-  width: 2em;
+  width: 10em;
 }
 
 .toki-container {
@@ -442,10 +442,8 @@ $syl-list: o a e i;
 
 }
 
-.toki-compoundnounphrase,
 .toki-nounphrase {
   position: absolute;
-  margin: 1em;
 
   & > [data-toki-word] {
     position: absolute;
@@ -468,9 +466,5 @@ $syl-list: o a e i;
       }
     }
   }
-}
-
-.toki-compoundnounphrase {
-  position: relative;
 }
 

@@ -169,7 +169,6 @@ function convertNounPhrase(tokens) {
     });
 
     options = layoutContainer(units);
-    console.log(units, options);
 
     //options.sort(function (a, b) {
     //    return a.surface - b.surface;
@@ -182,22 +181,27 @@ function convertNounPhrase(tokens) {
     return options;
 }
 
-function renderOption(option, target, position) {
-    var container = document.createElement('div');
+function renderOption(option, target, position, sizeParent) {
+    var container = document.createElement('div'),
+        sizeMultiplier = 1;
     container.classList.add('toki-nounphrase');
-    container.style.width = option.size[0] + 'em';
-    container.style.height = option.size[1] + 'em';
+
     if (position) {
         container.style.left = position[0] + 'em';
         container.style.top = position[1] + 'em';
     }
+    if (sizeParent) {
+        sizeMultiplier = sizeParent[0] / option.size[0];
+    }
+    container.style.width = sizeMultiplier * option.size[0] + 'em';
+    container.style.height = sizeMultiplier * option.size[1] + 'em';
 
     option.state.units.forEach(function (glyph) {
         var element = document.createElement('div');
-        element.style.width = glyph.size[0] + 'em';
-        element.style.height = glyph.size[1] + 'em';
-        element.style.left = glyph.position[0] + 'em';
-        element.style.top = glyph.position[1] + 'em';
+        element.style.width = sizeMultiplier * glyph.size[0] + 'em';
+        element.style.height = sizeMultiplier * glyph.size[1] + 'em';
+        element.style.left = sizeMultiplier * glyph.position[0] + 'em';
+        element.style.top = sizeMultiplier * glyph.position[1] + 'em';
         element.setAttribute('data-toki-word', glyph.unit.token);
 
         container.appendChild(element);
@@ -213,17 +217,15 @@ var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 
 function layoutCompound() {
     var data = [
-        ['jan'],
-        ['wile'],
-        ['kili']
+        ['jan', 'utala', 'pona'],
+        ['wile','moku'],
+        ['kili','suwi','pona'],
     ], hashMap = [], compoundOptions = [];
 
     data.forEach(function (datum) {
         var npOptions = convertNounPhrase(datum);
         hashMap.push(npOptions);
     });
-
-    console.log('map:', hashMap);
 
     function go(index, units) {
         hashMap[index].forEach(function (option) {
@@ -240,19 +242,23 @@ function layoutCompound() {
 
     go(0, []);
 
+    console.log(compoundOptions);
 
     for (var i = 0; i < compoundOptions.length; i++) {
+        var option = compoundOptions[i];
+
         var sentence = document.createElement('div');
         sentence.classList.add('toki-sentence');
+        sentence.style.width = option.size[0] + 'em';
+        sentence.style.height = option.size[1] + 'em';
 
-        var option = compoundOptions[i];
         var container = document.createElement('div');
         container.classList.add('toki-nounphrase');
         container.style.width = option.size[0] + 'em';
         container.style.height = option.size[1] + 'em';
 
         option.state.units.forEach(function (option) {
-            renderOption(option.unit, container, option.position);
+            renderOption(option.unit, container, option.position, option.size);
         });
         sentence.appendChild(container);
 
