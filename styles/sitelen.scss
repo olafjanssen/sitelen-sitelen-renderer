@@ -442,8 +442,9 @@ $syl-list: o a e i;
 
 }
 
+.toki-compoundnounphrase,
 .toki-nounphrase {
-  position: relative;
+  position: absolute;
   margin: 1em;
 
   & > [data-toki-word] {
@@ -469,5 +470,7 @@ $syl-list: o a e i;
   }
 }
 
-
+.toki-compoundnounphrase {
+  position: relative;
+}
 

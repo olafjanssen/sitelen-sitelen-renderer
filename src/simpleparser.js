@@ -113,7 +113,7 @@ function layoutContainer(units) {
                 surface: newSize[0] * newSize[1]
             };
 
-            newOption = normalizeOption(JSON.stringify(newOption));
+            //newOption = normalizeOption(JSON.stringify(newOption));
 
             minSurface = Math.min(minSurface, newOption.surface);
 
@@ -157,20 +157,26 @@ function convertNounPhrase(tokens) {
 
     options = layoutContainer(units);
 
-    options.sort(function (a, b) {
-        return a.surface - b.surface;
-    });
+    //options.sort(function (a, b) {
+    //    return a.surface - b.surface;
+    //});
+    //
+    //options.forEach(function (option) {
+    //    renderOption(option);
+    //});
 
-    options.forEach(function (option) {
-        renderOption(option);
-    });
+    return options;
 }
 
-function renderOption(option) {
+function renderOption(option, target, position) {
     var container = document.createElement('div');
     container.classList.add('toki-nounphrase');
     container.style.width = option.size[0] + 'em';
     container.style.height = option.size[1] + 'em';
+    if (position) {
+        container.style.left = position[0] + 'em';
+        container.style.top = position[1] + 'em';
+    }
 
     option.state.units.forEach(function (glyph) {
         var element = document.createElement('div');
@@ -182,7 +188,7 @@ function renderOption(option) {
 
         container.appendChild(element);
     });
-    document.getElementById('sitelen').appendChild(container);
+    target.appendChild(container);
 }
 
 
@@ -191,8 +197,58 @@ var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 //var tokens = ['jan', 'lili', 'pona'];
 //tokens = 'kili suli pona mi'.split(' ');
 
+function layoutCompound() {
+    var data = [
+        ['jan', 'utala', 'pona'],
+        ['wile', 'moku'],
+        ['kili', 'suwi']
+    ], hashMap = [], compoundOptions = [];
+
+    data.forEach(function (datum) {
+        var npOptions = convertNounPhrase(datum);
+        hashMap.push(npOptions);
+    });
+
+    function go(index, units) {
+        hashMap[index].forEach(function (option) {
+            var newIndex = index + 1,
+                newUnits = units.slice(0);
+            newUnits.push(option);
+            if (newIndex < hashMap.length) {
+                go(newIndex, newUnits);
+            } else {
+                compoundOptions.push.apply(compoundOptions, layoutContainer(newUnits));
+            }
+        });
+    }
+
+    go(0, []);
+
+
+    for(var i=0;i<compoundOptions.length;i++) {
+        var sentence = document.createElement('div');
+        sentence.classList.add('toki-sentence');
+
+        var option = compoundOptions[i];
+        var container = document.createElement('div');
+        container.classList.add('toki-nounphrase');
+        container.style.width = option.size[0] + 'em';
+        container.style.height = option.size[1] + 'em';
+
+        option.state.units.forEach(function (option) {
+            renderOption(option.unit, container, option.position);
+        });
+        sentence.appendChild(container);
+
+        document.getElementById('sitelen').appendChild(sentence);
+    }
+
+}
+
+
 setTimeout(function () {
-    convertNounPhrase(tokens);
+    //convertNounPhrase(tokens);
+    layoutCompound();
 }, 500);
 
 
