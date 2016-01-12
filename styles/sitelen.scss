@@ -445,6 +445,30 @@ $syl-list: o a e i;
 .toki-nounphrase {
   position: absolute;
 
+  &::before {
+    background-size: 100% 100%;
+    margin: -5% 0 0 -5%;
+    position: absolute;
+    padding: 5%;
+    height: 100%;
+    width: 100%;
+    content: '';
+    left: 0;
+    top: 0;
+  }
+
+  &[data-toki-container="li"]::before {
+    background-image: url(../images/glyphs/tp-wg-li.svg);
+  }
+
+  &[data-toki-container="e"]::before {
+    background-image: url(../images/glyphs/tp-wg-e.svg);
+  }
+
+  &[data-toki-container] >[data-toki-word] {
+    //font-size: 0.8em;
+  }
+
   & > [data-toki-word] {
     position: absolute;
 

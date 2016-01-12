@@ -195,18 +195,33 @@ function renderOption(option, target, position, sizeParent) {
     }
     if (sizeParent) {
         sizeMultiplier = sizeParent[0] / option.size[0];
+        container.style.width = option.size[0] * 100 / sizeParent[0] + '%';
+        container.style.height = option.size[1] * 100 / sizeParent[1] + '%';
     }
-
+    if (option.separator) {
+        container.setAttribute('data-toki-container', option.separator);
+    }
     container.style.width = sizeMultiplier * option.size[0] + 'em';
     container.style.height = sizeMultiplier * option.size[1] + 'em';
+
+    // why does it not work?
+    //if (sizeParent) {
+    //    container.style.width = option.size[0] * 100 / sizeParent[0] + '%';
+    //    container.style.height = option.size[1] * 100 / sizeParent[1] + '%';
+    //} else {
+    //    container.style.width =  option.size[0] + 'em';
+    //    container.style.height = option.size[1] + 'em';
+    //}
+
+    sizeMultiplier = (option.separator ? 0.8 : 1);
 
     option.state.units.forEach(function (glyph) {
         if (glyph.unit.rule === 'word-glyph') {
             var element = document.createElement('div');
-            element.style.width = sizeMultiplier * glyph.size[0] + 'em';
-            element.style.height = sizeMultiplier * glyph.size[1] + 'em';
-            element.style.left = sizeMultiplier * glyph.position[0] + 'em';
-            element.style.top = sizeMultiplier * glyph.position[1] + 'em';
+            element.style.width = glyph.size[0] * 100 / option.size[0] * sizeMultiplier + '%';
+            element.style.height = glyph.size[1] * 100 / option.size[1] * sizeMultiplier + '%';
+            element.style.left = (option.separator ? 10 : 0) + glyph.position[0] * 100 / option.size[0] * sizeMultiplier + '%';
+            element.style.top = (option.separator ? 10 : 0) + glyph.position[1] * 100 / option.size[1] * sizeMultiplier + '%';
             element.setAttribute('data-toki-word', glyph.unit.token);
             container.appendChild(element);
         } else {
@@ -223,21 +238,32 @@ var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 //tokens = 'kili suli pona mi'.split(' ');
 
 function layoutCompound() {
+    var sentence = [
+        {part: 'subject', tokens: ['jan', 'utala', 'lili']},
+        {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']},
+        {part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']},
+        {part: 'punctuation', token: '.'}
+    ];
     var data = [
         ['jan', 'utala', 'pona'],
         ['wile', 'moku'],
         ['kili', 'suwi']
     ], hashMap = [], compoundOptions = [];
 
-    data.forEach(function (datum) {
-        var npOptions = convertNounPhrase(datum);
-        hashMap.push(npOptions);
+    sentence.forEach(function (part) {
+        if (part.part === 'punctuation') {
+            return;
+        }
+        var npOptions = convertNounPhrase(part.tokens);
+        hashMap.push({sep: part.sep, options: npOptions});
     });
 
     function go(index, units) {
-        hashMap[index].forEach(function (option) {
+        hashMap[index].options.forEach(function (option) {
             var newIndex = index + 1,
                 newUnits = units.slice(0);
+            option.type = 'container';
+            option.separator = hashMap[index].sep;
             newUnits.push(option);
             if (newIndex < hashMap.length) {
                 go(newIndex, newUnits);
@@ -252,12 +278,12 @@ function layoutCompound() {
     for (var i = 0; i < compoundOptions.length; i++) {
         var option = compoundOptions[i];
 
-        var sentence = document.createElement('div');
-        sentence.classList.add('toki-sentence');
-        sentence.style.width = option.size[0] + 'em';
-        sentence.style.height = option.size[1] + 'em';
-        renderOption(option, sentence);
-        document.getElementById('sitelen').appendChild(sentence);
+        var sentenceContainer = document.createElement('div');
+        sentenceContainer.classList.add('toki-sentence');
+        sentenceContainer.style.width = option.size[0] + 'em';
+        sentenceContainer.style.height = option.size[1] + 'em';
+        renderOption(option, sentenceContainer);
+        document.getElementById('sitelen').appendChild(sentenceContainer);
     }
 
 }
