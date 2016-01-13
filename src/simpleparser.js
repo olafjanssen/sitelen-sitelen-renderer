@@ -186,35 +186,40 @@ function convertNounPhrase(tokens) {
     return options;
 }
 
-function renderOption(option, target, position, sizeParent) {
+function renderOption(option, target, position, sizeParent, sizeParent2) {
     var padding = 0;
     var container = target;
+
+    console.log(option, sizeParent, sizeParent2);
 
     if (position) {
         container = document.createElementNS(svgNS, 'svg');
         container.style.overflow = 'visible';
-        var wh = [option.size[0] * 100 / sizeParent[0], option.size[1] * 100 / sizeParent[1]];
-        console.log(position, option.size, sizeParent, wh);
+        var wh = [sizeParent[0] * 100 / sizeParent2[0], sizeParent[1] * 100 / sizeParent2[1]];
+
+        //console.log(position, option.size, option.state.size, sizeParent, sizeParent2, wh);
+
         container.setAttribute('preserveAspectRatio', 'none');
         container.setAttribute('width', '' + (2 * padding + wh[0]));
         container.setAttribute('height', '' + (2 * padding + wh[1]));
-        container.setAttribute('x', '' + (position[0] * 100 / sizeParent[0] - padding));
-        container.setAttribute('y', '' + (position[1] * 100 / sizeParent[1] - padding));
+        container.setAttribute('x', '' + (position[0] * 100 / sizeParent2[0] - padding));
+        container.setAttribute('y', '' + (position[1] * 100 / sizeParent2[1] - padding));
         container.setAttribute('viewBox', '0 0 100 100');
         target.appendChild(container);
     }
 
     option.state.units.forEach(function (glyph) {
         if (glyph.unit.rule === 'word-glyph') {
+            //console.log(glyph.size, option.size);
             var use = document.createElementNS(svgNS, 'use');
             use.setAttributeNS(xlinkns, 'href', '#tp-wg-' + glyph.unit.token);
             use.setAttribute('width', '' + (padding + glyph.size[0] * 100 / option.size[0]));
             use.setAttribute('height', '' + (padding + glyph.size[1] * 100 / option.size[1]));
-            use.setAttribute('x', '' + (glyph.position[0] / option.size[0] * wh[0] - padding / 2));
-            use.setAttribute('y', '' + (glyph.position[1] / option.size[1] * wh[1] - padding / 2));
+            use.setAttribute('x', '' + (glyph.position[0] *100/ option.size[0] - padding / 2));
+            use.setAttribute('y', '' + (glyph.position[1] *100/ option.size[1] - padding / 2));
             container.appendChild(use);
         } else {
-            renderOption(glyph.unit, container, glyph.position, option.size);
+            renderOption(glyph.unit, container, glyph.position, glyph.size, option.size);
         }
     });
 
@@ -305,7 +310,7 @@ function layoutCompound() {
 
     for (var i = 0; i < compoundOptions.length; i++) {
         var option = compoundOptions[i];
-
+    console.log(option);
         var sentenceContainer = document.createElementNS(svgNS, 'svg');
         sentenceContainer.setAttribute('xmlns', svgNS);
         sentenceContainer.setAttribute('xmlns:xlink', xlinkns);
@@ -317,10 +322,6 @@ function layoutCompound() {
         sentenceContainer.style.overflow = 'visible';
         renderOption(option, sentenceContainer);
         document.getElementById('sitelen').appendChild(sentenceContainer);
-
-        //var paper = Raphael("sitelen", option.size[0]*100, option.size[1]*100, function(){
-
-        //});
 
     }
 
