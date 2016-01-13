@@ -12,7 +12,8 @@ var glob = require('glob');
 //    console.log(token);
 //});
 
-var files = glob.sync('../../images/glyphs/tp-wg-pre-*.svg');
+//var files = glob.sync('../../images/glyphs/tp-wg-pre-*.svg');
+var files = glob.sync('../../images/glyphs/tp-wg-li-tall.svg');
 files.forEach(function (filename) {
     var token = filename.substring(30);
     console.log(token);

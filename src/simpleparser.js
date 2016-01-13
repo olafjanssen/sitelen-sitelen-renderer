@@ -3,6 +3,8 @@
 var svgNS = "http://www.w3.org/2000/svg",
     xlinkns = "http://www.w3.org/1999/xlink";
 
+var padding = 10;
+
 function layoutContainer(units) {
 
     var options = [], hash = {}, minSurface = 1e6;
@@ -187,36 +189,44 @@ function convertNounPhrase(tokens) {
 }
 
 function renderOption(option, target, position, sizeParent, sizeParent2) {
-    var padding = 0;
     var container = target;
-
-    console.log(option, sizeParent, sizeParent2);
+    var contpad = padding / 2;
 
     if (position) {
         container = document.createElementNS(svgNS, 'svg');
         container.style.overflow = 'visible';
         var wh = [sizeParent[0] * 100 / sizeParent2[0], sizeParent[1] * 100 / sizeParent2[1]];
 
-        //console.log(position, option.size, option.state.size, sizeParent, sizeParent2, wh);
+        if (option.separator) {
+            var use = document.createElementNS(svgNS, 'use');
+            use.setAttributeNS(xlinkns, 'href', '#tp-wg-' + option.separator + (option.ratio > 1.5 ? '-wide' : option.ratio < 0.667 ? '-tall' : ''));
+            use.setAttribute('preserveAspectRatio', 'none');
+            use.setAttribute('width', '' + (2 * contpad + wh[0]));
+            use.setAttribute('height', '' + (2 * contpad + wh[1]));
+            use.setAttribute('x', '' + (position[0] * 100 / sizeParent2[0] - contpad));
+            use.setAttribute('y', '' + (position[1] * 100 / sizeParent2[1] - contpad));
+            use.setAttribute('viewBox', [-padding, -padding, 100 + 2 * padding, 100 + 2 * padding].join(' '));
+            target.appendChild(use);
+        }
 
         container.setAttribute('preserveAspectRatio', 'none');
         container.setAttribute('width', '' + (2 * padding + wh[0]));
         container.setAttribute('height', '' + (2 * padding + wh[1]));
         container.setAttribute('x', '' + (position[0] * 100 / sizeParent2[0] - padding));
         container.setAttribute('y', '' + (position[1] * 100 / sizeParent2[1] - padding));
-        container.setAttribute('viewBox', '0 0 100 100');
+        container.setAttribute('viewBox', [-2 * padding, -2 * padding, 100 + 4 * padding, 100 + 4 * padding].join(' '));
         target.appendChild(container);
+
     }
 
     option.state.units.forEach(function (glyph) {
         if (glyph.unit.rule === 'word-glyph') {
-            //console.log(glyph.size, option.size);
             var use = document.createElementNS(svgNS, 'use');
             use.setAttributeNS(xlinkns, 'href', '#tp-wg-' + glyph.unit.token);
             use.setAttribute('width', '' + (padding + glyph.size[0] * 100 / option.size[0]));
             use.setAttribute('height', '' + (padding + glyph.size[1] * 100 / option.size[1]));
-            use.setAttribute('x', '' + (glyph.position[0] *100/ option.size[0] - padding / 2));
-            use.setAttribute('y', '' + (glyph.position[1] *100/ option.size[1] - padding / 2));
+            use.setAttribute('x', '' + (glyph.position[0] * 100 / option.size[0] - padding / 2));
+            use.setAttribute('y', '' + (glyph.position[1] * 100 / option.size[1] - padding / 2));
             container.appendChild(use);
         } else {
             renderOption(glyph.unit, container, glyph.position, glyph.size, option.size);
@@ -224,46 +234,6 @@ function renderOption(option, target, position, sizeParent, sizeParent2) {
     });
 
 }
-
-//function renderOption(option, target, position, sizeParent) {
-//    var container = document.createElement('div'),
-//        sizeMultiplier = 1;
-//    container.classList.add('toki-nounphrase');
-//
-//    if (position) {
-//        container.style.left = position[0] + 'em';
-//        container.style.top = position[1] + 'em';
-//    }
-//    if (sizeParent) {
-//        console.log(sizeParent, option.size);
-//        sizeMultiplier = sizeParent[0] / option.size[0];
-//    }
-//
-//    container.style.width = sizeMultiplier * option.size[0] + 'em';
-//    container.style.height = sizeMultiplier * option.size[1] + 'em';
-//
-//    if (option.separator) {
-//        container.setAttribute('data-toki-container', option.separator);
-//    }
-//
-//    sizeMultiplier = (option.separator ? 0.8 : 1);
-//
-//    option.state.units.forEach(function (glyph) {
-//        if (glyph.unit.rule === 'word-glyph') {
-//            var element = document.createElement('div');
-//            element.style.width = glyph.size[0] * 100 / option.size[0] * sizeMultiplier + '%';
-//            element.style.height = glyph.size[1] * 100 / option.size[1] * sizeMultiplier + '%';
-//            element.style.left = (option.separator ? 10 : 0) + glyph.position[0] * 100 / option.size[0] * sizeMultiplier + '%';
-//            element.style.top = (option.separator ? 10 : 0) + glyph.position[1] * 100 / option.size[1] * sizeMultiplier + '%';
-//            element.setAttribute('data-toki-word', glyph.unit.token);
-//            container.appendChild(element);
-//        } else {
-//            renderOption(glyph.unit, container, glyph.position, glyph.size);
-//        }
-//    });
-//    target.appendChild(container);
-//}
-
 
 var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 //var tokens = ['jan', 'utala', 'pona', 'mi', 'wan'];
@@ -274,7 +244,7 @@ function layoutCompound() {
     var sentence = [
         {part: 'subject', tokens: ['jan', 'pona']},
         {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']}
-        //{part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']},
+        //{part: 'directObject', sep: ['e-wide'], tokens: ['tenpo', 'suwi', 'mute']}
         //{part: 'punctuation', token: '.'}
     ];
     var data = [
@@ -310,19 +280,18 @@ function layoutCompound() {
 
     for (var i = 0; i < compoundOptions.length; i++) {
         var option = compoundOptions[i];
-    console.log(option);
         var sentenceContainer = document.createElementNS(svgNS, 'svg');
+        sentenceContainer.style.display = 'block';
         sentenceContainer.setAttribute('xmlns', svgNS);
         sentenceContainer.setAttribute('xmlns:xlink', xlinkns);
         sentenceContainer.setAttribute('version', '1.1');
         sentenceContainer.setAttribute('preserveAspectRatio', 'none');
-        sentenceContainer.setAttribute('viewBox', '0 0 100 100');
+        sentenceContainer.setAttribute('viewBox', [-padding, -padding, 100 + 2 * padding, 100 + 2 * padding].join(' '));
         sentenceContainer.setAttribute('width', '' + option.size[0] * 100);
         sentenceContainer.setAttribute('height', '' + option.size[1] * 100);
         sentenceContainer.style.overflow = 'visible';
         renderOption(option, sentenceContainer);
         document.getElementById('sitelen').appendChild(sentenceContainer);
-
     }
 
 }
