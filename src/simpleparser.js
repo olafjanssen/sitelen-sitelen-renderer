@@ -194,24 +194,16 @@ function renderOption(option, target, position, sizeParent) {
         container.style.top = position[1] + 'em';
     }
     if (sizeParent) {
+        console.log(sizeParent, option.size);
         sizeMultiplier = sizeParent[0] / option.size[0];
-        container.style.width = option.size[0] * 100 / sizeParent[0] + '%';
-        container.style.height = option.size[1] * 100 / sizeParent[1] + '%';
     }
-    if (option.separator) {
-        container.setAttribute('data-toki-container', option.separator);
-    }
+
     container.style.width = sizeMultiplier * option.size[0] + 'em';
     container.style.height = sizeMultiplier * option.size[1] + 'em';
 
-    // why does it not work?
-    //if (sizeParent) {
-    //    container.style.width = option.size[0] * 100 / sizeParent[0] + '%';
-    //    container.style.height = option.size[1] * 100 / sizeParent[1] + '%';
-    //} else {
-    //    container.style.width =  option.size[0] + 'em';
-    //    container.style.height = option.size[1] + 'em';
-    //}
+    if (option.separator) {
+        container.setAttribute('data-toki-container', option.separator);
+    }
 
     sizeMultiplier = (option.separator ? 0.8 : 1);
 
@@ -275,16 +267,16 @@ function layoutCompound() {
 
     go(0, []);
 
-    for (var i = 0; i < compoundOptions.length; i++) {
-        var option = compoundOptions[i];
+    //for (var i = 0; i < compoundOptions.length; i++) {
+    var option = compoundOptions[1];
 
-        var sentenceContainer = document.createElement('div');
-        sentenceContainer.classList.add('toki-sentence');
-        sentenceContainer.style.width = option.size[0] + 'em';
-        sentenceContainer.style.height = option.size[1] + 'em';
-        renderOption(option, sentenceContainer);
-        document.getElementById('sitelen').appendChild(sentenceContainer);
-    }
+    var sentenceContainer = document.createElement('div');
+    sentenceContainer.classList.add('toki-sentence');
+    sentenceContainer.style.width = option.size[0] + 'em';
+    sentenceContainer.style.height = option.size[1] + 'em';
+    renderOption(option, sentenceContainer);
+    document.getElementById('sitelen').appendChild(sentenceContainer);
+    //}
 
 }
 
