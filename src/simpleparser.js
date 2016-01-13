@@ -1,5 +1,7 @@
 "use strict";
 
+var svgNS = "http://www.w3.org/2000/svg",
+    xlinkns = "http://www.w3.org/1999/xlink";
 
 function layoutContainer(units) {
 
@@ -185,43 +187,77 @@ function convertNounPhrase(tokens) {
 }
 
 function renderOption(option, target, position, sizeParent) {
-    var container = document.createElement('div'),
-        sizeMultiplier = 1;
-    container.classList.add('toki-nounphrase');
+    var padding = 0;
+    var container = target;
 
     if (position) {
-        container.style.left = position[0] + 'em';
-        container.style.top = position[1] + 'em';
+        container = document.createElementNS(svgNS, 'svg');
+        container.style.overflow = 'visible';
+        var wh = [option.size[0] * 100 / sizeParent[0], option.size[1] * 100 / sizeParent[1]];
+        console.log(position, option.size, sizeParent, wh);
+        container.setAttribute('preserveAspectRatio', 'none');
+        container.setAttribute('width', '' + (2 * padding + wh[0]));
+        container.setAttribute('height', '' + (2 * padding + wh[1]));
+        container.setAttribute('x', '' + (position[0] * 100 / sizeParent[0] - padding));
+        container.setAttribute('y', '' + (position[1] * 100 / sizeParent[1] - padding));
+        container.setAttribute('viewBox', '0 0 100 100');
+        target.appendChild(container);
     }
-    if (sizeParent) {
-        console.log(sizeParent, option.size);
-        sizeMultiplier = sizeParent[0] / option.size[0];
-    }
-
-    container.style.width = sizeMultiplier * option.size[0] + 'em';
-    container.style.height = sizeMultiplier * option.size[1] + 'em';
-
-    if (option.separator) {
-        container.setAttribute('data-toki-container', option.separator);
-    }
-
-    sizeMultiplier = (option.separator ? 0.8 : 1);
 
     option.state.units.forEach(function (glyph) {
         if (glyph.unit.rule === 'word-glyph') {
-            var element = document.createElement('div');
-            element.style.width = glyph.size[0] * 100 / option.size[0] * sizeMultiplier + '%';
-            element.style.height = glyph.size[1] * 100 / option.size[1] * sizeMultiplier + '%';
-            element.style.left = (option.separator ? 10 : 0) + glyph.position[0] * 100 / option.size[0] * sizeMultiplier + '%';
-            element.style.top = (option.separator ? 10 : 0) + glyph.position[1] * 100 / option.size[1] * sizeMultiplier + '%';
-            element.setAttribute('data-toki-word', glyph.unit.token);
-            container.appendChild(element);
+            var use = document.createElementNS(svgNS, 'use');
+            use.setAttributeNS(xlinkns, 'href', '#tp-wg-' + glyph.unit.token);
+            use.setAttribute('width', '' + (padding + glyph.size[0] * 100 / option.size[0]));
+            use.setAttribute('height', '' + (padding + glyph.size[1] * 100 / option.size[1]));
+            use.setAttribute('x', '' + (glyph.position[0] / option.size[0] * wh[0] - padding / 2));
+            use.setAttribute('y', '' + (glyph.position[1] / option.size[1] * wh[1] - padding / 2));
+            container.appendChild(use);
         } else {
-            renderOption(glyph.unit, container, glyph.position, glyph.size);
+            renderOption(glyph.unit, container, glyph.position, option.size);
         }
     });
-    target.appendChild(container);
+
 }
+
+//function renderOption(option, target, position, sizeParent) {
+//    var container = document.createElement('div'),
+//        sizeMultiplier = 1;
+//    container.classList.add('toki-nounphrase');
+//
+//    if (position) {
+//        container.style.left = position[0] + 'em';
+//        container.style.top = position[1] + 'em';
+//    }
+//    if (sizeParent) {
+//        console.log(sizeParent, option.size);
+//        sizeMultiplier = sizeParent[0] / option.size[0];
+//    }
+//
+//    container.style.width = sizeMultiplier * option.size[0] + 'em';
+//    container.style.height = sizeMultiplier * option.size[1] + 'em';
+//
+//    if (option.separator) {
+//        container.setAttribute('data-toki-container', option.separator);
+//    }
+//
+//    sizeMultiplier = (option.separator ? 0.8 : 1);
+//
+//    option.state.units.forEach(function (glyph) {
+//        if (glyph.unit.rule === 'word-glyph') {
+//            var element = document.createElement('div');
+//            element.style.width = glyph.size[0] * 100 / option.size[0] * sizeMultiplier + '%';
+//            element.style.height = glyph.size[1] * 100 / option.size[1] * sizeMultiplier + '%';
+//            element.style.left = (option.separator ? 10 : 0) + glyph.position[0] * 100 / option.size[0] * sizeMultiplier + '%';
+//            element.style.top = (option.separator ? 10 : 0) + glyph.position[1] * 100 / option.size[1] * sizeMultiplier + '%';
+//            element.setAttribute('data-toki-word', glyph.unit.token);
+//            container.appendChild(element);
+//        } else {
+//            renderOption(glyph.unit, container, glyph.position, glyph.size);
+//        }
+//    });
+//    target.appendChild(container);
+//}
 
 
 var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
@@ -231,10 +267,10 @@ var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
 
 function layoutCompound() {
     var sentence = [
-        {part: 'subject', tokens: ['jan', 'utala', 'lili']},
-        {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']},
-        {part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']},
-        {part: 'punctuation', token: '.'}
+        {part: 'subject', tokens: ['jan', 'pona']},
+        {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']}
+        //{part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']},
+        //{part: 'punctuation', token: '.'}
     ];
     var data = [
         ['jan', 'utala', 'pona'],
@@ -267,16 +303,26 @@ function layoutCompound() {
 
     go(0, []);
 
-    //for (var i = 0; i < compoundOptions.length; i++) {
-    var option = compoundOptions[1];
+    for (var i = 0; i < compoundOptions.length; i++) {
+        var option = compoundOptions[i];
 
-    var sentenceContainer = document.createElement('div');
-    sentenceContainer.classList.add('toki-sentence');
-    sentenceContainer.style.width = option.size[0] + 'em';
-    sentenceContainer.style.height = option.size[1] + 'em';
-    renderOption(option, sentenceContainer);
-    document.getElementById('sitelen').appendChild(sentenceContainer);
-    //}
+        var sentenceContainer = document.createElementNS(svgNS, 'svg');
+        sentenceContainer.setAttribute('xmlns', svgNS);
+        sentenceContainer.setAttribute('xmlns:xlink', xlinkns);
+        sentenceContainer.setAttribute('version', '1.1');
+        sentenceContainer.setAttribute('preserveAspectRatio', 'none');
+        sentenceContainer.setAttribute('viewBox', '0 0 100 100');
+        sentenceContainer.setAttribute('width', '' + option.size[0] * 100);
+        sentenceContainer.setAttribute('height', '' + option.size[1] * 100);
+        sentenceContainer.style.overflow = 'visible';
+        renderOption(option, sentenceContainer);
+        document.getElementById('sitelen').appendChild(sentenceContainer);
+
+        //var paper = Raphael("sitelen", option.size[0]*100, option.size[1]*100, function(){
+
+        //});
+
+    }
 
 }
 
@@ -284,67 +330,6 @@ function layoutCompound() {
 setTimeout(function () {
     //convertNounPhrase(tokens);
     layoutCompound();
-}, 500);
+}, 100);
 
-
-//function convertToInstructions(structuredSentence) {
-//
-//    var instructions = [],
-//        size;
-//
-//    structuredSentence.forEach(function (part) {
-//
-//        switch (part.part) {
-//            case 'subject':
-//            case 'verbPhrase':
-//            case 'directObject':
-//                instructions.push.apply(instructions, convertNounPhrase(part));
-//                break;
-//            case 'punctuation':
-//                instructions.push({rule: 'addPunctuation', glyph: part.token === '.' ? 'period' : '', size: 'wide'});
-//                break;
-//            default:
-//                console.log('ERR: unknown part');
-//                break;
-//        }
-//    });
-//
-//    // determine container sizes
-//    for (var i = 0; i < instructions.length; i++) {
-//        if (instructions[i].rule === 'openContainer') {
-//            var closure = 0, regularGlyphs = 0, narrowGlyphs = 0;
-//            for (var j = i; j < instructions.length; j++) {
-//                switch (instructions[j].rule) {
-//                    case 'openContainer':
-//                        closure++;
-//                        break;
-//                    case 'closeContainer':
-//                        closure--;
-//                        if (closure === 0) {
-//                            // round narrow glyphs
-//                            var roundglyphs = Math.round(regularGlyphs + narrowGlyphs / 2);
-//                            // add metadata to the container
-//                            instructions[i].size = roundglyphs === 1 ? 'regular' :
-//                                roundglyphs > 3 || (roundglyphs === 3 && narrowGlyphs === 1) ? 'double' : 'wide';
-//                            instructions[i].children = roundglyphs;
-//                            closure = -1;
-//                        }
-//                        break;
-//                    case 'addGlyph':
-//                        // narrow glyphs only count as half
-//                        if (narrowModifiers.indexOf(instructions[j].glyph) > -1) {
-//                            narrowGlyphs++;
-//                        } else {
-//                            regularGlyphs++;
-//                        }
-//                        break;
-//                }
-//                if (closure === -1) {
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//    return instructions;
-//}
 
