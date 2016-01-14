@@ -1,10 +1,5 @@
 "use strict";
 
-var svgNS = "http://www.w3.org/2000/svg",
-    xlinkns = "http://www.w3.org/1999/xlink";
-
-var padding = 0;
-
 function layoutContainer(units) {
 
     var options = [], hash = {}, minSurface = 1e6;
@@ -154,113 +149,11 @@ function layoutContainer(units) {
     return options;
 }
 
-function convertNounPhrase(tokens) {
-    var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
-        narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
-        options;
-
-    function getSizeOf(token) {
-        if (smallModifiers.indexOf(token) > -1) {
-            return [1, 0.5];
-        } else if (narrowModifiers.indexOf(token) > -1) {
-            return [0.5, 1];
-        } else {
-            return [1, 1];
-        }
-    }
-
-    var units = [];
-    tokens.forEach(function (token) {
-        units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
-    });
-
-    options = layoutContainer(units);
-
-    return options;
-}
-
-function renderOption(option, target, position, sizeParent, sizeParent2) {
-    var container = target;
-
-    if (position) {
-        container = document.createElementNS(svgNS, 'svg');
-        container.style.overflow = 'visible';
-        var box = [position[0] * 100 / sizeParent2[0],
-            position[1] * 100 / sizeParent2[1],
-            sizeParent[0] * 100 / sizeParent2[0],
-            sizeParent[1] * 100 / sizeParent2[1]
-        ];
-
-        var scale = 1.1;
-        var c = [box[0] + box[2] / 2, box[1] + box[3] / 2];
-        var matrix = [scale, 0, 0, scale, c[0] - scale * c[0], c[1] - scale * c[1]];
-
-        if (option.separator) {
-
-            var use = document.createElementNS(svgNS, 'use');
-            use.setAttribute('transform', 'matrix(' + matrix.join(',') + ')');
-            use.setAttributeNS(xlinkns, 'href', '#tp-wg-' + option.separator + (option.ratio > 1.5 ? '-wide' : option.ratio < 0.667 ? '-tall' : ''));
-            use.setAttribute('preserveAspectRatio', 'none');
-            use.setAttribute('width', '' + box[2]);
-            use.setAttribute('height', '' + box[3]);
-            use.setAttribute('x', '' + box[0]);
-            use.setAttribute('y', '' + box[1]);
-            use.setAttribute('viewBox', [0, 0, 100, 100].join(' '));
-            //target.appendChild(use);
-            target.insertBefore(use, target.firstChild);
-        }
-
-        container.setAttribute('preserveAspectRatio', 'none');
-        container.setAttribute('width', '' + box[2]);
-        container.setAttribute('height', '' + box[3]);
-        container.setAttribute('x', '' + box[0]);
-        container.setAttribute('y', '' + box[1]);
-        container.setAttribute('transform', 'matrix(' + matrix.join(',') + ')');
-        var scale2 = option.separator ? 1.3 : 1;
-        container.setAttribute('viewBox', [-(100 * scale2 - 100) / 2, -(100 * scale2 - 100) / 2, 100 * scale2, 100 * scale2].join(' '));
-        //container.setAttribute('viewBox',[0, 0, 100, 100].join(' '));
-        target.appendChild(container);
-
-    }
-
-    option.state.units.forEach(function (glyph) {
-        if (glyph.unit.rule === 'word-glyph') {
-            var use = document.createElementNS(svgNS, 'use');
-            var box = [(glyph.position[0] * 100 / option.size[0]),
-                (glyph.position[1] * 100 / option.size[1]),
-                (glyph.size[0] * 100 / option.size[0]),
-                (glyph.size[1] * 100 / option.size[1])
-            ];
-
-            use.setAttributeNS(xlinkns, 'href', '#tp-wg-' + glyph.unit.token);
-            use.setAttribute('width', '' + box[2]);
-            use.setAttribute('height', '' + box[3]);
-            use.setAttribute('x', '' + box[0]);
-            use.setAttribute('y', '' + box[1]);
-
-            var scale = 1.2;
-            var c = [box[0] + box[2] / 2, box[1] + box[3] / 2];
-            var matrix = [scale, 0, 0, scale, c[0] - scale * c[0], c[1] - scale * c[1]];
-
-            use.setAttribute('transform', 'matrix(' + matrix.join(',') + ')');
-            container.appendChild(use);
-        } else {
-            renderOption(glyph.unit, container, glyph.position, glyph.size, option.size);
-        }
-    });
-
-}
-
-var tokens = ['jan', 'tu', 'utala', 'mute', 'pona', 'wan', 'lili', 'wan'];
-//var tokens = ['jan', 'utala', 'pona', 'mi', 'wan'];
-//var tokens = ['jan', 'lili', 'pona'];
-//tokens = 'kili suli pona mi'.split(' ');
-
 function layoutCompound() {
     var sentence = [
         {part: 'subject', tokens: ['jan', 'utala', 'pona', 'mi']},
-        {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']}
-        //{part: 'directObject', sep: ['e-wide'], tokens: ['tenpo', 'suwi', 'mute']}
+        {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']},
+        {part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']}
         //{part: 'punctuation', token: '.'}
     ];
     var data = [
@@ -296,46 +189,38 @@ function layoutCompound() {
 
     compoundOptions.sort(function (a, b) {
         var optimal = 0.9;
-        return Math.abs(optimal-a.ratio) - Math.abs(optimal-b.ratio);
+        return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
     });
 
-    for (var i = 0; i < compoundOptions.length; i++) {
-        var option = compoundOptions[i];
-        console.log(option.surface, option.normedRatio);
-        var sentenceContainer = document.createElementNS(svgNS, 'svg');
-        sentenceContainer.style.display = 'block';
-        sentenceContainer.setAttribute('xmlns', svgNS);
-        sentenceContainer.setAttribute('xmlns:xlink', xlinkns);
-        sentenceContainer.setAttribute('version', '1.1');
-
-        var box = [0, 0,
-            option.size[0] * 100,
-            option.size[1] * 100
-        ];
-
-        var scale = 1.2;
-        var c = [box[0] + box[2] / 2, box[1] + box[3] / 2];
-        var matrix = [scale, 0, 0, scale, c[0] - scale * c[0], c[1] - scale * c[1]];
-        sentenceContainer.setAttribute('viewBox', [-(box[2] * scale - box[2]) / 2, -(box[3] * scale - box[3]) / 2, box[2] * scale, box[3] * scale].join(' '));
-
-        var innerContainer = document.createElementNS(svgNS, 'svg');
-        innerContainer.setAttribute('preserveAspectRatio', 'none');
-        innerContainer.setAttribute('width', '' + box[2]);
-        innerContainer.setAttribute('height', '' + box[3]);
-        innerContainer.style.overflow = 'visible';
-        innerContainer.setAttribute('viewBox', [0, 0, 100, 100].join(' '));
-
-        renderOption(option, innerContainer);
-
-        sentenceContainer.appendChild(innerContainer);
-        document.getElementById('sitelen').appendChild(sentenceContainer);
-    }
-
+    renderOptions(compoundOptions);
 }
 
+function convertNounPhrase(tokens) {
+    var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
+        narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
+        options;
+
+    function getSizeOf(token) {
+        if (smallModifiers.indexOf(token) > -1) {
+            return [1, 0.5];
+        } else if (narrowModifiers.indexOf(token) > -1) {
+            return [0.5, 1];
+        } else {
+            return [1, 1];
+        }
+    }
+
+    var units = [];
+    tokens.forEach(function (token) {
+        units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
+    });
+
+    options = layoutContainer(units);
+
+    return options;
+}
 
 setTimeout(function () {
-    //convertNounPhrase(tokens);
     layoutCompound();
 }, 100);
 
