@@ -174,29 +174,17 @@ function convertNounPhrase(tokens) {
         units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
     });
 
-    console.log(units);
     options = layoutContainer(units);
-
-    //options.sort(function (a, b) {
-    //    return a.surface - b.surface;
-    //});
-    //
-    //options.forEach(function (option) {
-    //    renderOption(option);
-    //});
 
     return options;
 }
 
 function renderOption(option, target, position, sizeParent, sizeParent2) {
     var container = target;
-    var padding = [0, 0];//[10 / option.ratio, 10];
-    var contpad = padding;
 
     if (position) {
         container = document.createElementNS(svgNS, 'svg');
         container.style.overflow = 'visible';
-        var wh = [sizeParent[0] * 100 / sizeParent2[0], sizeParent[1] * 100 / sizeParent2[1]];
         var box = [position[0] * 100 / sizeParent2[0],
             position[1] * 100 / sizeParent2[1],
             sizeParent[0] * 100 / sizeParent2[0],
@@ -228,7 +216,7 @@ function renderOption(option, target, position, sizeParent, sizeParent2) {
         container.setAttribute('x', '' + box[0]);
         container.setAttribute('y', '' + box[1]);
         container.setAttribute('transform', 'matrix(' + matrix.join(',') + ')');
-        var scale2 = option.separator?1.3:1;
+        var scale2 = option.separator ? 1.3 : 1;
         container.setAttribute('viewBox', [-(100 * scale2 - 100) / 2, -(100 * scale2 - 100) / 2, 100 * scale2, 100 * scale2].join(' '));
         //container.setAttribute('viewBox',[0, 0, 100, 100].join(' '));
         target.appendChild(container);
@@ -237,7 +225,6 @@ function renderOption(option, target, position, sizeParent, sizeParent2) {
 
     option.state.units.forEach(function (glyph) {
         if (glyph.unit.rule === 'word-glyph') {
-            var padding = [0, 0];
             var use = document.createElementNS(svgNS, 'use');
             var box = [(glyph.position[0] * 100 / option.size[0]),
                 (glyph.position[1] * 100 / option.size[1]),
@@ -307,15 +294,19 @@ function layoutCompound() {
 
     go(0, []);
 
+    compoundOptions.sort(function (a, b) {
+        var optimal = 0.9;
+        return Math.abs(optimal-a.ratio) - Math.abs(optimal-b.ratio);
+    });
+
     for (var i = 0; i < compoundOptions.length; i++) {
         var option = compoundOptions[i];
-        var padding = [0, 0]; //[10 / option.ratio, 10];
+        console.log(option.surface, option.normedRatio);
         var sentenceContainer = document.createElementNS(svgNS, 'svg');
         sentenceContainer.style.display = 'block';
         sentenceContainer.setAttribute('xmlns', svgNS);
         sentenceContainer.setAttribute('xmlns:xlink', xlinkns);
         sentenceContainer.setAttribute('version', '1.1');
-        sentenceContainer.setAttribute('preserveAspectRatio', 'none');
 
         var box = [0, 0,
             option.size[0] * 100,
@@ -325,11 +316,18 @@ function layoutCompound() {
         var scale = 1.2;
         var c = [box[0] + box[2] / 2, box[1] + box[3] / 2];
         var matrix = [scale, 0, 0, scale, c[0] - scale * c[0], c[1] - scale * c[1]];
-        sentenceContainer.setAttribute('viewBox', [-(100 * scale - 100) / 2, -(100 * scale - 100) / 2, 100 * scale, 100 * scale].join(' '));
-        sentenceContainer.setAttribute('width', '' + box[2]);
-        sentenceContainer.setAttribute('height', '' + box[3]);
-        sentenceContainer.style.overflow = 'visible';
-        renderOption(option, sentenceContainer);
+        sentenceContainer.setAttribute('viewBox', [-(box[2] * scale - box[2]) / 2, -(box[3] * scale - box[3]) / 2, box[2] * scale, box[3] * scale].join(' '));
+
+        var innerContainer = document.createElementNS(svgNS, 'svg');
+        innerContainer.setAttribute('preserveAspectRatio', 'none');
+        innerContainer.setAttribute('width', '' + box[2]);
+        innerContainer.setAttribute('height', '' + box[3]);
+        innerContainer.style.overflow = 'visible';
+        innerContainer.setAttribute('viewBox', [0, 0, 100, 100].join(' '));
+
+        renderOption(option, innerContainer);
+
+        sentenceContainer.appendChild(innerContainer);
         document.getElementById('sitelen').appendChild(sentenceContainer);
     }
 
