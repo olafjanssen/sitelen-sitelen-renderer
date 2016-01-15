@@ -192,7 +192,7 @@ function layoutCompound() {
         return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
     });
 
-    renderOptions(compoundOptions);
+    sitelenRenderer.renderLayoutOption(compoundOptions[0], document.getElementById('sitelen'));
 }
 
 function convertNounPhrase(tokens) {
@@ -219,9 +219,4 @@ function convertNounPhrase(tokens) {
 
     return options;
 }
-
-setTimeout(function () {
-    layoutCompound();
-}, 100);
-
 
