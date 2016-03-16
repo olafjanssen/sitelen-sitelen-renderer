@@ -189,17 +189,17 @@ function preformat(text) {
 
                 parsableSentence.push({content: commapart});
                 if (index < commaparts.length - 1) {
-                    parsableSentence.push({punctuation: ','});
+                    parsableSentence.push({punctuation: ['comma']});
                 }
             });
 
             if (index < colonparts.length - 1) {
-                parsableSentence.push({punctuation: ':'});
+                parsableSentence.push({punctuation: ['semicolon']});
             }
         });
 
         var terminator = sentence.substr(-1);
-        parsableSentence.push({punctuation: terminator});
+        parsableSentence.push({punctuation: ['period']});
 
     });
 
@@ -222,7 +222,7 @@ function parseSentence(sentence) {
             }
             structuredSentence.push.apply(structuredSentence, parseHash[key]);
         } else if (part.punctuation) {
-            structuredSentence.push({part: 'punctuation', token: part.punctuation});
+            structuredSentence.push({part: 'punctuation', tokens: part.punctuation});
         }
     });
 

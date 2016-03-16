@@ -1,9 +1,18 @@
 <html>
 <head>
-    <link rel="stylesheet" href="styles/sitelen.css">
+    <!--<link rel="stylesheet" href="styles/sitelen.css">-->
     <script type="text/javascript" src="src/ckyparser.js"></script>
     <script type="text/javascript" src="src/simpleparser.js"></script>
     <script type="text/javascript" src="src/renderer.js"></script>
+    <style>
+        #sitelen {
+            transition: background-color 0.25s ease;
+            background-color: transparent;
+            border-radius: 1em;
+            margin: 0 auto;
+            width: 20em;
+        }
+    </style>
 </head>
 <body>
 <input type="text" id="tokiInput">
@@ -13,6 +22,17 @@
 </div>
 
 <script>
+    var xhr = new XMLHttpRequest;
+    xhr.open('get', 'images/sprite.css.svg', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
+        var svg = xhr.responseXML.documentElement;
+        svg = document.importNode(svg, true); // surprisingly optional in these browsers
+        document.body.appendChild(svg);
+    };
+    xhr.send();
+
+
     window.onload = function () {
 
         document.getElementById('tokiInput').addEventListener('input', function (e) {
@@ -28,22 +48,26 @@
             var parsableText = preformat(text);
             parsableText.forEach(function (sentence) {
                 var structuredSentence = parseSentence(sentence);
-                addSentence(convertToInstructions(structuredSentence));
+                console.log(structuredSentence);
+                renderStaticSentence(structuredSentence, 0.8);
+
+//                renderInteractiveSentence(structuredSentence);
+//                addSentence(convertToInstructions(structuredSentence));
             });
         }
 
         var text = "tenpo pi lili mi la mi lukin e sitelen pona. akesi linja li moku e soweli suli. ni li sitelen. " +
                 "lipu li toki e ni: “akesi linja li moku li tawa ala e nena uta. ona li moku la ona li lape.” mi pilin pona tan ni. mi pali e sitelen pi nanpa wan." +
                 "mi toki tawa jan suli: o lukin! sina pilin ike ala pilin ike tan sitelen ni?" +
-                "ona li toki: mi pilin ike tan len lawa anu seme?" +
-                "sitelen mi li ala e len lawa. sitelen mi li ni: akesi linja li moku e soweli suli mute." +
-                "jan suli li sona taso e toki pona. mi pali e sitelen pi nanpa tu. ona li insa pi akesi linja." +
-                "jan suli li toki: o pali ala e sitelen akesi anu insa akesi. o sona e sona nanpa e sona ma e sona tenpo e sona toki!" +
-                "jan suli li pilin ike tawa sitelen mi la mi pali ala e sitelen sin." +
-                "mi pali e ijo ante. mi kepeken e tomo tawa kon. ni li lon: sona ma li pona tawa mi. mi ken sona e ante pi ma Kina en ma Alisona. tenpo pimeja la sona ni li pona." +
-                "tenpo lili la mi sona mute e jan suli. taso, mi pilin ike tan ni!" +
-                "tenpo ijo la mi pilin e ni: jan suli ni li pona. mi pana e sitelen pi nanpa wan tawa ona. mi wile sona e ni: jan ni li jo ala jo e pi sona pona?" +
-                "tenpo ali la jan suli li toki: ni li len lawa. mi toki ala e akesi e ma kasi e sike sewi lili tawa ona tan ni. mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa. jan suli li pilin pona tawa mi tan ni.";
+                "ona li toki: mi pilin ike tan len lawa anu seme?";// +
+//                "sitelen mi li ala e len lawa. sitelen mi li ni: akesi linja li moku e soweli suli mute.";// +
+//                "jan suli li sona taso e toki pona. mi pali e sitelen pi nanpa tu. ona li insa pi akesi linja." +
+//                "jan suli li toki: o pali ala e sitelen akesi anu insa akesi. o sona e sona nanpa e sona ma e sona tenpo e sona toki!" +
+//                "jan suli li pilin ike tawa sitelen mi la mi pali ala e sitelen sin." +
+//                "mi pali e ijo ante. mi kepeken e tomo tawa kon. ni li lon: sona ma li pona tawa mi. mi ken sona e ante pi ma Kina en ma Alisona. tenpo pimeja la sona ni li pona." +
+//                "tenpo lili la mi sona mute e jan suli. taso, mi pilin ike tan ni!" +
+//                "tenpo ijo la mi pilin e ni: jan suli ni li pona. mi pana e sitelen pi nanpa wan tawa ona. mi wile sona e ni: jan ni li jo ala jo e pi sona pona?" +
+//                "tenpo ali la jan suli li toki: ni li len lawa. mi toki ala e akesi e ma kasi e sike sewi lili tawa ona tan ni. mi toki e musi pi jan suli e nasin wawa e len pi anpa lawa. jan suli li pilin pona tawa mi tan ni.";
 
 
 //        //var text = "tenpo suno pi nanpa tu tu tu la jan sewi li pali e soweli mute. mi moku, la mi pilin pona. ona li pali e soweli pi pona lukin e soweli pi ike lukin. ona li pona, ona li pali e soweli wawa e soweli wawa ala. tenpo suno ni la jan sewi li pali kin e jan. jan sewi li pali pini. ona li toki e ni: jan li pona.";

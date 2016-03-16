@@ -168,6 +168,7 @@ function convertNounPhrase(tokens) {
     }
 
     var units = [];
+    console.log(tokens);
     tokens.forEach(function (token) {
         units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
     });
@@ -181,6 +182,7 @@ function layoutCompound(sentence) {
     var hashMap = [], compoundOptions = [];
 
     sentence.forEach(function (part) {
+        console.log(part);
         var npOptions = convertNounPhrase(part.tokens);
         hashMap.push({sep: part.sep, options: npOptions});
     });
@@ -205,6 +207,19 @@ function layoutCompound(sentence) {
     return compoundOptions;
 }
 
+function renderStaticSentence(sentence, optimalRatio){
+    var sorter = function(optimal){
+        return function (a, b) {
+            return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+        };
+    };
+
+    var compoundOptions = layoutCompound(sentence);
+    compoundOptions.sort(sorter(optimalRatio));
+
+    sitelenRenderer.renderLayoutOption(compoundOptions[0], document.getElementById('sitelen'));
+}
+
 function renderInteractiveSentence(sentence){
     var compound = document.createElement('div');
     var sorter = function(optimal){
@@ -219,7 +234,6 @@ function renderInteractiveSentence(sentence){
     compoundOptions.sort(sorter(0.8));
 
     sitelenRenderer.renderLayoutOption(compoundOptions[0], compound);
-
 
     compound.addEventListener('mousemove', function (event) {
         var optimal = 0.5 + 1.5 * ((event.clientX-compound.offsetLeft)/compound.clientWidth);
