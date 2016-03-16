@@ -6,8 +6,15 @@
 
     <style>
         #sitelen {
+            transition: background-color 0.25s ease;
+            background-color: transparent;
+            border-radius: 1em;
             margin: 0 auto;
             width: 20em;
+        }
+
+        #sitelen:hover {
+            background-color: lightgreen;
         }
     </style>
 </head>
@@ -24,7 +31,15 @@
     xhr.send();
 
     setTimeout(function(){
-        layoutCompound();
+
+        var sentence = [
+            {part: 'subject', tokens: ['jan', 'utala', 'pona', 'mi']},
+            {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']},
+            {part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']},
+            {part: 'punctuation', tokens: ['period']}
+        ];
+
+        renderInteractiveSentence(sentence);
     }, 500);
 </script>
 

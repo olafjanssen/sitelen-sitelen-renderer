@@ -16,6 +16,11 @@ $syl-list: o a e i;
   flex-direction: column;
   flex-wrap: wrap;
   height: 100%;
+
+  &:hover {
+    background-color: lightgreen;
+    border-radius: 1em;
+  }
 }
 
 /* ----- */

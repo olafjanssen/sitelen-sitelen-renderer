@@ -164,6 +164,8 @@ var sitelenRenderer = function () {
 
         sentenceContainer.appendChild(innerContainer);
         target.appendChild(sentenceContainer);
+
+        return sentenceContainer;
     }
 
     function renderOptions(compoundOptions) {

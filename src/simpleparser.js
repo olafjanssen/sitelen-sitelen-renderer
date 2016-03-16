@@ -149,23 +149,38 @@ function layoutContainer(units) {
     return options;
 }
 
-function layoutCompound() {
-    var sentence = [
-        {part: 'subject', tokens: ['jan', 'utala', 'pona', 'mi']},
-        {part: 'verbPhrase', sep: ['li'], tokens: ['wile', 'jo']},
-        {part: 'directObject', sep: ['e'], tokens: ['tenpo', 'suwi', 'mute']}
-        //{part: 'punctuation', token: '.'}
-    ];
-    var data = [
-        ['jan', 'utala', 'pona'],
-        ['wile', 'moku'],
-        ['kili', 'suwi']
-    ], hashMap = [], compoundOptions = [];
+function convertNounPhrase(tokens) {
+    var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
+        narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
+        punctuation = ['period', 'comma'],
+        options;
+
+    function getSizeOf(token) {
+        if (punctuation.indexOf(token) > -1) {
+            return [4, 0.5];
+        } else if (smallModifiers.indexOf(token) > -1) {
+            return [1, 0.5];
+        } else if (narrowModifiers.indexOf(token) > -1) {
+            return [0.5, 1];
+        } else {
+            return [1, 1];
+        }
+    }
+
+    var units = [];
+    tokens.forEach(function (token) {
+        units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
+    });
+
+    options = layoutContainer(units);
+
+    return options;
+}
+
+function layoutCompound(sentence) {
+    var hashMap = [], compoundOptions = [];
 
     sentence.forEach(function (part) {
-        if (part.part === 'punctuation') {
-            return;
-        }
         var npOptions = convertNounPhrase(part.tokens);
         hashMap.push({sep: part.sep, options: npOptions});
     });
@@ -187,36 +202,29 @@ function layoutCompound() {
 
     go(0, []);
 
-    compoundOptions.sort(function (a, b) {
-        var optimal = 0.9;
-        return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
-    });
-
-    sitelenRenderer.renderLayoutOption(compoundOptions[0], document.getElementById('sitelen'));
+    return compoundOptions;
 }
 
-function convertNounPhrase(tokens) {
-    var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
-        narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
-        options;
+function renderInteractiveSentence(sentence){
+    var compound = document.createElement('div');
+    var sorter = function(optimal){
+        return function (a, b) {
+            return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+        };
+    };
 
-    function getSizeOf(token) {
-        if (smallModifiers.indexOf(token) > -1) {
-            return [1, 0.5];
-        } else if (narrowModifiers.indexOf(token) > -1) {
-            return [0.5, 1];
-        } else {
-            return [1, 1];
-        }
-    }
+    document.getElementById('sitelen').appendChild(compound);
 
-    var units = [];
-    tokens.forEach(function (token) {
-        units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
+    var compoundOptions = layoutCompound(sentence);
+    compoundOptions.sort(sorter(0.8));
+
+    sitelenRenderer.renderLayoutOption(compoundOptions[0], compound);
+
+
+    compound.addEventListener('mousemove', function (event) {
+        var optimal = 0.5 + 1.5 * ((event.clientX-compound.offsetLeft)/compound.clientWidth);
+        compoundOptions.sort(sorter(optimal));
+        compound.innerHTML = "";
+        sitelenRenderer.renderLayoutOption(compoundOptions[0], compound);
     });
-
-    options = layoutContainer(units);
-
-    return options;
 }
-
