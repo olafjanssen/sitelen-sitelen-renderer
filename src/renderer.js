@@ -115,7 +115,8 @@ var sitelenRenderer = function () {
                     y: box[1]
                 }, {}, svgNS);
 
-                container.appendChild(use);
+                container.insertBefore(use, container.firstChild);
+
             } else {
                 renderPartOption(glyph.unit, container, settings, glyph.position, glyph.size, option.size);
             }
