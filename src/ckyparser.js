@@ -115,8 +115,6 @@ function getStructuredSentence(parseTable) {
 
         steps++;
 
-        console.log(rule, token, steps);
-
         if (rule === 'Pred' && part.tokens.length > 0) {
             sentence.push({part: 'verbPhrase', sep: foundLi ? 'li' : '', tokens: []});
             part = sentence[sentence.length - 1];

@@ -168,7 +168,7 @@ function convertNounPhrase(tokens) {
     }
 
     var units = [];
-    console.log(tokens);
+
     tokens.forEach(function (token) {
         units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
     });
@@ -182,7 +182,10 @@ function layoutCompound(sentence) {
     var hashMap = [], compoundOptions = [];
 
     sentence.forEach(function (part) {
-        console.log(part);
+        // TODO: ignore punctuation for now, when that's fixed remove this line
+        if (part.part === 'punctuation'){
+            return;
+        }
         var npOptions = convertNounPhrase(part.tokens);
         hashMap.push({sep: part.sep, options: npOptions});
     });
