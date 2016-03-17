@@ -65,12 +65,29 @@ describe("Testing Noun Phrases", function () {
         expect(JSON.stringify(structuredSentence)).toBe(JSON.stringify(structured));
     });
 
-    it("jan pona li pona -- Noun Modifier li Verb", function () {
+    it("jan pona li pona", function () {
         var text = 'jan pona li pona',
             tokenized = [[{content: 'jan pona li pona'},{punctuation: ['period']}]],
             structured = [
                 {part: 'subject', tokens: ['jan', 'pona']},
                 {part: 'verbPhrase', sep: 'li', tokens: ['pona']},
+                {part: 'punctuation', tokens: ['period']}
+            ];
+
+        var parsableText = preformat(text);
+        var structuredSentence = parseSentence(parsableText[0]);
+
+        expect(JSON.stringify(parsableText)).toBe(JSON.stringify(tokenized));
+        expect(JSON.stringify(structuredSentence)).toBe(JSON.stringify(structured));
+    });
+
+    it("jan li toki e kili", function () {
+        var text = 'jan li toki e kili',
+            tokenized = [[{content: 'jan li toki e kili'},{punctuation: ['period']}]],
+            structured = [
+                {part: 'subject', tokens: ['jan']},
+                {part: 'verbPhrase', sep: 'li', tokens: ['toki']},
+                {part: 'directObject', sep: 'e', tokens: ['kili']},
                 {part: 'punctuation', tokens: ['period']}
             ];
 

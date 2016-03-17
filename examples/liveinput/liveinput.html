@@ -5,6 +5,14 @@
     <script type="text/javascript" src="../../src/simpleparser.js"></script>
     <script type="text/javascript" src="../../src/renderer.js"></script>
     <style>
+        h1 {
+            font-family: sans-serif;
+            text-align: center;
+            font-size: 1.5em;
+            margin: 1em auto;
+            display: block;
+        }
+
         #sitelen {
             transition: background-color 0.25s ease;
             background-color: transparent;
@@ -13,15 +21,22 @@
             width: 20em;
         }
 
+        #sitelen:hover {
+            background-color: #efe;
+            border-radius: 1em;
+        }
+
         #tokiInput {
-            margin: 1em;
-            width: 50em;
+            margin: 2em auto;
+            display: block;
             font-size: 1em;
+            width: 20em;
         }
     </style>
 </head>
 <body>
-<input type="text" id="tokiInput">
+<h1>Live Toki Pona Sitelen Sitelen Renderer</h1>
+<input type="text" id="tokiInput" placeholder="write toki pona here">
 
 <div id="sitelen">
 
@@ -43,15 +58,22 @@
     xhr.send();
 
     window.onload = function () {
-        document.getElementById('tokiInput').addEventListener('input', function (e) {
-            var text = document.getElementById('tokiInput').value
+        var input = document.getElementById('tokiInput');
+        input.addEventListener('input', renderInput);
+
+        function renderInput() {
+            var text = input.value
             var parsableText = preformat(text);
 
             var structuredSentence = parseSentence(parsableText[0]);
             console.log(structuredSentence);
             document.getElementById('sitelen').innerHTML = '';
             renderInteractiveSentence(structuredSentence);
-        });
+        }
+
+        input.value = 'jan lili li sona ala e ike.';
+        renderInput();
+
     };
 </script>
 </body>
