@@ -115,7 +115,9 @@ function getStructuredSentence(parseTable) {
 
         steps++;
 
-        if (rule === 'Pred') {
+        console.log(rule, token, steps);
+
+        if (rule === 'Pred' && part.tokens.length > 0) {
             sentence.push({part: 'verbPhrase', sep: foundLi ? 'li' : '', tokens: []});
             part = sentence[sentence.length - 1];
         }
@@ -141,7 +143,6 @@ function getStructuredSentence(parseTable) {
     }
 
     traverseParseTable(parseTable, 0, parseTable.length - 1, 0, 0);
-
     return steps === 0 ? null : sentence;
 }
 
@@ -155,7 +156,7 @@ function loadTokiPonaGrammar() {
             ckyparser.setGrammar(grammar);
         }
     };
-    xmlhttp.open("GET", "toki-pona-cnf-grammar.txt", true);
+    xmlhttp.open("GET", "toki-pona-cnf-grammar.txt", false);
     xmlhttp.send();
 }
 
@@ -167,7 +168,10 @@ function preformat(text) {
     var result = text.match(/[^\.!\?]+[\.!\?]+/g);
 
     var parsableParts = [];
-
+    if (!result) { // allow sentence fractions without any punctuation
+        result = [text + '.'];
+        console.log('WARNING: sentence fraction without punctuation');
+    }
     result.forEach(function (sentence) {
         sentence = sentence.trim();
 
@@ -207,9 +211,10 @@ function preformat(text) {
 }
 
 var parseHash = JSON.parse(localStorage.getItem('parseHash'));
-
+parseHash = parseHash ? parseHash : {};
 
 function parseSentence(sentence) {
+
     var structuredSentence = [];
 
     sentence.forEach(function (part) {
@@ -217,6 +222,7 @@ function parseSentence(sentence) {
             var key = part.content, value = [];
             if (!parseHash[key]) {
                 var parseTable = ckyparser.getParse(part.content);
+
                 value = getStructuredSentence(parseTable);
                 parseHash[key] = value;
             }

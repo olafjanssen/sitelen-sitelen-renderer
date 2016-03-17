@@ -1,0 +1,58 @@
+<html>
+<head>
+    <!--<link rel="stylesheet" href="styles/sitelen.css">-->
+    <script type="text/javascript" src="../../src/ckyparser.js"></script>
+    <script type="text/javascript" src="../../src/simpleparser.js"></script>
+    <script type="text/javascript" src="../../src/renderer.js"></script>
+    <style>
+        #sitelen {
+            transition: background-color 0.25s ease;
+            background-color: transparent;
+            border-radius: 1em;
+            margin: 0 auto;
+            width: 20em;
+        }
+
+        #tokiInput {
+            margin: 1em;
+            width: 50em;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="tokiInput">
+
+<div id="sitelen">
+
+</div>
+
+<div>
+    https://api.github.com/repos/olafjanssen/sitelensitelenrenderer/issues
+</div>
+
+<script>
+    var xhr = new XMLHttpRequest;
+    xhr.open('get', '../../images/sprite.css.svg', true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
+        var svg = xhr.responseXML.documentElement;
+        svg = document.importNode(svg, true); // surprisingly optional in these browsers
+        document.body.appendChild(svg);
+    };
+    xhr.send();
+
+    window.onload = function () {
+        document.getElementById('tokiInput').addEventListener('input', function (e) {
+            var text = document.getElementById('tokiInput').value
+            var parsableText = preformat(text);
+
+            var structuredSentence = parseSentence(parsableText[0]);
+            console.log(structuredSentence);
+            document.getElementById('sitelen').innerHTML = '';
+            renderInteractiveSentence(structuredSentence);
+        });
+    };
+</script>
+</body>
+</html>
