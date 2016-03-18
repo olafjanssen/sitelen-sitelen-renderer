@@ -249,6 +249,15 @@ function renderInteractiveSentence(sentence) {
     render(0.8);
 
     function render(optimal) {
+        var tokens = [];
+        sentence.forEach(function(part){
+           part.tokens.forEach(function(token){
+              tokens.push(token);
+           });
+        });
+
+        var filename = tokens.join('-') + '.svg';
+
         compoundOptions.sort(sorter(optimal));
         compound.innerHTML = "";
         sitelenRenderer.renderLayoutOption(compoundOptions[0], compound, settings);
@@ -257,7 +266,7 @@ function renderInteractiveSentence(sentence) {
         var pom = document.createElement('a');
         pom.innerHTML = 'download as SVG';
         pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        pom.setAttribute('download', text + '.svg');
+        pom.setAttribute('download', filename);
         compound.appendChild(pom);
     }
 }
