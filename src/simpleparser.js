@@ -10,10 +10,7 @@ function layoutContainer(units) {
         var minSize = 1;
         option.state.units.forEach(function (glyph) {
             if (glyph.size[0] < minSize) {
-                minSize = glyph.size[0];
-            }
-            if (glyph.size[1] < minSize) {
-                minSize = glyph.size[1];
+                minSize = Math.max(glyph.size[0], glyph.size[1]);
             }
         });
 
@@ -182,19 +179,16 @@ function layoutCompound(sentence) {
     var hashMap = [], compoundOptions = [];
 
     sentence.forEach(function (part) {
-        // TODO: ignore punctuation for now, when that's fixed remove this line
-        if (part.part === 'punctuation') {
-            return;
-        }
         var npOptions = convertNounPhrase(part.tokens);
-        hashMap.push({sep: part.sep, options: npOptions});
+        hashMap.push({part: part.part, sep: part.sep, options: npOptions});
     });
 
     function go(index, units) {
         hashMap[index].options.forEach(function (option) {
             var newIndex = index + 1,
                 newUnits = units.slice(0);
-            option.type = 'container';
+
+            option.type = hashMap[index].part === 'punctuation' ? 'punctuation' : 'container';
             option.separator = hashMap[index].sep;
             newUnits.push(option);
             if (newIndex < hashMap.length) {
@@ -250,10 +244,10 @@ function renderInteractiveSentence(sentence) {
 
     function render(optimal) {
         var tokens = [];
-        sentence.forEach(function(part){
-           part.tokens.forEach(function(token){
-              tokens.push(token);
-           });
+        sentence.forEach(function (part) {
+            part.tokens.forEach(function (token) {
+                tokens.push(token);
+            });
         });
 
         var filename = tokens.join('-') + '.svg';

@@ -12,9 +12,9 @@ var sitelenRenderer = function () {
 
         // include in document for efficient rendering of non-exportable sitelen TODO does not work
         var newsvg = document.importNode(svg, false); // surprisingly optional in these browsers
-        setTimeout(function(){
+        setTimeout(function () {
             document.body.appendChild(newsvg);
-        },0);
+        }, 0);
 
     };
     xhr.send();
@@ -95,7 +95,7 @@ var sitelenRenderer = function () {
 
             container = createNewElement('svg', {
                 transform: 'matrix(' + matrix.join(',') + ')',
-                viewBox: [-(100 * containerScale - 100) / 2, -(100 * containerScale - 100) / 2, 100 * containerScale, 100 * containerScale].join(' '),
+                viewBox: [-(100 * containerScale - 100) / 2, (option.type === 'punctuation' ? 30 : 0) - (100 * containerScale - 100) / 2, 100 * containerScale, 100 * containerScale].join(' '),
                 preserveAspectRatio: 'none',
                 height: box[3],
                 width: box[2],
@@ -105,7 +105,11 @@ var sitelenRenderer = function () {
                 overflow: 'visible'
             }, svgNS);
 
-            target.appendChild(container);
+            if (option.type === 'punctuation') {
+                target.insertBefore(container, target.firstChild);
+            } else {
+                target.appendChild(container);
+            }
         }
 
         option.state.units.forEach(function (glyph) {
@@ -192,7 +196,7 @@ var sitelenRenderer = function () {
             [].slice.call(sentenceContainer.getElementsByTagName('use')).forEach(function (use) {
                 var symbolId = use.getAttribute('href');
                 var symbol = sprite.querySelector(symbolId);
-                if (symbol){
+                if (symbol) {
                     sentenceContainer.appendChild(symbol.cloneNode(true));
                 } else {
                     console.log('WARNING: symbol ' + symbolId + ' cannot be found.')

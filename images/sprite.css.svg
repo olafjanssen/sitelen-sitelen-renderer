@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <symbol viewBox="-2 -2 269 38" preserveAspectRatio="none" id="tp-wg-period">
+        <g id="period" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+            <path d="M262.707 22.562c0 5.074-3.526 9.188-7.875 9.188H10.375c-4.35 0-7.875-4.113-7.875-9.188 0-5.074 3.526-9.188 7.875-9.188h244.457c4.35 0 7.875 4.114 7.875 9.188z"/>
+            <path d="M262.707 11.688c0 5.074-3.526 9.188-7.875 9.188H10.375c-4.35 0-7.875-4.113-7.875-9.188S6.026 2.5 10.375 2.5h244.457c4.35 0 7.875 4.113 7.875 9.188z"/>
+        </g>
+        <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+    </symbol>
     <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-wg-a">
         <g id="aaa">
             <path d="M122.5 62.5v30c0 16.57-13.43 30-30 30h-60c-16.57 0-30-13.43-30-30v-30c0-33.137 26.863-60 60-60s60 26.863 60 60z"
