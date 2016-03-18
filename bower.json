@@ -1,7 +1,6 @@
 {
   "name": "sitelensitelenrenderer",
-  "description": "HTML, CSS, SVG renderer of Sitelen Sitelen or Sitelen Suwi style of Toki Pona text.",
-  "main": "karma.conf.js",
+  "description": "SVG renderer of Sitelen Sitelen or Sitelen Suwi style of Toki Pona text.",
   "authors": [
     "Olaf T.A. Janssen <o.t.a.janssen@gmail.com> (http://nullelement.org/)"
   ],
