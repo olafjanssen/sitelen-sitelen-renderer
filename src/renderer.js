@@ -10,11 +10,11 @@ var sitelenRenderer = function () {
         var svg = xhr.responseXML.documentElement;
         sprite = svg;
 
-        // include in document for efficient rendering of non-exportable sitelen
-        svg = document.importNode(svg, false); // surprisingly optional in these browsers
+        // include in document for efficient rendering of non-exportable sitelen TODO does not work
+        var newsvg = document.importNode(svg, false); // surprisingly optional in these browsers
         setTimeout(function(){
-            document.body.appendChild(svg);
-        },100);
+            document.body.appendChild(newsvg);
+        },0);
 
     };
     xhr.send();

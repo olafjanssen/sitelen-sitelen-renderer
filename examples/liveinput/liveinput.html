@@ -35,6 +35,10 @@
             font-size: 1em;
             width: 20em;
         }
+
+        #known-issues a {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +86,8 @@
 
             data.forEach(function (issue) {
                 var link = document.createElement('a');
-                link.setAttribute('href', issue.url);
+                link.setAttribute('href', issue.html_url);
+                link.setAttribute('target','_blank');
                 link.innerText = issue.title;
 
                 document.getElementById('known-issues').appendChild(link);

@@ -213,7 +213,7 @@ function layoutCompound(sentence) {
     return compoundOptions;
 }
 
-function renderStaticSentence(sentence, optimalRatio) {
+function renderStaticSentence(sentence, target, optimalRatio) {
     var sorter = function (optimal) {
         return function (a, b) {
             return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
@@ -223,7 +223,7 @@ function renderStaticSentence(sentence, optimalRatio) {
     var compoundOptions = layoutCompound(sentence);
     compoundOptions.sort(sorter(optimalRatio));
 
-    sitelenRenderer.renderLayoutOption(compoundOptions[0], document.getElementById('sitelen'));
+    sitelenRenderer.renderLayoutOption(compoundOptions[0], target, {exportable: true});
 }
 
 function renderInteractiveSentence(sentence) {
