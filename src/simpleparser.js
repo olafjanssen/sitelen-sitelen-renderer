@@ -183,7 +183,7 @@ function layoutCompound(sentence) {
 
     sentence.forEach(function (part) {
         // TODO: ignore punctuation for now, when that's fixed remove this line
-        if (part.part === 'punctuation'){
+        if (part.part === 'punctuation') {
             return;
         }
         var npOptions = convertNounPhrase(part.tokens);
@@ -205,13 +205,16 @@ function layoutCompound(sentence) {
         });
     }
 
-    go(0, []);
-
+    if (hashMap.length > 0) {
+        go(0, []);
+    } else {
+        console.log('WARNING: empty text to layout');
+    }
     return compoundOptions;
 }
 
-function renderStaticSentence(sentence, optimalRatio){
-    var sorter = function(optimal){
+function renderStaticSentence(sentence, optimalRatio) {
+    var sorter = function (optimal) {
         return function (a, b) {
             return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
         };
@@ -223,25 +226,38 @@ function renderStaticSentence(sentence, optimalRatio){
     sitelenRenderer.renderLayoutOption(compoundOptions[0], document.getElementById('sitelen'));
 }
 
-function renderInteractiveSentence(sentence){
-    var compound = document.createElement('div');
-    var sorter = function(optimal){
-        return function (a, b) {
-            return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+function renderInteractiveSentence(sentence) {
+    var compound = document.createElement('div'),
+        settings = {exportable: true},
+        sorter = function (optimal) {
+            return function (a, b) {
+                return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+            };
         };
-    };
 
     document.getElementById('sitelen').appendChild(compound);
 
     var compoundOptions = layoutCompound(sentence);
-    compoundOptions.sort(sorter(0.8));
-
-    sitelenRenderer.renderLayoutOption(compoundOptions[0], compound);
 
     compound.addEventListener('mousemove', function (event) {
-        var optimal = 0.5 + 1.5 * ((event.clientX-compound.offsetLeft)/compound.clientWidth);
+        if (event.clientY - compound.offsetTop < 150) {
+            var optimal = 0.5 + 1.5 * ((event.clientX - compound.offsetLeft) / compound.clientWidth);
+            render(optimal);
+        }
+    });
+
+    render(0.8);
+
+    function render(optimal) {
         compoundOptions.sort(sorter(optimal));
         compound.innerHTML = "";
-        sitelenRenderer.renderLayoutOption(compoundOptions[0], compound);
-    });
+        sitelenRenderer.renderLayoutOption(compoundOptions[0], compound, settings);
+
+        var text = document.getElementById('sitelen').firstElementChild.innerHTML;
+        var pom = document.createElement('a');
+        pom.innerHTML = 'download as SVG';
+        pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        pom.setAttribute('download', text + '.svg');
+        compound.appendChild(pom);
+    }
 }

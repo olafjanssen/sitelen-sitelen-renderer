@@ -5,9 +5,12 @@
     <script type="text/javascript" src="../../src/simpleparser.js"></script>
     <script type="text/javascript" src="../../src/renderer.js"></script>
     <style>
-        h1 {
+        body {
             font-family: sans-serif;
             text-align: center;
+        }
+
+        h1 {
             font-size: 1.5em;
             margin: 1em auto;
             display: block;
@@ -42,31 +45,23 @@
 
 </div>
 
-<div>
-    https://api.github.com/repos/olafjanssen/sitelensitelenrenderer/issues
+<div id="issue-container">
+    <h2>Known issues</h2>
+    <div id="known-issues">
+
+    </div>
 </div>
 
 <script>
-    var xhr = new XMLHttpRequest;
-    xhr.open('get', '../../images/sprite.css.svg', true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) return;
-        var svg = xhr.responseXML.documentElement;
-        svg = document.importNode(svg, true); // surprisingly optional in these browsers
-        document.body.appendChild(svg);
-    };
-    xhr.send();
-
     window.onload = function () {
         var input = document.getElementById('tokiInput');
         input.addEventListener('input', renderInput);
 
         function renderInput() {
-            var text = input.value
+            var text = input.value;
             var parsableText = preformat(text);
 
             var structuredSentence = parseSentence(parsableText[0]);
-            console.log(structuredSentence);
             document.getElementById('sitelen').innerHTML = '';
             renderInteractiveSentence(structuredSentence);
         }
@@ -76,5 +71,29 @@
 
     };
 </script>
+
+<script>
+    function loadIssues() {
+        var xhr = new XMLHttpRequest;
+        xhr.open('get', 'https://api.github.com/repos/olafjanssen/sitelensitelenrenderer/issues', true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState != 4) return;
+            var data = JSON.parse(xhr.responseText);
+
+            data.forEach(function (issue) {
+                var link = document.createElement('a');
+                link.setAttribute('href', issue.url);
+                link.innerText = issue.title;
+
+                document.getElementById('known-issues').appendChild(link);
+            });
+
+        };
+        xhr.send();
+    }
+
+    loadIssues();
+</script>
+
 </body>
 </html>

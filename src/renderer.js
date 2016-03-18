@@ -1,6 +1,24 @@
 var sitelenRenderer = function () {
     "use strict";
 
+    var sprite;
+    // load the rendering set
+    var xhr = new XMLHttpRequest;
+    xhr.open('get', '../../images/sprite.css.svg', false);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState != 4) return;
+        var svg = xhr.responseXML.documentElement;
+        sprite = svg;
+
+        // include in document for efficient rendering of non-exportable sitelen
+        svg = document.importNode(svg, false); // surprisingly optional in these browsers
+        setTimeout(function(){
+            document.body.appendChild(svg);
+        },100);
+
+    };
+    xhr.send();
+
     var svgNS = "http://www.w3.org/2000/svg",
         xlinkNS = "http://www.w3.org/1999/xlink";
 
@@ -131,6 +149,10 @@ var sitelenRenderer = function () {
      * @param settings  rendering settings
      */
     function renderSentenceOption(option, target, settings) {
+        if (!option) {
+            console.log('WARNING: nothing to render');
+            return;
+        }
         if (!settings) {
             settings = {};
         }
@@ -164,6 +186,20 @@ var sitelenRenderer = function () {
         renderPartOption(option, innerContainer, settings);
 
         sentenceContainer.appendChild(innerContainer);
+
+        // add template stamps so it can be downloaded/exported without the sprite svg
+        if (settings.exportable) {
+            [].slice.call(sentenceContainer.getElementsByTagName('use')).forEach(function (use) {
+                var symbolId = use.getAttribute('href');
+                var symbol = sprite.querySelector(symbolId);
+                if (symbol){
+                    sentenceContainer.appendChild(symbol.cloneNode(true));
+                } else {
+                    console.log('WARNING: symbol ' + symbolId + ' cannot be found.')
+                }
+            });
+        }
+
         target.appendChild(sentenceContainer);
 
         return sentenceContainer;
@@ -172,7 +208,7 @@ var sitelenRenderer = function () {
     function renderOptions(compoundOptions) {
         compoundOptions.forEach(function (option) {
             renderSentenceOption(option, document.getElementById('sitelen'),
-                {scale: 1.2});
+                {scale: 1.2, exportable: true});
         });
     }
 
