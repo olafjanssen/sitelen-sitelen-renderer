@@ -95,7 +95,7 @@ var sitelenRenderer = function () {
 
             container = createNewElement('svg', {
                 transform: 'matrix(' + matrix.join(',') + ')',
-                viewBox: [-(100 * containerScale - 100) / 2, (option.type === 'punctuation' ? 30 : 0) - (100 * containerScale - 100) / 2, 100 * containerScale, 100 * containerScale].join(' '),
+                viewBox: [-(100 * containerScale - 100) / 2, (option.type === 'punctuation' ? 20 : 0) - (100 * containerScale - 100) / 2, 100 * containerScale, 100 * containerScale].join(' '),
                 preserveAspectRatio: 'none',
                 height: box[3],
                 width: box[2],
@@ -143,6 +143,77 @@ var sitelenRenderer = function () {
                 renderPartOption(glyph.unit, container, settings, glyph.position, glyph.size, option.size);
             }
         });
+
+    }
+
+    function renderComplexLayout(options, target, settings) {
+        if (!settings) {
+            settings = {};
+        }
+        if (!settings.scale) {
+            settings.scale = 1.2;
+        }
+
+        var xSize = 0, ySize = 0;
+        options.forEach(function (option) {
+            xSize = Math.max(xSize, option.size[0]);
+        });
+        options.forEach(function (option) {
+            ySize += option.size[1] * xSize/option.size[0];
+        });
+
+        var box = [0, 0,
+                xSize * 100,
+                ySize * 100
+            ],
+            sentenceContainer = createNewElement('svg',
+                {
+                    xmlns: svgNS,
+                    'xmlns:xlink': xlinkNS,
+                    version: 1.1,
+                    viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scale - box[3]) / 2, box[2] * settings.scale, box[3] * settings.scale].join(' ')
+                }, {
+                    display: 'block'
+                }, svgNS);
+
+        var yPos = 0;
+        options.forEach(function (option, index) {
+            var box = [0, 0, xSize * 100, option.size[1] * xSize/option.size[0] * 100],
+                innerContainer = createNewElement('svg',
+                    {
+                        width: box[2],
+                        height: box[3],
+                        viewBox: [0, 0, 100, 100].join(' '),
+                        y: yPos,
+                        preserveAspectRatio: 'none'
+                    }, {
+                        overflow: 'visible'
+                    }, svgNS);
+
+            yPos += box[3];
+
+            renderPartOption(option, innerContainer, settings);
+
+            sentenceContainer.appendChild(innerContainer);
+        });
+
+
+        // add template stamps so it can be downloaded/exported without the sprite svg
+        if (settings.exportable) {
+            [].slice.call(sentenceContainer.getElementsByTagName('use')).forEach(function (use) {
+                var symbolId = use.getAttribute('href');
+                var symbol = sprite.querySelector(symbolId);
+                if (symbol) {
+                    sentenceContainer.appendChild(symbol.cloneNode(true));
+                } else {
+                    console.log('WARNING: symbol ' + symbolId + ' cannot be found.')
+                }
+            });
+        }
+
+        target.appendChild(sentenceContainer);
+
+        return sentenceContainer;
 
     }
 
@@ -217,6 +288,7 @@ var sitelenRenderer = function () {
     }
 
     return {
-        renderLayoutOption: renderSentenceOption
+        renderLayoutOption: renderSentenceOption,
+        renderComplexLayout: renderComplexLayout
     };
 }();

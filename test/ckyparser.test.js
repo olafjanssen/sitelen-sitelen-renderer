@@ -20,6 +20,21 @@ beforeEach(function () {
 });
 
 describe("Testing Noun Phrases", function () {
+    it("mi pona e ale mi, la mi pona e mi.", function () {
+       var text = 'mi pona e ale mi, la mi pona e mi.',
+           tokenized = [[{content: 'mi pona e ale mi la mi pona e mi'},{punctuation: ['period']}]],
+           structured = [
+               {part: 'subject', tokens: ['jan']},
+               {part: 'punctuation', tokens: ['period']}
+           ];
+
+       var parsableText = preformat(text);
+       var structuredSentence = parseSentence(parsableText[0]);
+
+       expect(JSON.stringify(parsableText)).toBe(JSON.stringify(tokenized));
+       expect(JSON.stringify(structuredSentence)).toBe(JSON.stringify(structured));
+    });
+
     //it("tenpo pi lili mi la mi lukin e sitelen pona.", function () {
     //    var text = 'tenpo pi lili mi la mi lukin e sitelen pona.',
     //        tokenized = [[{content: 'tenpo pi lili mi la mi lukin e sitelen pona'},{punctuation: ['period']}]],

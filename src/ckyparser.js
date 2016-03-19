@@ -113,6 +113,8 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
+        console.log(token, rule);
+
         steps++;
 
         if (rule === 'Pred' && part.tokens.length > 0) {
@@ -183,20 +185,27 @@ function preformat(text) {
         body = body.replace(', li ', ' li ');
 
         // split on context separators comma and colon
-        var colonparts = body.split(/:/);
-        colonparts.forEach(function (colonpart, index) {
-            var commaparts = colonpart.split(/,/);
-            commaparts.forEach(function (commapart, index) {
-                commapart = commapart.trim();
+        var laparts = body.split(/ la /);
+        laparts.forEach(function (lapart, index) {
+            console.log(lapart);
+            var colonparts = lapart.split(/:/);
+            colonparts.forEach(function (colonpart, index) {
+                var commaparts = colonpart.split(/,/);
+                commaparts.forEach(function (commapart, index) {
+                    commapart = commapart.trim();
 
-                parsableSentence.push({content: commapart});
-                if (index < commaparts.length - 1) {
-                    parsableSentence.push({punctuation: ['comma']});
+                    parsableSentence.push({content: commapart});
+                    if (index < commaparts.length - 1) {
+                        parsableSentence.push({punctuation: ['comma']});
+                    }
+                });
+
+                if (index < colonparts.length - 1) {
+                    parsableSentence.push({punctuation: ['semicolon']});
                 }
             });
-
-            if (index < colonparts.length - 1) {
-                parsableSentence.push({punctuation: ['semicolon']});
+            if (laparts.length === 2 && index === 0) {
+                parsableSentence.push({punctuation: ['period']});
             }
         });
 

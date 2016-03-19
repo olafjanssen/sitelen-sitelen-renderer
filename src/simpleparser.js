@@ -1,6 +1,6 @@
 "use strict";
 
-function layoutContainer(units) {
+function layoutContainer(units, onlyDown) {
 
     var options = [], hash = {}, minSurface = 1e6;
 
@@ -207,17 +207,37 @@ function layoutCompound(sentence) {
     return compoundOptions;
 }
 
-function renderStaticSentence(sentence, target, optimalRatio) {
-    var sorter = function (optimal) {
-        return function (a, b) {
-            return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+function renderCompoundSentence(sentence, target, optimalRatio) {
+    var compounds = [];
+
+    // create sentence parts
+    var sentenceCompound = [];
+    sentence.forEach(function(part){
+        sentenceCompound.push(part);
+        if (part.part === 'punctuation') {
+            compounds.push(sentenceCompound);
+            sentenceCompound = [];
+        }
+    });
+    if (sentenceCompound.length>0){
+        compounds.push(sentenceCompound);
+    }
+
+    var bestOptions = [];
+    compounds.forEach(function(compound){
+        var sorter = function (optimal) {
+            return function (a, b) {
+                return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+            };
         };
-    };
 
-    var compoundOptions = layoutCompound(sentence);
-    compoundOptions.sort(sorter(optimalRatio));
+        var compoundOptions = layoutCompound(compound);
+        compoundOptions.sort(sorter(optimalRatio));
 
-    sitelenRenderer.renderLayoutOption(compoundOptions[0], target, {exportable: true});
+        bestOptions.push(compoundOptions[0]);
+    });
+
+    sitelenRenderer.renderComplexLayout(bestOptions, target, {exportable: true});
 }
 
 function renderInteractiveSentence(sentence) {
@@ -252,9 +272,8 @@ function renderInteractiveSentence(sentence) {
 
         var filename = tokens.join('-') + '.svg';
 
-        compoundOptions.sort(sorter(optimal));
         compound.innerHTML = "";
-        sitelenRenderer.renderLayoutOption(compoundOptions[0], compound, settings);
+        renderCompoundSentence(sentence, compound, optimal);
 
         var text = document.getElementById('sitelen').firstElementChild.innerHTML;
         var pom = document.createElement('a');
