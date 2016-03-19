@@ -150,11 +150,14 @@ function convertNounPhrase(tokens) {
     var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
         narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
         punctuation = ['period', 'comma'],
+        largePunctuation = ['la'],
         options;
 
     function getSizeOf(token) {
         if (punctuation.indexOf(token) > -1) {
             return [4, 0.5];
+        } else if (largePunctuation.indexOf(token) > -1) {
+            return [4, 0.75];
         } else if (smallModifiers.indexOf(token) > -1) {
             return [1, 0.5];
         } else if (narrowModifiers.indexOf(token) > -1) {
@@ -212,19 +215,19 @@ function renderCompoundSentence(sentence, target, optimalRatio) {
 
     // create sentence parts
     var sentenceCompound = [];
-    sentence.forEach(function(part){
+    sentence.forEach(function (part) {
         sentenceCompound.push(part);
         if (part.part === 'punctuation') {
             compounds.push(sentenceCompound);
             sentenceCompound = [];
         }
     });
-    if (sentenceCompound.length>0){
+    if (sentenceCompound.length > 0) {
         compounds.push(sentenceCompound);
     }
 
     var bestOptions = [];
-    compounds.forEach(function(compound){
+    compounds.forEach(function (compound) {
         var sorter = function (optimal) {
             return function (a, b) {
                 return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);

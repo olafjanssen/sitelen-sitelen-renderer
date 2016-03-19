@@ -113,8 +113,6 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
-        console.log(token, rule);
-
         steps++;
 
         if (rule === 'Pred' && part.tokens.length > 0) {
@@ -187,7 +185,6 @@ function preformat(text) {
         // split on context separators comma and colon
         var laparts = body.split(/ la /);
         laparts.forEach(function (lapart, index) {
-            console.log(lapart);
             var colonparts = lapart.split(/:/);
             colonparts.forEach(function (colonpart, index) {
                 var commaparts = colonpart.split(/,/);
@@ -205,7 +202,7 @@ function preformat(text) {
                 }
             });
             if (laparts.length === 2 && index === 0) {
-                parsableSentence.push({punctuation: ['period']});
+                parsableSentence.push({punctuation: ['la']});
             }
         });
 
