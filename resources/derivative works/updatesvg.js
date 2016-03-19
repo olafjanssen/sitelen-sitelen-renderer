@@ -13,7 +13,7 @@ var glob = require('glob');
 //});
 
 //var files = glob.sync('../../images/glyphs/tp-wg-pre-*.svg');
-var files = glob.sync('../../images/glyphs/tp-wg-la.svg');
+var files = glob.sync('../../images/glyphs/tp-wg-exclamation.svg');
 files.forEach(function (filename) {
     var token = filename.substring(26);
     console.log(token);

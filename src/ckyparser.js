@@ -207,7 +207,16 @@ function preformat(text) {
         });
 
         var terminator = sentence.substr(-1);
-        parsableSentence.push({punctuation: ['period']});
+        switch (terminator) {
+            case '.':
+                parsableSentence.push({punctuation: ['period']});
+                break;
+            case '!':
+                parsableSentence.push({punctuation: ['exclamation']});
+                break;
+            default:
+                break;
+        }
 
     });
 
