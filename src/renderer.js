@@ -153,6 +153,9 @@ var sitelenRenderer = function () {
         if (!settings.scale) {
             settings.scale = 1.2;
         }
+        if (!settings.scaleSkew) {
+            settings.scaleSkew = 1.3;
+        }
 
         var xSize = 0, ySize = 0;
         options.forEach(function (option) {
@@ -171,7 +174,7 @@ var sitelenRenderer = function () {
                     xmlns: svgNS,
                     'xmlns:xlink': xlinkNS,
                     version: 1.1,
-                    viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scale - box[3]) / 2, box[2] * settings.scale, box[3] * settings.scale].join(' ')
+                    viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scaleSkew - box[3]) / 2, box[2] * settings.scaleSkew, box[3] * settings.scale].join(' ')
                 }, {
                     display: 'block'
                 }, svgNS);

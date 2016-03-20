@@ -113,6 +113,8 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
+        console.log(token, rule);
+
         steps++;
 
         if (rule === 'Pred' && part.tokens.length > 0) {
@@ -122,6 +124,11 @@ function getStructuredSentence(parseTable) {
         if (rule === 'DO') {
             sentence.push({part: 'directObject', sep: 'e', tokens: []});
             part = sentence[sentence.length - 1];
+        }
+        if (rule === 'Prep') {
+            sentence.push({part: 'prepPhrase', sep: token, tokens: []});
+            part = sentence[sentence.length - 1];
+            return;
         }
 
         if (token === 'li') {
@@ -221,7 +228,7 @@ function preformat(text) {
 
     });
 
-    return { parsable: parsableParts, raw: rawParts };
+    return {parsable: parsableParts, raw: rawParts};
 }
 
 var parseHash = JSON.parse(localStorage.getItem('parseHash'));

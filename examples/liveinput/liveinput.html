@@ -63,14 +63,14 @@
 
         function renderInput() {
             var text = input.value;
-            var parsableText = preformat(text);
+            var preformattedText = preformat(text);
 
-            var structuredSentence = parseSentence(parsableText[0]);
+            var structuredSentence = parseSentence(preformattedText.parsable[0]);
             document.getElementById('sitelen').innerHTML = '';
             renderInteractiveSentence(structuredSentence);
         }
 
-        input.value = 'jan lili li sona ala e ike.';
+        input.value = 'mi toki lon toki pona'; //'jan lili li sona ala e ike.';
         renderInput();
 
     };

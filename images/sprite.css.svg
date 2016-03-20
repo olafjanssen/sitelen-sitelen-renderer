@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <symbol viewBox="-2 -2 138.394 285.546" preserveAspectRatio="none" id="tp-wg-lon-tall" style="overflow:visible;">
+        <g id="lon-tall" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10" transform="matrix(1.15 0 0 1.15 -10 -40)">
+            <path d="M131.894 246.698c0 17.866-14.483 32.348-32.348 32.348H34.848c-17.866 0-32.348-14.483-32.348-32.348V77.62c0-17.866 14.483-32.348 32.348-32.348h64.697c17.866 0 32.348 14.483 32.348 32.348v169.078z"/>
+            <path d="M82.16 22.27c18.876 3.643 30.864 12.55 30.864 25.877 0 16.278-24.98 8.626-45.827 29.473C46.35 56.773 21.37 64.425 21.37 48.147c0-13.18 12.375-22.184 30.934-25.952"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse cx="67.197" cy="26.222" rx="14.557" ry="23.722"/>
+        </g>
+        <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+    </symbol>
+    <symbol viewBox="-2 -2 272.053 149.572" preserveAspectRatio="none" id="tp-wg-lon-wide" style="overflow:visible;">
+        <g id="lon-wide" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10" transform="matrix(1.15 0 0 1.15 0 -20)">
+            <path d="M34.848 143.072c-17.866 0-32.348-14.483-32.348-32.348V46.026c0-17.866 14.483-32.348 32.348-32.348h169.078c17.866 0 32.348 14.483 32.348 32.348v64.697c0 17.866-14.483 32.348-32.348 32.348H34.848z"/>
+            <path d="M251.13 52.856c2.59 19.05-2.012 33.26-14.64 37.524-32.007 10.813-21.893-59.897-57.256-77.4l27.923-9.433c12.488-4.22 24.977 4.625 34.488 21"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse transform="rotate(-18.666 242.63 39.958)" cx="242.596" cy="39.946" rx="23.722" ry="14.557"/>
+        </g>
+        <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+    </symbol>
     <symbol viewBox="-2 -2 277.443 42.247" preserveAspectRatio="none" id="tp-wg-exclamation">
         <g id="exclamation" stroke="#000" stroke-miterlimit="10">
             <path fill="#FFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"
