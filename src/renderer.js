@@ -106,7 +106,6 @@ var sitelenRenderer = function () {
             }, svgNS);
 
             if (option.type === 'punctuation') {
-                console.log(container);
                 target.insertBefore(container, target.firstChild);
             } else {
                 target.appendChild(container);
@@ -215,7 +214,6 @@ var sitelenRenderer = function () {
         target.appendChild(sentenceContainer);
 
         return sentenceContainer;
-
     }
 
     /**

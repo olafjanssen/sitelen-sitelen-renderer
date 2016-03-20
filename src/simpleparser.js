@@ -240,7 +240,7 @@ function renderCompoundSentence(sentence, target, optimalRatio) {
         bestOptions.push(compoundOptions[0]);
     });
 
-    sitelenRenderer.renderComplexLayout(bestOptions, target, {exportable: true});
+    return sitelenRenderer.renderComplexLayout(bestOptions, target, {exportable: true});
 }
 
 function renderInteractiveSentence(sentence) {
@@ -285,4 +285,6 @@ function renderInteractiveSentence(sentence) {
         pom.setAttribute('download', filename);
         compound.appendChild(pom);
     }
+
+    return compound;
 }

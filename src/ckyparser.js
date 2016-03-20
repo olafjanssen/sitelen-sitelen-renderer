@@ -165,7 +165,7 @@ loadTokiPonaGrammar();
 function preformat(text) {
     var result = text.match(/[^\.!\?]+[\.!\?]+/g);
 
-    var parsableParts = [];
+    var parsableParts = [], rawParts = [];
     if (!result) { // allow sentence fractions without any punctuation
         result = [text + '.'];
         console.log('WARNING: sentence fraction without punctuation');
@@ -175,6 +175,7 @@ function preformat(text) {
 
         var parsableSentence = [];
         parsableParts.push(parsableSentence);
+        rawParts.push(sentence);
 
         var body = sentence.substr(0, sentence.length - 1);
 
@@ -220,7 +221,7 @@ function preformat(text) {
 
     });
 
-    return parsableParts;
+    return { parsable: parsableParts, raw: rawParts };
 }
 
 var parseHash = JSON.parse(localStorage.getItem('parseHash'));
