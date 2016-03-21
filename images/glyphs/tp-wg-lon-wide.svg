@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 272.053 149.572" preserveAspectRatio="none">
+    <g id="lon-wide" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+        <path d="M34.848 143.072c-17.866 0-32.348-14.483-32.348-32.348V46.026c0-17.866 14.483-32.348 32.348-32.348h169.078c17.866 0 32.348 14.483 32.348 32.348v64.697c0 17.866-14.483 32.348-32.348 32.348H34.848z"/>
+        <path d="M251.13 52.856c2.59 19.05-2.012 33.26-14.64 37.524-32.007 10.813-21.893-59.897-57.256-77.4l27.923-9.433c12.488-4.22 24.977 4.625 34.488 21"
+              stroke-linecap="round" stroke-linejoin="round"/>
+        <ellipse transform="rotate(-18.666 242.63 39.958)" cx="242.596" cy="39.946" rx="23.722" ry="14.557"/>
+    </g>
+    <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+</svg>

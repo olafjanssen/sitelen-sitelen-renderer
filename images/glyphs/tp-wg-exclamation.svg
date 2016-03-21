@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 277.443 42.247" preserveAspectRatio="none">
+    <g id="exclamation" stroke="#000" stroke-miterlimit="10">
+        <path fill="#FFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"
+              d="M35.128 20l9.48 14.746 11.707-14.85 9.428 14.85 10.568-14.85 10.57 14.85 9.427-14.85 11.707 14.85L117.497 20l9.483 14.746 11.706-14.85 9.43 14.85 10.566-14.85 10.568 14.85 9.43-14.85 11.705 14.85L199.868 20l9.483 14.746 11.708-14.85 9.428 14.85 10.568-14.85"/>
+        <path d="M31.5 19.624c0 10.562-6.492 16.123-14.5 16.123S2.5 30.187 2.5 19.624 8.992 2.5 17 2.5h239.443c8.008 0 14.5 6.56 14.5 17.124s-6.492 16.123-14.5 16.123-14.5-5.56-14.5-16.123"
+              fill="#FFF" stroke-width="5"/>
+        <path d="M252.84 19.043C239.09 20.127 88.428 20.75 71.31 20.75s-36.958-.623-50.71-1.707" fill="none"
+              stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+    <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+</svg>
