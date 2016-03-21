@@ -241,9 +241,23 @@ function parseSentence(sentence) {
         if (part.content) {
             var key = part.content, value = [];
             if (!parseHash[key]) {
+                // find proper names
+                var properNames = [];
+                part.content = part.content.replace(/([A-Z][\w-]*)/g, function (item) {
+                    properNames.push(item);
+                    return '\'Name\'';
+                });
                 var parseTable = ckyparser.getParse(part.content);
 
                 value = getStructuredSentence(parseTable);
+
+                value.forEach(function (part) {
+                    part.tokens.forEach(function (token, index) {
+                        if (token === '\'Name\'') {
+                            part.tokens[index] = properNames.shift();
+                        }
+                    });
+                });
                 parseHash[key] = value;
             }
             structuredSentence.push.apply(structuredSentence, parseHash[key]);
