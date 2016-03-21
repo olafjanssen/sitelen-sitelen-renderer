@@ -1,6 +1,7 @@
 'use strict';
 
 var ckyparser = function () {
+    localStorage.clear();
 
     var hashMap = {};
 
@@ -113,8 +114,6 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
-        console.log(token, rule);
-
         steps++;
 
         if (rule === 'Pred' && part.tokens.length > 0) {
@@ -174,7 +173,7 @@ function preformat(text) {
 
     var parsableParts = [], rawParts = [];
     if (!result) { // allow sentence fractions without any punctuation
-        result = [text + '.'];
+        result = [text + '|'];
         console.log('WARNING: sentence fraction without punctuation');
     }
     result.forEach(function (sentence) {

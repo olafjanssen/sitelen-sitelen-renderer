@@ -162,7 +162,7 @@ var sitelenRenderer = function () {
             xSize = Math.max(xSize, option.size[0]);
         });
         options.forEach(function (option) {
-            ySize += option.size[1] * xSize/option.size[0];
+            ySize += option.size[1] * xSize / option.size[0];
         });
 
         var box = [0, 0,
@@ -174,14 +174,15 @@ var sitelenRenderer = function () {
                     xmlns: svgNS,
                     'xmlns:xlink': xlinkNS,
                     version: 1.1,
-                    viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scaleSkew - box[3]) / 2, box[2] * settings.scaleSkew, box[3] * settings.scale].join(' ')
+                    preserveAspectRatio: 'xMidYMin meet',
+                    viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scaleSkew - box[3]) / 2, box[2] * settings.scaleSkew, box[3] * settings.scaleSkew].join(' ')
                 }, {
-                    display: 'block'
+                    display: 'block',
                 }, svgNS);
 
         var yPos = 0;
         options.forEach(function (option, index) {
-            var box = [0, 0, xSize * 100, option.size[1] * xSize/option.size[0] * 100],
+            var box = [0, 0, xSize * 100, option.size[1] * xSize / option.size[0] * 100],
                 innerContainer = createNewElement('svg',
                     {
                         width: box[2],
@@ -198,8 +199,11 @@ var sitelenRenderer = function () {
             renderPartOption(option, innerContainer, settings);
 
             sentenceContainer.appendChild(innerContainer);
+            requestAnimationFrame(function(){
+                var rect = sentenceContainer.getBoundingClientRect();
+                sentenceContainer.style.height = (rect.height / settings.scale) + 'px';
+            });
         });
-
 
         // add template stamps so it can be downloaded/exported without the sprite svg
         if (settings.exportable) {
