@@ -13,18 +13,28 @@
 
         h1 {
             font-size: 1.5em;
-            margin: 1em auto;
+            margin: 0.25em auto;
             display: block;
         }
 
         .sitelen-sitelen {
+            /*-webkit-column-count: 6;*/
+            justify-content: space-around;
+            flex-direction: column;
+            height: 55em;
+            flex-wrap: wrap;
             margin: 0 auto;
-            width: 10em;
+            display: flex;
         }
+
+        .sitelen-sitelen > svg {
+            width: 8em;
+        }
+
     </style>
 </head>
 <body>
-<h1>Toki Pona Sitelen Sitelen Renderer goes Proverbs</h1>
+<h1>Toki Pona Proverbs</h1>
 
 <div class="sitelen-sitelen">
     ale li jo e tenpo. ale li pona. toki pona li toki pona. ante li kama. ike li kama. jan li suli mute. mani li suli
@@ -38,7 +48,8 @@
 <script>
     window.onload = function () {
         [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(function (element) {
-            var text = element.innerText,
+            var text = element.textContent,
+                    text = text.replace(/\s\s+/g, ' '),
                     preformattedText = preformat(text);
             element.innerHTML = '';
 
