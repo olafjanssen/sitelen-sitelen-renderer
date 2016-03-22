@@ -236,7 +236,7 @@ function preformat(text) {
 }
 
 function postprocessing(sentence) {
-    var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa'],
+    var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'pi'],
         prepositionSplitIndex;
 
     // split prepositional phrases inside containers (such as the verb li-container)
