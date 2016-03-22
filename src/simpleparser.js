@@ -182,9 +182,8 @@ function layoutCompound(sentence) {
 
     sentence.forEach(function (part) {
         var npOptions = [];
-        if (part.length) {
-            console.log('skip array');
-            npOptions = layoutCompound(part);
+        if (part.parts) {
+            npOptions = layoutCompound(part.parts);
         } else {
             npOptions = convertNounPhrase(part.tokens);
         }

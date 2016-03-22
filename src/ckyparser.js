@@ -114,8 +114,6 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
-        console.log(token, rule);
-
         steps++;
 
         if (rule === 'Pred' && part.tokens.length > 0) {
@@ -236,7 +234,7 @@ function postprocessing(sentence) {
     var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa'],
         prepositionSplitIndex;
 
-    console.log(sentence);
+    // split prepositional phrases inside containers (such as the verb li-container)
     sentence.forEach(function (part, index) {
         prepositionSplitIndex = -1;
 
@@ -245,7 +243,6 @@ function postprocessing(sentence) {
                 prepositionSplitIndex = tokenIndex;
             }
         });
-        console.log(prepositionSplitIndex);
 
         if (prepositionSplitIndex > -1) {
             var newParts = [];
@@ -257,11 +254,10 @@ function postprocessing(sentence) {
                 sep: part.tokens[prepositionSplitIndex],
                 tokens: part.tokens.splice(prepositionSplitIndex + 1)
             });
-            console.log('NP:', newParts); sentence[index] = newParts;
-        }
 
+            sentence[index] = {part: part.part, sep:part.sep, parts: newParts};
+        }
     });
-    console.log(sentence);
     return sentence;
 }
 
@@ -286,6 +282,9 @@ function parseSentence(sentence) {
                 var parseTable = ckyparser.getParse(part.content);
 
                 value = getStructuredSentence(parseTable);
+                if (!value) {
+                    value = [];
+                }
 
                 value.forEach(function (part) {
                     part.tokens.forEach(function (token, index) {
