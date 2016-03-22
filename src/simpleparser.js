@@ -168,7 +168,6 @@ function convertNounPhrase(tokens) {
     }
 
     var units = [];
-
     tokens.forEach(function (token) {
         units.push({rule: 'word-glyph', token: token, size: getSizeOf(token)});
     });
@@ -182,7 +181,14 @@ function layoutCompound(sentence) {
     var hashMap = [], compoundOptions = [];
 
     sentence.forEach(function (part) {
-        var npOptions = convertNounPhrase(part.tokens);
+        var npOptions = [];
+        if (part.length) {
+            console.log('skip array');
+            npOptions = layoutCompound(part);
+        } else {
+            npOptions = convertNounPhrase(part.tokens);
+        }
+
         hashMap.push({part: part.part, sep: part.sep, options: npOptions});
     });
 
@@ -268,9 +274,11 @@ function renderInteractiveSentence(sentence) {
     function render(optimal) {
         var tokens = [];
         sentence.forEach(function (part) {
-            part.tokens.forEach(function (token) {
-                tokens.push(token);
-            });
+            if (part.tokens) {
+                part.tokens.forEach(function (token) {
+                    tokens.push(token);
+                });
+            }
         });
 
         var filename = tokens.join('-') + '.svg';

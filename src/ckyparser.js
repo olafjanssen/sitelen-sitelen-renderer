@@ -114,6 +114,8 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
+        console.log(token, rule);
+
         steps++;
 
         if (rule === 'Pred' && part.tokens.length > 0) {
@@ -230,6 +232,40 @@ function preformat(text) {
     return {parsable: parsableParts, raw: rawParts};
 }
 
+function postprocessing(sentence) {
+    var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa'],
+        prepositionSplitIndex;
+
+    console.log(sentence);
+    sentence.forEach(function (part, index) {
+        prepositionSplitIndex = -1;
+
+        part.tokens.forEach(function (token, tokenIndex) {
+            if (prepositionContainers.indexOf(token) > -1 && tokenIndex < part.tokens.length - 1) {
+                prepositionSplitIndex = tokenIndex;
+            }
+        });
+        console.log(prepositionSplitIndex);
+
+        if (prepositionSplitIndex > -1) {
+            var newParts = [];
+            if (prepositionSplitIndex > 0) {
+                newParts.push({part: part.part, tokens: part.tokens.splice(0, prepositionSplitIndex)});
+            }
+            newParts.push({
+                part: part.part,
+                sep: part.tokens[prepositionSplitIndex],
+                tokens: part.tokens.splice(prepositionSplitIndex + 1)
+            });
+            console.log('NP:', newParts); sentence[index] = newParts;
+        }
+
+    });
+    console.log(sentence);
+    return sentence;
+}
+
+
 var parseHash = JSON.parse(localStorage.getItem('parseHash'));
 parseHash = parseHash ? parseHash : {};
 
@@ -265,6 +301,8 @@ function parseSentence(sentence) {
             structuredSentence.push({part: 'punctuation', tokens: part.punctuation});
         }
     });
+
+    structuredSentence = postprocessing(structuredSentence);
 
     localStorage.setItem('parseHash', JSON.stringify(parseHash));
     return structuredSentence;
