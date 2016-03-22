@@ -104,7 +104,7 @@ var ckyparser = function () {
 function getStructuredSentence(parseTable) {
     var part = {part: 'subject', tokens: []},
         sentence = [part],
-        foundLi = false, steps = 0;
+        foundLi = false, steps = 0, tokenList = [];
 
     function traverseParseTable(parseTable, left, right, rootIndex, depth) {
         if (!parseTable[left][right][rootIndex]) {
@@ -113,6 +113,11 @@ function getStructuredSentence(parseTable) {
 
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
+
+        console.log(token, rule);
+        if (token) {
+            tokenList.push(token);
+        }
 
         steps++;
 
@@ -124,7 +129,7 @@ function getStructuredSentence(parseTable) {
             sentence.push({part: 'directObject', sep: 'e', tokens: []});
             part = sentence[sentence.length - 1];
         }
-        if (rule === 'Prep') {
+        if (rule === 'Prep' || (token === 'tawa' && tokenList[tokenList.length - 2] !== 'li')) {
             sentence.push({part: 'prepPhrase', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
@@ -247,15 +252,15 @@ function postprocessing(sentence) {
         if (prepositionSplitIndex > -1) {
             var newParts = [];
             if (prepositionSplitIndex > 0) {
-                newParts.push({part: part.part, tokens: part.tokens.splice(0, prepositionSplitIndex)});
+                newParts.push({part: part.part, tokens: part.tokens.slice(0, prepositionSplitIndex)});
             }
             newParts.push({
                 part: part.part,
                 sep: part.tokens[prepositionSplitIndex],
-                tokens: part.tokens.splice(prepositionSplitIndex + 1)
+                tokens: part.tokens.slice(prepositionSplitIndex + 1)
             });
-
-            sentence[index] = {part: part.part, sep:part.sep, parts: newParts};
+            console.log(newParts);
+            sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
         }
     });
     return sentence;

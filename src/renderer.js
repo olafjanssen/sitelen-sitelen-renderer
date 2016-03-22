@@ -64,7 +64,8 @@ var sitelenRenderer = function () {
     function renderPartOption(option, target, settings, position, sizeParent, sizeParentNormed) {
         var container = target,
             scale = settings.scale / 1.1,
-            glyphScale = settings.scale,
+            glyphScale = settings.scale * 1,
+            separatorScale = settings.scale * 1,
             containerScale = option.separator ? settings.scale * 1.1 : 1;
 
         if (position) {
@@ -74,9 +75,10 @@ var sitelenRenderer = function () {
                     sizeParent[1] * 100 / sizeParentNormed[1]
                 ],
                 center = [box[0] + box[2] / 2, box[1] + box[3] / 2],
-                matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
+                matrix = [];
 
             if (option.separator) {
+                matrix = [separatorScale, 0, 0, separatorScale, center[0] - separatorScale * center[0], center[1] - separatorScale * center[1]];
                 var use = createNewElement('use', {
                     href: {
                         ns: xlinkNS,
@@ -93,6 +95,7 @@ var sitelenRenderer = function () {
                 target.insertBefore(use, target.firstChild);
             }
 
+            matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
             container = createNewElement('svg', {
                 transform: 'matrix(' + matrix.join(',') + ')',
                 viewBox: [-(100 * containerScale - 100) / 2, (option.type === 'punctuation' ? 20 : 0) - (100 * containerScale - 100) / 2, 100 * containerScale, 100 * containerScale].join(' '),
