@@ -128,8 +128,8 @@ function layoutContainer(units) {
 
             minSurface = Math.min(minSurface, newOption.surface);
 
-            // surface can't be 3 times larger than the optimum
-            if (!hash[JSON.stringify(newOption)] && newOption.surface / minSurface < 3) {
+            // surface can't be 2 times larger than the optimum
+            if (!hash[JSON.stringify(newOption)] && newOption.surface / minSurface < 2) {
                 options.push(newOption);
                 hash[JSON.stringify(newOption)] = newOption;
             }
