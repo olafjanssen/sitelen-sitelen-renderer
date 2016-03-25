@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
         "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <symbol viewBox="-2 -2 138.394 285.546" preserveAspectRatio="none" id="tp-wg-lon-tall" style="overflow:visible;">
+    <symbol viewBox="-2 -2 288.796 156.603" preserveAspectRatio="none" id="tp-c-tawa-wide" style="overflow:visible;">
+        <g id="tawa-wide" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10" transform="matrix(1.15 0 0 1.15 0 -20)">
+            <path d="M34.762 150.103C16.944 150.103 2.5 135.66 2.5 117.84V53.318c0-17.818 14.444-32.262 32.262-32.262h154.3c35.635 0 64.523 28.888 64.523 64.524s-28.888 64.523-64.524 64.523H34.763z"/>
+            <g stroke-linecap="round" stroke-linejoin="round">
+                <path d="M263.558 47.034c9.21-3.9 14.238-14.572 9.635-24.326-6.342-13.436-20.8-20.735-39.836-20.178-14.038.41-37.545 19.015-37.545 19.015s17.396 3.707 26.828 22.36c7.63 15.088 5.295 23.018 15.438 36.407 7.545 9.96 18.073 13.194 27 7.162 7.292-4.927 8.12-14.816 2.78-22.718.003 0-8.186-16.076-4.3-17.722z"/>
+                <path d="M195.812 21.545s18.57-13.88 40.1 1.885c20.298 14.864 24.774 9.446 36.265 16.81 9.045 5.798 11.17 15.724 9.688 20.847-2.856 9.868-17.023 19.8-34.737-3.162-18.277-23.692-25.96-38.427-51.316-36.38z"/>
+            </g>
+        </g>
+        <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+    </symbol>
+    <symbol viewBox="-2 -2 137.002 137.002" preserveAspectRatio="none" id="tp-c-lon">
+        <g id="ccalon" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+            <path d="M122.5 48.252v52.25c0 16.57-13.43 30-30 30h-60c-16.57 0-30-13.43-30-30v-60c0-16.57 13.43-30 30-30h46"/>
+            <path d="M121.704 30.79c9.99 14.77 12.01 28.472 3.27 37.212-10.674 10.674-22.038-10.724-49.38-10.724 0-27.342-21.4-38.705-10.724-49.38 8.644-8.644 22.663-6.432 37.304 3.267"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+            <ellipse transform="rotate(-45 109.3 23.573)" cx="109.301" cy="23.571" rx="22" ry="13.5"/>
+        </g>
+        <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+    </symbol>
+    <symbol viewBox="-2 -2 138.048 194.422" preserveAspectRatio="none" id="tp-c-tawa">
+        <g id="tawa" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+            <path d="M131.548 155.66c0 17.818-14.444 32.262-32.262 32.262H34.762c-17.818 0-32.262-14.444-32.262-32.262V88.686c0-35.636 28.888-64.524 64.524-64.524s64.524 28.888 64.524 64.524v66.974z"/>
+            <g stroke-linecap="round" stroke-linejoin="round">
+                <path d="M97.187 24.484c1.925-9.814-4.103-19.956-14.763-21.602C67.74.615 53.598 8.508 43.404 24.594 35.883 36.456 38.14 66.35 38.14 66.35s12.812-12.34 33.548-9.713c16.774 2.125 22.037 8.5 38.81 7.59 12.477-.677 21.05-7.59 21.05-18.364 0-8.8-7.73-15.023-17.267-15.023 0 0-17.905-2.215-17.093-6.356z"/>
+                <path d="M38.14 66.35S37.035 43.19 62.15 34.177c23.68-8.5 21.696-15.24 34.232-20.64 9.867-4.248 19.282-.453 22.697 3.644 6.577 7.89 6.877 25.19-22.068 27.013-29.862 1.88-46.374-.002-58.872 22.154z"/>
+            </g>
+        </g>
+        <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
+    </symbol>
+    <symbol viewBox="-2 -2 138.394 285.546" preserveAspectRatio="none" id="tp-c-lon-tall" style="overflow:visible;">
         <g id="lon-tall" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10" transform="matrix(1.15 0 0 1.15 -10 -40)">
             <path d="M131.894 246.698c0 17.866-14.483 32.348-32.348 32.348H34.848c-17.866 0-32.348-14.483-32.348-32.348V77.62c0-17.866 14.483-32.348 32.348-32.348h64.697c17.866 0 32.348 14.483 32.348 32.348v169.078z"/>
             <path d="M82.16 22.27c18.876 3.643 30.864 12.55 30.864 25.877 0 16.278-24.98 8.626-45.827 29.473C46.35 56.773 21.37 64.425 21.37 48.147c0-13.18 12.375-22.184 30.934-25.952"
@@ -10,7 +39,7 @@
         </g>
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
-    <symbol viewBox="-2 -2 272.053 149.572" preserveAspectRatio="none" id="tp-wg-lon-wide" style="overflow:visible;">
+    <symbol viewBox="-2 -2 272.053 149.572" preserveAspectRatio="none" id="tp-c-lon-wide" style="overflow:visible;">
         <g id="lon-wide" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10" transform="matrix(1.15 0 0 1.15 0 -20)">
             <path d="M34.848 143.072c-17.866 0-32.348-14.483-32.348-32.348V46.026c0-17.866 14.483-32.348 32.348-32.348h169.078c17.866 0 32.348 14.483 32.348 32.348v64.697c0 17.866-14.483 32.348-32.348 32.348H34.848z"/>
             <path d="M251.13 52.856c2.59 19.05-2.012 33.26-14.64 37.524-32.007 10.813-21.893-59.897-57.256-77.4l27.923-9.433c12.488-4.22 24.977 4.625 34.488 21"
@@ -176,7 +205,7 @@
         </g>
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
-    <symbol viewBox="-2 -2 128.997 129" preserveAspectRatio="none" id="tp-wg-e">
+    <symbol viewBox="-2 -2 128.997 129" preserveAspectRatio="none" id="tp-c-e">
         <g id="ale" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
             <path d="M101.58 93c10.355 0 18.75 6.604 18.75 14.75s-8.395 14.75-18.75 14.75H76.496"/>
             <path d="M102.58 73.75c10.355 0 18.75 6.604 18.75 14.75s-8.395 14.75-18.75 14.75H77.497"/>
@@ -186,7 +215,7 @@
         </g>
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
-    <symbol viewBox="-2 -2 273 157" preserveAspectRatio="none" id="tp-wg-e-wide">
+    <symbol viewBox="-2 -2 273 157" preserveAspectRatio="none" id="tp-c-e-wide">
         <g id="ame-wide">
             <g id="ame-wide_1_" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
                 <path d="M239.74 115.89c20.69 0 24.452 8.273 24.452 18.48 0 10.206-3.763 18.48-24.45 18.48h-50.113"/>
@@ -198,7 +227,7 @@
         </g>
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
-    <symbol viewBox="-2 -2 158 229" preserveAspectRatio="none" id="tp-wg-e-tall">
+    <symbol viewBox="-2 -2 158 229" preserveAspectRatio="none" id="tp-c-e-tall">
         <g id="ame-tall">
             <g id="ame-tall_1_" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
                 <path d="M131.123 168.313c14.913 0 17.625 12.1 17.625 27.025s-2.712 27.025-17.625 27.025H95"/>
@@ -633,7 +662,7 @@
         </g>
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
-    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-wg-li">
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-c-li">
         <g id="bsli">
             <path id="bsli_2_"
                   d="M122.5 92.5c0 16.57-13.43 30-30 30h-60c-16.57 0-30-13.43-30-30v-60c0-16.57 13.43-30 30-30h60c16.57 0 30 13.43 30 30v60z"
@@ -642,13 +671,13 @@
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
     <symbol viewBox="0 0 140 140" id="tp-wg-li-double"/>
-    <symbol viewBox="-2 -2 137 247" preserveAspectRatio="none" id="tp-wg-li-tall">
+    <symbol viewBox="-2 -2 137 247" preserveAspectRatio="none" id="tp-c-li-tall">
         <path id="buli-tall_1_"
               d="M35 242.5c-17.95 0-32.5-14.55-32.5-32.5V35C2.5 17.05 17.05 2.5 35 2.5h65c17.95 0 32.5 14.55 32.5 32.5v175c0 17.95-14.55 32.5-32.5 32.5H35z"
               fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
         <style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;vector-effect:non-scaling-stroke}</style>
     </symbol>
-    <symbol preserveAspectRatio="none" viewBox="-2 -2 247 137" id="tp-wg-li-wide">
+    <symbol preserveAspectRatio="none" viewBox="-2 -2 247 137" id="tp-c-li-wide">
         <path id="bvli-wide_1_"
               d="M242.5 100c0 17.95-14.55 32.5-32.5 32.5H35c-17.95 0-32.5-14.55-32.5-32.5V35C2.5 17.05 17.05 2.5 35 2.5h175c17.95 0 32.5 14.55 32.5 32.5v65z"
               fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>

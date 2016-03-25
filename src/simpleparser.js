@@ -179,7 +179,7 @@ function convertNounPhrase(tokens) {
 
 function layoutCompound(sentence) {
     var hashMap = [], compoundOptions = [];
-    console.log(sentence);
+
     sentence.forEach(function (part) {
         var npOptions = [];
         if (part.parts) {

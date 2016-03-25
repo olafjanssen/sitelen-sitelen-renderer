@@ -13,7 +13,7 @@ var glob = require('glob');
 //});
 
 //var files = glob.sync('../../images/glyphs/tp-wg-pre-*.svg');
-var files = glob.sync('../../images/glyphs/tp-wg-lon-*.svg');
+var files = glob.sync('../../images/glyphs/tp-c-tawa.svg');
 files.forEach(function (filename) {
     var token = filename.substring(26);
     console.log(token);
@@ -45,7 +45,7 @@ files.forEach(function (filename) {
 
     svgo.optimize(doc.toString(), function (result) {
         "use strict";
-        fs.writeFileSync('../../images/glyphs/tp-wg-' + token, result.data);
+        fs.writeFileSync('../../images/glyphs/tp-c-' + token, result.data);
     });
 
 });

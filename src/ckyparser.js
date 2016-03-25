@@ -114,7 +114,6 @@ function getStructuredSentence(parseTable) {
         var token = parseTable[left][right][rootIndex]['token'],
             rule = parseTable[left][right][rootIndex]['rule'];
 
-        console.log(token, rule);
         if (token) {
             tokenList.push(token);
         }
@@ -259,7 +258,6 @@ function postprocessing(sentence) {
                 sep: part.tokens[prepositionSplitIndex],
                 tokens: part.tokens.slice(prepositionSplitIndex + 1)
             });
-            console.log(newParts);
             sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
         }
     });

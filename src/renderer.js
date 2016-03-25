@@ -82,7 +82,7 @@ var sitelenRenderer = function () {
                 var use = createNewElement('use', {
                     href: {
                         ns: xlinkNS,
-                        value: '#tp-wg-' + option.separator + (option.ratio > 1.5 ? '-wide' : option.ratio < 0.667 ? '-tall' : '')
+                        value: '#tp-c-' + option.separator + (option.ratio > 1.5 ? '-wide' : option.ratio < 0.667 ? '-tall' : '')
                     },
                     transform: 'matrix(' + matrix.join(',') + ')',
                     viewBox: [0, 0, 100, 100].join(' '),
