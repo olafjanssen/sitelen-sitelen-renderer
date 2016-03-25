@@ -180,7 +180,6 @@ var sitelenRenderer = function () {
                     preserveAspectRatio: 'xMidYMin meet',
                     viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scaleSkew - box[3]) / 2, box[2] * settings.scaleSkew, box[3] * settings.scaleSkew].join(' ')
                 }, {
-                    display: 'block',
                 }, svgNS);
 
         var yPos = 0;
