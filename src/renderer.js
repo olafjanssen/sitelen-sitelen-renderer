@@ -52,6 +52,35 @@ var sitelenRenderer = function () {
         return element;
     }
 
+    function getSeparatorScale(option, baseScale) {
+        var scale = [baseScale * (option.ratio < 0.667? 1.2 : 0.92),
+            baseScale * (option.ratio < 0.667? 0.9 : 0.92), 0, 0];
+
+        if (option.ratio === 1 && option.separator === 'e') {
+            scale[0] = baseScale * 1;
+        }
+
+
+        if (option.ratio === 1 && option.separator === 'e') {
+            scale[2] = 10;
+        }
+        if (option.ratio > 1.5 && option.separator === 'e') {
+            scale[2] = 5;
+        }
+
+        return scale;
+    }
+
+    function getContainerScale(option, baseScale) {
+        var scale = option.separator ? baseScale * 1.1 : 1.02;
+
+        if (option.ratio === 1 && option.separator === 'e') {
+            scale = baseScale * 1.2;
+        }
+
+        return scale;
+    }
+
     /**
      * Recursively renders parts of a sentence
      * @param option    the layout option to render
@@ -65,8 +94,8 @@ var sitelenRenderer = function () {
         var container = target,
             scale = settings.scale / 1.1,
             glyphScale = settings.scale * 1,
-            separatorScale = settings.scale * 1,
-            containerScale = option.separator ? settings.scale * 1.1 : 1;
+            separatorScale = getSeparatorScale(option, settings.scale),
+            containerScale = getContainerScale(option, settings.scale);
 
         if (position) {
             var box = [position[0] * 100 / sizeParentNormed[0],
@@ -78,7 +107,7 @@ var sitelenRenderer = function () {
                 matrix = [];
 
             if (option.separator) {
-                matrix = [separatorScale, 0, 0, separatorScale, center[0] - separatorScale * center[0], center[1] - separatorScale * center[1]];
+                matrix = [separatorScale[0], 0, 0, separatorScale[1], center[0] - separatorScale[0] * center[0], center[1] - separatorScale[1] * center[1]];
                 var use = createNewElement('use', {
                     href: {
                         ns: xlinkNS,
@@ -98,7 +127,10 @@ var sitelenRenderer = function () {
             matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
             container = createNewElement('svg', {
                 transform: 'matrix(' + matrix.join(',') + ')',
-                viewBox: [-(100 * containerScale - 100) / 2, (option.type === 'punctuation' ? 20 : 0) - (100 * containerScale - 100) / 2, 100 * containerScale, 100 * containerScale].join(' '),
+                viewBox: [separatorScale[2] -(100 * containerScale - 100) / 2,
+                    (option.type === 'punctuation' ? 20 : 0) - (100 * containerScale - 100) / 2,
+                    100 * containerScale,
+                    100 * containerScale].join(' '),
                 preserveAspectRatio: 'none',
                 height: box[3],
                 width: box[2],
@@ -157,7 +189,7 @@ var sitelenRenderer = function () {
             settings.scale = 1.2;
         }
         if (!settings.scaleSkew) {
-            settings.scaleSkew = 1.3;
+            settings.scaleSkew = 1.3; // scale to allow glyphs to stick out of the sentence container
         }
 
         var xSize = 0, ySize = 0;
@@ -178,9 +210,11 @@ var sitelenRenderer = function () {
                     'xmlns:xlink': xlinkNS,
                     version: 1.1,
                     preserveAspectRatio: 'xMidYMin meet',
-                    viewBox: [-(box[2] * settings.scale - box[2]) / 2, -(box[3] * settings.scaleSkew - box[3]) / 2, box[2] * settings.scaleSkew, box[3] * settings.scaleSkew].join(' ')
-                }, {
-                }, svgNS);
+                    viewBox: [-(box[2] * settings.scale - box[2]) / 2,
+                        -(box[3] * settings.scaleSkew - box[3]) / 2,
+                        box[2] * settings.scaleSkew,
+                        box[3] * settings.scaleSkew].join(' ')
+                }, {}, svgNS);
 
         var yPos = 0;
         options.forEach(function (option, index) {
@@ -201,7 +235,7 @@ var sitelenRenderer = function () {
             renderPartOption(option, innerContainer, settings);
 
             sentenceContainer.appendChild(innerContainer);
-            requestAnimationFrame(function(){
+            requestAnimationFrame(function () {
                 var rect = sentenceContainer.getBoundingClientRect();
                 sentenceContainer.style.height = (rect.height / settings.scale) + 'px';
             });
