@@ -60,9 +60,15 @@ var sitelenRenderer = function () {
             scale[0] = baseScale * 1;
         }
 
-
         if (option.ratio === 1 && option.separator === 'e') {
             scale[2] = 10;
+        }
+        if (option.ratio === 1 && option.separator === 'tawa') {
+            scale[2] = 5;
+        }
+        if (option.ratio === 1 && option.separator === 'lon') {
+            scale[2] = 15;
+            scale[3] = -15;
         }
         if (option.ratio > 1.5 && option.separator === 'e') {
             scale[2] = 5;
@@ -80,6 +86,13 @@ var sitelenRenderer = function () {
         if (option.ratio === 1 && option.separator === 'e') {
             scale = baseScale * 1.2;
         }
+        if (option.ratio === 1 && option.separator === 'tawa') {
+            scale = baseScale * 1.2;
+        }
+        if (option.ratio === 1 && option.separator === 'lon') {
+            scale = baseScale * 1.4;
+        }
+
 
         return scale;
     }
@@ -131,7 +144,7 @@ var sitelenRenderer = function () {
             container = createNewElement('svg', {
                 // transform: 'matrix(' + matrix.join(',') + ')',
                 viewBox: [separatorScale[2] -(100 * containerScale - 100) / 2,
-                    (option.type === 'punctuation' ? 20 : 0) - (100 * containerScale - 100) / 2,
+                    (option.type === 'punctuation' ? 20 : separatorScale[3]) - (100 * containerScale - 100) / 2,
                     100 * containerScale,
                     100 * containerScale].join(' '),
                 preserveAspectRatio: 'none',
