@@ -67,6 +67,9 @@ var sitelenRenderer = function () {
         if (option.ratio > 1.5 && option.separator === 'e') {
             scale[2] = 5;
         }
+        if (option.ratio > 1.5 && option.separator === 'tawa') {
+            scale[2] = 10;
+        }
 
         return scale;
     }
@@ -114,8 +117,8 @@ var sitelenRenderer = function () {
                         value: '#tp-c-' + option.separator + (option.ratio > 1.5 ? '-wide' : option.ratio < 0.667 ? '-tall' : '')
                     },
                     transform: 'matrix(' + matrix.join(',') + ')',
-                    viewBox: [0, 0, 100, 100].join(' '),
-                    preserveAspectRatio: 'none',
+                    // viewBox: [0, 0, 100, 100].join(' '),
+                    // preserveAspectRatio: 'none',
                     height: box[3],
                     width: box[2],
                     x: box[0],
@@ -126,7 +129,7 @@ var sitelenRenderer = function () {
 
             matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
             container = createNewElement('svg', {
-                transform: 'matrix(' + matrix.join(',') + ')',
+                // transform: 'matrix(' + matrix.join(',') + ')',
                 viewBox: [separatorScale[2] -(100 * containerScale - 100) / 2,
                     (option.type === 'punctuation' ? 20 : 0) - (100 * containerScale - 100) / 2,
                     100 * containerScale,
@@ -164,8 +167,8 @@ var sitelenRenderer = function () {
                         value: '#tp-wg-' + glyph.unit.token
                     },
                     transform: 'matrix(' + matrix.join(',') + ')',
-                    viewBox: [0, 0, 100, 100].join(' '),
-                    preserveAspectRatio: 'none',
+                    // viewBox: [0, 0, 100, 100].join(' '),
+                    // preserveAspectRatio: 'none',
                     height: box[3],
                     width: box[2],
                     x: box[0],
@@ -208,13 +211,18 @@ var sitelenRenderer = function () {
                 {
                     xmlns: svgNS,
                     'xmlns:xlink': xlinkNS,
-                    version: 1.1,
+                    version: 1.2,
                     preserveAspectRatio: 'xMidYMin meet',
                     viewBox: [-(box[2] * settings.scale - box[2]) / 2,
                         -(box[3] * settings.scaleSkew - box[3]) / 2,
                         box[2] * settings.scaleSkew,
                         box[3] * settings.scaleSkew].join(' ')
                 }, {}, svgNS);
+
+        var styling = document.createElement('style');
+        styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';
+
+        sentenceContainer.appendChild(styling);
 
         var yPos = 0;
         options.forEach(function (option, index) {
@@ -242,12 +250,16 @@ var sitelenRenderer = function () {
         });
 
         // add template stamps so it can be downloaded/exported without the sprite svg
+        var addedIds = {};
         if (settings.exportable) {
             [].slice.call(sentenceContainer.getElementsByTagName('use')).forEach(function (use) {
                 var symbolId = use.getAttribute('href');
                 var symbol = sprite.querySelector(symbolId);
                 if (symbol) {
-                    sentenceContainer.appendChild(symbol.cloneNode(true));
+                    if (!addedIds[symbolId]) {
+                        sentenceContainer.appendChild(symbol.cloneNode(true));
+                    }
+                    addedIds[symbolId] = true;
                 } else {
                     console.log('WARNING: symbol ' + symbolId + ' cannot be found.')
                 }

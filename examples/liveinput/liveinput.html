@@ -131,7 +131,7 @@
             renderInteractiveSentence(structuredSentence);
         }
 
-        input.value = 'weka lili li pona tawa lawa.';//'pilin pona li pana e sijelo pona.';
+        input.value = 'pilin pona li pana e sijelo pona.';
         renderInput();
 
     };
@@ -144,7 +144,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState != 4) return;
             var data = JSON.parse(xhr.response);
-
+            console.log(data);
             data.forEach(function (issue) {
                 var listItem = document.createElement('li'),
                         link = document.createElement('a');
@@ -152,8 +152,8 @@
                 link.setAttribute('target', '_blank');
                 link.appendChild(document.createTextNode(issue.title));
                 listItem.appendChild(link);
+                document.getElementById('known-issues').appendChild(listItem);
             });
-
         };
         xhr.send();
     }

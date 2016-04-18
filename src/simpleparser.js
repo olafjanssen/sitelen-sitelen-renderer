@@ -285,7 +285,7 @@ function renderInteractiveSentence(sentence) {
         compound.innerHTML = "";
         renderCompoundSentence(sentence, compound, optimal);
 
-        var text = document.getElementById('sitelen').firstElementChild.innerHTML;
+        var text = '<?xml version="1.0" encoding="utf-8"?>\n' + document.getElementById('sitelen').firstElementChild.innerHTML;
         var pom = document.createElement('a');
         pom.innerHTML = 'download as SVG';
         pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
