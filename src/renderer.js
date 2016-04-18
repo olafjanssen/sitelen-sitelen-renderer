@@ -59,6 +59,9 @@ var sitelenRenderer = function () {
         if (option.ratio === 1 && option.separator === 'e') {
             scale[0] = baseScale * 1;
         }
+        if (option.ratio > 1.5 && option.separator === 'pi') {
+            scale[1] = baseScale * 1.5;
+        }
 
         if (option.ratio === 1 && option.separator === 'e') {
             scale[2] = 10;
