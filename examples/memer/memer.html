@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <!--<link rel="stylesheet" href="styles/sitelen.css">-->
+    <meta charset="utf-8">
+    <script type="text/javascript" src="../../src/ckyparser.js"></script>
+    <script type="text/javascript" src="../../src/simpleparser.js"></script>
+    <script type="text/javascript" src="../../src/renderer.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin: 1em auto;
+            display: block;
+        }
+
+        .wordmark {
+            color: red;
+        }
+
+        #sitelen {
+            transition: background-color 0.25s ease;
+            background-color: transparent;
+            border-radius: 1em;
+            margin: 0 auto;
+            width: 20em;
+        }
+
+        #sitelen svg {
+            width: 100%;
+
+        }
+
+        #sitelen:hover {
+            background-color: #efe;
+            border-radius: 1em;
+        }
+
+        #tokiInput {
+            margin: 2em auto;
+            display: block;
+            font-size: 1em;
+            width: 20em;
+        }
+
+        #known-issues a {
+            display: block;
+        }
+
+        .text-container {
+            text-align: left;
+            margin: 0 auto;
+            width: 30em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="text-container">
+
+    <input type="text" id="tokiInput" placeholder="write toki pona here">
+
+    <div id="sitelen"></div>
+
+    <canvas id="sitelencanvas" ></canvas>
+
+    <div id="png-container" style="display: none;"></div>
+
+</div>
+
+<script>
+    window.onload = function () {
+        var input = document.getElementById('tokiInput');
+        input.addEventListener('input', renderInput);
+
+        function renderInput() {
+            var text = input.value;
+            var preformattedText = preformat(text);
+
+            var structuredSentence = parseSentence(preformattedText.parsable[0]);
+            document.getElementById('sitelen').innerHTML = '';
+            renderCompoundSentence(structuredSentence, document.getElementById('sitelen'), 0.75);
+
+//            document.querySelector('#sitelen > svg').style.filter = 'drop-shadow( 0px 3px 5px rgba(0,0,0,0.5) )';
+
+            var svgString = new XMLSerializer().serializeToString(document.querySelector('#sitelen > svg'));
+            svgString = svgString.replace('path{stroke-width:2;','path{stroke-width:6;');
+
+            var box = document.querySelector('#sitelen > svg').getAttribute('viewBox').split(' ');
+            var aspectRatio = box[3]/box[2];
+            var canvas = document.getElementById("sitelencanvas");
+            var ctx = canvas.getContext("2d");
+
+            canvas.width = 480;
+            canvas.height = 640;
+            canvas.style.width = (canvas.width/2) + "px";
+            canvas.style.height = (canvas.height/2) + "px";
+            ctx.scale(2,2);
+
+            var DOMURL = self.URL || self.webkitURL || self;
+            var img = new Image();
+            var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+            var url = DOMURL.createObjectURL(svg);
+            img.onload = function () {
+                var width = canvas.getAttribute('width')/2, height = canvas.getAttribute('height')/2;
+                ctx.beginPath();
+                ctx.rect(0, 0, width, height);
+                ctx.fillStyle = "rgb(167,212,235)";
+                ctx.fill();
+
+                if (aspectRatio<1) {
+                    ctx.drawImage(img, 10, 0, width, width * aspectRatio);
+                } else {
+                    ctx.drawImage(img, 0, 0, height / aspectRatio, height);
+                }
+                ctx.globalAlpha = 1;
+
+                ctx.font = "24px sans-serif";
+                ctx.textAlign = "center";
+                ctx.fillStyle = "rgba(0,0,0,0.7)";
+                ctx.fillText(text, width/2, height - 20);
+
+                var png = canvas.toDataURL("image/png");
+                document.querySelector('#png-container').innerHTML = '<img src="' + png + '"/>';
+                DOMURL.revokeObjectURL(png);
+            };
+            img.src = url;
+        }
+
+        input.value = 'nasin pona li mute.';
+        renderInput();
+
+    };
+</script>
+
+</body>
+</html>
