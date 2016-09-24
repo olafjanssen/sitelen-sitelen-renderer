@@ -149,12 +149,15 @@ function layoutContainer(units) {
 function convertNounPhrase(tokens) {
     var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
         narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
-        punctuation = ['period', 'comma', 'exclamation'],
+        punctuation = ['period', 'exclamation'],
+        singlePunctuation = ['comma'],
         largePunctuation = ['la'],
         options;
 
     function getSizeOf(token) {
-        if (punctuation.indexOf(token) > -1) {
+        if (singlePunctuation.indexOf(token) > -1) {
+            return [4, 0.5];
+        } else if (punctuation.indexOf(token) > -1) {
             return [4, 0.75];
         } else if (largePunctuation.indexOf(token) > -1) {
             return [4, 1];
