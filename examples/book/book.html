@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<link rel="stylesheet" href="styles/sitelen.css">-->
+    <script type="text/javascript" src="../../src/ckyparser.js"></script>
+    <script type="text/javascript" src="../../src/simpleparser.js"></script>
+    <script type="text/javascript" src="../../src/renderer.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin: 0.25em auto;
+            display: block;
+        }
+
+        #book {
+            -webkit-perspective: 1000;
+            perspective: 1000;
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+            height: 568px;
+            width: 320px;
+        }
+
+        .page {
+            transform: rotateY(-120deg);
+            transform-origin: top left;
+            -webkit-transition: transform 3s, box-shadow 3s;
+            position: absolute;
+            background: #ddd;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0em 1em 6em rgba(0, 0, 0, 0.2);
+        }
+
+        .currentpage {
+            box-shadow: 0em 1em 2em rgba(0, 0, 0, 0.2);
+            -webkit-transition: none;
+            transform: translate(0, 0);
+        }
+
+        .currentpage ~ .page {
+            transform: translate(0, 0);
+        }
+
+
+    </style>
+</head>
+<body>
+
+<article id="book" class="sitelen-sitelen">
+    meli pona o!
+    sina lape lon poka mi.
+    linja jelo sina li lon luka mi.
+    mi pilin e sijelo sina.
+    mi pilin e seli sina.
+    mi lukin e oko laso sina.
+    mi lukin e insa sina.
+    ike! ike!
+    suno li kama.
+    <!--sina wile tawa.-->
+    meli mi o, mi olin e sina!
+    sina pona mute!
+    ?
+    <!--meli mi o tawa pona.-->
+    <!--o tawa pona.-->
+</article>
+
+<script>
+    window.onload = function () {
+
+        [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(function (element) {
+            var text = element.textContent,
+                    text = text.replace(/\s\s+/g, ' '),
+                    preformattedText = preformat(text);
+            element.innerHTML = '';
+
+            preformattedText.parsable.forEach(function (sentence, index) {
+                var newSentence = document.createElement('section');
+                newSentence.classList.add('page');
+
+                var structuredSentence = parseSentence(sentence);
+                var renderedElement = renderCompoundSentence(structuredSentence, newSentence, {
+                    optimalRatio: document.getElementById('book').offsetWidth / document.getElementById('book').offsetHeight,
+                    ignoreHeight: true
+                });
+                newSentence.setAttribute('text', preformattedText.raw[index]);
+                newSentence.style.zIndex = -index;
+                document.getElementById('book').appendChild(newSentence);
+                resizeSitelenOnPage(renderedElement);
+            });
+
+            document.querySelector('#book > .page').classList.add('currentpage');
+        });
+    }
+
+    function speak(tokipona, onend) {
+        var msg = new SpeechSynthesisUtterance(tokipona);
+        msg.lang = 'fi-FI';
+        msg.rate = 0.5;
+        msg.onend = onend;
+        window.speechSynthesis.speak(msg);
+    }
+
+    function speakElement() {
+        setTimeout(function () {
+            nextPage();
+            setTimeout(function () {
+                speak(document.querySelector('.currentpage').getAttribute('text'), speakElement);
+            }, 2000);
+        }, 1000);
+    }
+//    setTimeout(function(){
+//        speak(document.querySelector('.currentpage').getAttribute('text'), speakElement);
+//    },1000);
+
+    function resizeSitelenOnPage(currentSitelen) {
+        var box = currentSitelen.getAttribute('viewBox').split(' '),
+                aspectRatio = box[3] / box[2],
+                maxWidth = 0.9 * document.getElementById('book').offsetWidth,
+                maxHeight = 0.9 * document.getElementById('book').offsetHeight;
+
+        if (maxWidth * aspectRatio < maxHeight) {
+            currentSitelen.style.width = maxWidth + 'px';
+            currentSitelen.style.height = (maxWidth * aspectRatio) + 'px';
+        } else {
+            currentSitelen.style.width = (maxHeight / aspectRatio) + 'px';
+            currentSitelen.style.height = maxHeight + 'px';
+        }
+    }
+
+    function nextPage() {
+        var currentPage = document.querySelector('.currentpage'),
+                nextPage = currentPage.nextElementSibling;
+        if (nextPage) {
+            currentPage.classList.remove('currentpage');
+            nextPage.classList.add('currentpage');
+        }
+    }
+
+    document.onkeydown = function (e) {
+        e = e || window.event;
+        switch (e.which || e.keyCode) {
+            case 37: // left
+                var currentPage = document.querySelector('.currentpage'),
+                        prevPage = currentPage.previousElementSibling;
+                if (prevPage) {
+                    currentPage.classList.remove('currentpage');
+                    prevPage.classList.add('currentpage');
+                }
+                break;
+
+            case 38: // up
+                break;
+
+            case 39: // right
+                nextPage();
+                break;
+
+            case 40: // down
+                break;
+
+            default:
+                return; // exit this handler for other keys
+        }
+        e.preventDefault(); // prevent the default action (scroll / move caret)
+    }
+</script>
+
+</body>
+</html>

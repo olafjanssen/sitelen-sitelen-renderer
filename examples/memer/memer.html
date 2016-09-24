@@ -61,18 +61,46 @@
 <body>
 
 <div class="text-container">
+    <h1>Live Sitelen Sitelen Meme Generator</h1>
 
     <input type="text" id="tokiInput" placeholder="write toki pona here">
+    <select id="pattern">
+        <option>pattern1</option>
+        <option>pattern2</option>
+        <option>pattern3</option>
+        <option>pattern4</option>
+        <option>pattern5</option>
+    </select>
 
-    <div id="sitelen"></div>
+    <div id="sitelen" style="display: none;"></div>
 
-    <canvas id="sitelencanvas" ></canvas>
+    <canvas id="sitelencanvas" style="display: none;"></canvas>
 
-    <div id="png-container" style="display: none;"></div>
+    <div id="png-container"></div>
 
 </div>
 
 <script>
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+
+        for(var n = 0; n < words.length; n++) {
+            var testLine = line + words[n] + ' ';
+            var metrics = context.measureText(testLine);
+            var testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, x, y);
+                line = words[n] + ' ';
+                y += lineHeight;
+            }
+            else {
+                line = testLine;
+            }
+        }
+        context.fillText(line, x, y);
+    }
+
     window.onload = function () {
         var input = document.getElementById('tokiInput');
         input.addEventListener('input', renderInput);
@@ -83,46 +111,57 @@
 
             var structuredSentence = parseSentence(preformattedText.parsable[0]);
             document.getElementById('sitelen').innerHTML = '';
-            renderCompoundSentence(structuredSentence, document.getElementById('sitelen'), 0.75);
-
-//            document.querySelector('#sitelen > svg').style.filter = 'drop-shadow( 0px 3px 5px rgba(0,0,0,0.5) )';
+            renderCompoundSentence(structuredSentence, document.getElementById('sitelen'),
+                    {optimalRatio: 0.45, scaleSkew: 1.5, shadow: true}
+            );
 
             var svgString = new XMLSerializer().serializeToString(document.querySelector('#sitelen > svg'));
-            svgString = svgString.replace('path{stroke-width:2;','path{stroke-width:6;');
+            svgString = svgString.replace('path{stroke-width:2;', 'path{stroke-width:6;');
 
             var box = document.querySelector('#sitelen > svg').getAttribute('viewBox').split(' ');
-            var aspectRatio = box[3]/box[2];
+            var aspectRatio = box[3] / box[2];
             var canvas = document.getElementById("sitelencanvas");
             var ctx = canvas.getContext("2d");
 
             canvas.width = 480;
             canvas.height = 640;
-            canvas.style.width = (canvas.width/2) + "px";
-            canvas.style.height = (canvas.height/2) + "px";
-            ctx.scale(2,2);
+            canvas.style.width = (canvas.width / 2) + "px";
+            canvas.style.height = (canvas.height / 2) + "px";
+            ctx.scale(2, 2);
 
             var DOMURL = self.URL || self.webkitURL || self;
             var img = new Image();
             var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
             var url = DOMURL.createObjectURL(svg);
             img.onload = function () {
-                var width = canvas.getAttribute('width')/2, height = canvas.getAttribute('height')/2;
-                ctx.beginPath();
+                var width = canvas.getAttribute('width') / 2, height = canvas.getAttribute('height') / 2,
+                        patternSelect = document.getElementById('pattern');
+
+                var pattern = document.getElementById(patternSelect.value);
+                var pat = ctx.createPattern(pattern, "repeat");
                 ctx.rect(0, 0, width, height);
-                ctx.fillStyle = "rgb(167,212,235)";
+                ctx.fillStyle = pat;
                 ctx.fill();
 
-                if (aspectRatio<1) {
-                    ctx.drawImage(img, 10, 0, width, width * aspectRatio);
+//                ctx.beginPath();
+//                ctx.rect(0, 0, width, height);
+//                ctx.fillStyle = "rgb(167,212,235)";
+//                ctx.fill();
+
+                var fheight = height - 50, fwidth = width - 30;
+
+                if (aspectRatio < 1) {
+                    ctx.drawImage(img, 15, (fheight - fwidth * aspectRatio) / 2, fwidth, fwidth * aspectRatio);
                 } else {
-                    ctx.drawImage(img, 0, 0, height / aspectRatio, height);
+                    ctx.drawImage(img,  (fheight / aspectRatio * (1 - 1/1.2))/2 + (width - (fheight / aspectRatio)) / 2, 0, fheight / aspectRatio, fheight);
                 }
                 ctx.globalAlpha = 1;
 
                 ctx.font = "24px sans-serif";
                 ctx.textAlign = "center";
                 ctx.fillStyle = "rgba(0,0,0,0.7)";
-                ctx.fillText(text, width/2, height - 20);
+
+                wrapText(ctx, text, width/2, height - 50, fwidth, 25);
 
                 var png = canvas.toDataURL("image/png");
                 document.querySelector('#png-container').innerHTML = '<img src="' + png + '"/>';
@@ -131,11 +170,18 @@
             img.src = url;
         }
 
-        input.value = 'nasin pona li mute.';
+        input.value = 'jan lili li sona ala e ike.';
         renderInput();
 
     };
 </script>
 
+<div style="display: none;">
+    <img id="pattern1" src="patterns/greenbars.svg">
+    <img id="pattern2" src="patterns/carbon.svg">
+    <img id="pattern3" src="patterns/blueprint.svg">
+    <img id="pattern4" src="patterns/waves.svg">
+    <img id="pattern5" src="patterns/honeycomb.svg">
+</div>
 </body>
 </html>

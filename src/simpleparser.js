@@ -215,7 +215,20 @@ function layoutCompound(sentence) {
     return compoundOptions;
 }
 
-function renderCompoundSentence(sentence, target, optimalRatio) {
+function renderCompoundSentence(sentence, target, settings) {
+    if (!settings) {
+        settings = {}
+    }
+    if (!settings.exportable) {
+        settings.exportable = true;
+    }
+    if (!settings.optimalRatio) {
+        settings.optimalRatio = 0.75;
+    }
+    if (!settings.ignoreHeight) {
+        settings.ignoreHeight = false;
+    }
+
     var compounds = [];
 
     // create sentence parts
@@ -240,12 +253,12 @@ function renderCompoundSentence(sentence, target, optimalRatio) {
         };
 
         var compoundOptions = layoutCompound(compound);
-        compoundOptions.sort(sorter(optimalRatio));
+        compoundOptions.sort(sorter(settings.optimalRatio));
 
         bestOptions.push(compoundOptions[0]);
     });
 
-    return sitelenRenderer.renderComplexLayout(bestOptions, target, {exportable: true});
+    return sitelenRenderer.renderComplexLayout(bestOptions, target, settings);
 }
 
 function renderInteractiveSentence(sentence) {
@@ -283,7 +296,7 @@ function renderInteractiveSentence(sentence) {
         var filename = tokens.join('-') + '.svg';
 
         compound.innerHTML = "";
-        renderCompoundSentence(sentence, compound, optimal);
+        renderCompoundSentence(sentence, compound, {optimalRatio: optimal});
 
         var text = '<?xml version="1.0" encoding="utf-8"?>\n' + document.getElementById('sitelen').firstElementChild.innerHTML;
         var pom = document.createElement('a');

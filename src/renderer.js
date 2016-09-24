@@ -53,8 +53,8 @@ var sitelenRenderer = function () {
     }
 
     function getSeparatorScale(option, baseScale) {
-        var scale = [baseScale * (option.ratio < 0.667? 1.2 : 0.92),
-            baseScale * (option.ratio < 0.667? 0.9 : 0.92), 0, 0];
+        var scale = [baseScale * (option.ratio < 0.667 ? 1.2 : 0.92),
+            baseScale * (option.ratio < 0.667 ? 0.9 : 0.92), 0, 0];
 
         if (option.ratio === 1 && option.separator === 'e') {
             scale[0] = baseScale * 1;
@@ -95,7 +95,6 @@ var sitelenRenderer = function () {
         if (option.ratio === 1 && option.separator === 'lon') {
             scale = baseScale * 1.4;
         }
-
 
         return scale;
     }
@@ -146,7 +145,7 @@ var sitelenRenderer = function () {
             matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
             container = createNewElement('svg', {
                 // transform: 'matrix(' + matrix.join(',') + ')',
-                viewBox: [separatorScale[2] -(100 * containerScale - 100) / 2,
+                viewBox: [separatorScale[2] - (100 * containerScale - 100) / 2,
                     (option.type === 'punctuation' ? 20 : separatorScale[3]) - (100 * containerScale - 100) / 2,
                     100 * containerScale,
                     100 * containerScale].join(' '),
@@ -210,6 +209,9 @@ var sitelenRenderer = function () {
         if (!settings.scaleSkew) {
             settings.scaleSkew = 1.3; // scale to allow glyphs to stick out of the sentence container
         }
+        if (!settings.shadow) {
+            settings.shadow = false;
+        }
 
         var xSize = 0, ySize = 0;
         options.forEach(function (option) {
@@ -240,6 +242,16 @@ var sitelenRenderer = function () {
 
         sentenceContainer.appendChild(styling);
 
+        if (settings.shadow) {
+            var filter = createNewElement('filter', {
+                id: 'shadow',
+                width: '150%',
+                height: '150%'
+            }, {}, svgNS);
+            filter.innerHTML = '<feOffset result = "offOut" in = "SourceGraphic" dx = "0" dy = "2"></feOffset><feColorMatrix result = "matrixOut" in = "offOut" type = "matrix" values = "0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"></feColorMatrix><feGaussianBlur result = "blurOut" in = "matrixOut" stdDeviation = "2"></feGaussianBlur><feBlend in = "SourceGraphic" in2 = "blurOut" mode = "normal"></feBlend>';
+            sentenceContainer.appendChild(filter);
+        }
+
         var yPos = 0;
         options.forEach(function (option, index) {
             var box = [0, 0, xSize * 100, option.size[1] * xSize / option.size[0] * 100],
@@ -249,7 +261,8 @@ var sitelenRenderer = function () {
                         height: box[3],
                         viewBox: [0, 0, 100, 100].join(' '),
                         y: yPos,
-                        preserveAspectRatio: 'none'
+                        preserveAspectRatio: 'none',
+                        filter: settings.shadow ? "url(#shadow)" : ""
                     }, {
                         overflow: 'visible'
                     }, svgNS);
@@ -259,10 +272,12 @@ var sitelenRenderer = function () {
             renderPartOption(option, innerContainer, settings);
 
             sentenceContainer.appendChild(innerContainer);
-            requestAnimationFrame(function () {
-                var rect = sentenceContainer.getBoundingClientRect();
-                sentenceContainer.style.height = (rect.height / settings.scale) + 'px';
-            });
+            if (!settings.ignoreHeight) {
+                requestAnimationFrame(function () {
+                    var rect = sentenceContainer.getBoundingClientRect();
+                    sentenceContainer.style.height = (rect.height / settings.scale) + 'px';
+                });
+            }
         });
 
         // add template stamps so it can be downloaded/exported without the sprite svg

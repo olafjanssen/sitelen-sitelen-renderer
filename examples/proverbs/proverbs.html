@@ -52,7 +52,7 @@
 
             preformattedText.parsable.forEach(function (sentence, index) {
                 var structuredSentence = parseSentence(sentence);
-                var renderedElement = renderCompoundSentence(structuredSentence, element, 0.75);
+                var renderedElement = renderCompoundSentence(structuredSentence, element, {optimalRatio: 0.75});
             });
         });
     }
