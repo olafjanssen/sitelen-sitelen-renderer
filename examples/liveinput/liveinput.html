@@ -125,13 +125,14 @@
         function renderInput() {
             var text = input.value;
             var preformattedText = preformat(text);
-
+            console.log(preformattedText);
             var structuredSentence = parseSentence(preformattedText.parsable[0]);
+            console.log(structuredSentence);
             document.getElementById('sitelen').innerHTML = '';
             renderInteractiveSentence(structuredSentence);
         }
 
-        input.value = 'pilin pona li pana e sijelo pona.';
+        input.value = 'meli mi o tawa pona.';
         renderInput();
 
     };
@@ -144,7 +145,6 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState != 4) return;
             var data = JSON.parse(xhr.response);
-            console.log(data);
             data.forEach(function (issue) {
                 var listItem = document.createElement('li'),
                         link = document.createElement('a');

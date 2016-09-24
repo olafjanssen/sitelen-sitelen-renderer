@@ -44,7 +44,7 @@
         </g>
     </symbol>
     <symbol viewBox="-2 -2 171.242 151.898" preserveAspectRatio="none" id="tp-c-tawa" style="overflow:visible;">
-        <g id="tawa" transform="matrix(1.25 0 0 1.15 0 -20)">
+        <g id="tawa" transform="matrix(1.15 0 0 1.15 5 -20)">
             <path style="fill:#FFFFFF;stroke-miterlimit:10;" d="M132.5,116.898c0,17.949-14.551,32.5-32.5,32.5
         H35c-17.949,0-32.5-14.551-32.5-32.5v-65c0-17.949,14.551-32.5,32.5-32.5h65c17.949,0,32.5,14.551,32.5,32.5V116.898z"/>
             <g>
@@ -58,7 +58,6 @@
             </g>
         </g>
     </symbol>
-
     <symbol viewBox="-2 -2 272.9 283.3" preserveAspectRatio="none" id="tp-c-o" style="overflow:visible;">
         <g transform="matrix(1 0 0 1 0 -15)">
             <path style="fill:#FFFFFF;stroke-miterlimit:10;" d="M32.5,283.3C14.6,283.3,0,268.8,0,250.8l0-175c0-17.9,14.6-32.5,32.5-32.5h207.9c17.9,0,32.5,14.6,32.5,32.5
@@ -70,8 +69,6 @@
             <circle cx="136.3" cy="35.1" r="5.5"/>
         </g>
     </symbol>
-
-
     <symbol viewBox="-2 -2 138.394 285.546" preserveAspectRatio="none" id="tp-c-o-tall" style="overflow:visible;">
         <g>
             <path fill="#FFF" stroke-miterlimit="10" d="M36.6,283.7c-17.9,0-32.5-14.6-32.5-32.5v-175c0-17.9,14.6-32.5,32.5-32.5h65c17.9,0,32.5,14.6,32.5,32.5v175

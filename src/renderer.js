@@ -82,7 +82,10 @@ var sitelenRenderer = function () {
             scale[2] = 10;
         }
         if (option.ratio === 1 && option.separator === 'tawa') {
+            scale[0] = baseScale * 0.9;
+            scale[1] = baseScale * 0.9;
             scale[2] = 5;
+            scale[3] = -10;
         }
         if (option.ratio === 1 && option.separator === 'lon') {
             scale[2] = 15;

@@ -220,7 +220,7 @@ function layoutCompound(sentence) {
 
 function renderCompoundSentence(sentence, target, settings) {
     if (!settings) {
-        settings = {}
+        settings = {};
     }
     if (!settings.exportable) {
         settings.exportable = true;

@@ -128,7 +128,7 @@ function getStructuredSentence(parseTable) {
             sentence.push({part: 'directObject', sep: 'e', tokens: []});
             part = sentence[sentence.length - 1];
         }
-        if (rule === 'Prep' || (token === 'tawa' && tokenList[tokenList.length - 2] !== 'li')) {
+        if (rule === 'Prep' || (token === 'tawa' && ['li', 'wile'].indexOf(tokenList[tokenList.length - 2]) === -1)) {
             sentence.push({part: 'prepPhrase', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
@@ -155,6 +155,11 @@ function getStructuredSentence(parseTable) {
     }
 
     traverseParseTable(parseTable, 0, parseTable.length - 1, 0, 0);
+
+    // filter out empty parts
+    sentence = sentence.filter(function (part) {
+        return part.tokens.length > 0;
+    });
     return steps === 0 ? null : sentence;
 }
 
@@ -308,8 +313,6 @@ function parseSentence(sentence) {
     });
 
     structuredSentence = postprocessing(structuredSentence);
-
-    console.log(structuredSentence);
 
     localStorage.setItem('parseHash', JSON.stringify(parseHash));
     return structuredSentence;
