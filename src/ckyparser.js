@@ -141,7 +141,7 @@ function getStructuredSentence(parseTable) {
         if (token === 'e') {
             return;
         }
-        if (token === 'o' && part.part === 'subject') {
+        if (token === 'o' && part.part === 'subject' && part.tokens.length > 0) {
             part.sep = 'o';
             return;
         }

@@ -94,7 +94,6 @@ var sitelenRenderer = function () {
         if (option.ratio > 1.5 && option.separator === 'tawa') {
             scale[2] = 10;
         }
-        console.log(option, scale, baseScale);
         return scale;
     }
 
