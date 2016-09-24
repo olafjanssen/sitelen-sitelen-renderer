@@ -57,21 +57,21 @@
 <body>
 
 <article id="book" class="sitelen-sitelen">
-    meli pona o, a!
-    sina lape lon poka mi.
-    linja jelo sina li lon luka mi.
-    mi pilin e sijelo sina.
-    mi pilin e seli sina.
-    mi lukin e oko laso sina.
-    mi lukin e insa sina.
-    ike! ike!
-    suno li kama.
-    <!--sina wile tawa.-->
-    meli mi o, mi olin e sina!
-    sina pona mute!
-    ?
-    <!--meli mi o tawa pona.-->
-    <!--o tawa pona.-->
+    meli pona moku jan o, jan li pali moku!
+    <!--sina lape lon poka mi.-->
+    <!--linja jelo sina li lon luka mi.-->
+    <!--mi pilin e sijelo sina.-->
+    <!--mi pilin e seli sina.-->
+    <!--mi lukin e oko laso sina.-->
+    <!--mi lukin e insa sina.-->
+    <!--ike! ike!-->
+    <!--suno li kama.-->
+    <!--&lt;!&ndash;sina wile tawa.&ndash;&gt;-->
+    <!--meli mi o, mi olin e sina!-->
+    <!--sina pona mute!-->
+    <!--?-->
+    <!--&lt;!&ndash;meli mi o tawa pona.&ndash;&gt;-->
+    <!--&lt;!&ndash;o tawa pona.&ndash;&gt;-->
 </article>
 
 <script>
@@ -89,7 +89,7 @@
 
                 var structuredSentence = parseSentence(sentence);
                 var renderedElement = renderCompoundSentence(structuredSentence, newSentence, {
-                    optimalRatio: document.getElementById('book').offsetWidth / document.getElementById('book').offsetHeight,
+                    optimalRatio: 0.75, //document.getElementById('book').offsetWidth / document.getElementById('book').offsetHeight,
                     ignoreHeight: true
                 });
                 newSentence.setAttribute('text', preformattedText.raw[index]);

@@ -141,6 +141,10 @@ function getStructuredSentence(parseTable) {
         if (token === 'e') {
             return;
         }
+        if (token === 'o' && part.part === 'subject') {
+            part.sep = 'o';
+            return;
+        }
 
         if (token) {
             part.tokens.push(token);
@@ -230,7 +234,6 @@ function preformat(text) {
         }
 
     });
-
     return {parsable: parsableParts, raw: rawParts};
 }
 
@@ -305,6 +308,8 @@ function parseSentence(sentence) {
     });
 
     structuredSentence = postprocessing(structuredSentence);
+
+    console.log(structuredSentence);
 
     localStorage.setItem('parseHash', JSON.stringify(parseHash));
     return structuredSentence;

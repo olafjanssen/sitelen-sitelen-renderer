@@ -56,6 +56,21 @@ var sitelenRenderer = function () {
         var scale = [baseScale * (option.ratio < 0.667 ? 1.2 : 0.92),
             baseScale * (option.ratio < 0.667 ? 0.9 : 0.92), 0, 0];
 
+        if (option.ratio === 1 && option.separator === 'o') {
+            scale[1] = baseScale * 1;
+            scale[3] = -10;
+        }
+        if (option.ratio < 0.667 && option.separator === 'o') {
+            scale[0] = baseScale * 1;
+            scale[1] = baseScale * 0.88;
+            scale[3] = -15;
+        }
+        if (option.ratio > 1.5 && option.separator === 'o') {
+            scale[1] = baseScale * 1;
+            scale[2] = -15;
+            scale[3] = -10;
+        }
+
         if (option.ratio === 1 && option.separator === 'e') {
             scale[0] = baseScale * 1;
         }
@@ -79,7 +94,7 @@ var sitelenRenderer = function () {
         if (option.ratio > 1.5 && option.separator === 'tawa') {
             scale[2] = 10;
         }
-
+        console.log(option, scale, baseScale);
         return scale;
     }
 
@@ -95,7 +110,6 @@ var sitelenRenderer = function () {
         if (option.ratio === 1 && option.separator === 'lon') {
             scale = baseScale * 1.4;
         }
-
         return scale;
     }
 
