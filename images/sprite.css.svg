@@ -2529,6 +2529,16 @@
                   stroke-linecap="round" stroke-linejoin="round"/>
         </g>
     </symbol>
+    <symbol viewBox="-2 -5 129 129" preserveAspectRatio="none" id="tp-wg-oko">
+        <g id="iqoko" fill="#FFF" stroke-miterlimit="10">
+            <circle class="st0" cx="62.5" cy="62.5" r="60"/>
+            <line class="st1" x1="87.5" y1="22" x2="46.5" y2="22"/>
+            <line class="st1" x1="87.5" y1="62.5" x2="87.5" y2="22"/>
+            <line class="st1" x1="58.9" y1="50.6" x2="87.5" y2="22"/>
+            <circle class="st0" cx="87.5" cy="22" r="25"/>
+            <circle class="st0" cx="87.5" cy="22" r="10"/>
+        </g>
+    </symbol>
     <symbol viewBox="-2 -2 129.333 73.667" preserveAspectRatio="none" id="tp-wg-sin">
         <g id="irsin" stroke-miterlimit="10">
             <path d="M122.833 33.5c0-5.89-4.776-10.667-10.667-10.667-.277 0-.55.02-.82.04a10.614 10.614 0 0 0 2.82-7.207C114.166 9.776 109.39 5 103.5 5S92.833 9.776 92.833 15.667c0 1.82.46 3.534 1.263 5.034-3.92 2.96-6.597 8.846-6.597 15.634 0 6.113 2.166 11.5 5.46 14.67a12.18 12.18 0 0 0-.13 1.664c0 6.627 5.374 12 12 12s12-5.373 12-12c0-3.35-1.375-6.378-3.59-8.555 5.387-.54 9.59-5.084 9.59-10.612z"
