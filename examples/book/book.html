@@ -120,9 +120,10 @@
             }, 2000);
         }, 1000);
     }
-//    setTimeout(function(){
-//        speak(document.querySelector('.currentpage').getAttribute('text'), speakElement);
-//    },1000);
+
+    setTimeout(function(){
+        speak(document.querySelector('.currentpage').getAttribute('text'), speakElement);
+    },1000);
 
     function resizeSitelenOnPage(currentSitelen) {
         var box = currentSitelen.getAttribute('viewBox').split(' '),

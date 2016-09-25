@@ -1,7 +1,6 @@
 "use strict";
 
 function layoutContainer(units) {
-
     var options = [], hash = {}, minSurface = 1e6;
 
     function normalizeOption(option) {
@@ -57,7 +56,6 @@ function layoutContainer(units) {
                 go(units, newState, {goesDown: false, index: 1, length: j});
                 go(units, newState, {goesDown: true, index: 1, length: j});
             }
-
             return;
         }
 

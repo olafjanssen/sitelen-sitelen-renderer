@@ -244,7 +244,8 @@ function preformat(text) {
 
 function postprocessing(sentence) {
     var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'pi'],
-        prepositionSplitIndex;
+        prepositionSplitIndex,
+        nameSplitIndex
 
     // split prepositional phrases inside containers (such as the verb li-container)
     sentence.forEach(function (part, index) {
@@ -269,6 +270,36 @@ function postprocessing(sentence) {
             sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
         }
     });
+
+    // split proper names inside containers
+    sentence.forEach(function (part, index) {
+        nameSplitIndex = -1;
+
+        part.tokens.forEach(function (token, tokenIndex) {
+            console.log(token.substr(0, 1).toUpperCase() == token.substr(0, 1));
+            if (token.substr(0, 1).toUpperCase() == token.substr(0, 1)) {
+                console.log('token', token);
+                nameSplitIndex = tokenIndex;
+            }
+        });
+
+        if (nameSplitIndex > -1) {
+            var newParts = [];
+            if (nameSplitIndex > 0) {
+                newParts.push({part: part.part, tokens: part.tokens.slice(0, nameSplitIndex)});
+            }
+            newParts.push({
+                part: part.part,
+                sep: 'cartouche',
+                tokens: [part.tokens[nameSplitIndex]]
+            });
+            if (nameSplitIndex < part.tokens.length - 1) {
+                newParts.push({part: part.part, tokens: part.tokens.slice(nameSplitIndex + 1)});
+            }
+            sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
+        }
+    });
+    console.log('post', sentence);
     return sentence;
 }
 
