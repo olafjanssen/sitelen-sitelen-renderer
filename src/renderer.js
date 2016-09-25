@@ -180,9 +180,9 @@ var sitelenRenderer = function () {
                 target.appendChild(container);
             }
         }
-
+        console.log(option);
         option.state.units.forEach(function (glyph) {
-            if (glyph.unit.rule === 'word-glyph') {
+            if (glyph.unit.rule === 'word-glyph' || glyph.unit.rule === 'syl-glyph') {
                 var box = [(glyph.position[0] * 100 / option.size[0]),
                     (glyph.position[1] * 100 / option.size[1]),
                     (glyph.size[0] * 100 / option.size[0]),
@@ -195,7 +195,7 @@ var sitelenRenderer = function () {
                 var use = createNewElement('use', {
                     href: {
                         ns: xlinkNS,
-                        value: '#tp-wg-' + glyph.unit.token
+                        value: glyph.unit.rule === 'word-glyph'?('#tp-wg-' + glyph.unit.token) : ('#tp-syl-' + glyph.unit.token)
                     },
                     transform: 'matrix(' + matrix.join(',') + ')',
                     // viewBox: [0, 0, 100, 100].join(' '),

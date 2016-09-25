@@ -178,6 +178,28 @@ function convertNounPhrase(tokens) {
     return options;
 }
 
+function convertCartouche(tokens) {
+    var narrowSyls = ['li','ni','si','lin','nin','sin','le','ne','se','len','nen','sen','lo','no','so','lon','non','son','la','na','sa','lan','nan','san','lu','nu','su','lun','nun','sun'],
+        options;
+
+    function getSizeOf(token) {
+        if (narrowSyls.indexOf(token) > -1) {
+            return [0.5, 1];
+        } else {
+            return [1, 1];
+        }
+    }
+
+    var units = [];
+    tokens.forEach(function (token) {
+        units.push({rule: 'syl-glyph', token: token, size: getSizeOf(token)});
+    });
+
+    options = layoutContainer(units);
+
+    return options;
+}
+
 function layoutCompound(sentence) {
     var hashMap = [], compoundOptions = [];
 
@@ -185,6 +207,8 @@ function layoutCompound(sentence) {
         var npOptions = [];
         if (part.parts) {
             npOptions = layoutCompound(part.parts);
+        } else if (part.sep === 'cartouche') {
+            npOptions = convertCartouche(part.tokens);
         } else {
             npOptions = convertNounPhrase(part.tokens);
         }

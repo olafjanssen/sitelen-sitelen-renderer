@@ -242,6 +242,43 @@ function preformat(text) {
     return {parsable: parsableParts, raw: rawParts};
 }
 
+/**
+ * Split proper names into Toki Pona syllables. It is assumed that the proper name follows standard Toki Pona rules.
+ * @param properName the proper name string to split into syllables
+ */
+function splitProperIntoSyllables(properName) {
+    if (properName.length === 0) {
+        return [];
+    }
+
+    var vowels = ['o','u','i','a','e'],
+        syllables = [],
+        first = properName.substr(0,1),
+        third = properName.substr(2,1),
+        fourth = properName.substr(3,1);
+
+    // ponoman, monsi, akesi
+
+    if (vowels.indexOf(first) === -1){
+        if (third === 'n' && vowels.indexOf(fourth) === -1){
+            syllables.push(properName.substr(0,3));
+            syllables = syllables.concat(splitProperIntoSyllables(properName.substr(3)));
+        } else {
+            syllables.push(properName.substr(0,2));
+            syllables = syllables.concat(splitProperIntoSyllables(properName.substr(2)));
+        }
+    } else {
+        if (properName.length==2) {
+            return [properName];
+        } else {
+            syllables.push(first);
+            syllables = syllables.concat(splitProperIntoSyllables(properName.substr(1)));
+        }
+    }
+
+    return syllables;
+}
+
 function postprocessing(sentence) {
     var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'pi'],
         prepositionSplitIndex,
@@ -291,7 +328,7 @@ function postprocessing(sentence) {
             newParts.push({
                 part: part.part,
                 sep: 'cartouche',
-                tokens: [part.tokens[nameSplitIndex]]
+                tokens: splitProperIntoSyllables(part.tokens[nameSplitIndex].toLowerCase())
             });
             if (nameSplitIndex < part.tokens.length - 1) {
                 newParts.push({part: part.part, tokens: part.tokens.slice(nameSplitIndex + 1)});

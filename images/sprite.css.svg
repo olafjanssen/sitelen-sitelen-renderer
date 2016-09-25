@@ -64,7 +64,8 @@
 		v175c0,17.9-14.6,32.5-32.5,32.5H32.5z"/>
             <path style="fill:#FFFFFF;stroke-miterlimit:10;" d="M171.2,0c18.1,6,30.1,16.6,30.1,28.7c0,18.8-29,34-64.9,34s-64.9-15.2-64.9-34C71.6,16.6,83.7,6,101.8,0
 		l17.3,16l17.3-16l17.2,16L171.2,0z"/>
-            <path style="fill:#FFFFFF;stroke-miterlimit:10;" d="M88.3,65.7c12.4-6.3,29.4-10.1,48-10.1c18.3,0,35,3.7,47.4,9.8"/>
+            <path style="fill:#FFFFFF;stroke-miterlimit:10;"
+                  d="M88.3,65.7c12.4-6.3,29.4-10.1,48-10.1c18.3,0,35,3.7,47.4,9.8"/>
             <ellipse style="fill:#FFFFFF;stroke-miterlimit:10;" cx="136.3" cy="35.1" rx="15.5" ry="12.4"/>
             <circle cx="136.3" cy="35.1" r="5.5"/>
         </g>
@@ -2867,5 +2868,1511 @@
             <ellipse cx="43.178" cy="51.281" rx="19.072" ry="16.03" fill="#FFF"/>
             <path fill="none" d="M53.554 89.25l6.328 13m12.832-13l6.328 13m12.83-13l6.33 13"/>
         </g>
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-a">
+        <g id="aaa">
+            <g id="aaa_1_">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <path d="M7.503 39.654c10.852-10.852 35.734-6.935 52.813 10.143 8.902 8.902 14.647 19.89 16.463 29.357"
+                      fill="none" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 46.06 78.402)" cx="46.065" cy="78.406" rx="6.748" ry="6.748"/>
+                <path d="M76.78 79.154S64.727 93.304 51.123 92.37s-23.61-16.596-23.61-16.596 12.05-14.15 25.655-13.217c13.603.933 23.61 16.597 23.61 16.597z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.063 129.91899999999998" preserveAspectRatio="none" id="tp-syl-an">
+        <g id="aban">
+            <g id="aban_1_">
+                <path d="M2.5 106.224c0-16.982 26.738-22.58 59.875-22.58s60.134 7.596 60.134 22.972c0 10.393-9.27 16.803-20.867 16.803-13 0-21-6.826-21-17.218 0 9.568-6.5 15.724-18 15.724-12.5 0-18-6.156-18-15.724 0 10.393-8.75 17.217-21.25 17.217-11.597 0-20.893-6.803-20.893-17.196z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="62.563" cy="50.468" rx="60" ry="47.968" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-miterlimit="10"/>
+                <path d="M11.31 25.367c12.19-9.867 32.99-9.68 50.07 7.4 8.9 8.9 13.645 18.888 15.462 28.355" fill="none"
+                      stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 46.123 60.372)" cx="46.127" cy="60.375" rx="6.748" ry="6.748"/>
+                <path d="M76.842 61.123s-12.05 14.15-25.655 13.217-23.61-16.597-23.61-16.597 12.05-14.15 25.655-13.217c13.604.933 23.61 16.597 23.61 16.597z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-e">
+        <g id="ace">
+            <g id="ace_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF"/>
+                <path d="M62.5 35.5v54m-27-27h54" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.063 129.91899999999998" preserveAspectRatio="none" id="tp-syl-en">
+        <g id="aden">
+            <g id="aden_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M2.5 106.224c0-16.982 26.738-22.58 59.875-22.58s60.134 7.596 60.134 22.972c0 10.393-9.27 16.803-20.867 16.803-13 0-21-6.826-21-17.218 0 9.568-6.5 15.724-18 15.724-12.5 0-18-6.156-18-15.724 0 10.393-8.75 17.217-21.25 17.217-11.597 0-20.893-6.803-20.893-17.196z"
+                      fill="#FFF" stroke-linecap="round" stroke-linejoin="round"/>
+                <ellipse cx="62.563" cy="50.468" rx="60" ry="47.968" fill="#FFF"/>
+                <path d="M62.563 23.468v54m-27-27h54" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-i">
+        <g id="aei">
+            <g id="aei_1_">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 2.5v65"/>
+                <circle cx="35.486" cy="45" r="6.986"/>
+                <circle cx="89.514" cy="45" r="6.986"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129.91899999999998" preserveAspectRatio="none" id="tp-syl-in">
+        <g id="afin">
+            <g id="afin_1_">
+                <path d="M2.5 106.224c0-16.982 26.738-22.58 59.875-22.58s60.134 7.596 60.134 22.972c0 10.393-9.27 16.803-20.867 16.803-13 0-21-6.826-21-17.218 0 9.568-6.5 15.724-18 15.724-12.5 0-18-6.156-18-15.724 0 10.393-8.75 17.217-21.25 17.217-11.597 0-20.893-6.803-20.893-17.196z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="62.505" cy="50.468" rx="60" ry="47.968" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.505 2.5v65"/>
+                <circle cx="35.491" cy="45" r="6.986"/>
+                <circle cx="89.518" cy="45" r="6.986"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ja">
+        <g id="agja">
+            <g id="agja_1_">
+                <path d="M64.398 13.66C70.488 6.813 79.366 2.5 89.25 2.5c18.363 0 33.25 16.75 33.25 38.253V62.5c0 33.137-26.863 60-60 60s-60-26.863-60-60v-5.375C2.5 31.375 23.125 10.5 48.875 10.5S95.5 31.375 95.5 57.125"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.25 31.84s6.658-3.503 10.92-4.628m-5.99 15.2s5.277-2.072 10.02-2.79" fill="none"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 49.496 82.897)" cx="49.501" cy="82.901" rx="5.564" ry="5.317"/>
+                <path d="M70.76 83.588s-9.232 11.326-19.613 10.614-17.98-13.193-17.98-13.193S42.4 69.682 52.782 70.394s17.98 13.193 17.98 13.193z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.654 59.415C9.394 48.908 20.806 42 33.75 42 54.46 42 71 61.435 71 83.25" fill="none"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.59300000000002 129" preserveAspectRatio="none" id="tp-syl-jan">
+        <g id="ahjan">
+            <g id="ahjan_1_">
+                <path d="M2.5 105.436c0-16.853 26.868-22.407 60.166-22.407s60.427 7.536 60.427 22.795c0 10.314-9.313 16.675-20.967 16.675-13.063 0-21.102-6.773-21.102-17.087 0 9.495-6.532 15.604-18.088 15.604-12.56 0-18.088-6.11-18.088-15.604 0 10.314-8.793 17.087-21.353 17.087-11.654 0-20.995-6.75-20.995-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M64.704 11.354C70.824 5.922 79.744 2.5 89.677 2.5c18.453 0 33.412 13.29 33.412 30.35v17.253c0 26.29-26.995 47.603-60.293 47.603S2.505 76.394 2.505 50.103V45.84c0-20.43 20.725-36.993 46.6-36.993S95.96 25.41 95.96 45.84"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.67 25.777s6.693-2.778 10.976-3.67m-6.019 12.059s5.302-1.644 10.07-2.213" fill="none"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 49.502 67.732)" cx="49.507" cy="67.735" rx="5.564" ry="5.317"/>
+                <path d="M70.765 68.422s-9.232 11.326-19.613 10.614-17.978-13.193-17.978-13.193 9.232-11.326 19.613-10.614c10.38.712 17.978 13.192 17.978 13.192z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.66 45.16C9.4 35.054 20.81 28.41 33.756 28.41c20.71 0 37.25 18.693 37.25 39.675" fill="none"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-je">
+        <g id="aije">
+            <g id="aije_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M64.398 13.66C70.488 6.813 79.366 2.5 89.25 2.5c18.363 0 33.25 16.75 33.25 38.253V62.5c0 33.137-26.863 60-60 60s-60-26.863-60-60v-5.375C2.5 31.375 23.125 10.5 48.875 10.5S95.5 31.375 95.5 57.125"
+                      fill="#FFF"/>
+                <path d="M93.18 42.412s5.277-2.072 10.02-2.79M49.75 43.495v43.5M28 65.245h43.5" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.59300000000002 129" preserveAspectRatio="none" id="tp-syl-jen">
+        <g id="ajjen">
+            <g id="ajjen_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.868-22.407 60.166-22.407s60.427 7.536 60.427 22.795c0 10.314-9.313 16.675-20.967 16.675-13.063 0-21.102-6.773-21.102-17.087 0 9.495-6.532 15.604-18.088 15.604-12.56 0-18.088-6.11-18.088-15.604 0 10.314-8.793 17.087-21.353 17.087-11.654 0-20.995-6.75-20.995-17.064z"
+                      fill="#FFF"/>
+                <path d="M64.704 11.354C70.824 5.922 79.744 2.5 89.677 2.5c18.453 0 33.412 13.29 33.412 30.35v17.253c0 26.29-26.995 47.603-60.293 47.603S2.505 76.394 2.505 50.103V45.84c0-20.43 20.725-36.993 46.6-36.993S95.96 25.41 95.96 45.84"
+                      fill="#FFF"/>
+                <path fill="none"
+                      d="M49.985 30.53v43.5m-21.75-21.75h43.5m21.892-18.114s5.302-1.644 10.07-2.213m-14.189-7.176S96.2 22 100.483 21.107"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-jo">
+        <g id="akjo">
+            <g id="akjo_1_">
+                <path d="M64.398 13.66C70.488 6.813 79.366 2.5 89.25 2.5c18.363 0 33.25 16.75 33.25 38.253V62.5c0 33.137-26.863 60-60 60s-60-26.863-60-60v-5.375C2.5 31.375 23.125 10.5 48.875 10.5S95.5 31.375 95.5 57.125"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.25 31.84s6.658-3.503 10.92-4.628m-5.99 15.2s5.277-2.072 10.02-2.79" fill="none"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="49.75" cy="64.244" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="49.75" cy="63.387" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.59300000000002 129" preserveAspectRatio="none" id="tp-syl-jon">
+        <g id="aljon">
+            <g id="aljon_1_">
+                <path d="M2.5 105.436c0-16.853 26.868-22.407 60.166-22.407s60.427 7.536 60.427 22.795c0 10.314-9.313 16.675-20.967 16.675-13.063 0-21.102-6.773-21.102-17.087 0 9.495-6.532 15.604-18.088 15.604-12.56 0-18.088-6.11-18.088-15.604 0 10.314-8.793 17.087-21.353 17.087-11.654 0-20.995-6.75-20.995-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M64.704 11.354C70.824 5.922 79.744 2.5 89.677 2.5c18.453 0 33.412 13.29 33.412 30.35v17.253c0 26.29-26.995 47.603-60.293 47.603S2.505 76.394 2.505 50.103V45.84c0-20.43 20.725-36.993 46.6-36.993S95.96 25.41 95.96 45.84"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="49.985" cy="50.807" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="49.985" cy="49.949" r="7.5"/>
+                <path d="M88.67 25.777s6.693-2.778 10.976-3.67m-6.019 12.059s5.302-1.644 10.07-2.213" fill="none"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ju">
+        <g id="amju">
+            <g id="amju_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M64.398 13.66C70.488 6.813 79.366 2.5 89.25 2.5c18.363 0 33.25 16.75 33.25 38.253V62.5c0 33.137-26.863 60-60 60s-60-26.863-60-60v-5.375C2.5 31.375 23.125 10.5 48.875 10.5S95.5 31.375 95.5 57.125"
+                      fill="#FFF"/>
+                <path d="M88.25 31.84s6.658-3.503 10.92-4.628m-5.99 15.2s5.277-2.072 10.02-2.79M10.094 91.23l38.283-20.173M3.547 74.32L38.83 55.73c8.973-4.73 20.006-1.43 24.643 7.372 4.637 8.8 1.123 19.767-7.85 24.495l-33.168 17.477"
+                      fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.647 129" preserveAspectRatio="none" id="tp-syl-jun">
+        <g id="anjun">
+            <g id="anjun_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.868-22.407 60.166-22.407s60.427 7.536 60.427 22.795c0 10.314-9.313 16.675-20.967 16.675-13.063 0-21.102-6.773-21.102-17.087 0 9.495-6.532 15.604-18.088 15.604-12.56 0-18.088-6.11-18.088-15.604 0 10.314-8.793 17.087-21.353 17.087-11.654 0-20.995-6.75-20.995-17.064z"
+                      fill="#FFF"/>
+                <path d="M64.762 11.354C70.882 5.922 79.802 2.5 89.735 2.5c18.453 0 33.412 13.29 33.412 30.35v17.253c0 26.29-26.994 47.603-60.292 47.603S2.563 76.394 2.563 50.103V45.84c0-20.43 20.725-36.993 46.6-36.993S96.017 25.41 96.017 45.84"
+                      fill="#FFF"/>
+                <path d="M88.73 25.777s6.69-2.778 10.974-3.67m-6.018 12.059s5.302-1.644 10.07-2.213M9.146 70.907L52.2 52.995M2.998 55.83l38.466-16.446c10.09-4.198 22.5-1.267 27.715 6.548 5.214 7.815 1.262 17.553-8.83 21.75L20.722 84.15"
+                      fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ka">
+        <g id="aoka">
+            <g id="aoka_1_">
+                <path d="M120.5 92.625c0 16.5-11.375 29.875-27.875 29.875S62.75 109.125 62.75 92.625 76.125 60.75 92.625 60.75 120.5 76.124 120.5 92.624z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M92.874 92.625c0 16.5-11.374 29.875-27.874 29.875s-29.875-13.375-29.875-29.875S48.5 53.745 65 53.745s27.874 22.38 27.874 38.88z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.67 80.5c26.33 0 33.83-12.25 33.83-39 0-21.54-17.834-39-39.833-39H62.5c-33.137 0-60 26.863-60 60v30c0 16.57 13.43 30 30 30h-.042c16.57 0 30-13.43 30-30V80.562L88.67 80.5z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M25.85 14.988c14.132-4.346 30.986-3.11 43.62 6.9 7.446 5.9 11.052 16.295 12.423 23.44"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 58.905 43.882)" cx="58.91" cy="43.884" rx="5.92" ry="5.92"/>
+                <path d="M81.892 45.326S72.087 56.84 61.017 56.08c-11.07-.76-19.21-13.504-19.21-13.504s9.805-11.513 20.875-10.754 19.21 13.504 19.21 13.504z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129" preserveAspectRatio="none" id="tp-syl-kan">
+        <g id="apkan">
+            <g id="apkan_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M120.503 74.004c0 13.09-11.374 23.702-27.874 23.702S62.754 87.094 62.754 74.004s13.375-25.29 29.875-25.29 27.873 12.2 27.873 25.29z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M92.88 74.004c0 13.09-11.375 23.702-27.875 23.702S35.13 87.094 35.13 74.004s13.375-30.847 29.875-30.847S92.88 60.913 92.88 74.004z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.675 64.384c26.33 0 33.83-9.72 33.83-30.942 0-17.09-17.834-30.942-39.833-30.942H62.505c-33.137 0-60 21.313-60 47.603v23.802c0 13.145 13.43 23.802 30 23.802h-.042c16.57 0 30-10.656 30-23.802v-9.47l26.212-.05z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M25.854 12.407C39.987 8.96 56.84 7.94 69.474 15.88 76.922 20.56 81.9 28.596 81.9 36.477"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M64.816 35.644c-.265 3.193-3.125 5.646-6.388 5.48-3.263-.168-5.692-2.89-5.427-6.084.266-3.193 3.126-5.646 6.39-5.48 3.26.168 5.69 2.89 5.426 6.084z"/>
+                <path d="M81.897 36.386S71.935 47.8 60.864 47.233c-11.072-.566-19.06-12.897-19.06-12.897s9.962-11.413 21.033-10.847 19.06 12.896 19.06 12.896z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ke">
+        <g id="aqke">
+            <g id="aqke_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M120.5 92.625c0 16.5-11.375 29.875-27.875 29.875S62.75 109.125 62.75 92.625 76.125 60.75 92.625 60.75 120.5 76.124 120.5 92.624z"
+                      fill="#FFF"/>
+                <path d="M92.874 92.625c0 16.5-11.374 29.875-27.874 29.875s-29.875-13.375-29.875-29.875S48.5 53.745 65 53.745s27.874 22.38 27.874 38.88z"
+                      fill="#FFF"/>
+                <path d="M88.67 80.5c26.33 0 33.83-12.25 33.83-39 0-21.54-17.834-39-39.833-39H62.5c-33.137 0-60 26.863-60 60v30c0 16.57 13.43 30 30 30h-.042c16.57 0 30-13.43 30-30V80.562L88.67 80.5z"
+                      fill="#FFF"/>
+                <path fill="none" d="M62.5 21.497V59M43.75 40.248h37.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129" preserveAspectRatio="none" id="tp-syl-ken">
+        <g id="arken">
+            <g id="arken_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF"/>
+                <path d="M120.503 74.004c0 13.09-11.374 23.702-27.874 23.702S62.754 87.094 62.754 74.004s13.375-25.29 29.875-25.29 27.873 12.2 27.873 25.29z"
+                      fill="#FFF"/>
+                <path d="M92.88 74.004c0 13.09-11.375 23.702-27.875 23.702S35.13 87.094 35.13 74.004s13.375-30.847 29.875-30.847S92.88 60.913 92.88 74.004z"
+                      fill="#FFF"/>
+                <path d="M88.675 64.384c26.33 0 33.83-9.72 33.83-30.942 0-17.09-17.834-30.942-39.833-30.942H62.505c-33.137 0-60 21.313-60 47.603v23.802c0 13.145 13.43 23.802 30 23.802h-.042c16.57 0 30-10.656 30-23.802v-9.47l26.212-.05z"
+                      fill="#FFF"/>
+                <path fill="none" d="M62.505 15.25v34.398M43.753 32.45h37.503"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ki">
+        <g id="aski">
+            <g id="aski_1_">
+                <path d="M120.5 92.625c0 16.5-11.375 29.875-27.875 29.875S62.75 109.125 62.75 92.625 76.125 60.75 92.625 60.75 120.5 76.124 120.5 92.624z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M92.874 92.625c0 16.5-11.374 29.875-27.874 29.875s-29.875-13.375-29.875-29.875S48.5 53.745 65 53.745s27.874 22.38 27.874 38.88z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.67 80.5c26.33 0 33.83-12.25 33.83-39 0-21.54-17.834-39-39.833-39H62.5c-33.137 0-60 26.863-60 60v30c0 16.57 13.43 30 30 30h-.042c16.57 0 30-13.43 30-30V80.562L88.67 80.5z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 2.5v51.75"/>
+                <circle cx="42.695" cy="35.392" r="5.942"/>
+                <circle cx="82.305" cy="35.392" r="5.942"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129" preserveAspectRatio="none" id="tp-syl-kin">
+        <g id="atkin">
+            <g id="atkin_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M120.503 74.004c0 13.09-11.374 23.702-27.874 23.702S62.754 87.094 62.754 74.004s13.375-25.29 29.875-25.29 27.873 12.2 27.873 25.29z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M92.88 74.004c0 13.09-11.375 23.702-27.875 23.702S35.13 87.094 35.13 74.004s13.375-30.847 29.875-30.847S92.88 60.913 92.88 74.004z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.675 64.384c26.33 0 33.83-9.72 33.83-30.942 0-17.09-17.834-30.942-39.833-30.942H62.505c-33.137 0-60 21.313-60 47.603v23.802c0 13.145 13.43 23.802 30 23.802h-.042c16.57 0 30-10.656 30-23.802v-9.47l26.212-.05z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.505 2.5v41.058"/>
+                <circle cx="42.7" cy="28.823" r="5.942"/>
+                <circle cx="82.31" cy="28.823" r="5.942"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ko">
+        <g id="auko">
+            <g id="auko_1_">
+                <path d="M120.5 92.625c0 16.5-11.375 29.875-27.875 29.875S62.75 109.125 62.75 92.625 76.125 60.75 92.625 60.75 120.5 76.124 120.5 92.624z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M92.874 92.625c0 16.5-11.374 29.875-27.874 29.875s-29.875-13.375-29.875-29.875S48.5 53.745 65 53.745s27.874 22.38 27.874 38.88z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.67 80.5c26.33 0 33.83-12.25 33.83-39 0-21.54-17.834-39-39.833-39H62.5c-33.137 0-60 26.863-60 60v30c0 16.57 13.43 30 30 30h-.042c16.57 0 30-13.43 30-30V80.562L88.67 80.5z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="62.5" cy="37.667" rx="16.75" ry="15.833" fill="none" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="62.5" cy="37.667" rx="6.087" ry="5.754"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129" preserveAspectRatio="none" id="tp-syl-kon">
+        <g id="avkon">
+            <g id="avkon_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M120.503 74.004c0 13.09-11.374 23.702-27.874 23.702S62.754 87.094 62.754 74.004s13.375-25.29 29.875-25.29 27.873 12.2 27.873 25.29z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M92.88 74.004c0 13.09-11.375 23.702-27.875 23.702S35.13 87.094 35.13 74.004s13.375-30.847 29.875-30.847S92.88 60.913 92.88 74.004z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M88.675 64.384c26.33 0 33.83-9.72 33.83-30.942 0-17.09-17.834-30.942-39.833-30.942H62.505c-33.137 0-60 21.313-60 47.603v23.802c0 13.145 13.43 23.802 30 23.802h-.042c16.57 0 30-10.656 30-23.802v-9.47l26.212-.05z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="62.505" cy="32.588" r="16.75" fill="none" stroke="#000" stroke-width="5"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <circle cx="62.505" cy="32.588" r="6.087"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ku">
+        <g id="awku">
+            <g id="awku_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M120.5 92.625c0 16.5-11.375 29.875-27.875 29.875S62.75 109.125 62.75 92.625 76.125 60.75 92.625 60.75 120.5 76.124 120.5 92.624z"
+                      fill="#FFF"/>
+                <path d="M92.874 92.625c0 16.5-11.374 29.875-27.874 29.875s-29.875-13.375-29.875-29.875S48.5 53.745 65 53.745s27.874 22.38 27.874 38.88z"
+                      fill="#FFF"/>
+                <path d="M88.67 80.5c26.33 0 33.83-12.25 33.83-39 0-21.54-17.834-39-39.833-39H62.5c-33.137 0-60 26.863-60 60v30c0 16.57 13.43 30 30 30h-.042c16.57 0 30-13.43 30-30V80.562L88.67 80.5z"
+                      fill="#FFF"/>
+                <path fill="none"
+                      d="M62.5 2.626V36.69M77.87 2.5v33.38c0 8.49-6.88 15.37-15.37 15.37-8.49 0-15.37-6.88-15.37-15.37V4.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129" preserveAspectRatio="none" id="tp-syl-kun">
+        <g id="axkun">
+            <g id="axkun_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF"/>
+                <path d="M120.508 74.004c0 13.09-11.374 23.702-27.874 23.702S62.76 87.094 62.76 74.004s13.374-25.29 29.874-25.29 27.874 12.2 27.874 25.29z"
+                      fill="#FFF"/>
+                <path d="M92.884 74.004c0 13.09-11.374 23.702-27.874 23.702S35.135 87.094 35.135 74.004 48.51 43.156 65.01 43.156s27.874 17.757 27.874 30.848z"
+                      fill="#FFF"/>
+                <path d="M88.68 64.384c26.33 0 33.83-9.72 33.83-30.942 0-17.09-17.834-30.942-39.833-30.942H62.51c-33.138 0-60 21.313-60 47.603v23.802c0 13.145 13.43 23.802 30 23.802h-.043c16.57 0 30-10.656 30-23.802v-9.47l26.213-.05z"
+                      fill="#FFF"/>
+                <path fill="none"
+                      d="M62.51 2.62v32.29M77.88 2.5v31.643c0 8.047-6.882 14.57-15.37 14.57-8.49 0-15.37-6.523-15.37-14.57V4.397"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 69 129" preserveAspectRatio="none" id="tp-syl-la">
+        <g id="ayla">
+            <g id="ayla_1_">
+                <g stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                    <path d="M32.5 2.5c-16.57 0-30 13.43-30 30 0 33.137 16.193 90 30 90s30-56.863 30-90c0-16.57-13.43-30-30-30z"
+                          fill="#FFF"/>
+                    <path d="M33.167 90.5S19.5 92.5 11.5 87.835m23.958 16.192s-11.958 1.75-18.958-2.334" fill="none"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <ellipse transform="rotate(-4.405 31.283 45.526)" cx="31.293" cy="45.539" rx="5.733" ry="6"/>
+                <path d="M49.494 44.076S41.43 56.584 31.588 57.342c-9.843.758-17.735-11.497-17.735-11.497s7.06-11.53 16.904-12.288 18.737 10.52 18.737 10.52zM8.167 14.735c23-5.235 38.865 10.953 41.506 28.992"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-lan">
+        <g id="azlan">
+            <g id="azlan_1_">
+                <path d="M71.437 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094S2.5 117.533 2.5 111.406l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.13 5.534z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <g stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                    <path d="M36.97 2.5c-16.57 0-30 10.812-30 24.15 0 26.674 16.192 72.447 30 72.447s30-45.774 30-72.448c0-13.338-13.433-24.15-30-24.15z"
+                          fill="#FFF"/>
+                    <path d="M37.635 73.34s-13.667 1.608-21.667-2.148m23.959 13.036s-11.958 1.408-18.958-1.88"
+                          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <path d="M41.478 36.986c.254 3.012-2.1 5.633-5.256 5.855s-5.922-2.04-6.177-5.05c-.254-3.013 2.1-5.634 5.256-5.856 3.158-.22 5.923 2.04 6.178 5.052z"/>
+                <path d="M53.962 36.054s-8.064 11.403-17.906 12.094c-9.842.69-17.734-10.48-17.734-10.48s7.06-10.512 16.904-11.203 18.736 9.59 18.736 9.59zM12.635 12.457c23.015-4.665 37.33 6.674 41.328 23.596"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 69 129" preserveAspectRatio="none" id="tp-syl-le">
+        <g id="bale">
+            <g id="bale_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M32.5 2.5c-16.57 0-30 13.43-30 30 0 33.137 16.193 90 30 90s30-56.863 30-90c0-16.57-13.43-30-30-30z"
+                      fill="#FFF"/>
+                <path d="M33.167 90.5S19.5 92.5 11.5 87.835m23.958 16.192s-11.958 1.75-18.958-2.334M32.5 16.5v33.75M15.917 33.375h33.166"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-len">
+        <g id="bblen">
+            <g id="bblen_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M71.437 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094S2.5 117.533 2.5 111.406l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.13 5.534z"
+                      fill="#FFF" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M36.97 2.5c-16.57 0-30 10.812-30 24.15 0 26.674 16.192 72.447 30 72.447s30-45.774 30-72.448c0-13.338-13.433-24.15-30-24.15z"
+                      fill="#FFF"/>
+                <path d="M37.635 73.34s-13.667 1.608-21.667-2.148m23.959 13.036s-11.958 1.408-18.958-1.88M36.97 14.77v33.75M20.386 31.645h33.166"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 69 129" preserveAspectRatio="none" id="tp-syl-li">
+        <g id="bcli">
+            <g id="bcli_1_">
+                <g stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                    <path d="M32.5 2.5c-16.57 0-30 13.43-30 30 0 33.137 16.193 90 30 90s30-56.863 30-90c0-16.57-13.43-30-30-30z"
+                          fill="#FFF"/>
+                    <path d="M33.167 90.5S19.5 92.5 11.5 87.835m23.958 16.192s-11.958 1.75-18.958-2.334" fill="none"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M2.667 38h43.5"/>
+                <circle cx="30.892" cy="51.442" r="4.876"/>
+                <circle cx="30.892" cy="24.557" r="4.876"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-lin">
+        <g id="bdlin">
+            <g id="bdlin_1_">
+                <path d="M71.437 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094S2.5 117.533 2.5 111.406l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.13 5.534z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <g stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                    <path d="M36.97 2.5c-16.57 0-30 10.812-30 24.15 0 26.674 16.192 72.447 30 72.447s30-45.774 30-72.448c0-13.338-13.433-24.15-30-24.15z"
+                          fill="#FFF"/>
+                    <path d="M37.635 73.34s-13.667 1.608-21.667-2.148m23.959 13.036s-11.958 1.408-18.958-1.88"
+                          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M7.135 33.078h43.5"/>
+                <circle cx="35.361" cy="46.52" r="4.876"/>
+                <circle cx="35.361" cy="19.635" r="4.876"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 69 129" preserveAspectRatio="none" id="tp-syl-lo">
+        <g id="belo">
+            <g id="belo_1_">
+                <g stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                    <path d="M32.5 2.5c-16.57 0-30 13.43-30 30 0 33.137 16.193 90 30 90s30-56.863 30-90c0-16.57-13.43-30-30-30z"
+                          fill="#FFF"/>
+                    <path d="M33.167 90.5S19.5 92.5 11.5 87.835m23.958 16.192s-11.958 1.75-18.958-2.334" fill="none"
+                          stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <circle cx="32.5" cy="39.583" r="15.25" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="32.5" cy="39.107" r="6.06"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-lon">
+        <g id="bflon">
+            <g id="bflon_1_">
+                <path d="M71.437 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094S2.5 117.533 2.5 111.406l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.13 5.534z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <g stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                    <path d="M36.97 2.5c-16.57 0-30 10.812-30 24.15 0 26.674 16.192 72.447 30 72.447s30-45.774 30-72.448c0-13.338-13.433-24.15-30-24.15z"
+                          fill="#FFF"/>
+                    <path d="M37.635 73.34s-13.667 1.608-21.667-2.148m23.959 13.036s-11.958 1.408-18.958-1.88"
+                          fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                <circle cx="36.969" cy="33.352" r="15.25" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="36.969" cy="32.875" r="6.06"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 69 129" preserveAspectRatio="none" id="tp-syl-lu">
+        <g id="bglu">
+            <g id="bglu_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M32.5 2.5c-16.57 0-30 13.43-30 30 0 33.137 16.193 90 30 90s30-56.863 30-90c0-16.57-13.43-30-30-30z"
+                      fill="#FFF"/>
+                <path d="M33.167 90.5S19.5 92.5 11.5 87.835m23.958 16.192s-11.958 1.75-18.958-2.334M2.79 38.375h31.913m-30.87-13.87H35.01c8.193 0 14.835 6.21 14.835 13.87 0 7.66-6.642 13.87-14.835 13.87H4.12"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-lun">
+        <g id="bhlun">
+            <g id="bhlun_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M71.437 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094S2.5 117.533 2.5 111.406l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.13 5.534z"
+                      fill="#FFF" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M36.97 2.5c-16.57 0-30 10.812-30 24.15 0 26.674 16.192 72.447 30 72.447s30-45.774 30-72.448c0-13.338-13.433-24.15-30-24.15z"
+                      fill="#FFF"/>
+                <path d="M37.635 73.34s-13.667 1.608-21.667-2.148m23.959 13.036s-11.958 1.408-18.958-1.88M7.26 33.367h31.912M8.302 20.214h31.176c8.193 0 14.835 5.89 14.835 13.153 0 7.264-6.642 13.153-14.835 13.153H9.588"
+                      fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-ma">
+        <g id="bima">
+            <g id="bima_1_">
+                <path d="M122.52 98.963c0 13-9.403 23.537-21 23.537-13 0-21-12.54-21-25.54 0 11.97-6.5 23.672-18 23.672-12.5 0-18-11.703-18-23.67 0 12.998-8.75 25.538-21.25 25.538-11.6 0-20.77-11.52-20.77-24.52l.02-35.48c0-33.137 26.862-60 60-60s60 26.863 60 60v36.463z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M105.315 91.822c-11.95 3.358-26.75 5.345-42.773 5.345-16.053 0-30.877-1.975-42.84-5.345"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 58.166 60.45)" cx="58.171" cy="60.452" rx="6.594" ry="6.301"/>
+                <path d="M83.364 61.265s-10.94 13.422-23.242 12.578S38.815 58.21 38.815 58.21s10.94-13.423 23.242-12.58c12.302.845 21.307 15.635 21.307 15.635z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M15.277 26.024c6.97-4.033 15.29-6.376 24.228-6.376 24.544 0 44.144 19.42 44.144 41.217"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 128.99599999999998" preserveAspectRatio="none" id="tp-syl-man">
+        <g id="bjman">
+            <g id="bjman_1_">
+                <path d="M2.5 105.433c0-16.853 26.738-22.406 59.875-22.406s60.134 7.537 60.134 22.796c0 10.313-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.086 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.313-8.75 17.086-21.25 17.086-11.597-.002-20.893-6.752-20.893-17.065z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M122.644 79.03c0 10.313-9.402 18.674-21 18.674-13 0-21-9.948-21-20.26 0 9.494-6.5 18.778-18 18.778-12.5 0-18-9.285-18-18.78 0 10.314-8.75 20.262-21.25 20.262-11.598 0-20.77-9.14-20.77-19.452l.02-28.15c0-26.29 26.863-47.6 60-47.6s60 21.31 60 47.6V79.03z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M105.44 73.365c-11.95 2.664-26.75 4.24-42.773 4.24-16.053 0-30.877-1.567-42.84-4.24"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M64.643 46.817a6.29 6.29 0 0 1-6.71 5.862c-3.473-.243-6.097-3.26-5.862-6.74a6.29 6.29 0 0 1 6.712-5.862c3.47.242 6.096 3.26 5.86 6.74z"/>
+                <path d="M83.546 47.26S72.662 60.076 60.36 59.218C48.06 58.357 39 44.152 39 44.152s10.884-12.814 23.185-11.956c12.3.858 21.363 15.065 21.363 15.065z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M16.17 20.134c6.97-3.897 16.523-6.162 25.46-6.162 24.545 0 41.916 12.223 41.916 33.288"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-me">
+        <g id="bkme">
+            <g id="bkme_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M122.52 98.963c0 13-9.403 23.537-21 23.537-13 0-21-12.54-21-25.54 0 11.97-6.5 23.672-18 23.672-12.5 0-18-11.703-18-23.67 0 12.998-8.75 25.538-21.25 25.538-11.6 0-20.77-11.52-20.77-24.52l.02-35.48c0-33.137 26.862-60 60-60s60 26.863 60 60v36.463z"
+                      fill="#FFF"/>
+                <path d="M105.315 91.822c-11.95 3.358-26.75 5.345-42.773 5.345-16.053 0-30.877-1.975-42.84-5.345"
+                      fill="#FFF"/>
+                <path fill="none" d="M62.5 27.5v42.67M41.165 48.836h42.67"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 128.99599999999998" preserveAspectRatio="none" id="tp-syl-men">
+        <g id="blmen">
+            <g id="blmen_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.433c0-16.853 26.738-22.406 59.875-22.406s60.134 7.537 60.134 22.796c0 10.313-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.086 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.313-8.75 17.086-21.25 17.086-11.597-.002-20.893-6.752-20.893-17.065z"
+                      fill="#FFF"/>
+                <path d="M122.644 79.03c0 10.313-9.402 18.674-21 18.674-13 0-21-9.948-21-20.26 0 9.494-6.5 18.778-18 18.778-12.5 0-18-9.285-18-18.78 0 10.314-8.75 20.262-21.25 20.262-11.598 0-20.77-9.14-20.77-19.452l.02-28.15c0-26.29 26.863-47.6 60-47.6s60 21.31 60 47.6V79.03z"
+                      fill="#FFF"/>
+                <path d="M105.44 73.365c-11.95 2.664-26.75 4.24-42.773 4.24-16.053 0-30.877-1.567-42.84-4.24"
+                      fill="#FFF"/>
+                <path fill="none" d="M62.625 19.497v42m-21.335-21h42.67"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129.00400000000002" preserveAspectRatio="none" id="tp-syl-mi">
+        <g id="bmmi">
+            <g id="bmmi_1_">
+                <path d="M122.52 98.967c0 13-9.403 23.537-21 23.537-13 0-21-12.54-21-25.54 0 11.97-6.5 23.672-18 23.672-12.5 0-18-11.703-18-23.67 0 12.998-8.75 25.538-21.25 25.538-11.6 0-20.77-11.52-20.77-24.52l.02-35.48c0-33.137 26.862-60 60-60s60 26.863 60 60v36.463z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M105.315 91.827c-11.95 3.358-26.75 5.345-42.773 5.345-16.053 0-30.877-1.975-42.84-5.345"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 2.5v62.004"/>
+                <circle cx="41.068" cy="44.097" r="6.43"/>
+                <circle cx="83.932" cy="44.097" r="6.43"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 129" preserveAspectRatio="none" id="tp-syl-min">
+        <g id="bnmin">
+            <g id="bnmin_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.406 59.875-22.406s60.134 7.537 60.134 22.796c0 10.313-9.27 16.675-20.867 16.675-13 0-21-6.772-21-17.085 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.605 0 10.313-8.75 17.086-21.25 17.086-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M122.644 79.033c0 10.313-9.402 18.674-21 18.674-13 0-21-9.948-21-20.26 0 9.494-6.5 18.778-18 18.778-12.5 0-18-9.285-18-18.78 0 10.314-8.75 20.262-21.25 20.262-11.598 0-20.77-9.14-20.77-19.452l.02-28.15c0-26.29 26.863-47.6 60-47.6s60 21.31 60 47.6v28.928z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M105.44 73.368c-11.95 2.664-26.75 4.24-42.773 4.24-16.053 0-30.877-1.567-42.84-4.24"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.625 2.5v53.952"/>
+                <circle cx="41.193" cy="36.83" r="6.43"/>
+                <circle cx="84.057" cy="36.83" r="6.43"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-mo">
+        <g id="bomo">
+            <g id="bomo_1_">
+                <path d="M122.52 98.963c0 13-9.403 23.537-21 23.537-13 0-21-12.54-21-25.54 0 11.97-6.5 23.672-18 23.672-12.5 0-18-11.703-18-23.67 0 12.998-8.75 25.538-21.25 25.538-11.6 0-20.77-11.52-20.77-24.52l.02-35.48c0-33.137 26.862-60 60-60s60 26.863 60 60v36.463z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M105.315 91.822c-11.95 3.358-26.75 5.345-42.773 5.345-16.053 0-30.877-1.975-42.84-5.345"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="62.509" cy="54.504" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.509" cy="53.646" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 128.99599999999998" preserveAspectRatio="none" id="tp-syl-mon">
+        <g id="bpmon">
+            <g id="bpmon_1_">
+                <path d="M2.5 105.433c0-16.853 26.738-22.406 59.875-22.406s60.134 7.537 60.134 22.796c0 10.313-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.086 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.313-8.75 17.086-21.25 17.086-11.597-.002-20.893-6.752-20.893-17.065z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M122.644 79.03c0 10.313-9.402 18.674-21 18.674-13 0-21-9.948-21-20.26 0 9.494-6.5 18.778-18 18.778-12.5 0-18-9.285-18-18.78 0 10.314-8.75 20.262-21.25 20.262-11.598 0-20.77-9.14-20.77-19.452l.02-28.15c0-26.29 26.863-47.6 60-47.6s60 21.31 60 47.6V79.03z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M105.44 73.365c-11.95 2.664-26.75 4.24-42.773 4.24-16.053 0-30.877-1.567-42.84-4.24"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="62.634" cy="41.627" r="18.369" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.634" cy="40.819" r="7.065"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-mu">
+        <g id="bqmu">
+            <g id="bqmu_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M122.52 98.963c0 13-9.403 23.537-21 23.537-13 0-21-12.54-21-25.54 0 11.97-6.5 23.672-18 23.672-12.5 0-18-11.703-18-23.67 0 12.998-8.75 25.538-21.25 25.538-11.6 0-20.77-11.52-20.77-24.52l.02-35.48c0-33.137 26.862-60 60-60s60 26.863 60 60v36.463z"
+                      fill="#FFF"/>
+                <path d="M105.315 91.822c-11.95 3.358-26.75 5.345-42.773 5.345-16.053 0-30.877-1.975-42.84-5.345"
+                      fill="#FFF"/>
+                <path fill="none"
+                      d="M62.5 2.5v49.58M81.945 6.14v44.915c0 10.74-8.706 19.445-19.445 19.445-10.74 0-19.445-8.706-19.445-19.445V6.14"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 128.99599999999998" preserveAspectRatio="none" id="tp-syl-mun">
+        <g id="brmun">
+            <g id="brmun_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.433c0-16.853 26.738-22.406 59.875-22.406s60.134 7.537 60.134 22.796c0 10.313-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.086 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.313-8.75 17.086-21.25 17.086-11.597-.002-20.893-6.752-20.893-17.065z"
+                      fill="#FFF"/>
+                <path d="M122.644 79.03c0 10.313-9.402 18.674-21 18.674-13 0-21-9.948-21-20.26 0 9.494-6.5 18.778-18 18.778-12.5 0-18-9.285-18-18.78 0 10.314-8.75 20.262-21.25 20.262-11.598 0-20.77-9.14-20.77-19.452l.02-28.15c0-26.29 26.863-47.6 60-47.6s60 21.31 60 47.6V79.03z"
+                      fill="#FFF"/>
+                <path d="M105.44 73.365c-11.95 2.664-26.75 4.24-42.773 4.24-16.053 0-30.877-1.567-42.84-4.24"
+                      fill="#FFF"/>
+                <path fill="none"
+                      d="M62.625 2.5v41.92M82.07 5.577v37.978c0 9.08-8.706 16.44-19.445 16.44-10.74 0-19.445-7.36-19.445-16.44V5.577"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 74.104 129.005" preserveAspectRatio="none" id="tp-syl-na">
+        <g id="bsna">
+            <g id="bsna_1_">
+                <path d="M32.848 2.5c10.902 0 19.985 8.025 19.985 17.925 0 5.94-3.195 11.19-8.096 14.45 9.154.644 16.366 7.578 16.366 16.055 0 6.49-4.232 12.067-10.318 14.622 9.96 4.88 16.818 15.113 16.818 26.95 0 16.57-12.247 30-28.815 30-25.038 0-36.185-26.737-36.185-59.874V32.5c0-16.57 13.677-30 30.245-30z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-4.974 28.89 80.564)" cx="28.908" cy="80.606" rx="5.053" ry="5.288"/>
+                <path d="M44.937 79.158S37.94 90.253 29.27 91.008c-8.667.753-15.73-9.98-15.73-9.98s6.123-10.223 14.79-10.977c8.67-.754 16.607 9.108 16.607 9.108zM2.5 49.684c23.395-5.57 39.733 10.773 42.607 29.137"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-nan">
+        <g id="btnan">
+            <g id="btnan_1_">
+                <path d="M71.437 111.402c0 6.13-5.144 11.098-11.49 11.098s-11.49-4.97-11.49-11.098c0 6.13-5.144 10.304-11.49 10.304s-11.49-4.174-11.49-10.304c0 6.13-5.144 11.098-11.49 11.098S2.5 117.53 2.5 111.402l.43-5.926c0-16.86 15.234-22.416 34.114-22.416s34.262 7.54 34.262 22.805l.13 5.537z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M35.322 2.5c10.902 0 19.985 6.462 19.985 14.434 0 4.783-3.195 9.01-8.096 11.637 9.155.52 16.367 6.102 16.367 12.93 0 5.224-4.232 9.716-10.318 11.773 9.958 3.93 16.817 12.17 16.817 21.702 0 13.342-12.247 24.157-28.815 24.157-25.038 0-36.185-21.53-36.185-48.213V26.656C5.077 13.315 18.753 2.5 35.322 2.5z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-4.974 31.363 66.594)" cx="31.381" cy="66.629" rx="5.053" ry="5.288"/>
+                <path d="M47.41 65.18s-6.997 11.095-15.665 11.85-15.732-9.98-15.732-9.98 6.123-10.224 14.79-10.978 16.608 9.108 16.608 9.108zM4.973 37.708c23.395-5.57 39.733 8.772 42.607 27.136"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 74 129.005" preserveAspectRatio="none" id="tp-syl-ne">
+        <g id="bune">
+            <g id="bune_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M32.745 2.5c10.902 0 19.985 8.025 19.985 17.925 0 5.94-3.195 11.19-8.096 14.45C53.788 35.52 61 42.456 61 50.932 61 57.42 56.768 63 50.682 65.554c9.96 4.88 16.818 15.114 16.818 26.952 0 16.57-12.247 30-28.815 30C13.647 122.505 2.5 95.767 2.5 62.63V32.5c0-16.57 13.676-30 30.245-30z"
+                      fill="#FFF"/>
+                <path d="M27.5 48v29.004M13.248 62.502H41.75" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-nen">
+        <g id="bvnen">
+            <g id="bvnen_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M71.437 111.402c0 6.13-5.144 11.098-11.49 11.098s-11.49-4.97-11.49-11.098c0 6.13-5.144 10.304-11.49 10.304s-11.49-4.174-11.49-10.304c0 6.13-5.144 11.098-11.49 11.098S2.5 117.53 2.5 111.402l.43-5.926c0-16.86 15.234-22.416 34.114-22.416s34.262 7.54 34.262 22.805l.13 5.537z"
+                      fill="#FFF"/>
+                <path d="M35.296 2.5c10.902 0 19.985 6.462 19.985 14.434 0 4.783-3.194 9.01-8.095 11.637 9.154.52 16.366 6.102 16.366 12.93 0 5.224-4.23 9.716-10.317 11.773 9.96 3.93 16.818 12.17 16.818 21.702 0 13.342-12.246 24.157-28.814 24.157-25.038 0-36.185-21.53-36.185-48.213V26.656C5.05 13.315 18.728 2.5 35.297 2.5z"
+                      fill="#FFF"/>
+                <path d="M30.05 36.315v29.002M15.8 50.816h28.5" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 74 129.005" preserveAspectRatio="none" id="tp-syl-ni">
+        <g id="bwni">
+            <g id="bwni_1_">
+                <path d="M32.745 2.5c10.902 0 19.985 8.025 19.985 17.925 0 5.94-3.195 11.19-8.096 14.45C53.788 35.52 61 42.456 61 50.932 61 57.42 56.768 63 50.682 65.554c9.96 4.88 16.818 15.114 16.818 26.952 0 16.57-12.247 30-28.815 30C13.647 122.505 2.5 95.767 2.5 62.63V32.5c0-16.57 13.676-30 30.245-30z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M2.806 72.46l36.944-4.206"/>
+                <ellipse transform="rotate(-6.486 28.26 82.66)" cx="28.251" cy="82.674" rx="4.725" ry="4.725"/>
+                <ellipse transform="rotate(-6.486 25.31 56.777)" cx="25.305" cy="56.787" rx="4.725" ry="4.725"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-nin">
+        <g id="bxnin">
+            <g id="bxnin_1_">
+                <path d="M71.437 111.402c0 6.13-5.144 11.098-11.49 11.098s-11.49-4.97-11.49-11.098c0 6.13-5.144 10.304-11.49 10.304s-11.49-4.174-11.49-10.304c0 6.13-5.144 11.098-11.49 11.098S2.5 117.53 2.5 111.402l.43-5.926c0-16.86 15.234-22.416 34.114-22.416s34.262 7.54 34.262 22.805l.13 5.537z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M35.27 2.5c10.902 0 19.985 6.462 19.985 14.434 0 4.783-3.195 9.01-8.096 11.637 9.153.52 16.365 6.102 16.365 12.93 0 5.224-4.232 9.716-10.318 11.773 9.96 3.93 16.818 12.17 16.818 21.702 0 13.342-12.247 24.157-28.815 24.157-25.038 0-36.185-21.53-36.185-48.213V26.656C5.025 13.315 18.7 2.5 35.27 2.5z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M5.33 59.365l36.946-4.205"/>
+                <ellipse transform="rotate(-6.486 30.782 69.567)" cx="30.777" cy="69.58" rx="4.725" ry="4.725"/>
+                <ellipse transform="rotate(-6.486 27.833 43.684)" cx="27.83" cy="43.693" rx="4.725" ry="4.725"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 74 129.005" preserveAspectRatio="none" id="tp-syl-no">
+        <g id="byno">
+            <g id="byno_1_">
+                <path d="M32.745 2.5c10.902 0 19.985 8.025 19.985 17.925 0 5.94-3.195 11.19-8.096 14.45C53.788 35.52 61 42.456 61 50.932 61 57.42 56.768 63 50.682 65.554c9.96 4.88 16.818 15.114 16.818 26.952 0 16.57-12.247 30-28.815 30C13.647 122.505 2.5 95.767 2.5 62.63V32.5c0-16.57 13.676-30 30.245-30z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="28.125" cy="69.314" r="13.314" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="28.125" cy="68.898" r="5.29"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-non">
+        <g id="bznon">
+            <g id="bznon_1_">
+                <path d="M71.437 111.402c0 6.13-5.144 11.098-11.49 11.098s-11.49-4.97-11.49-11.098c0 6.13-5.144 10.304-11.49 10.304s-11.49-4.174-11.49-10.304c0 6.13-5.144 11.098-11.49 11.098S2.5 117.53 2.5 111.402l.43-5.926c0-16.86 15.234-22.416 34.114-22.416s34.262 7.54 34.262 22.805l.13 5.537z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M35.244 2.5c10.902 0 19.985 6.462 19.985 14.434 0 4.783-3.196 9.01-8.097 11.637 9.154.52 16.366 6.102 16.366 12.93 0 5.224-4.233 9.716-10.32 11.773C63.14 57.203 70 65.443 70 74.975c0 13.342-12.248 24.157-28.816 24.157C16.146 99.132 5 77.602 5 50.92V26.656C5 13.315 18.674 2.5 35.243 2.5z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="30.624" cy="56.301" r="13.314" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="30.624" cy="55.885" r="5.29"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 74 129.005" preserveAspectRatio="none" id="tp-syl-nu">
+        <g id="canu">
+            <g id="canu_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M32.745 2.5c10.902 0 19.985 8.025 19.985 17.925 0 5.94-3.195 11.19-8.096 14.45C53.788 35.52 61 42.456 61 50.932 61 57.42 56.768 63 50.682 65.554c9.96 4.88 16.818 15.114 16.818 26.952 0 16.57-12.247 30-28.815 30C13.647 122.505 2.5 95.767 2.5 62.63V32.5c0-16.57 13.676-30 30.245-30z"
+                      fill="#FFF"/>
+                <path d="M4.456 75.927l26.223-3.58M3.756 64.412l25.618-3.497c6.733-.92 12.887 3.438 13.746 9.733.86 6.294-3.902 12.142-10.634 13.06l-26.11 3.467"
+                      fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 77.937 129" preserveAspectRatio="none" id="tp-syl-nun">
+        <g id="cbnun">
+            <g id="cbnun_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M71.437 111.402c0 6.13-5.144 11.098-11.49 11.098s-11.49-4.97-11.49-11.098c0 6.13-5.144 10.304-11.49 10.304s-11.49-4.174-11.49-10.304c0 6.13-5.144 11.098-11.49 11.098S2.5 117.53 2.5 111.402l.43-5.926c0-16.86 15.234-22.416 34.114-22.416s34.262 7.54 34.262 22.805l.13 5.537z"
+                      fill="#FFF"/>
+                <path d="M35.218 2.5c10.902 0 19.985 6.462 19.985 14.434 0 4.783-3.195 9.01-8.096 11.637 9.154.52 16.366 6.102 16.366 12.93 0 5.224-4.232 9.716-10.318 11.773 9.96 3.93 16.818 12.17 16.818 21.702 0 13.342-12.247 24.157-28.815 24.157-25.038 0-36.185-21.53-36.185-48.213V26.656C4.973 13.315 18.65 2.5 35.218 2.5z"
+                      fill="#FFF"/>
+                <path d="M5.93 62.004l27.222-3.58M5.23 51.49l26.618-4.498c6.733-.92 12.887 3.438 13.746 9.733.86 6.294-3.902 12.142-10.634 13.06L7.847 73.253"
+                      fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-o">
+        <g id="cco">
+            <g id="cco_1_">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <circle cx="62.5" cy="59.498" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.5" cy="58.64" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129.91899999999998" preserveAspectRatio="none" id="tp-syl-on">
+        <g id="cdon">
+            <g id="cdon_1_">
+                <path d="M2.5 106.224c0-16.982 26.738-22.58 59.875-22.58s60.134 7.596 60.134 22.972c0 10.393-9.27 16.803-20.867 16.803-13 0-21-6.826-21-17.218 0 9.568-6.5 15.724-18 15.724-12.5 0-18-6.156-18-15.724 0 10.393-8.75 17.217-21.25 17.217-11.597 0-20.893-6.803-20.893-17.196z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="62.505" cy="50.468" rx="60" ry="47.968" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-miterlimit="10"/>
+                <circle cx="62.505" cy="48.068" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.505" cy="47.21" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-pa">
+        <g id="cepa">
+            <g id="cepa_1_">
+                <path d="M47.142 36.09C55.132 30.74 65.575 27.5 77 27.5c25.13 0 45.5 15.67 45.5 35 0 33.137-26.863 60-60 60s-60-26.863-60-60 26.863-60 60-60h.125c27.407 0 50.375 16.25 49.125 37"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="70.375" cy="16.625" r="4.125"/>
+                <circle cx="84.25" cy="17.749" r="4"/>
+                <ellipse transform="rotate(-86.078 58.165 86.464)" cx="58.171" cy="86.468" rx="6.594" ry="6.301"/>
+                <path d="M83.364 87.282s-10.94 13.422-23.242 12.578-21.307-15.635-21.307-15.635 10.94-13.422 23.242-12.578c12.302.845 21.307 15.635 21.307 15.635z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.654 63.066c7.986-10.5 21.51-17.4 36.85-17.4 24.544 0 44.144 19.418 44.144 41.216"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pan">
+        <g id="cfpan">
+            <g id="cfpan_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M47.267 29.15c7.99-4.245 18.432-6.816 29.858-6.816 25.13 0 45.5 12.432 45.5 27.768 0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603S29.488 2.5 62.625 2.5h.125c27.407 0 50.375 12.893 49.125 29.355"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="70.5" cy="13.707" rx="4.125" ry="3.273"/>
+                <ellipse cx="84.375" cy="14.599" rx="4" ry="3.174"/>
+                <path d="M64.574 69.587c-.286 3.422-3.333 6.05-6.806 5.87-3.472-.18-6.055-3.1-5.77-6.52.287-3.423 3.334-6.052 6.807-5.872 3.472.18 6.055 3.1 5.77 6.522z"/>
+                <path d="M83.493 69.706s-11.086 12.77-23.39 12.134C47.8 81.203 38.936 67.4 38.936 67.4s11.086-12.772 23.39-12.135c12.304.637 21.167 14.44 21.167 14.44z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.78 50.552c7.985-8.33 21.51-13.806 36.85-13.806 24.543 0 44.143 15.407 44.143 32.7"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-pe">
+        <g id="cgpe">
+            <g id="cgpe_1_">
+                <path d="M47.142 36.09C55.132 30.74 65.575 27.5 77 27.5c25.13 0 45.5 15.67 45.5 35 0 33.137-26.863 60-60 60s-60-26.863-60-60 26.863-60 60-60h.125c27.407 0 50.375 16.25 49.125 37"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="70.375" cy="16.625" r="4.125"/>
+                <circle cx="84.25" cy="17.749" r="4"/>
+                <path d="M62.51 47.832v49.335M37.842 72.5h49.335" fill="none" stroke="#000" stroke-width="5"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pen">
+        <g id="chpen">
+            <g id="chpen_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M47.267 29.15c7.99-4.245 18.432-6.816 29.858-6.816 25.13 0 45.5 12.432 45.5 27.768 0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603S29.488 2.5 62.625 2.5h.125c27.407 0 50.375 12.893 49.125 29.355"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="70.5" cy="13.707" rx="4.125" ry="3.273"/>
+                <ellipse cx="84.375" cy="14.599" rx="4" ry="3.174"/>
+                <path d="M62.634 38.466V83.07M37.967 60.768h49.335" fill="none" stroke="#000" stroke-width="5"
+                      stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-pi">
+        <g id="cipi">
+            <g id="cipi_1_">
+                <path d="M47.142 36.09C55.132 30.74 65.575 27.5 77 27.5c25.13 0 45.5 15.67 45.5 35 0 33.137-26.863 60-60 60s-60-26.863-60-60 26.863-60 60-60h.125c27.407 0 50.375 16.25 49.125 37"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="70.375" cy="16.625" r="4.125"/>
+                <circle cx="84.25" cy="17.749" r="4"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 122.5v-68"/>
+                <circle cx="85.191" cy="79.28" r="6.808"/>
+                <circle cx="39.809" cy="79.28" r="6.808"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pin">
+        <g id="cjpin">
+            <g id="cjpin_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M47.267 29.15c7.99-4.245 18.432-6.816 29.858-6.816 25.13 0 45.5 12.432 45.5 27.768 0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603S29.488 2.5 62.625 2.5h.125c27.407 0 50.375 12.893 49.125 29.355"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="70.5" cy="13.707" rx="4.125" ry="3.273"/>
+                <ellipse cx="84.375" cy="14.599" rx="4" ry="3.174"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.625 97.706v-53.95"/>
+                <circle cx="85.316" cy="62.009" r="6.808"/>
+                <circle cx="39.934" cy="62.009" r="6.808"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-po">
+        <g id="ckpo">
+            <g id="ckpo_1_">
+                <path d="M47.142 36.09C55.132 30.74 65.575 27.5 77 27.5c25.13 0 45.5 15.67 45.5 35 0 33.137-26.863 60-60 60s-60-26.863-60-60 26.863-60 60-60h.125c27.407 0 50.375 16.25 49.125 37"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="70.375" cy="16.625" r="4.125"/>
+                <circle cx="84.25" cy="17.749" r="4"/>
+                <circle cx="62.509" cy="71.751" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.509" cy="70.894" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pon">
+        <g id="clpon">
+            <g id="clpon_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M47.267 29.15c7.99-4.245 18.432-6.816 29.858-6.816 25.13 0 45.5 12.432 45.5 27.768 0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603S29.488 2.5 62.625 2.5h.125c27.407 0 50.375 12.893 49.125 29.355"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="70.5" cy="13.707" rx="4.125" ry="3.273"/>
+                <ellipse cx="84.375" cy="14.599" rx="4" ry="3.174"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"
+                      d="M23.87 86.265L59.76 57.65m-49.392 16.3l33.765-26.925c8.412-6.707 21.745-7.003 29.78-.66 8.035 6.34 7.73 16.92-.682 23.626L42.67 94.358"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-pu">
+        <g id="cmpu">
+            <g id="cmpu_1_">
+                <path d="M47.142 36.09C55.132 30.74 65.575 27.5 77 27.5c25.13 0 45.5 15.67 45.5 35 0 33.137-26.863 60-60 60s-60-26.863-60-60 26.863-60 60-60h.125c27.407 0 50.375 16.25 49.125 37"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="70.375" cy="16.625" r="4.125"/>
+                <circle cx="84.25" cy="17.749" r="4"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"
+                      d="M24.796 109.55L57.38 77.037M12.212 95.043L42.866 64.45c7.637-7.62 19.887-7.726 27.36-.236 7.475 7.49 7.344 19.74-.292 27.36L42.19 119.26"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pun">
+        <g id="cnpun">
+            <g id="cnpun_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M47.267 29.15c7.99-4.245 18.432-6.816 29.858-6.816 25.13 0 45.5 12.432 45.5 27.768 0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603S29.488 2.5 62.625 2.5h.125c27.407 0 50.375 12.893 49.125 29.355"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="70.5" cy="13.707" rx="4.125" ry="3.273"/>
+                <ellipse cx="84.375" cy="14.599" rx="4" ry="3.174"/>
+                <circle cx="62.634" cy="59.418" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.634" cy="58.56" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-sa">
+        <g id="cosa">
+            <g id="cosa_1_">
+                <ellipse cx="37.82" cy="97.847" rx="30.5" ry="24.653" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="72.15" rx="30.5" ry="24.653" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="39.875" rx="35.32" ry="37.375" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-4.405 36.726 45.526)" cx="36.738" cy="45.539" rx="5.733" ry="6"/>
+                <path d="M54.94 44.076s-8.065 12.508-17.907 13.266c-9.842.758-17.735-11.497-17.735-11.497s7.06-11.53 16.904-12.288 18.737 10.52 18.737 10.52zM13.612 14.735c23-5.235 38.865 10.953 41.506 28.992"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-san">
+        <g id="cpsan">
+            <g id="cpsan_1_">
+                <path d="M72.33 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.134 5.534z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="79.253" rx="30.5" ry="19.845" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="58.567" rx="30.5" ry="19.845" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="32.586" rx="35.32" ry="30.086" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <path d="M42.945 35.89c.258 3.18-2.132 5.948-5.338 6.182-3.207.234-6.016-2.155-6.274-5.335s2.132-5.95 5.338-6.183 6.016 2.154 6.275 5.335z"/>
+                <path d="M55.627 34.904s-8.19 12.04-18.188 12.77c-10 .73-18.015-11.067-18.015-11.067s7.173-11.1 17.17-11.83c9.997-.73 19.032 10.127 19.032 10.127zM11.32 12.886c31.644-10.65 42.832 9.168 44.488 21.682"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-se">
+        <g id="cqse">
+            <g id="cqse_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <ellipse cx="37.82" cy="97.847" rx="30.5" ry="24.653" fill="#FFF"/>
+                <ellipse cx="37.82" cy="72.15" rx="30.5" ry="24.653" fill="#FFF"/>
+                <ellipse cx="37.82" cy="39.875" rx="35.32" ry="37.375" fill="#FFF"/>
+                <path d="M37.82 22v33.75M21.237 38.874h33.166" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-sen">
+        <g id="crsen">
+            <g id="crsen_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M72.33 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.134 5.534z"
+                      fill="#FFF"/>
+                <ellipse cx="37.82" cy="79.253" rx="30.5" ry="19.845" fill="#FFF"/>
+                <ellipse cx="37.82" cy="58.567" rx="30.5" ry="19.845" fill="#FFF"/>
+                <ellipse cx="37.82" cy="32.586" rx="35.32" ry="30.086" fill="#FFF"/>
+                <path d="M37.82 15.198v33.166M21.237 31.78h33.166" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-si">
+        <g id="cssi">
+            <g id="cssi_1_">
+                <ellipse cx="37.82" cy="97.847" rx="30.5" ry="24.653" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="72.15" rx="30.5" ry="24.653" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="39.875" rx="35.32" ry="37.375" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M37.82 2.5v49.75"/>
+                <circle cx="22.447" cy="34.781" r="5.576"/>
+                <circle cx="53.194" cy="34.781" r="5.576"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-sin">
+        <g id="ctsin">
+            <g id="ctsin_1_">
+                <path d="M72.33 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.134 5.534z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="79.253" rx="30.5" ry="19.845" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="58.567" rx="30.5" ry="19.845" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="32.586" rx="35.32" ry="30.086" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M37.82 2.5v42.127"/>
+                <circle cx="22.447" cy="29.573" r="5.576"/>
+                <circle cx="53.194" cy="29.573" r="5.576"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-so">
+        <g id="cuso">
+            <g id="cuso_1_">
+                <ellipse cx="37.82" cy="97.847" rx="30.5" ry="24.653" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="72.15" rx="30.5" ry="24.653" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="39.875" rx="35.32" ry="37.375" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <circle cx="37.945" cy="39.583" r="15.25" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="37.945" cy="39.107" r="6.06"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-son">
+        <g id="cvson">
+            <g id="cvson_1_">
+                <path d="M72.33 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.134 5.534z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="79.253" rx="30.5" ry="19.845" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="58.567" rx="30.5" ry="19.845" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <ellipse cx="37.82" cy="32.586" rx="35.32" ry="30.086" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+                <circle cx="37.945" cy="32.351" r="15.25" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="37.945" cy="31.875" r="6.06"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-su">
+        <g id="cwsu">
+            <g id="cwsu_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <ellipse cx="37.82" cy="97.847" rx="30.5" ry="24.653" fill="#FFF"/>
+                <ellipse cx="37.82" cy="72.15" rx="30.5" ry="24.653" fill="#FFF"/>
+                <ellipse cx="37.82" cy="39.875" rx="35.32" ry="37.375" fill="#FFF"/>
+                <path d="M37.82 2.5v33.914m13.87-30.87V36.72c0 8.193-6.21 14.835-13.87 14.835-7.66 0-13.87-6.642-13.87-14.835V5.83"
+                      fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 79.64 129" preserveAspectRatio="none" id="tp-syl-sun">
+        <g id="cxsun">
+            <g id="cxsun_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M72.33 111.406c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094c0 6.127-5.144 10.3-11.49 10.3s-11.49-4.173-11.49-10.3c0 6.127-5.144 11.094-11.49 11.094s-11.49-4.967-11.49-11.094l.43-5.924c0-16.855 15.234-22.41 34.114-22.41s34.262 7.54 34.262 22.8l.134 5.534z"
+                      fill="#FFF"/>
+                <ellipse cx="37.82" cy="79.253" rx="30.5" ry="19.845" fill="#FFF"/>
+                <ellipse cx="37.82" cy="58.567" rx="30.5" ry="19.845" fill="#FFF"/>
+                <ellipse cx="37.82" cy="32.586" rx="35.32" ry="30.086" fill="#FFF"/>
+                <path d="M37.82 2.5v31.707M51.69 5.346v29.148c0 7.66-6.21 13.87-13.87 13.87-7.66 0-13.87-6.21-13.87-13.87V5.612"
+                      fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-ta">
+        <g id="cyta">
+            <g id="cyta_1_">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 19.166V2.5"/>
+                <path d="M35.894 27.105c7.718-4.918 16.84-7.94 26.616-7.94a49.357 49.357 0 0 1 26.894 7.94" fill="#FFF"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 58.165 86.464)" cx="58.171" cy="86.468" rx="6.594" ry="6.301"/>
+                <path d="M83.364 87.282s-10.94 13.422-23.242 12.578-21.307-15.635-21.307-15.635 10.94-13.422 23.242-12.578c12.302.845 21.307 15.635 21.307 15.635z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.654 63.066c7.986-10.5 21.51-17.4 36.85-17.4 24.544 0 44.144 19.418 44.144 41.216"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-tan">
+        <g id="cztan">
+            <g id="cztan_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="62.625" cy="50.103" rx="60" ry="47.603" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.625 15.723V2.5"/>
+                <path d="M36.02 22.02c7.717-3.9 16.84-6.298 26.615-6.298 9.893 0 19.118 2.31 26.894 6.3" fill="#FFF"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M64.7 68.5c-.286 3.42-3.333 6.05-6.806 5.87-3.472-.18-6.055-3.1-5.77-6.522.287-3.422 3.334-6.05 6.807-5.87 3.473.18 6.056 3.1 5.77 6.52z"/>
+                <path d="M83.62 68.618s-11.087 12.77-23.39 12.134-21.168-14.44-21.168-14.44 11.086-12.772 23.39-12.135c12.304.637 21.167 14.44 21.167 14.44z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.625 49.464c7.986-8.33 21.51-13.806 36.85-13.806 24.544 0 44.144 15.407 44.144 32.7"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-te">
+        <g id="date">
+            <g id="date_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M62.5 19.166V2.5"/>
+                <path d="M35.894 27.105c7.718-4.918 16.84-7.94 26.616-7.94a49.357 49.357 0 0 1 26.894 7.94" fill="#FFF"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M62.51 47.832v49.335M37.842 72.5h49.335" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-ten">
+        <g id="dbten">
+            <g id="dbten_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke-linecap="round" stroke-linejoin="round"/>
+                <ellipse cx="62.625" cy="50.103" rx="60" ry="47.603" fill="#FFF"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M62.625 15.723V2.5"/>
+                <path d="M36.02 22.02c7.717-3.9 16.84-6.298 26.615-6.298 9.893 0 19.118 2.31 26.894 6.3" fill="#FFF"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M62.634 35.734V80.34M37.967 58.036h49.335" fill="none" stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-to">
+        <g id="dcto">
+            <g id="dcto_1_">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 19.166V2.5"/>
+                <path d="M35.894 27.105c7.718-4.918 16.84-7.94 26.616-7.94a49.357 49.357 0 0 1 26.894 7.94" fill="#FFF"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="62.509" cy="66.753" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.509" cy="65.895" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-ton">
+        <g id="ddton">
+            <g id="ddton_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse cx="62.625" cy="50.103" rx="60" ry="47.603" fill="#FFF" stroke="#000" stroke-width="5"
+                         stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.625 15.723V2.5"/>
+                <path d="M36.02 22.02c7.717-3.9 16.84-6.298 26.615-6.298 9.893 0 19.118 2.31 26.894 6.3" fill="#FFF"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <circle cx="62.634" cy="59.508" r="19.5" fill="#FFF" stroke="#000" stroke-width="5"
+                        stroke-miterlimit="10"/>
+                <circle cx="62.634" cy="58.65" r="7.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-tu">
+        <g id="detu">
+            <g id="detu_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M62.5 19.166V2.5"/>
+                <path d="M35.894 27.105c7.718-4.918 16.84-7.94 26.616-7.94a49.357 49.357 0 0 1 26.894 7.94" fill="#FFF"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                      d="M62.5 122.5V72.92m-19.445 46.328V74.332c0-10.74 8.706-19.445 19.445-19.445 10.74 0 19.445 8.706 19.445 19.445v44.916"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-tun">
+        <g id="dftun">
+            <g id="dftun_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke-linecap="round" stroke-linejoin="round"/>
+                <ellipse cx="62.625" cy="50.103" rx="60" ry="47.603" fill="#FFF"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M62.625 15.723V2.5"/>
+                <path d="M36.02 22.02c7.717-3.9 16.84-6.298 26.615-6.298 9.893 0 19.118 2.31 26.894 6.3" fill="#FFF"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                      d="M62.625 97.706V52.264M43.18 94.726v-41.17c0-9.842 8.706-17.822 19.445-17.822 10.74 0 19.445 7.98 19.445 17.823v41.17"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-syl-u">
+        <g id="dgu">
+            <g id="dgu_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <circle cx="62.5" cy="62.5" r="60" fill="#FFF"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                      d="M62.5 2.5V57M83.875 6.5v49.375c0 11.805-9.57 21.375-21.375 21.375s-21.375-9.57-21.375-21.375V6.5"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.00900000000001 129.91899999999998" preserveAspectRatio="none" id="tp-syl-un">
+        <g id="dhun">
+            <g id="dhun_1_" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+                <path d="M2.5 106.224c0-16.982 26.738-22.58 59.875-22.58s60.134 7.596 60.134 22.972c0 10.393-9.27 16.803-20.867 16.803-13 0-21-6.826-21-17.218 0 9.568-6.5 15.724-18 15.724-12.5 0-18-6.156-18-15.724 0 10.393-8.75 17.217-21.25 17.217-11.597 0-20.893-6.803-20.893-17.196z"
+                      fill="#FFF" stroke-linecap="round" stroke-linejoin="round"/>
+                <ellipse cx="62.5" cy="50.468" rx="60" ry="47.968" fill="#FFF"/>
+                <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                      d="M62.5 2.5v43.57M83.875 5.698V45.17c0 9.44-9.57 17.09-21.375 17.09s-21.375-7.65-21.375-17.09V5.7"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-wa">
+        <g id="diwa">
+            <g id="diwa_1_">
+                <path d="M2.5 26.038c0-13 9.402-23.538 21-23.538 13 0 21 12.54 21 25.54 0-11.97 6.5-23.672 18-23.672 12.5 0 18 11.703 18 23.67 0-13 8.75-25.538 21.25-25.538 11.598 0 20.77 11.52 20.77 24.52l-.02 35.48c0 33.137-26.863 60-60 60s-60-26.863-60-60V26.038z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M19.704 33.178c11.95-3.358 26.75-5.345 42.773-5.345 16.053 0 30.877 1.975 42.84 5.345"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <ellipse transform="rotate(-86.078 58.165 86.464)" cx="58.171" cy="86.468" rx="6.594" ry="6.301"/>
+                <path d="M83.364 87.282s-10.94 13.422-23.242 12.578c-12.302-.844-21.307-15.635-21.307-15.635s10.94-13.422 23.242-12.578c12.302.845 21.307 15.635 21.307 15.635z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.654 63.066c7.986-10.5 21.51-17.4 36.85-17.4 24.544 0 44.144 19.418 44.144 41.216"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 129" preserveAspectRatio="none" id="tp-syl-wan">
+        <g id="djwan">
+            <g id="djwan_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.625 21.174c0-10.314 9.402-18.674 21-18.674 13 0 21 9.95 21 20.262 0-9.495 6.5-18.78 18-18.78 12.5 0 18 9.285 18 18.78 0-10.314 8.75-20.262 21.25-20.262 11.598 0 20.77 9.14 20.77 19.453l-.02 28.15c0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603v-28.93z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M19.83 26.84c11.95-2.666 26.747-4.24 42.77-4.24 16.053 0 30.877 1.566 42.84 4.24" fill="#FFF"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M64.7 68.5c-.286 3.42-3.333 6.05-6.806 5.87-3.472-.18-6.055-3.1-5.77-6.522.287-3.422 3.334-6.05 6.807-5.87 3.473.18 6.056 3.1 5.77 6.52z"/>
+                <path d="M83.62 68.618s-11.087 12.77-23.39 12.134-21.168-14.44-21.168-14.44 11.086-12.772 23.39-12.135c12.304.637 21.167 14.44 21.167 14.44z"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.625 49.464c7.986-8.33 21.51-13.806 36.85-13.806 24.544 0 44.144 15.407 44.144 32.7"
+                      fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-we">
+        <g id="dkwe">
+            <g id="dkwe_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 26.038c0-13 9.402-23.538 21-23.538 13 0 21 12.54 21 25.54 0-11.97 6.5-23.672 18-23.672 12.5 0 18 11.703 18 23.67 0-13 8.75-25.538 21.25-25.538 11.598 0 20.77 11.52 20.77 24.52l-.02 35.48c0 33.137-26.863 60-60 60s-60-26.863-60-60V26.038z"
+                      fill="#FFF"/>
+                <path d="M19.704 33.178c11.95-3.358 26.75-5.345 42.773-5.345 16.053 0 30.877 1.975 42.84 5.345"
+                      fill="#FFF"/>
+                <path d="M62.51 47.832v49.335M37.842 72.5h49.335" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 129" preserveAspectRatio="none" id="tp-syl-wen">
+        <g id="dlwen">
+            <g id="dlwen_1_" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+               stroke-miterlimit="10">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF"/>
+                <path d="M2.625 21.174c0-10.314 9.402-18.674 21-18.674 13 0 21 9.95 21 20.262 0-9.495 6.5-18.78 18-18.78 12.5 0 18 9.285 18 18.78 0-10.314 8.75-20.262 21.25-20.262 11.598 0 20.77 9.14 20.77 19.453l-.02 28.15c0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603v-28.93z"
+                      fill="#FFF"/>
+                <path d="M19.83 26.84c11.95-2.666 26.747-4.24 42.77-4.24 16.053 0 30.877 1.566 42.84 4.24" fill="#FFF"/>
+                <path d="M62.634 35.734V80.34M37.967 58.036h49.335" fill="none"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-syl-wi">
+        <g id="dmwi">
+            <g id="dmwi_1_">
+                <path d="M2.5 26.038c0-13 9.402-23.538 21-23.538 13 0 21 12.54 21 25.54 0-11.97 6.5-23.672 18-23.672 12.5 0 18 11.703 18 23.67 0-13 8.75-25.538 21.25-25.538 11.598 0 20.77 11.52 20.77 24.52l-.02 35.48c0 33.137-26.863 60-60 60s-60-26.863-60-60V26.038z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M19.704 33.178c11.95-3.358 26.75-5.345 42.773-5.345 16.053 0 30.877 1.975 42.84 5.345"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.5 122.5v-68"/>
+                <circle cx="85.191" cy="79.28" r="6.808"/>
+                <circle cx="39.809" cy="79.28" r="6.808"/>
+            </g>
+        </g>
+
+    </symbol>
+    <symbol viewBox="-2 -2 129.144 129" preserveAspectRatio="none" id="tp-syl-win">
+        <g id="dnwin">
+            <g id="dnwin_1_">
+                <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M2.625 21.174c0-10.314 9.402-18.674 21-18.674 13 0 21 9.95 21 20.262 0-9.495 6.5-18.78 18-18.78 12.5 0 18 9.285 18 18.78 0-10.314 8.75-20.262 21.25-20.262 11.598 0 20.77 9.14 20.77 19.453l-.02 28.15c0 26.29-26.863 47.603-60 47.603s-60-21.313-60-47.603v-28.93z"
+                      fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path d="M19.83 26.84c11.95-2.666 26.747-4.24 42.77-4.24 16.053 0 30.877 1.566 42.84 4.24" fill="#FFF"
+                      stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10"/>
+                <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+                      stroke-miterlimit="10" d="M62.625 97.706v-53.95"/>
+                <circle cx="85.316" cy="62.009" r="6.808"/>
+                <circle cx="39.934" cy="62.009" r="6.808"/>
+            </g>
+        </g>
+
     </symbol>
 </svg>
