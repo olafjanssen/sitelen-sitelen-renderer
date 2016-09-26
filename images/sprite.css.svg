@@ -4373,6 +4373,30 @@
                 <circle cx="39.934" cy="62.009" r="6.808"/>
             </g>
         </g>
-
+    </symbol>
+    <symbol viewBox="0 0 298.495 245" preserveAspectRatio="none" id="tp-c-cartouche">
+        <g id="cartouche" fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
+           stroke-miterlimit="10">
+            <path d="M127.454,242.5H27.041c-14.659,0-24.541-9.352-24.541-20.889l0,0c0-7.698,2.595-14.423,10.47-18.046l0-151.223L12.803,35
+		c0-17.949,14.551-32.5,32.5-32.5h207.888c17.949,0,32.416,14.551,32.416,32.5v17.341l-0.084,151.612
+		c7.425,3.703,10.47,10.227,10.47,17.657l0,0c0,11.537-9.882,20.889-24.541,20.889H171.041H127.454z"/>
+        </g>
+    </symbol>
+    <symbol viewBox="0 0 154.495 244.065" preserveAspectRatio="none" id="tp-c-cartouche-tall" style="overflow:visible;">
+        <g transform="matrix(1 0 0 1 0 0)" id="cartouche-tall-tall" fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round"
+           stroke-linejoin="round"
+           stroke-miterlimit="10">
+            <path d="M12.724,34.762C12.724,16.944,27.168,2.5,44.985,2.5h64.524c17.818,0,32.262,14.444,32.262,32.262l-0.247,168.256
+		c7.425,3.703,10.47,10.227,10.47,17.657l0,0c0,11.537-9.882,20.889-24.541,20.889H27.041c-14.659,0-24.541-9.352-24.541-20.889l0,0
+		c0-7.698,2.595-14.423,10.47-18.046L12.724,34.762z"/>
+        </g>
+    </symbol>
+    <symbol viewBox="0 0 244.065 154.495" preserveAspectRatio="none" id="tp-c-cartouche-wide" style="overflow:visible;">
+        <g transform="matrix(1 0 0 1.15 0 -10)" id="cartouche-tall-wide" fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round"
+           stroke-linejoin="round" stroke-miterlimit="10">
+            <path d="M34.762,141.771c-17.818,0-32.262-14.444-32.262-32.262V44.985c0-17.818,14.444-32.262,32.262-32.262l168.256,0.247
+		c3.703-7.425,10.227-10.47,17.657-10.47l0,0c11.537,0,20.889,9.882,20.889,24.541v100.413c0,14.659-9.352,24.541-20.889,24.541l0,0
+		c-7.698,0-14.423-2.595-18.046-10.47L34.762,141.771z"/>
+        </g>
     </symbol>
 </svg>

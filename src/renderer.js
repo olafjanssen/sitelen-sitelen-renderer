@@ -155,7 +155,11 @@ var sitelenRenderer = function () {
                     x: box[0],
                     y: box[1]
                 }, {}, svgNS);
-                target.insertBefore(use, target.firstChild);
+                if (option.separator === 'cartouche') {
+                    target.appendChild(use);
+                } else {
+                    target.insertBefore(use, target.firstChild);
+                }
             }
 
             matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
