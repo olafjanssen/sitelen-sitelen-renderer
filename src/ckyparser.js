@@ -163,6 +163,47 @@ function getStructuredSentence(parseTable) {
     return steps === 0 ? null : sentence;
 }
 
+function getSimpleStructuredSentence(parseable) {
+
+    var tokens = parseable.split(' '),
+        prepositions = ['tawa', 'lon', 'kepeken'],
+        objectMarker = ['li', 'e'],
+        specialTokens = [].concat(prepositions).concat(objectMarker),
+        part = {part: 'subject', tokens: []},
+        sentence = [part];
+
+    tokens.forEach(function (token, index) {
+        console.log(token, index, tokens.length, tokens[index-1]);
+
+        if (objectMarker.indexOf(token) > -1 &&
+            index < tokens.length - 1) {
+            sentence.push({part: 'objectMarker', sep: token, tokens: []});
+            part = sentence[sentence.length - 1];
+            return;
+        }
+        if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index-1]) === -1 &&
+            index < tokens.length - 1) {
+            sentence.push({part: 'prepPhrase', sep: token, tokens: []});
+            part = sentence[sentence.length - 1];
+            return;
+        }
+
+        if (token === 'o' && part.tokens.length > 0) {
+            part.sep = 'o';
+            return;
+        }
+
+        part.tokens.push(token);
+    });
+
+    // filter out empty parts
+    sentence = sentence.filter(function (part) {
+        return part.tokens.length > 0;
+    });
+    return sentence;
+
+}
+
 
 function loadTokiPonaGrammar() {
     var xmlhttp = new XMLHttpRequest();
@@ -251,24 +292,24 @@ function splitProperIntoSyllables(properName) {
         return [];
     }
 
-    var vowels = ['o','u','i','a','e'],
+    var vowels = ['o', 'u', 'i', 'a', 'e'],
         syllables = [],
-        first = properName.substr(0,1),
-        third = properName.substr(2,1),
-        fourth = properName.substr(3,1);
+        first = properName.substr(0, 1),
+        third = properName.substr(2, 1),
+        fourth = properName.substr(3, 1);
 
     // ponoman, monsi, akesi
 
-    if (vowels.indexOf(first) === -1){
-        if (third === 'n' && vowels.indexOf(fourth) === -1){
-            syllables.push(properName.substr(0,3));
+    if (vowels.indexOf(first) === -1) {
+        if (third === 'n' && vowels.indexOf(fourth) === -1) {
+            syllables.push(properName.substr(0, 3));
             syllables = syllables.concat(splitProperIntoSyllables(properName.substr(3)));
         } else {
-            syllables.push(properName.substr(0,2));
+            syllables.push(properName.substr(0, 2));
             syllables = syllables.concat(splitProperIntoSyllables(properName.substr(2)));
         }
     } else {
-        if (properName.length==2) {
+        if (properName.length == 2) {
             return [properName];
         } else {
             syllables.push(first);
@@ -311,8 +352,11 @@ function postprocessing(sentence) {
     // split proper names inside containers
     sentence.forEach(function (part, index) {
         nameSplitIndex = -1;
-
+        if (!part.tokens){
+            return;
+        }
         part.tokens.forEach(function (token, tokenIndex) {
+
             console.log(token.substr(0, 1).toUpperCase() == token.substr(0, 1));
             if (token.substr(0, 1).toUpperCase() == token.substr(0, 1)) {
                 console.log('token', token);
@@ -358,12 +402,14 @@ function parseSentence(sentence) {
                     properNames.push(item);
                     return '\'Name\'';
                 });
-                var parseTable = ckyparser.getParse(part.content);
 
-                value = getStructuredSentence(parseTable);
-                if (!value) {
-                    value = [];
-                }
+                // var parseTable = ckyparser.getParse(part.content);
+                // value = getStructuredSentence(parseTable);
+                // if (!value) {
+                //     value = [];
+                // }
+
+                value = getSimpleStructuredSentence(part.content);
 
                 value.forEach(function (part) {
                     part.tokens.forEach(function (token, index) {

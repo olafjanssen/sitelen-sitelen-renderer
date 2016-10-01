@@ -125,9 +125,7 @@
         function renderInput() {
             var text = input.value;
             var preformattedText = preformat(text);
-            console.log(preformattedText);
             var structuredSentence = parseSentence(preformattedText.parsable[0]);
-            console.log(structuredSentence);
             document.getElementById('sitelen').innerHTML = '';
             renderInteractiveSentence(structuredSentence);
         }
