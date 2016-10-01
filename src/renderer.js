@@ -1,16 +1,18 @@
 var sitelenRenderer = function () {
-    "use strict";
+    'use strict';
 
     var sprite;
     // load the rendering set
-    var xhr = new XMLHttpRequest;
+    var xhr = new XMLHttpRequest();
     xhr.open('get', '../../images/sprite.css.svg', false);
     xhr.onreadystatechange = function () {
-        if (xhr.readyState != 4) return;
+        if (xhr.readyState !== 4) {
+            return;
+        }
         var svg = xhr.responseXML.documentElement;
         sprite = svg;
 
-        // include in document for efficient rendering of non-exportable sitelen TODO does not work
+        // include in document for efficient rendering of non-exportable sitelen
         var newsvg = document.importNode(svg, false); // surprisingly optional in these browsers
         setTimeout(function () {
             document.body.appendChild(newsvg);
@@ -127,7 +129,7 @@ var sitelenRenderer = function () {
     function renderPartOption(option, target, settings, position, sizeParent, sizeParentNormed) {
         var container = target,
             scale = settings.scale / 1.1,
-            glyphScale = settings.scale * 1,
+            glyphScale = settings.scale,
             separatorScale = getSeparatorScale(option, settings.scale),
             containerScale = getContainerScale(option, settings.scale);
 
@@ -199,7 +201,7 @@ var sitelenRenderer = function () {
                 var use = createNewElement('use', {
                     href: {
                         ns: xlinkNS,
-                        value: glyph.unit.rule === 'word-glyph'?('#tp-wg-' + glyph.unit.token) : ('#tp-syl-' + glyph.unit.token)
+                        value: glyph.unit.rule === 'word-glyph' ? ('#tp-wg-' + glyph.unit.token) : ('#tp-syl-' + glyph.unit.token)
                     },
                     transform: 'matrix(' + matrix.join(',') + ')',
                     // viewBox: [0, 0, 100, 100].join(' '),
@@ -273,7 +275,7 @@ var sitelenRenderer = function () {
         }
 
         var yPos = 0;
-        options.forEach(function (option, index) {
+        options.forEach(function (option) {
             var box = [0, 0, xSize * 100, option.size[1] * xSize / option.size[0] * 100],
                 innerContainer = createNewElement('svg',
                     {
@@ -312,7 +314,7 @@ var sitelenRenderer = function () {
                     }
                     addedIds[symbolId] = true;
                 } else {
-                    console.log('WARNING: symbol ' + symbolId + ' cannot be found.')
+                    console.log('WARNING: symbol ' + symbolId + ' cannot be found.');
                 }
             });
         }
@@ -375,7 +377,7 @@ var sitelenRenderer = function () {
                 if (symbol) {
                     sentenceContainer.appendChild(symbol.cloneNode(true));
                 } else {
-                    console.log('WARNING: symbol ' + symbolId + ' cannot be found.')
+                    console.log('WARNING: symbol ' + symbolId + ' cannot be found.');
                 }
             });
         }
@@ -394,6 +396,7 @@ var sitelenRenderer = function () {
 
     return {
         renderLayoutOption: renderSentenceOption,
-        renderComplexLayout: renderComplexLayout
+        renderComplexLayout: renderComplexLayout,
+        renderAllOptions: renderOptions
     };
 }();
