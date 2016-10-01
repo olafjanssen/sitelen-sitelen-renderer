@@ -1,179 +1,13 @@
-'use strict';
-
-var ckyparser = function () {
-    localStorage.clear();
-
-    var hashMap = {};
-
-    function create2dArray(dim) {
-        var arr = new Array(dim);
-        for (var i = 0; i < dim; i++) {
-            arr[i] = new Array(dim);
-            for (var j = 0; j < dim; j++) {
-                arr[i][j] = [];
-            }
-        }
-        return arr;
-    }
-
-    function makeKey(obj) {
-        if (typeof obj === 'string') {
-            obj = [obj];
-        }
-        return JSON.stringify(obj, null, 0);
-    }
-
-    function parse(grammar, tokens) {
-        var tokLen = tokens.length + 1;
-        var parseTable = create2dArray(tokLen);
-        for (var right = 1; right < tokLen; right++) {
-            var token = tokens[right - 1];
-            var terminalRules = grammar[makeKey(token)];
-            for (var r in terminalRules) {
-                var rule = terminalRules[r];
-                parseTable[right - 1][right].push({
-                    rule: rule,
-                    token: token
-                });
-            }
-            for (var left = right - 2; left >= 0; left--) {
-                for (var mid = left + 1; mid < right; mid++) {
-                    var leftSubtreeRoots = parseTable[left][mid];
-                    var rightSubtreeRoots = parseTable[mid][right];
-                    for (var leftRootIndx in leftSubtreeRoots) {
-                        for (var rightRootIndx in rightSubtreeRoots) {
-                            var rls = grammar[makeKey([leftSubtreeRoots[leftRootIndx]['rule'], rightSubtreeRoots[rightRootIndx]['rule']])];
-                            if (rls) {
-                                for (r in rls) {
-                                    parseTable[left][right].push({
-                                        rule: rls[r],
-                                        middle: mid,
-                                        leftRootIndex: leftRootIndx,
-                                        rightRootIndex: rightRootIndx
-                                    });
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return parseTable;
-    }
-
-    function grammarToHashMap(rules) {
-        var hashMap = {};
-        for (var i in rules) {
-            var rule = rules[i];
-            var parts = rule.split('->');
-            var root = parts[0].trim();
-
-            var productions = parts[1].split('|');
-            for (var j in productions) {
-                var childs = (productions[j].trim()).split(' ');
-                var key = makeKey(childs);
-                if (!hashMap[key]) {
-                    hashMap[key] = [];
-                }
-                hashMap[key].push(root);
-            }
-        }
-        return hashMap;
-    }
-
-    function traverseParseTable(parseTable, left, right, rootIndex) {
-        if (!parseTable[left][right][rootIndex]['middle']) {
-            return '<li><a href="#">' + parseTable[left][right][rootIndex]['rule'] + '</a><ul><li><a href="#">' + parseTable[left][right][rootIndex]['token'] + '</a> endpoint</li></ul></li>';
-        }
-        return '<li><a href="#">' + parseTable[left][right][rootIndex]['rule'] + '</a><ul>' + traverseParseTable(parseTable, left, parseTable[left][right][rootIndex]['middle'], parseTable[left][right][rootIndex]['leftRootIndex']) + traverseParseTable(parseTable, parseTable[left][right][rootIndex]['middle'], right, parseTable[left][right][rootIndex]['rightRootIndex']) + '</ul></li>';
-    }
-
-
-    return {
-        setGrammar: function (grammar) {
-            hashMap = grammarToHashMap(grammar);
-        },
-        getParse: function (sentence) {
-            var parseTable = parse(hashMap, sentence.split(' '));
-            return parseTable;
-        }
-    }
-}();
-
-
-function getStructuredSentence(parseTable) {
-    var part = {part: 'subject', tokens: []},
-        sentence = [part],
-        foundLi = false, steps = 0, tokenList = [];
-
-    function traverseParseTable(parseTable, left, right, rootIndex, depth) {
-        if (!parseTable[left][right][rootIndex]) {
-            return;
-        }
-
-        var token = parseTable[left][right][rootIndex]['token'],
-            rule = parseTable[left][right][rootIndex]['rule'];
-
-        if (token) {
-            tokenList.push(token);
-        }
-
-        steps++;
-
-        if (rule === 'Pred' && part.tokens.length > 0) {
-            sentence.push({part: 'verbPhrase', sep: foundLi ? 'li' : '', tokens: []});
-            part = sentence[sentence.length - 1];
-        }
-        if (rule === 'DO') {
-            sentence.push({part: 'directObject', sep: 'e', tokens: []});
-            part = sentence[sentence.length - 1];
-        }
-        if (rule === 'Prep' || (token === 'tawa' && ['li', 'wile'].indexOf(tokenList[tokenList.length - 2]) === -1)) {
-            sentence.push({part: 'prepPhrase', sep: token, tokens: []});
-            part = sentence[sentence.length - 1];
-            return;
-        }
-
-        if (token === 'li') {
-            foundLi = true;
-            return;
-        }
-        if (token === 'e') {
-            return;
-        }
-        if (token === 'o' && part.part === 'subject' && part.tokens.length > 0) {
-            part.sep = 'o';
-            return;
-        }
-
-        if (token) {
-            part.tokens.push(token);
-        } else {
-            traverseParseTable(parseTable, left, parseTable[left][right][rootIndex]['middle'], parseTable[left][right][rootIndex]['leftRootIndex'], depth + 1);
-            traverseParseTable(parseTable, parseTable[left][right][rootIndex]['middle'], right, parseTable[left][right][rootIndex]['rightRootIndex'], depth + 1);
-        }
-    }
-
-    traverseParseTable(parseTable, 0, parseTable.length - 1, 0, 0);
-
-    // filter out empty parts
-    sentence = sentence.filter(function (part) {
-        return part.tokens.length > 0;
-    });
-    return steps === 0 ? null : sentence;
-}
-
 function getSimpleStructuredSentence(parseable) {
+    'use strict';
 
     var tokens = parseable.split(' '),
         prepositions = ['tawa', 'lon', 'kepeken'],
         objectMarker = ['li', 'e'],
-        specialTokens = [].concat(prepositions).concat(objectMarker),
         part = {part: 'subject', tokens: []},
         sentence = [part];
 
     tokens.forEach(function (token, index) {
-        console.log(token, index, tokens.length, tokens[index-1]);
 
         if (objectMarker.indexOf(token) > -1 &&
             index < tokens.length - 1) {
@@ -204,25 +38,9 @@ function getSimpleStructuredSentence(parseable) {
 
 }
 
-
-function loadTokiPonaGrammar() {
-    var xmlhttp = new XMLHttpRequest();
-
-    xmlhttp.onreadystatechange = function () {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            var grammar = xmlhttp.responseText.split('\n');
-            ckyparser.setGrammar(grammar);
-        }
-    };
-    xmlhttp.open("GET", "toki-pona-cnf-grammar.txt", false);
-    xmlhttp.send();
-}
-
-loadTokiPonaGrammar();
-
-
 //
 function preformat(text) {
+    'use strict';
     var result = text.match(/[^\.!\?]+[\.!\?]+/g);
 
     var parsableParts = [], rawParts = [];
@@ -288,6 +106,7 @@ function preformat(text) {
  * @param properName the proper name string to split into syllables
  */
 function splitProperIntoSyllables(properName) {
+    'use strict';
     if (properName.length === 0) {
         return [];
     }
@@ -309,7 +128,7 @@ function splitProperIntoSyllables(properName) {
             syllables = syllables.concat(splitProperIntoSyllables(properName.substr(2)));
         }
     } else {
-        if (properName.length == 2) {
+        if (properName.length === 2) {
             return [properName];
         } else {
             syllables.push(first);
@@ -321,9 +140,11 @@ function splitProperIntoSyllables(properName) {
 }
 
 function postprocessing(sentence) {
+    'use strict';
+
     var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'pi'],
         prepositionSplitIndex,
-        nameSplitIndex
+        nameSplitIndex;
 
     // split prepositional phrases inside containers (such as the verb li-container)
     sentence.forEach(function (part, index) {
@@ -356,10 +177,7 @@ function postprocessing(sentence) {
             return;
         }
         part.tokens.forEach(function (token, tokenIndex) {
-
-            console.log(token.substr(0, 1).toUpperCase() == token.substr(0, 1));
-            if (token.substr(0, 1).toUpperCase() == token.substr(0, 1)) {
-                console.log('token', token);
+            if (token.substr(0, 1).toUpperCase() === token.substr(0, 1)) {
                 nameSplitIndex = tokenIndex;
             }
         });
@@ -380,7 +198,6 @@ function postprocessing(sentence) {
             sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
         }
     });
-    console.log('post', sentence);
     return sentence;
 }
 
@@ -389,7 +206,7 @@ var parseHash = JSON.parse(localStorage.getItem('parseHash'));
 parseHash = parseHash ? parseHash : {};
 
 function parseSentence(sentence) {
-
+    'use strict';
     var structuredSentence = [];
 
     sentence.forEach(function (part) {
@@ -402,12 +219,6 @@ function parseSentence(sentence) {
                     properNames.push(item);
                     return '\'Name\'';
                 });
-
-                // var parseTable = ckyparser.getParse(part.content);
-                // value = getStructuredSentence(parseTable);
-                // if (!value) {
-                //     value = [];
-                // }
 
                 value = getSimpleStructuredSentence(part.content);
 
