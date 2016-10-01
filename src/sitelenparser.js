@@ -1,6 +1,10 @@
-"use strict";
+/*global
+    sitelenRenderer
+ */
 
 function layoutContainer(units) {
+    'use strict';
+
     var options = [], hash = {}, minSurface = 1e6;
 
     function normalizeOption(option) {
@@ -145,6 +149,8 @@ function layoutContainer(units) {
 }
 
 function convertNounPhrase(tokens) {
+    'use strict';
+
     var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
         narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
         punctuation = ['period', 'exclamation'],
@@ -179,7 +185,8 @@ function convertNounPhrase(tokens) {
 }
 
 function convertCartouche(tokens) {
-    var narrowSyls = ['li','ni','si','lin','nin','sin','le','ne','se','len','nen','sen','lo','no','so','lon','non','son','la','na','sa','lan','nan','san','lu','nu','su','lun','nun','sun'],
+    'use strict';
+    var narrowSyls = ['li', 'ni', 'si', 'lin', 'nin', 'sin', 'le', 'ne', 'se', 'len', 'nen', 'sen', 'lo', 'no', 'so', 'lon', 'non', 'son', 'la', 'na', 'sa', 'lan', 'nan', 'san', 'lu', 'nu', 'su', 'lun', 'nun', 'sun'],
         options;
 
     function getSizeOf(token) {
@@ -201,6 +208,7 @@ function convertCartouche(tokens) {
 }
 
 function layoutCompound(sentence) {
+    'use strict';
     var hashMap = [], compoundOptions = [];
 
     sentence.forEach(function (part) {
@@ -241,6 +249,7 @@ function layoutCompound(sentence) {
 }
 
 function renderCompoundSentence(sentence, target, settings) {
+    'use strict';
     if (!settings) {
         settings = {};
     }
@@ -287,17 +296,12 @@ function renderCompoundSentence(sentence, target, settings) {
 }
 
 function renderInteractiveSentence(sentence) {
-    var compound = document.createElement('div'),
-        settings = {exportable: true},
-        sorter = function (optimal) {
-            return function (a, b) {
-                return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
-            };
-        };
+    'use strict';
+    var compound = document.createElement('div');
 
     document.getElementById('sitelen').appendChild(compound);
 
-    var compoundOptions = layoutCompound(sentence);
+    layoutCompound(sentence);
 
     compound.addEventListener('mousemove', function (event) {
         if (event.clientY - compound.offsetTop < 150) {
