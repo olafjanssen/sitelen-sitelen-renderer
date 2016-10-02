@@ -103,14 +103,10 @@
         style for Toki Pona inspired by Mayan script. I try to keep the algorithm behind the <span
                 class="wordmark">sitelen sitelen renderer</span> in the spirit of Jonathan's project and allow for the
         different ways of drawing the sitelen sitelen.</p>
-    <p>The <span class="wordmark">sitelen sitelen renderer</span> parses text based on the <a
+    <p>The <span class="wordmark">sitelen sitelen renderer</span> formerly parsed text based on the <a
             href="http://www2.hawaii.edu/~chin/661F12/projects.html" target="_blank">context-free grammar by Zach
-        Tomaszewski</a> in 2012. I am continuing to improve this grammar now that I find it to give wrong parses in more
-        exotic sentences.</p>
-    <p>The grammar is parsed using a parser based on the <a href="https://github.com/lagodiuk/cyk-js" target="_blank">JavaScript
-        implementation of the CYK parsing
-        algorithm by Yurii Lahodiuk</a>. I altered it a bit so that the output fits more to what I need for the
-        non-linear writing system.</p>
+        Tomaszewski</a> in 2012. I have discontinued to improve this grammar now that I find it to give wrong parses in more and more
+         sentences. I have replaced it by a simpler algorithm tailored to sitelen sitelen requirements.</p>
     <p>The <a href="http://forums.tokipona.org/viewtopic.php?f=7&p=13786#p13786" target="_blank">vectorized glyphs</a> are based on the
         excellent work by jan Same. To make my SVGs scalable I sadly had to get rid of the non-uniform stroke widths.
         Also I have slightly different ideas about how to use the containers so I took the liberty of slightly altering

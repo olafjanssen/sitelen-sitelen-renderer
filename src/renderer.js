@@ -186,7 +186,7 @@ var sitelenRenderer = function () {
                 target.appendChild(container);
             }
         }
-        console.log(option);
+
         option.state.units.forEach(function (glyph) {
             if (glyph.unit.rule === 'word-glyph' || glyph.unit.rule === 'syl-glyph') {
                 var box = [(glyph.position[0] * 100 / option.size[0]),
