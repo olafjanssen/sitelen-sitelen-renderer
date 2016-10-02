@@ -8,16 +8,14 @@ function getSimpleStructuredSentence(parseable) {
         sentence = [part];
 
     tokens.forEach(function (token, index) {
-        console.log(token, sentence);
-
         if (objectMarker.indexOf(token) > -1 &&
             index < tokens.length - 1) {
             sentence.push({part: 'objectMarker', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
         }
-        if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index-1]) === -1 &&
-            index < tokens.length - 1 && objectMarker.indexOf(tokens[index+1]) === -1) {
+        if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index - 1]) === -1 &&
+            index < tokens.length - 1 && objectMarker.indexOf(tokens[index + 1]) === -1) {
             sentence.push({part: 'prepPhrase', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
@@ -174,7 +172,7 @@ function postprocessing(sentence) {
     // split proper names inside containers
     sentence.forEach(function (part, index) {
         nameSplitIndex = -1;
-        if (!part.tokens){
+        if (!part.tokens) {
             return;
         }
         part.tokens.forEach(function (token, tokenIndex) {
@@ -202,45 +200,35 @@ function postprocessing(sentence) {
     return sentence;
 }
 
-localStorage.clear();
-var parseHash = JSON.parse(localStorage.getItem('parseHash'));
-parseHash = parseHash ? parseHash : {};
-
 function parseSentence(sentence) {
     'use strict';
     var structuredSentence = [];
 
     sentence.forEach(function (part) {
         if (part.content) {
-            var key = part.content, value = [];
-            if (!parseHash[key]) {
-                // find proper names
-                var properNames = [];
-                part.content = part.content.replace(/([A-Z][\w-]*)/g, function (item) {
-                    properNames.push(item);
-                    return '\'Name\'';
-                });
+            // find proper names
+            var properNames = [];
+            part.content = part.content.replace(/([A-Z][\w-]*)/g, function (item) {
+                properNames.push(item);
+                return '\'Name\'';
+            });
 
-                value = getSimpleStructuredSentence(part.content);
+            var value = getSimpleStructuredSentence(part.content);
 
-                value.forEach(function (part) {
-                    part.tokens.forEach(function (token, index) {
-                        if (token === '\'Name\'') {
-                            part.tokens[index] = properNames.shift();
-                        }
-                    });
+            value.forEach(function (part) {
+                part.tokens.forEach(function (token, index) {
+                    if (token === '\'Name\'') {
+                        part.tokens[index] = properNames.shift();
+                    }
                 });
-                parseHash[key] = value;
-            }
-            structuredSentence.push.apply(structuredSentence, parseHash[key]);
+            });
+            structuredSentence.push.apply(structuredSentence, value);
         } else if (part.punctuation) {
             structuredSentence.push({part: 'punctuation', tokens: part.punctuation});
         }
     });
 
     structuredSentence = postprocessing(structuredSentence);
-
-    localStorage.setItem('parseHash', JSON.stringify(parseHash));
     return structuredSentence;
 }
 
