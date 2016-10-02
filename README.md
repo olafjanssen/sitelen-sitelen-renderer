@@ -23,8 +23,4 @@ This live sitelen sitelen sandbox web app is made possible by the great work don
         
 [Sitelen Sitelen or Sitelen Suwi](http://www.jonathangabel.com/archive/2012/projects_t47.html) is a project created by Jonathan Gabel in 2012 who created a non-linear writing style for Toki Pona inspired by Mayan script. I try to keep the algorithm behind the Sitelen Sitelen Renderer in the spirit of Jonathan's project and allow for the different ways of drawing the sitelen sitelen.
         
-The Sitelen Sitelen Renderer parses text based on the [context-free grammar by Zach Tomaszewski](http://www2.hawaii.edu/~chin/661F12/projects.html) in 2012. I am continuing to improve this grammar now that I find it to give wrong parses in more exotic sentences.
-
-The grammar is parsed using a parser based on the [JavaScript implementation of the CYK parsing algorithm](https://github.com/lagodiuk/cyk-js) by Yurii Lahodiuk. I altered it a bit so that the output fits more to what I need for the non-linear writing system.
-
 The [vectorized glyphs](http://forums.tokipona.org/viewtopic.php?f=7&p=13786#p13786) are based on the excellent work by jan Same. To make my SVGs scalable I sadly had to get rid of the non-uniform stroke widths. Also I have slightly different ideas about how to use the containers so I took the liberty of slightly altering some glyphs.
