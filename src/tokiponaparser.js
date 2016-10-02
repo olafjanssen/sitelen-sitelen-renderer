@@ -8,6 +8,7 @@ function getSimpleStructuredSentence(parseable) {
         sentence = [part];
 
     tokens.forEach(function (token, index) {
+        console.log(token, sentence);
 
         if (objectMarker.indexOf(token) > -1 &&
             index < tokens.length - 1) {
@@ -16,7 +17,7 @@ function getSimpleStructuredSentence(parseable) {
             return;
         }
         if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index-1]) === -1 &&
-            index < tokens.length - 1) {
+            index < tokens.length - 1 && objectMarker.indexOf(tokens[index+1]) === -1) {
             sentence.push({part: 'prepPhrase', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
@@ -201,7 +202,7 @@ function postprocessing(sentence) {
     return sentence;
 }
 
-
+localStorage.clear();
 var parseHash = JSON.parse(localStorage.getItem('parseHash'));
 parseHash = parseHash ? parseHash : {};
 
