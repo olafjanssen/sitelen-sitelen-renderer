@@ -297,7 +297,7 @@ function renderCompoundSentence(sentence, target, settings) {
 
     compounds.forEach(function (compound) {
         var compoundOptions = layoutCompound(compound);
-        compoundOptions = compoundOptions.filter(function(option){
+        compoundOptions = compoundOptions.filter(function (option) {
             return option.ratio > settings.minRatio && option.ratio < settings.maxRatio;
         });
         compoundOptions.sort(sorter(settings.optimalRatio));
@@ -315,19 +315,41 @@ function renderInteractiveSentence(sentence) {
 
     document.getElementById('sitelen').appendChild(compound);
 
-    layoutCompound(sentence);
+    var options = layoutCompound(sentence);
+    options.sort(function(a,b) {
+       return a.ratio - b.ratio;
+    });
 
-    compound.addEventListener('mousemove', function (event) {
-        if (event.clientY - compound.offsetTop < 150) {
-            var optimal = 0.5 + 1.5 * ((event.clientX - compound.offsetLeft) / compound.clientWidth);
-            render(optimal);
+    var initialOption = [0, 100];
+    options.forEach(function(option, index){
+        var dif = Math.abs(option.ratio - 0.8);
+        if (dif < initialOption[1]) {
+            initialOption = [index, dif];
         }
     });
+
+    var slider = document.createElement('input');
+    slider.setAttribute('type', 'range');
+    slider.setAttribute('min', 0);
+    slider.setAttribute('max', options.length - 1);
+    slider.setAttribute('step', 1);
+    slider.setAttribute('value', initialOption[0]);
+
+    slider.addEventListener('input', function (event) {
+        var optimal = options[slider.value].ratio;
+        render(optimal);
+    });
+    compound.appendChild(slider);
+
+    var pom = document.createElement('a');
+    pom.innerHTML = 'download as SVG';
+    compound.appendChild(pom);
 
     render(0.8);
 
     function render(optimal) {
         var tokens = [];
+
         sentence.forEach(function (part) {
             if (part.tokens) {
                 part.tokens.forEach(function (token) {
@@ -338,15 +360,15 @@ function renderInteractiveSentence(sentence) {
 
         var filename = tokens.join('-') + '.svg';
 
-        compound.innerHTML = "";
+        var previousRender = compound.querySelector('svg');
+        if (previousRender) {
+            compound.removeChild(previousRender);
+        }
         renderCompoundSentence(sentence, compound, {optimalRatio: optimal});
 
         var text = '<?xml version="1.0" encoding="utf-8"?>\n' + document.getElementById('sitelen').firstElementChild.innerHTML;
-        var pom = document.createElement('a');
-        pom.innerHTML = 'download as SVG';
         pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
         pom.setAttribute('download', filename);
-        compound.appendChild(pom);
     }
 
     return compound;
