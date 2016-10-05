@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<link rel="stylesheet" href="styles/sitelen.css">-->
+    <script type="text/javascript" src="../../src/tokiponaparser.js"></script>
+    <script type="text/javascript" src="../../src/sitelenparser.js"></script>
+    <script type="text/javascript" src="../../src/renderer.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin: 0.25em auto;
+            display: block;
+        }
+
+        .rendered-sitelen,
+        .sitelen-sitelen {
+            -webkit-writing-mode: vertical-lr;
+            writing-mode: vertical-lr;
+            text-align: left;
+            background: #ddd;
+            margin: 1em;
+            border: 1px solid #333;
+        }
+
+        .rendered-sitelen > svg,
+        .sitelen-sitelen > svg {
+            width: 12em;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="sitelen-sitelen">
+    ale li jo e tenpo. ale li pona. toki pona li toki pona. ante li kama. ike li kama. jan li suli mute. mani li suli
+    lili. jan sona li jan nasa.
+    <!--lupa meli li mama pi ijo ale.-->
+    mi pona e ale mi, la mi pona e mi. nasin pona li mute.
+    o olin e jan poka. o sona e sina! pali li pana e sona. pilin pona li pana e sijelo pona. sina pana e ike, la sina
+    kama
+    jo e ike.
+    wawa li lon insa.
+    <!--weka lili li pona tawa lawa. wile sona li mute e sona. jan lili li sona ala e ike. -->
+    <!--meli li nasa e mije. mi weka e ike jan, la mi weka e ike mi. nasin ante li pona tawa jan ante. telo li pona. lape li-->
+    <!--pona. toki li pona. o pana e pona tawa ma. utala li ike.-->
+</div>
+
+<script>
+    window.onload = function () {
+        [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(function (element) {
+            var text = element.textContent.replace(/\s\s+/g, ' '),
+                    preformattedText = preformat(text);
+            //element.innerHTML = '';
+            element.parentNode.removeChild(element);
+
+            var counter = 0, invCost = 0, prevElement;
+
+            function renderLoop(frame) {
+
+                var element = document.createElement('div');
+                element.setAttribute('frame', counter);
+                element.classList.add('rendered-sitelen');
+                document.body.appendChild(element);
+                preformattedText.parsable.forEach(function (sentence) {
+                    var structuredSentence = parseSentence(sentence);
+                    renderCompoundSentence(structuredSentence, element, {
+                        optimalRatio: 0.75,
+                        random: true,
+                        ignoreHeight: true
+                    });
+                });
+
+                // compute cost function
+                var cost = 0, columns = 0;
+                var pageRect = element.getBoundingClientRect();
+                [].slice.call(element.childNodes).forEach(function (child) {
+                    var childRect = child.getBoundingClientRect(),
+                            siblingRect = child.nextElementSibling ? child.nextElementSibling.getBoundingClientRect() : null;
+                    if (!siblingRect || siblingRect.top < childRect.bottom) {
+                        var penalty = pageRect.bottom - childRect.bottom;
+                        cost += penalty*penalty;
+                        columns++;
+                    }
+                });
+
+                var icost = columns * 1. / cost;
+
+                console.log(counter, invCost, icost);
+
+                if (icost > invCost) {
+                    console.log('newer');
+                    invCost = icost;
+                    if (prevElement) {
+                        prevElement.parentNode.removeChild(prevElement);
+                    }
+                    prevElement = element;
+                } else {
+                    element.parentNode.removeChild(element);
+                }
+
+                if (counter < 1000) {
+                    counter++;
+                    requestAnimationFrame(renderLoop);
+                }
+            }
+
+            requestAnimationFrame(renderLoop);
+        });
+    }
+</script>
+
+</body>
+</html>

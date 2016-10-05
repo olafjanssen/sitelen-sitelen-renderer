@@ -13,17 +13,20 @@ function getSimpleStructuredSentence(parseable) {
             sentence.push({part: 'objectMarker', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
-        }
-        if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index - 1]) === -1 &&
+        } else if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index - 1]) === -1 &&
             index < tokens.length - 1 && objectMarker.indexOf(tokens[index + 1]) === -1) {
             sentence.push({part: 'prepPhrase', sep: token, tokens: []});
             part = sentence[sentence.length - 1];
             return;
-        }
-
-        if (token === 'o' && part.tokens.length > 0) {
+        } else if (token === 'o' && part.tokens.length > 0) {
+            // the o token should be in a container when it is used to address something, not in commands
             part.sep = 'o';
             return;
+        } else if (token === 'a' && part.tokens.length > 0 && part.sep) {
+            // the a token should never be in a container
+            sentence.push({part: 'exclamation', sep: null, tokens: [token]});
+            part = sentence[sentence.length - 1];
+        return;
         }
 
         part.tokens.push(token);

@@ -1,5 +1,5 @@
 /*global
-    sitelenRenderer
+ sitelenRenderer
  */
 
 function layoutContainer(units) {
@@ -259,8 +259,17 @@ function renderCompoundSentence(sentence, target, settings) {
     if (!settings.optimalRatio) {
         settings.optimalRatio = 0.75;
     }
+    if (!settings.minRatio) {
+        settings.minRatio = 0.5;
+    }
+    if (!settings.maxRatio) {
+        settings.maxRatio = 4;
+    }
     if (!settings.ignoreHeight) {
         settings.ignoreHeight = false;
+    }
+    if (!settings.random) {
+        settings.random = false;
     }
 
     var compounds = [];
@@ -279,21 +288,26 @@ function renderCompoundSentence(sentence, target, settings) {
     }
 
     var bestOptions = [];
-    compounds.forEach(function (compound) {
-        var sorter = function (optimal) {
-            return function (a, b) {
-                return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
-            };
-        };
 
+    var sorter = function (optimal) {
+        return function (a, b) {
+            return Math.abs(optimal - a.ratio) - Math.abs(optimal - b.ratio);
+        };
+    };
+
+    compounds.forEach(function (compound) {
         var compoundOptions = layoutCompound(compound);
+        compoundOptions = compoundOptions.filter(function(option){
+            return option.ratio > settings.minRatio && option.ratio < settings.maxRatio;
+        });
         compoundOptions.sort(sorter(settings.optimalRatio));
 
-        bestOptions.push(compoundOptions[0]);
+        bestOptions.push(compoundOptions[settings.random ? Math.floor(Math.random() * compoundOptions.length) : 0]);
     });
 
     return sitelenRenderer.renderComplexLayout(bestOptions, target, settings);
 }
+
 
 function renderInteractiveSentence(sentence) {
     'use strict';
