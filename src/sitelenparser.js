@@ -366,7 +366,7 @@ function renderInteractiveSentence(sentence) {
         }
         renderCompoundSentence(sentence, compound, {optimalRatio: optimal});
 
-        var text = '<?xml version="1.0" encoding="utf-8"?>\n' + document.getElementById('sitelen').firstElementChild.innerHTML;
+        var text = '<?xml version="1.0" encoding="utf-8"?>\n' + compound.querySelector('svg').innerHTML;
         pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
         pom.setAttribute('download', filename);
     }
