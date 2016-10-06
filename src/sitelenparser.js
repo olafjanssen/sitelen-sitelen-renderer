@@ -153,9 +153,9 @@ function convertNounPhrase(tokens) {
 
     var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
         narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
-        punctuation = ['period', 'exclamation'],
-        singlePunctuation = ['comma'],
-        largePunctuation = ['la'],
+        punctuation = ['period', 'exclamation','question'],
+        singlePunctuation = ['comma', 'colon'],
+        largePunctuation = ['la','banner'],
         options;
 
     function getSizeOf(token) {

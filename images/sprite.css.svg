@@ -132,6 +132,54 @@
             <path d="M262.707 11.688c0 5.074-3.526 9.188-7.875 9.188H10.375c-4.35 0-7.875-4.113-7.875-9.188S6.026 2.5 10.375 2.5h244.457c4.35 0 7.875 4.113 7.875 9.188z"/>
         </g>
     </symbol>
+    <symbol viewBox="0 0 274.371 38.25" preserveAspectRatio="none" id="tp-wg-colon">
+        <g id="period" fill="#FFF" stroke-miterlimit="10">
+            <path fill="#fff"
+                  d="M271.871,19.125 c0,9.182-7.443,16.625-16.625,16.625H19.125C9.943,35.75,2.5,28.307,2.5,19.125l0,0C2.5,9.943,9.943,2.5,19.125,2.5h236.121 C264.427,2.5,271.871,9.943,271.871,19.125L271.871,19.125z"/>
+            <path d="M21.126,35.75 c9.182,0,16.625-7.443,16.625-16.625l0,0c0-9.182-7.443-16.625-16.625-16.625"/>
+            <path d="M253.244,35.75 c-9.182,0-16.625-7.443-16.625-16.625l0,0c0-9.182,7.443-16.625,16.625-16.625"/>
+        </g>
+    </symbol>
+    <symbol viewBox="0 0 281.756 38.25" preserveAspectRatio="none" id="tp-wg-question">
+        <g id="question">
+            <path style="fill:#FFFFFF;stroke-miterlimit:10;" d="M279.256,19.125
+			c0,9.182-7.443,16.625-16.625,16.625H19.125C9.943,35.75,2.5,28.307,2.5,19.125S9.943,2.5,19.125,2.5h243.506
+			C271.812,2.5,279.256,9.943,279.256,19.125L279.256,19.125z"/>
+            <path style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
+				M30.761,25.679c0,1.949-2.246,3.528-5.017,3.528s-5.017-1.58-5.017-3.528s1.427-2.92,5.017-4.553
+				c3.59-1.633,5.017-2.605,5.017-4.553s-2.246-3.528-5.017-3.528s-5.017,1.58-5.017,3.528"/>
+            <path style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
+				M261.028,25.679c0,1.949-2.246,3.528-5.017,3.528c-2.771,0-5.017-1.58-5.017-3.528s1.427-2.92,5.017-4.553
+				c3.59-1.633,5.017-2.605,5.017-4.553s-2.246-3.528-5.017-3.528c-2.771,0-5.017,1.58-5.017,3.528"/>
+            <line style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="133.651"
+                  y1="2.75" x2="132.651" y2="35.75"/>
+            <line style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" x1="148.104"
+                  y1="2.75" x2="149.105" y2="35.75"/>
+            <path style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
+				M88.474,35.75v-1.375c0-6.973,5.652-12.625,12.625-12.625h4.75l2.001-19"/>
+            <path style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
+				M193.282,35.75v-1.375c0-6.973-5.652-12.625-12.625-12.625h-4.75l-2.001-19"/>
+        </g>
+    </symbol>
+    <symbol viewBox="0 0 307.139 44.167" preserveAspectRatio="none" id="tp-wg-banner">
+        <g id="banner">
+            <path style="fill:#FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"
+                  d="M288.637,17.311c0,0,9.751,1.305,16.002,7.057c-8.501,0.996-9.998,5.124-9.998,5.749c0,0.624,7.247,2.001,9.998,10.749
+			c-10.9-2.817-14.75-2.999-19.75-2.999s-11.651,3.751-20.827,3.751c-11.748,0-13.426-9-9.601-15.041"/>
+            <path style="fill:#FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"
+                  d="M18.502,17.36c0,0-9.751,1.305-16.002,7.057c8.501,0.996,9.998,5.124,9.998,5.749c0,0.624-7.247,2.001-9.998,10.749
+			c10.9-2.817,14.75-2.999,19.75-2.999s11.651,3.751,20.827,3.751c11.748,0,13.426-9,9.601-15.041"/>
+            <path style="fill:#FFFFFF;" d="M269.152,33.917c1.976-3.5,15.726-3.697,15.726-3.697c3.116,0,5.642-3.241,5.642-7.238
+				c0-2.959-1.894-4.179-1.894-6.622s1.894-3.663,1.894-6.622c0-3.998-2.526-7.238-5.642-7.238H22.143
+				c-3.116,0-5.642,3.241-5.642,7.238c0,2.959,2.001,4.148,2.001,6.622s-2.001,3.663-2.001,6.622c0,3.998,2.526,7.238,5.642,7.238
+				c0,0,12.858-1.082,15.726,3.697l-0.295-8.045c13.414,0.993,172.29,1.542,187.771,1.542c15.657,0,30.564-0.562,44.1-1.576
+				L269.152,33.917z"/>
+            <path style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"
+                  d="M269.152,33.917c1.976-3.5,15.726-3.697,15.726-3.697c3.116,0,5.642-3.241,5.642-7.238c0-2.959-1.894-4.179-1.894-6.622
+			s1.894-3.663,1.894-6.622c0-3.998-2.526-7.238-5.642-7.238H22.143c-3.116,0-5.642,3.241-5.642,7.238
+			c0,2.959,2.001,4.148,2.001,6.622s-2.001,3.663-2.001,6.622c0,3.998,2.526,7.238,5.642,7.238c0,0,12.858-1.082,15.726,3.697"/>
+        </g>
+    </symbol>
     <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-wg-a">
         <g id="aaa">
             <path d="M122.5 62.5v30c0 16.57-13.43 30-30 30h-60c-16.57 0-30-13.43-30-30v-30c0-33.137 26.863-60 60-60s60 26.863 60 60z"
@@ -892,7 +940,8 @@
     </symbol>
     <symbol viewBox="-2 -2 128.12900000000002 69.25" preserveAspectRatio="none" id="tp-wg-mute">
         <g id="cqmute">
-            <path style="stroke: none;" d="M19.5 46.402c10 10.557 14.594 23.087 31.63 13.49 6.036 4.4 13.73 3.854 16.884-.706 6.46 3.565 20.153 7.936 26.653-9.145s6.833-29.723 6.833-29.723h-35L34.833 21.96 19.5 46.402z"
+            <path style="stroke: none;"
+                  d="M19.5 46.402c10 10.557 14.594 23.087 31.63 13.49 6.036 4.4 13.73 3.854 16.884-.706 6.46 3.565 20.153 7.936 26.653-9.145s6.833-29.723 6.833-29.723h-35L34.833 21.96 19.5 46.402z"
                   fill="#FFF"/>
             <path d="M97.5 29.75c-15.75 5.5-56 3.5-56 3.5v10.125c0 10.7-8.674 19.375-19.375 19.375S2.75 54.076 2.75 43.375L2.5 32.5c0-16.57 13.43-30 30-30h60.25c16.57 0 31.464 9.243 28.5 25.25-1.25 6.75-2.74 12.8-1 20.5C122 56 119 62.5 108.5 62.5S95.875 61.125 91 56.25"
                   fill="#FFF" stroke-linecap="round" stroke-linejoin="round"
@@ -3061,7 +3110,8 @@
         </g>
     </symbol>
     <symbol viewBox="0 0 154.495 244.065" preserveAspectRatio="none" id="tp-c-cartouche-tall" style="overflow:visible;">
-        <g transform="matrix(1 0 0 1 0 0)" id="cartouche-tall-tall" fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round"
+        <g transform="matrix(1 0 0 1 0 0)" id="cartouche-tall-tall" fill="#FFF" stroke="#000" stroke-width="5"
+           stroke-linecap="round"
            stroke-linejoin="round"
            stroke-miterlimit="10">
             <path d="M12.724,34.762C12.724,16.944,27.168,2.5,44.985,2.5h64.524c17.818,0,32.262,14.444,32.262,32.262l-0.247,168.256
@@ -3070,7 +3120,8 @@
         </g>
     </symbol>
     <symbol viewBox="0 0 244.065 154.495" preserveAspectRatio="none" id="tp-c-cartouche-wide" style="overflow:visible;">
-        <g transform="matrix(1 0 0 1.15 0 -10)" id="cartouche-tall-wide" fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round"
+        <g transform="matrix(1 0 0 1.15 0 -10)" id="cartouche-tall-wide" fill="#FFF" stroke="#000" stroke-width="5"
+           stroke-linecap="round"
            stroke-linejoin="round" stroke-miterlimit="10">
             <path d="M34.762,141.771c-17.818,0-32.262-14.444-32.262-32.262V44.985c0-17.818,14.444-32.262,32.262-32.262l168.256,0.247
 		c3.703-7.425,10.227-10.47,17.657-10.47l0,0c11.537,0,20.889,9.882,20.889,24.541v100.413c0,14.659-9.352,24.541-20.889,24.541l0,0

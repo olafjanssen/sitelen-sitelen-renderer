@@ -24,7 +24,7 @@ function getSimpleStructuredSentence(parseable) {
             return;
         } else if (token === 'a' && part.tokens.length > 0 && part.sep) {
             // the a token should never be in a container
-            sentence.push({part: 'exclamation', sep: null, tokens: [token]});
+            sentence.push({part: 'interjection', sep: null, tokens: [token]});
             part = sentence[sentence.length - 1];
         return;
         }
@@ -43,7 +43,7 @@ function getSimpleStructuredSentence(parseable) {
 //
 function preformat(text) {
     'use strict';
-    var result = text.match(/[^\.!\?]+[\.!\?]+/g);
+    var result = text.match(/[^\.!\?#]+[\.!\?#]+/g);
 
     var parsableParts = [], rawParts = [];
     if (!result) { // allow sentence fractions without any punctuation
@@ -79,7 +79,7 @@ function preformat(text) {
                 });
 
                 if (index < colonparts.length - 1) {
-                    parsableSentence.push({punctuation: ['semicolon']});
+                    parsableSentence.push({punctuation: ['colon']});
                 }
             });
             if (laparts.length === 2 && index === 0) {
@@ -92,8 +92,17 @@ function preformat(text) {
             case '.':
                 parsableSentence.push({punctuation: ['period']});
                 break;
+            case ':':
+                parsableSentence.push({punctuation: ['colon']});
+                break;
             case '!':
                 parsableSentence.push({punctuation: ['exclamation']});
+                break;
+            case '?':
+                parsableSentence.push({punctuation: ['question']});
+                break;
+            case '#':
+                parsableSentence.push({punctuation: ['banner']});
                 break;
             default:
                 break;

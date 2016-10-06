@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<h1>Toki Pona Proverbs</h1>
+<h1>Toki Pona Tatoeba Corpus</h1>
 
 <div class="sitelen-sitelen">
 </div>
@@ -58,6 +58,10 @@
 
     loadJSON('tokitatoeba.json', function (data) {
         var counter = 0, counterMax = data.length, element = document.querySelector('.sitelen-sitelen');
+
+        data = data.filter(function(item){
+            return item.toki.includes('kepeken');
+        });
 
         function loop() {
             var text = data[counter].toki,
