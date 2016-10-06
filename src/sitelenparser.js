@@ -260,10 +260,10 @@ function renderCompoundSentence(sentence, target, settings) {
         settings.optimalRatio = 0.75;
     }
     if (!settings.minRatio) {
-        settings.minRatio = 0.5;
+        settings.minRatio = 0;
     }
     if (!settings.maxRatio) {
-        settings.maxRatio = 4;
+        settings.maxRatio = 100;
     }
     if (!settings.ignoreHeight) {
         settings.ignoreHeight = false;
@@ -271,7 +271,6 @@ function renderCompoundSentence(sentence, target, settings) {
     if (!settings.random) {
         settings.random = false;
     }
-
     var compounds = [];
 
     // create sentence parts
@@ -301,7 +300,6 @@ function renderCompoundSentence(sentence, target, settings) {
             return option.ratio > settings.minRatio && option.ratio < settings.maxRatio;
         });
         compoundOptions.sort(sorter(settings.optimalRatio));
-
         bestOptions.push(compoundOptions[settings.random ? Math.floor(Math.random() * compoundOptions.length) : 0]);
     });
 
