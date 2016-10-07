@@ -1,3 +1,8 @@
+/**
+ * Core renderer of sitelen sitelen, expects input that is parsed and turned into a layout.
+ *
+ * @type {{renderLayoutOption, renderComplexLayout, renderAllOptions}}
+ */
 var sitelenCoreRenderer = function () {
     'use strict';
 
@@ -54,6 +59,13 @@ var sitelenCoreRenderer = function () {
         return element;
     }
 
+    /**
+     * Get custom scaling and transforming of special glyphs, as compared to word glyphs.
+     *
+     * @param option    the layout option to consider
+     * @param baseScale the base scale of the container
+     * @returns {number[]}  an array of non-uniform scale factors
+     */
     function getSeparatorScale(option, baseScale) {
         var scale = [baseScale * (option.ratio < 0.667 ? 1.2 : 0.92),
             baseScale * (option.ratio < 0.667 ? 0.9 : 0.92), 0, 0];
@@ -102,6 +114,13 @@ var sitelenCoreRenderer = function () {
         return scale;
     }
 
+     /**
+     * Get custom scaling of container glyphs, as compared to word glyphs.
+     *
+     * @param option    the layout option to consider
+     * @param baseScale the base scale of the container
+     * @returns {number}  an array of non-uniform scale factors
+     */
     function getContainerScale(option, baseScale) {
         var scale = option.separator ? baseScale * 1.1 : 1.02;
 
@@ -221,6 +240,13 @@ var sitelenCoreRenderer = function () {
 
     }
 
+    /**
+     * Render a complex layout, which is sentence made out of several compounds.
+     * @param options   the option per compound
+     * @param target    the target container
+     * @param settings  the render settings
+     * @returns {Element}   the rendered svg element
+     */
     function renderComplexLayout(options, target, settings) {
         if (!settings) {
             settings = {};
@@ -389,6 +415,11 @@ var sitelenCoreRenderer = function () {
         return sentenceContainer;
     }
 
+    /**
+     * Render all given options in one go.
+     *
+     * @param compoundOptions   the compound options
+     */
     function renderOptions(compoundOptions) {
         compoundOptions.forEach(function (option) {
             renderSentenceOption(option, document.getElementById('sitelen'),

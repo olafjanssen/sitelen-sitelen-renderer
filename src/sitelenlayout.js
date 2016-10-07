@@ -2,9 +2,20 @@
  sitelenCoreRenderer
  */
 
-var sitelenLayout = function() {
+/**
+ * Produces all the different layout options for a given structured sentence.
+ *
+ * @type {{layoutCompound}}
+ */
+var sitelenLayout = function () {
     'use strict';
 
+    /**
+     * Obtain the layout of an entire container and its children.
+     *
+     * @param units the units to layout, can be glyphs, syllables or containers
+     * @returns {Array} a laid out container
+     */
     function layoutContainer(units) {
         var options = [], hash = {}, minSurface = 1e6;
 
@@ -149,6 +160,12 @@ var sitelenLayout = function() {
         return options;
     }
 
+    /**
+     * Obtain the layout of the glyphs in a single container.
+     *
+     * @param tokens    the tokens in a container
+     * @returns {Array|*}   the laid out container
+     */
     function convertNounPhrase(tokens) {
         var smallModifiers = ['kon', 'lili', 'mute', 'sin'],
             narrowModifiers = ['wan', 'tu', 'anu', 'en', 'kin'],
@@ -183,6 +200,12 @@ var sitelenLayout = function() {
         return options;
     }
 
+    /**
+     * Obtain the layout of the syllables in a cartouche.
+     *
+     * @param tokens    the tokens in a cartouche
+     * @returns {Array|*}   the laid out cartouche syllables
+     */
     function convertCartouche(tokens) {
         var narrowSyls = ['li', 'ni', 'si', 'lin', 'nin', 'sin', 'le', 'ne', 'se', 'len', 'nen', 'sen', 'lo', 'no', 'so', 'lon', 'non', 'son', 'la', 'na', 'sa', 'lan', 'nan', 'san', 'lu', 'nu', 'su', 'lun', 'nun', 'sun'],
             options;
@@ -205,6 +228,12 @@ var sitelenLayout = function() {
         return options;
     }
 
+    /**
+     * Obtain the layout of a complex compound sentence.
+     *
+     * @param sentence  the compounds of a sentence
+     * @returns {Array} the full layout
+     */
     function layoutCompound(sentence) {
         var hashMap = [], compoundOptions = [];
 

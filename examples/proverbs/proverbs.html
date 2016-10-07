@@ -15,13 +15,13 @@
             display: block;
         }
 
-        .sitelen-sitelen {
+        [data-sitelen] {
             -webkit-writing-mode: vertical-lr;
             writing-mode: vertical-lr;
             text-align: left;
         }
 
-        .sitelen-sitelen > svg {
+        [data-sitelen] > svg {
             width: 12em;
         }
 
@@ -31,7 +31,7 @@
 
 <h1>Toki Pona Proverbs</h1>
 
-<div class="sitelen-sitelen">
+<div data-sitelen>
     ale li jo e tenpo. ale li pona. toki pona li toki pona. ante li kama. ike li kama. jan li suli mute. mani li suli
     lili. jan sona li jan nasa.
     lupa meli li mama pi ijo ale.
@@ -43,20 +43,6 @@
     li nasa e mije. mi weka e ike jan, la mi weka e ike mi. nasin ante li pona tawa jan ante. telo li pona. lape li
     pona. toki li pona. o pana e pona tawa ma. utala li ike.
 </div>
-
-<script>
-    window.onload = function () {
-        [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(function (element) {
-
-            var structuredSentences = sitelenParser.parse(element.textContent);
-            element.innerHTML = '';
-
-            structuredSentences.forEach(function (sentence, index) {
-                var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, element, {optimalRatio: 0.75});
-            });
-        });
-    }
-</script>
 
 </body>
 </html>

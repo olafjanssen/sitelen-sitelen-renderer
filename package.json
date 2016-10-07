@@ -1,0 +1,33 @@
+{
+  "name": "sitelensitelenrenderer",
+  "version": "1.0.0",
+  "description": "Library for rendering toki pona in the sitelen sitelen non-linear writing style",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "glob": "^6.0.4",
+    "svg-sprite": "^1.2.19",
+    "svgo": "^0.6.1",
+    "xmldom": "^0.1.19"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olafjanssen/sitelensitelenrenderer.git"
+  },
+  "author": "Olaf T.A. Janssen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olafjanssen/sitelensitelenrenderer/issues"
+  },
+  "homepage": "https://github.com/olafjanssen/sitelensitelenrenderer#readme"
+}

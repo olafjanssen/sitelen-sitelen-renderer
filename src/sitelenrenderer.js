@@ -1,6 +1,19 @@
+/**
+ * User friendly wrapper for rendering sitelen sitelen.
+ *
+ * @type {{renderCompoundSentence, renderInteractiveSentence}}
+ */
 var sitelenRenderer = function () {
     'use strict';
 
+    /**
+     * Render a single static sentence.
+     *
+     * @param sentence  the structured sentence
+     * @param target    the element to render in
+     * @param settings  the settings object
+     * @returns {Element}   the rendered element
+     */
     function renderCompoundSentence(sentence, target, settings) {
         if (!settings) {
             settings = {};
@@ -58,6 +71,11 @@ var sitelenRenderer = function () {
         return sitelenCoreRenderer.renderComplexLayout(bestOptions, target, settings);
     }
 
+    /**
+     * Render a single interactive structured sentence.
+     * @param sentence  the structured sentence
+     * @returns {Element}   the rendered element
+     */
     function renderInteractiveSentence(sentence) {
         var compound = document.createElement('div');
 
@@ -121,6 +139,25 @@ var sitelenRenderer = function () {
 
         return compound;
     }
+
+    function init(){
+        [].slice.call(document.querySelectorAll('[data-sitelen]')).forEach(function (element) {
+            var text = element.textContent,
+                structuredSentences = sitelenParser.parse(text);
+
+            element.innerHTML = '';
+
+            var ratio = element.getAttribute('data-sitelen-ratio');
+
+            structuredSentences.forEach(function (structuredSentence, index) {
+                renderCompoundSentence(structuredSentence, element, {optimalRatio: ratio ? ratio : 0.8});
+            });
+        });
+    }
+
+    window.onload = function () {
+        init();
+    };
 
     return {
         renderCompoundSentence: renderCompoundSentence,

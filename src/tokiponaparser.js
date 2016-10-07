@@ -1,6 +1,17 @@
+/**
+ * Parsing toki pona texts into sentences and sentence parts, and then into structured sentences that reflect the
+ * structure of sitelen sitelen blocks.
+ *
+ * @type {{parse}}
+ */
 var sitelenParser = function () {
     'use strict';
 
+    /**
+     * Core parser into sitelen sitelen structure.
+     * @param parseable a sentence to parse
+     * @returns {*[]} a structured sentence array
+     */
     function getSimpleStructuredSentence(parseable) {
         var tokens = parseable.split(' '),
             prepositions = ['tawa', 'lon', 'kepeken'],
@@ -41,6 +52,11 @@ var sitelenParser = function () {
 
     }
 
+    /**
+     * Preformats a given text, so that it splits it on punctuation marks.
+     * @param text  text to preformat
+     * @returns {{parsable: Array, raw: Array}} parsable array of raw text and punctuation
+     */
     function preformat(text) {
         var result = text.match(/[^\.!\?#]+[\.!\?#]+/g);
 
@@ -116,7 +132,6 @@ var sitelenParser = function () {
      * @param properName the proper name string to split into syllables
      */
     function splitProperIntoSyllables(properName) {
-        'use strict';
         if (properName.length === 0) {
             return [];
         }
@@ -149,9 +164,14 @@ var sitelenParser = function () {
         return syllables;
     }
 
+    /**
+     * Postprocessing for the simple parses that splits the structured sentence into more structure, such as prepositional
+     * phrases, proper names and the pi-construct.
+     *
+     * @param sentence  the structured sentence
+     * @returns {*} a processed structured sentence
+     */
     function postprocessing(sentence) {
-        'use strict';
-
         var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'pi'],
             prepositionSplitIndex,
             nameSplitIndex;
@@ -211,8 +231,13 @@ var sitelenParser = function () {
         return sentence;
     }
 
+    /**
+     * Main parser that processes a sentence.
+     *
+     * @param sentence  the input sentence
+     * @returns {Array} the structured sentence
+     */
     function parseSentence(sentence) {
-        'use strict';
         var structuredSentence = [];
 
         sentence.forEach(function (part) {
@@ -243,9 +268,12 @@ var sitelenParser = function () {
         return structuredSentence;
     }
 
+    /**
+     * Parser wrapper that splits a text into sentences that are parsed.
+     * @param text  a full text
+     * @returns {Array} an array of structured sentences
+     */
     function parse(text) {
-        'use strict';
-
         return preformat(text.replace(/\s\s+/g, ' ')).parsable.map(function (sentence) {
             return parseSentence(sentence);
         });
