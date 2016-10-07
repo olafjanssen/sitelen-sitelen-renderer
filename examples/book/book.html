@@ -2,9 +2,7 @@
 <html>
 <head>
     <!--<link rel="stylesheet" href="styles/sitelen.css">-->
-    <script type="text/javascript" src="../../src/tokiponaparser.js"></script>
-    <script type="text/javascript" src="../../src/sitelenparser.js"></script>
-    <script type="text/javascript" src="../../src/renderer.js"></script>
+    <script type="text/javascript" src="../../dist/sitelensitelenrenderer.min.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -81,20 +79,19 @@
 
         [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(function (element) {
             var text = element.textContent,
-                    text = text.replace(/\s\s+/g, ' '),
-                    preformattedText = preformat(text);
+                    structuredSentences = sitelenParser.parse(text);
+
             element.innerHTML = '';
 
-            preformattedText.parsable.forEach(function (sentence, index) {
+            structuredSentences.forEach(function (structuredSentence, index) {
                 var newSentence = document.createElement('section');
                 newSentence.classList.add('page');
 
-                var structuredSentence = parseSentence(sentence);
-                var renderedElement = renderCompoundSentence(structuredSentence, newSentence, {
+                var renderedElement = sitelenRenderer.renderCompoundSentence(structuredSentence, newSentence, {
                     optimalRatio: 0.75, //document.getElementById('book').offsetWidth / document.getElementById('book').offsetHeight,
                     ignoreHeight: true
                 });
-                newSentence.setAttribute('text', preformattedText.raw[index]);
+//                newSentence.setAttribute('text', preformattedText.raw[index]);
                 newSentence.style.zIndex = -index;
                 document.getElementById('book').appendChild(newSentence);
                 resizeSitelenOnPage(renderedElement);

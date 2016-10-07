@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--<link rel="stylesheet" href="styles/sitelen.css">-->
+    <script type="text/javascript" src="../../src/tokiponaparser.js"></script>
+    <script type="text/javascript" src="../../src/sitelenparser.js"></script>
+    <script type="text/javascript" src="../../src/renderer.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        [data-sitelen] {
+            -webkit-writing-mode: vertical-lr;
+            writing-mode: vertical-lr;
+            text-align: left;
+        }
+
+        [data-sitelen-sentence] {
+            width: 10em;
+        }
+
+        button[data-sitelen] {
+            background: transparent;
+            display: block;
+            border: none;
+        }
+
+        button[data-sitelen] [data-sitelen-sentence] {
+            height: 4em;
+            width: 4em;
+        }
+
+
+    </style>
+</head>
+<body>
+
+<h1 data-sitelen data-sitelen-ratio="0.75">ilo sitelen pi sitelen sitelen#</h1>
+
+<button data-sitelen>tomo</button>
+
+<section data-sitelen data-sitelen-ratio="1">
+    ale li jo e tenpo. ale li pona. toki pona li toki pona. ante li kama. ike li kama. jan li suli mute. mani li suli
+    lili. jan sona li jan nasa.
+    lupa meli li mama pi ijo ale.
+    mi pona e ale mi, la mi pona e mi. nasin pona li mute. o
+    olin e jan poka. o sona e sina! pali li pana e sona. pilin pona li pana e sijelo pona. sina pana e ike, la sina kama
+    jo e ike.
+    wawa li lon insa.
+    weka lili li pona tawa lawa. wile sona li mute e sona. jan lili li sona ala e ike. meli
+    li nasa e mije. mi weka e ike jan, la mi weka e ike mi. nasin ante li pona tawa jan ante. telo li pona. lape li
+    pona. toki li pona. o pana e pona tawa ma. utala li ike.
+</section>
+
+<footer data-sitelen data-sitelen-ratio="1">
+    jan Ola#
+</footer>
+
+<script>
+    window.onload = function () {
+
+        [].slice.call(document.querySelectorAll('[data-sitelen]')).forEach(function (element) {
+            var text = element.textContent,
+                    text = text.replace(/\s\s+/g, ' '),
+                    preformattedText = preformat(text);
+            element.innerHTML = '';
+
+            var ratio = element.getAttribute('data-sitelen-ratio');
+
+            preformattedText.parsable.forEach(function (sentence, index) {
+                var structuredSentence = parseSentence(sentence);
+                var renderedElement = renderCompoundSentence(structuredSentence, element,
+                        {optimalRatio: ratio ? ratio : 0.8});
+            });
+        });
+    }
+</script>
+
+</body>
+</html>

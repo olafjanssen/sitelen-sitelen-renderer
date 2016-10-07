@@ -1,4 +1,4 @@
-var sitelenRenderer = function () {
+var sitelenCoreRenderer = function () {
     'use strict';
 
     var sprite;
@@ -258,6 +258,8 @@ var sitelenRenderer = function () {
                         box[2] * settings.scaleSkew,
                         box[3] * settings.scaleSkew].join(' ')
                 }, {}, svgNS);
+
+        sentenceContainer.setAttribute('data-sitelen-sentence', null);
 
         var styling = document.createElement('style');
         styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';
