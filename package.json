@@ -1,7 +1,7 @@
 {
-  "name": "sitelen",
-  "version": "1.0.0",
-  "description": "Library for rendering toki pona in the sitelen sitelen non-linear writing style",
+  "name": "sitelen-sitelen-renderer",
+  "version": "0.8.0",
+  "description": "Library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.",
   "main": "index.js",
   "directories": {
     "example": "examples"

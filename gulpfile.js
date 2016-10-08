@@ -15,13 +15,13 @@ gulp.watch(files, ['dist','debug']);
 // Register tasks
 gulp.task('dist', function() {
     return gulp.src(files)
-        .pipe(concat('sitelen.min.js'))
+        .pipe(concat('sitelen-sitelen-renderer.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist'));
 });
 
 gulp.task('debug', function() {
     return gulp.src(files)
-        .pipe(concat('sitelen.debug.js'))
+        .pipe(concat('sitelen-sitelen-renderer.debug.js'))
         .pipe(gulp.dest('dist'));
 });
