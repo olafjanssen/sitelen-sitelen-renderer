@@ -1,30 +1,33 @@
+/* global sitelenSprite */
+
 /**
  * Core renderer of sitelen sitelen, expects input that is parsed and turned into a layout.
  *
  * @type {{renderLayoutOption, renderComplexLayout, renderAllOptions}}
  */
-var sitelenCoreRenderer = function () {
+var sitelenCoreRenderer = function (debug) {
     'use strict';
 
-    var sprite;
-    // load the rendering set
-    var xhr = new XMLHttpRequest();
-    xhr.open('get', '../../images/sprite.css.svg', false);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState !== 4) {
-            return;
-        }
-        var svg = xhr.responseXML.documentElement;
-        sprite = svg;
+    var sprite = new DOMParser().parseFromString(sitelenSprite, "image/svg+xml").documentElement;
 
-        // include in document for efficient rendering of non-exportable sitelen
-        var newsvg = document.importNode(svg, false); // surprisingly optional in these browsers
-        setTimeout(function () {
-            document.body.appendChild(newsvg);
-        }, 0);
+    // load raw svg file for debugging purposes instead of a prebaked string
+    if (debug) {
+        // load the rendering set
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', '../../images/sprite.css.svg', false);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState !== 4) {
+                return;
+            }
+            sprite = xhr.responseXML.documentElement;
+        };
+        xhr.send();
+    }
 
+    window.onload = function(){
+        var newsvg = document.importNode(sprite, false); // surprisingly optional in these browsers
+        document.body.appendChild(newsvg);
     };
-    xhr.send();
 
     var svgNS = "http://www.w3.org/2000/svg",
         xlinkNS = "http://www.w3.org/1999/xlink";
@@ -114,7 +117,7 @@ var sitelenCoreRenderer = function () {
         return scale;
     }
 
-     /**
+    /**
      * Get custom scaling of container glyphs, as compared to word glyphs.
      *
      * @param option    the layout option to consider
@@ -285,7 +288,7 @@ var sitelenCoreRenderer = function () {
                         box[3] * settings.scaleSkew].join(' ')
                 }, {}, svgNS);
 
-        sentenceContainer.setAttribute('data-sitelen-sentence', null);
+        sentenceContainer.setAttribute('data-sitelen-sentence', '');
 
         var styling = document.createElement('style');
         styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';

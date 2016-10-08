@@ -1,0 +1,20 @@
+[data-sitelen] {
+  -webkit-writing-mode: vertical-lr;
+  writing-mode: vertical-lr;
+  text-align: justify;
+}
+
+[data-sitelen-sentence] {
+  width: 10em;
+}
+
+button[data-sitelen] {
+  background: transparent;
+  display: block;
+  border: none;
+}
+
+button[data-sitelen] [data-sitelen-sentence] {
+  height: 4em;
+  width: 4em;
+}
