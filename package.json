@@ -1,5 +1,5 @@
 {
-  "name": "sitelensitelenrenderer",
+  "name": "sitelen",
   "version": "1.0.0",
   "description": "Library for rendering toki pona in the sitelen sitelen non-linear writing style",
   "main": "index.js",

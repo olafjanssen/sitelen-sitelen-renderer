@@ -1,6 +1,6 @@
 {
-  "name": "sitelensitelenrenderer",
-  "description": "SVG renderer of Sitelen Sitelen or Sitelen Suwi style of Toki Pona text.",
+  "name": "sitelen",
+  "description": "Library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.",
   "authors": [
     "Olaf T.A. Janssen <o.t.a.janssen@gmail.com> (http://nullelement.org/)"
   ],
