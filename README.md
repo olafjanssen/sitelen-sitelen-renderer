@@ -6,16 +6,16 @@ At the top of the file there should be a short introduction and/ or overview tha
 
 ## Code Example
 
-The library requires including a single minified JavaScript file and additional styling.
+The library requires including a single minified JavaScript file and additional styling in the `head` of your web page.
 
-```
-    <link rel="stylesheet" href="styles/sitelen.css">
-    <script type="text/javascript" src="dist/sitelen.min.js"></script>
+```html
+<link rel="stylesheet" href="styles/sitelen-sitelen-renderer.css">
+<script type="text/javascript" src="dist/sitelen-sitelen-renderer.min.js"></script>
 ```
 
 After that `HTML` elements with the `data-sitelen` attribute are parsed and rendered into toki pona if possible, with the `data-sitelen-ratio` attribute you can inidcate your preferred height-to-width ratio of the rendered sitelen sitelen. 
 
-```
+```html
 <section data-sitelen data-sitelen-ratio="1">
     ale li jo e tenpo. ale li pona.
 </section>
@@ -31,7 +31,7 @@ I created Sitelen Sitelen Renderer because I am fascinated by combining the arti
 Install the project with bower:
 
 ```
- bower install sitelen
+$ bower install sitelen-sitelen-renderer
 ```
 
 Provide code examples and explanations of how to get the project.
@@ -67,5 +67,5 @@ If you want to contribute in any way, you can for instance file issues you find 
 
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+MIT (c) Olaf Janssen
 
