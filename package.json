@@ -1,18 +1,18 @@
 {
   "name": "sitelen-sitelen-renderer",
-  "version": "0.8.0",
-  "description": "Library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.",
+  "version": "0.1.0",
+  "description": "JavaScript library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.",
   "main": "index.js",
   "directories": {
     "example": "examples"
   },
   "dependencies": {
+  },
+  "devDependencies": {
     "glob": "^6.0.4",
     "svg-sprite": "^1.2.19",
     "svgo": "^0.6.1",
-    "xmldom": "^0.1.19"
-  },
-  "devDependencies": {
+    "xmldom": "^0.1.19",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
     "gulp-uglify": "^2.0.0"

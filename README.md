@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.
+JavaScript library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.
 
 ## Code Example
 

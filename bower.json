@@ -1,6 +1,6 @@
 {
   "name": "sitelen-sitelen-renderer",
-  "description": "Library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.",
+  "description": "JavaScript library to turn Toki Pona text into the Sitelen Sitelen or Sitelen Suwi non-linear writing style.",
   "authors": [
     "Olaf T.A. Janssen <o.t.a.janssen@gmail.com> (http://nullelement.org/)"
   ],
