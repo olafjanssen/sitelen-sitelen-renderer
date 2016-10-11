@@ -263,6 +263,9 @@ var sitelenCoreRenderer = function (debug) {
         if (!settings.shadow) {
             settings.shadow = false;
         }
+        if (!settings.spacing) {
+            settings.spacing = 0;
+        }
 
         var xSize = 0, ySize = 0;
         options.forEach(function (option) {
@@ -282,10 +285,10 @@ var sitelenCoreRenderer = function (debug) {
                     'xmlns:xlink': xlinkNS,
                     version: 1.2,
                     preserveAspectRatio: 'xMidYMin meet',
-                    viewBox: [-(box[2] * settings.scale - box[2]) / 2,
-                        -(box[3] * settings.scaleSkew - box[3]) / 2,
-                        box[2] * settings.scaleSkew,
-                        box[3] * settings.scaleSkew].join(' ')
+                    viewBox: [-(box[2] * settings.scale - box[2] + settings.spacing) / 2,
+                        -(box[3] * settings.scaleSkew - box[3] + settings.spacing) / 2,
+                        box[2] * settings.scaleSkew + settings.spacing/2,
+                        box[3] * settings.scaleSkew + settings.spacing/2].join(' ')
                 }, {}, svgNS);
 
         sentenceContainer.setAttribute('data-sitelen-sentence', '');
