@@ -79,25 +79,25 @@
 </div>
 
 <script>
-    function wrapText(context, text, x, y, maxWidth, lineHeight) {
-        var words = text.split(' ');
-        var line = '';
-
-        for(var n = 0; n < words.length; n++) {
-            var testLine = line + words[n] + ' ';
-            var metrics = context.measureText(testLine);
-            var testWidth = metrics.width;
-            if (testWidth > maxWidth && n > 0) {
-                context.fillText(line, x, y);
-                line = words[n] + ' ';
-                y += lineHeight;
-            }
-            else {
-                line = testLine;
-            }
-        }
-        context.fillText(line, x, y);
-    }
+//    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+//        var words = text.split(' ');
+//        var line = '';
+//
+//        for(var n = 0; n < words.length; n++) {
+//            var testLine = line + words[n] + ' ';
+//            var metrics = context.measureText(testLine);
+//            var testWidth = metrics.width;
+//            if (testWidth > maxWidth && n > 0) {
+//                context.fillText(line, x, y);
+//                line = words[n] + ' ';
+//                y += lineHeight;
+//            }
+//            else {
+//                line = testLine;
+//            }
+//        }
+//        context.fillText(line, x, y);
+//    }
 
     window.onload = function () {
         var input = document.getElementById('tokiInput');
@@ -109,7 +109,7 @@
             var structuredSentence = sitelenParser.parse(text)[0];
             document.getElementById('sitelen').innerHTML = '';
             sitelenRenderer.renderCompoundSentence(structuredSentence, document.getElementById('sitelen'),
-                    {optimalRatio: 0.45, scaleSkew: 1.5, shadow: true}
+                    {optimalRatio: 0.4, scaleSkew: 1.5, spacing: 30, shadow: true}
             );
 
             var svgString = new XMLSerializer().serializeToString(document.querySelector('#sitelen > svg'));
@@ -145,20 +145,20 @@
 //                ctx.fillStyle = "rgb(167,212,235)";
 //                ctx.fill();
 
-                var fheight = height - 50, fwidth = width - 30;
+                var fheight = height + 80, fwidth = width + 100;
 
                 if (aspectRatio < 1) {
-                    ctx.drawImage(img, 15, (fheight - fwidth * aspectRatio) / 2, fwidth, fwidth * aspectRatio);
+//                    ctx.drawImage(img, 15, (fheight - fwidth * aspectRatio) / 2 - 100, fwidth, fwidth * aspectRatio);
                 } else {
-                    ctx.drawImage(img,  (fheight / aspectRatio * (1 - 1/1.2))/2 + (width - (fheight / aspectRatio)) / 2, 0, fheight / aspectRatio, fheight);
+                    ctx.drawImage(img,  (fheight / aspectRatio * (1 - 1/1.2))/2 + (width - (fheight / aspectRatio)) / 2, -40, fheight / aspectRatio, fheight);
                 }
                 ctx.globalAlpha = 1;
 
-                ctx.font = "24px sans-serif";
-                ctx.textAlign = "center";
-                ctx.fillStyle = "rgba(0,0,0,0.7)";
-
-                wrapText(ctx, text, width/2, height - 50, fwidth, 25);
+//                ctx.font = "24px sans-serif";
+//                ctx.textAlign = "center";
+//                ctx.fillStyle = "rgba(0,0,0,0.7)";
+//
+//                wrapText(ctx, text, width/2, height - 50, fwidth, 25);
 
                 var png = canvas.toDataURL("image/png");
                 document.querySelector('#png-container').innerHTML = '<img src="' + png + '"/>';

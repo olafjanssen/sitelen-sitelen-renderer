@@ -24,10 +24,10 @@ var sitelenCoreRenderer = function (debug) {
         xhr.send();
     }
 
-    window.onload = function(){
+    window.addEventListener('load', function () {
         var newsvg = document.importNode(sprite, false); // surprisingly optional in these browsers
         document.body.appendChild(newsvg);
-    };
+    });
 
     var svgNS = "http://www.w3.org/2000/svg",
         xlinkNS = "http://www.w3.org/1999/xlink";
@@ -91,9 +91,6 @@ var sitelenCoreRenderer = function (debug) {
         if (option.ratio === 1 && option.separator === 'e') {
             scale[0] = baseScale * 1;
         }
-        if (option.ratio > 1.5 && option.separator === 'pi') {
-            scale[1] = baseScale * 1.5;
-        }
 
         if (option.ratio === 1 && option.separator === 'e') {
             scale[2] = 10;
@@ -136,6 +133,7 @@ var sitelenCoreRenderer = function (debug) {
         if (option.ratio === 1 && option.separator === 'lon') {
             scale = baseScale * 1.4;
         }
+
         return scale;
     }
 
@@ -285,10 +283,10 @@ var sitelenCoreRenderer = function (debug) {
                     'xmlns:xlink': xlinkNS,
                     version: 1.2,
                     preserveAspectRatio: 'xMidYMin meet',
-                    viewBox: [-(box[2] * settings.scale - box[2] + settings.spacing) / 2,
-                        -(box[3] * settings.scaleSkew - box[3] + settings.spacing) / 2,
-                        box[2] * settings.scaleSkew + settings.spacing/2,
-                        box[3] * settings.scaleSkew + settings.spacing/2].join(' ')
+                    viewBox: [-(box[2] * settings.scaleSkew - box[2]) / 2,
+                        -(box[3] * settings.scale - box[3] ) / 2,
+                        box[2] * settings.scaleSkew,
+                        box[3] * settings.scale].join(' ')
                 }, {}, svgNS);
 
         sentenceContainer.setAttribute('data-sitelen-sentence', '');
@@ -434,6 +432,7 @@ var sitelenCoreRenderer = function (debug) {
     }
 
     return {
+        createNewElement: createNewElement,
         renderLayoutOption: renderSentenceOption,
         renderComplexLayout: renderComplexLayout,
         renderAllOptions: renderOptions

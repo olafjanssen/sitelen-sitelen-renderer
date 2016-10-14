@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 19.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+<!-- Generator: Adobe Illustrator 20.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 134.779 266.25" style="enable-background:new 0 0 134.779 266.25;" xml:space="preserve">
 <g id="pi-tall">
 	<path style="fill:#FFFFFF;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-		M132.279,231.305c0,17.919-14.526,32.445-32.445,32.445h-64.89c-17.919,0-32.445-14.526-32.445-32.445V64.416
-		c0-17.919,14.526-32.445,32.445-32.445h58.671V21.832c0-10.677,8.655-19.332,19.332-19.332l0,0
-		c10.677,0,19.332,8.655,19.332,14.735v47.18V231.305z"/>
-	<circle cx="112.948" cy="15.343" r="3.785"/>
-	<circle cx="112.948" cy="28.321" r="3.785"/>
+		M2.499,34.945C2.499,17.026,17.025,2.5,34.944,2.5h64.89c17.919,0,32.445,14.526,32.445,32.445v166.889
+		c0,17.919-14.526,32.445-32.445,32.445l-58.671,0v10.139c0,10.677-8.655,19.332-19.332,19.332l0,0
+		c-10.677,0-19.332-8.655-19.332-14.735v-47.18V34.945z"/>
+	<circle cx="21.83" cy="250.907" r="3.785"/>
+	<circle cx="21.83" cy="237.929" r="3.785"/>
 </g>
-<g id="Layer_1">
+<g id="Layer_1_1_">
 </g>
 </svg>

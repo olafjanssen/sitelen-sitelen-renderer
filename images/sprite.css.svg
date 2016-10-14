@@ -1,18 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
-        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <style>
         ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke}
         .filler {stroke:none;}
     </style>
     <symbol viewBox="0 0 134.779 266.25" id="tp-c-pi-tall" preserveAspectRatio="none" style="overflow:visible;">
-        <g id="pi-tall" transform="matrix(1 0 0 1.15 0 -40)">
+        <g id="pi-tall" transform="matrix(1 0 0 1.1 0 0)">
             <path style="fill:#FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
-		M132.279,231.305c0,17.919-14.526,32.445-32.445,32.445h-64.89c-17.919,0-32.445-14.526-32.445-32.445V64.416
-		c0-17.919,14.526-32.445,32.445-32.445h58.671V21.832c0-10.677,8.655-19.332,19.332-19.332l0,0
-		c10.677,0,19.332,8.655,19.332,14.735v47.18V231.305z"/>
-            <circle cx="112.948" cy="15.343" r="3.785"/>
-            <circle cx="112.948" cy="28.321" r="3.785"/>
+		M2.499,34.945C2.499,17.026,17.025,2.5,34.944,2.5h64.89c17.919,0,32.445,14.526,32.445,32.445v166.889
+		c0,17.919-14.526,32.445-32.445,32.445l-58.671,0v10.139c0,10.677-8.655,19.332-19.332,19.332l0,0
+		c-10.677,0-19.332-8.655-19.332-14.735v-47.18V34.945z"/>
+            <circle cx="21.83" cy="250.907" r="3.785"/>
+            <circle cx="21.83" cy="237.929" r="3.785"/>
+        </g>
+    </symbol>
+    <symbol viewBox="0 0 211.633 169.814" id="tp-c-pi-wide" preserveAspectRatio="none" style="overflow:visible;">
+        <g id="pi-wide" transform="matrix(1 0 0 1.2 0 0)">
+            <path style="fill:#FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;"
+                  d="
+			M2.501,34.945C2.501,17.026,17.027,2.5,34.946,2.5h141.743c17.919,0,32.445,14.526,32.445,32.445v70.453
+			c0,17.919-14.526,32.445-32.445,32.445l-135.525,0v10.139c0,10.677-8.655,19.332-19.332,19.332l0,0
+			c-10.677,0-19.332-8.655-19.332-14.735v-47.18V34.945H2.501z"/>
+            <circle cx="21.833" cy="153.667" r="3.785"/>
+            <circle cx="21.833" cy="140.689" r="3.785"/>
+        </g>
+    </symbol>
+    <symbol viewBox="0 0 275.298 268.617" id="tp-c-pi" preserveAspectRatio="none" style="overflow:visible;">
+        <g id="cpi" transform="matrix(1 0 0 1.1 0 0)">
+            <path style="fill:#FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
+			M2.501,34.945C2.501,17.026,17.027,2.5,34.946,2.5h205.408c17.919,0,32.445,14.526,32.445,32.445v169.256
+			c0,17.919-14.526,32.445-32.445,32.445l-199.19,0v10.139c0,10.677-8.655,19.332-19.332,19.332l0,0
+			c-10.677,0-19.332-8.655-19.332-14.735v-47.18V34.945H2.501z"/>
+            <circle cx="21.833" cy="253.274" r="3.785"/>
+            <circle cx="21.833" cy="240.296" r="3.785"/>
         </g>
     </symbol>
     <symbol viewBox="-2 -2 288.796 156.603" preserveAspectRatio="none" id="tp-c-tawa-wide" style="overflow:visible;">

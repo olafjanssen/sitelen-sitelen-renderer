@@ -1,3 +1,5 @@
+/* global sitelenLayout, sitelenCoreRenderer, sitelenParser */
+
 /**
  * User friendly wrapper for rendering sitelen sitelen.
  *
@@ -12,7 +14,6 @@ var sitelenRenderer = function () {
      * @param sentence  the structured sentence
      * @param target    the element to render in
      * @param settings  the settings object
-     * @returns {Element}   the rendered element
      */
     function renderCompoundSentence(sentence, target, settings) {
         if (!settings) {
@@ -35,6 +36,9 @@ var sitelenRenderer = function () {
         }
         if (!settings.random) {
             settings.random = false;
+        }
+        if (!settings.output) {
+            settings.output = { format: 'inlineSVG' };
         }
         var compounds = [];
 
@@ -68,15 +72,39 @@ var sitelenRenderer = function () {
             bestOptions.push(compoundOptions[settings.random ? Math.floor(Math.random() * compoundOptions.length) : 0]);
         });
 
-        return sitelenCoreRenderer.renderComplexLayout(bestOptions, target, settings);
+        var rendered = sitelenCoreRenderer.renderComplexLayout(bestOptions, target, settings);
+
+        // add background element
+        if (settings.output.background) {
+            if (settings.output.background instanceof Node) {
+                rendered.insertBefore(settings.output.background, rendered.childNodes[0]);
+            }
+        }
+
+        // determine output format
+        switch (settings.output.format) {
+            case 'inlineSvg':
+                return;
+            case 'svg':
+                renderAsSvgImg(rendered);
+                return;
+            case 'png':
+                renderAsPng(rendered);
+                return;
+        }
     }
 
     /**
      * Render a single interactive structured sentence.
      * @param sentence  the structured sentence
+     * @param settings  rendering settings object
      * @returns {Element}   the rendered element
      */
-    function renderInteractiveSentence(sentence) {
+    function renderInteractiveSentence(sentence, settings) {
+        if (!settings) {
+            settings = {};
+        }
+
         var compound = document.createElement('div');
 
         document.getElementById('sitelen').appendChild(compound);
@@ -96,12 +124,12 @@ var sitelenRenderer = function () {
 
         var slider = document.createElement('input');
         slider.setAttribute('type', 'range');
-        slider.setAttribute('min', 0);
-        slider.setAttribute('max', options.length - 1);
-        slider.setAttribute('step', 1);
-        slider.setAttribute('value', initialOption[0]);
+        slider.setAttribute('min', '0');
+        slider.setAttribute('max', '' + (options.length - 1));
+        slider.setAttribute('step', '1');
+        slider.setAttribute('value', '' + initialOption[0]);
 
-        slider.addEventListener('input', function (event) {
+        slider.addEventListener('input', function () {
             var optimal = options[slider.value].ratio;
             render(optimal);
         });
@@ -126,11 +154,13 @@ var sitelenRenderer = function () {
 
             var filename = tokens.join('-') + '.svg';
 
-            var previousRender = compound.querySelector('svg');
+            var previousRender = compound.querySelector('[data-sitelen-sentence]');
             if (previousRender) {
                 compound.removeChild(previousRender);
             }
-            renderCompoundSentence(sentence, compound, {optimalRatio: optimal});
+
+            settings.optimalRatio = optimal;
+            renderCompoundSentence(sentence, compound, settings);
 
             var text = '<?xml version="1.0" encoding="utf-8"?>\n' + compound.querySelector('svg').outerHTML;
             pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -140,7 +170,7 @@ var sitelenRenderer = function () {
         return compound;
     }
 
-    function init(){
+    function init() {
         [].slice.call(document.querySelectorAll('[data-sitelen]')).forEach(function (element) {
             var text = element.textContent,
                 structuredSentences = sitelenParser.parse(text);
@@ -149,10 +179,49 @@ var sitelenRenderer = function () {
 
             var ratio = element.getAttribute('data-sitelen-ratio');
 
-            structuredSentences.forEach(function (structuredSentence, index) {
+            structuredSentences.forEach(function (structuredSentence) {
                 renderCompoundSentence(structuredSentence, element, {optimalRatio: ratio ? ratio : 0.8});
             });
         });
+    }
+
+    function renderAsSvgImg(element, callback) {
+        var svgData = new XMLSerializer().serializeToString(element);
+
+        var img = document.createElement('img');
+        img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(svgData));
+        img.setAttribute('data-sitelen-sentence', '');
+
+        img.onload = function () {
+            element.parentNode.replaceChild(img, element);
+            callback(img);
+        };
+    }
+
+    function renderAsPng(element) {
+        var svg = element;
+        var svgData = new XMLSerializer().serializeToString(svg);
+        svgData = svgData.replace('path{stroke-width:2;', 'path{stroke-width:4;');
+
+        var canvas = document.createElement("canvas");
+        var svgSize = svg.getBoundingClientRect();
+        canvas.width = 2 * svgSize.width;
+        canvas.height = 2 * svgSize.height;
+        var ctx = canvas.getContext("2d");
+
+        var img = document.createElement("img");
+        img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
+
+        img.onload = function () {
+            ctx.drawImage(img, 0, 0);
+
+            var outImg = document.createElement("img");
+            outImg.setAttribute('data-sitelen-sentence', '');
+            outImg.src = canvas.toDataURL('image/png');
+            outImg.style.width = svgSize.width + 'px';
+            outImg.style.height = svgSize.height + 'px';
+            element.parentNode.replaceChild(outImg, element);
+        };
     }
 
     window.onload = function () {
