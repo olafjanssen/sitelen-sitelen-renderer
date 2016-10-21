@@ -21,8 +21,6 @@
         }
 
         #sitelen {
-            transition: background-color 0.25s ease;
-            background-color: transparent;
             border-radius: 1em;
             margin: 0 auto;
             width: 20em;
@@ -30,12 +28,19 @@
 
         #sitelen svg {
             width: 100%;
-
         }
 
-        #sitelen:hover {
-            background-color: #efe;
-            border-radius: 1em;
+        #sitelen input {
+            margin: 1em auto;
+            display: block;
+            width: 50%;
+        }
+
+        #sitelen a {
+            text-align: center;
+            display: block;
+            margin: 1em 0;
+            width: 100%;
         }
 
         #tokiInput {
@@ -54,6 +59,18 @@
             margin: 0 auto;
             width: 30em;
         }
+
+        #backgrounds {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5em;
+        }
+        #backgrounds img {
+            display: inline-block;
+            width: 5em;
+            height: 5em;
+        }
     </style>
 </head>
 <body>
@@ -70,35 +87,11 @@
         <option>pattern5</option>
     </select>
 
-    <div id="sitelen" style="display: none;"></div>
-
-    <canvas id="sitelencanvas" style="display: none;"></canvas>
-
-    <div id="png-container"></div>
+    <div id="sitelen"></div>
 
 </div>
 
 <script>
-//    function wrapText(context, text, x, y, maxWidth, lineHeight) {
-//        var words = text.split(' ');
-//        var line = '';
-//
-//        for(var n = 0; n < words.length; n++) {
-//            var testLine = line + words[n] + ' ';
-//            var metrics = context.measureText(testLine);
-//            var testWidth = metrics.width;
-//            if (testWidth > maxWidth && n > 0) {
-//                context.fillText(line, x, y);
-//                line = words[n] + ' ';
-//                y += lineHeight;
-//            }
-//            else {
-//                line = testLine;
-//            }
-//        }
-//        context.fillText(line, x, y);
-//    }
-
     window.onload = function () {
         var input = document.getElementById('tokiInput');
         input.addEventListener('input', renderInput);
@@ -108,72 +101,34 @@
 
             var structuredSentence = sitelenParser.parse(text)[0];
             document.getElementById('sitelen').innerHTML = '';
-            sitelenRenderer.renderCompoundSentence(structuredSentence, document.getElementById('sitelen'),
-                    {optimalRatio: 0.4, scaleSkew: 1.5, spacing: 30, shadow: true}
-            );
 
-            var svgString = new XMLSerializer().serializeToString(document.querySelector('#sitelen > svg'));
-            svgString = svgString.replace('path{stroke-width:2;', 'path{stroke-width:6;');
+            function customBackground(){
+                var ns = 'http://www.w3.org/2000/svg';
+                var rect = document.createElementNS(ns, 'rect');
+                rect.style.width = '200%';
+                rect.style.height = '200%';
+                rect.style.x = '-100%';
+                rect.style.y = '-100%';
+                rect.style.fill = 'lightblue';
+                rect.style.stroke = 'none';
+                return rect;
+            }
 
-            var box = document.querySelector('#sitelen > svg').getAttribute('viewBox').split(' ');
-            var aspectRatio = box[3] / box[2];
-            var canvas = document.getElementById("sitelencanvas");
-            var ctx = canvas.getContext("2d");
-
-            canvas.width = 480;
-            canvas.height = 640;
-            canvas.style.width = (canvas.width / 2) + "px";
-            canvas.style.height = (canvas.height / 2) + "px";
-            ctx.scale(2, 2);
-
-            var DOMURL = self.URL || self.webkitURL || self;
-            var img = new Image();
-            var svg = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
-            var url = DOMURL.createObjectURL(svg);
-            img.onload = function () {
-                var width = canvas.getAttribute('width') / 2, height = canvas.getAttribute('height') / 2,
-                        patternSelect = document.getElementById('pattern');
-
-                var pattern = document.getElementById(patternSelect.value);
-                var pat = ctx.createPattern(pattern, "repeat");
-                ctx.rect(0, 0, width, height);
-                ctx.fillStyle = pat;
-                ctx.fill();
-
-//                ctx.beginPath();
-//                ctx.rect(0, 0, width, height);
-//                ctx.fillStyle = "rgb(167,212,235)";
-//                ctx.fill();
-
-                var fheight = height + 80, fwidth = width + 100;
-
-                if (aspectRatio < 1) {
-//                    ctx.drawImage(img, 15, (fheight - fwidth * aspectRatio) / 2 - 100, fwidth, fwidth * aspectRatio);
-                } else {
-                    ctx.drawImage(img,  (fheight / aspectRatio * (1 - 1/1.2))/2 + (width - (fheight / aspectRatio)) / 2, -40, fheight / aspectRatio, fheight);
-                }
-                ctx.globalAlpha = 1;
-
-//                ctx.font = "24px sans-serif";
-//                ctx.textAlign = "center";
-//                ctx.fillStyle = "rgba(0,0,0,0.7)";
-//
-//                wrapText(ctx, text, width/2, height - 50, fwidth, 25);
-
-                var png = canvas.toDataURL("image/png");
-                document.querySelector('#png-container').innerHTML = '<img src="' + png + '"/>';
-                DOMURL.revokeObjectURL(png);
-            };
-            img.src = url;
+            sitelenRenderer.renderInteractiveSentence(structuredSentence,
+                    {
+                        output: {format: 'png', background: customBackground()},
+                        shadow: true
+                    });
         }
 
-        input.value = 'jan lili li sona ala e ike.';
+        input.value = 'tenpo ala la pakala li kama taso.';
         renderInput();
 
     };
 </script>
 
-<div style="display: none;">
+
+<div id="backgrounds">
     <img id="pattern1" src="patterns/greenbars.svg">
     <img id="pattern2" src="patterns/carbon.svg">
     <img id="pattern3" src="patterns/blueprint.svg">

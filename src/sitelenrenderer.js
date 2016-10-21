@@ -38,8 +38,12 @@ var sitelenRenderer = function () {
             settings.random = false;
         }
         if (!settings.output) {
-            settings.output = { format: 'inlineSVG' };
+            settings.output = {format: 'inlineSVG'};
         }
+        if (!settings.styling) {
+            settings.styling = {};
+        }
+
         var compounds = [];
 
         // create sentence parts
@@ -90,6 +94,9 @@ var sitelenRenderer = function () {
                 return;
             case 'png':
                 renderAsPng(rendered);
+                return;
+            case 'css-background':
+                renderAsCssBackground(rendered);
                 return;
         }
     }
@@ -197,6 +204,16 @@ var sitelenRenderer = function () {
             callback(img);
         };
     }
+
+    function renderAsCssBackground(element, callback) {
+        var svgData = new XMLSerializer().serializeToString(element);
+
+        var img = document.createElement('div');
+        img.setAttribute('data-sitelen-sentence', '');
+        img.style.backgroundImage = 'url(data:image/svg+xml;base64,' + btoa(svgData) + ')';
+        element.parentNode.replaceChild(img, element);
+    }
+
 
     function renderAsPng(element) {
         var svg = element;

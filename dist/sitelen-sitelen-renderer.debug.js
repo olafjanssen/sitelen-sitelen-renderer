@@ -74,6 +74,10 @@ var sitelenCoreRenderer = function (debug) {
         var scale = [baseScale * (option.ratio < 0.667 ? 1.2 : 0.92),
             baseScale * (option.ratio < 0.667 ? 0.9 : 0.92), 0, 0];
 
+        if (option.separator === 'li') {
+            scale[0] = baseScale * (option.ratio < 0.667 ? 1.2 : 0.88);
+            scale[1] = baseScale * (option.ratio < 0.667 ? 0.9 : 0.88);
+        }
         if (option.ratio === 1 && option.separator === 'o') {
             scale[1] = baseScale * 1;
             scale[3] = -10;
@@ -178,6 +182,21 @@ var sitelenCoreRenderer = function (debug) {
                     x: box[0],
                     y: box[1]
                 }, {}, svgNS);
+
+                if (option.separator === 'li') {
+                    use = createNewElement('rect', {
+                        transform: 'matrix(' + matrix.join(',') + ')',
+                        height: box[3],
+                        width: box[2],
+                        x: box[0],
+                        y: box[1],
+                        rx: 15.0 / sizeParentNormed[0] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[0],
+                        ry: 15.0 / sizeParentNormed[1] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[1]
+                    }, {
+                        fill: '#fff'
+                    }, svgNS);
+                }
+
                 if (option.separator === 'cartouche') {
                     target.appendChild(use);
                 } else {
@@ -293,7 +312,9 @@ var sitelenCoreRenderer = function (debug) {
         sentenceContainer.setAttribute('data-sitelen-sentence', '');
 
         var styling = document.createElement('style');
-        styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';
+        var strokeWidth = settings.styling.strokeWidth?settings.styling.strokeWidth:'2';
+
+        styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:'+strokeWidth+';stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';
 
         sentenceContainer.appendChild(styling);
 
@@ -438,7 +459,7 @@ var sitelenCoreRenderer = function (debug) {
         renderComplexLayout: renderComplexLayout,
         renderAllOptions: renderOptions
     };
-}();
+}(true);
 /*global
  sitelenCoreRenderer
  */
@@ -760,8 +781,12 @@ var sitelenRenderer = function () {
             settings.random = false;
         }
         if (!settings.output) {
-            settings.output = { format: 'inlineSVG' };
+            settings.output = {format: 'inlineSVG'};
         }
+        if (!settings.styling) {
+            settings.styling = {};
+        }
+
         var compounds = [];
 
         // create sentence parts
@@ -812,6 +837,9 @@ var sitelenRenderer = function () {
                 return;
             case 'png':
                 renderAsPng(rendered);
+                return;
+            case 'css-background':
+                renderAsCssBackground(rendered);
                 return;
         }
     }
@@ -919,6 +947,16 @@ var sitelenRenderer = function () {
             callback(img);
         };
     }
+
+    function renderAsCssBackground(element, callback) {
+        var svgData = new XMLSerializer().serializeToString(element);
+
+        var img = document.createElement('div');
+        img.setAttribute('data-sitelen-sentence', '');
+        img.style.backgroundImage = 'url(data:image/svg+xml;base64,' + btoa(svgData) + ')';
+        element.parentNode.replaceChild(img, element);
+    }
+
 
     function renderAsPng(element) {
         var svg = element;
