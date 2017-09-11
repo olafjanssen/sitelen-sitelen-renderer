@@ -87,8 +87,8 @@ var sitelenRenderer = function () {
 
         // determine output format
         switch (settings.output.format) {
-            case 'inlineSvg':
-                return;
+            case 'inline-svg':
+                return rendered;
             case 'svg':
                 renderAsSvgImg(rendered);
                 return;
@@ -184,10 +184,17 @@ var sitelenRenderer = function () {
 
             element.innerHTML = '';
 
-            var ratio = element.getAttribute('data-sitelen-ratio');
+            var ratio = element.getAttribute('data-sitelen-ratio'),
+                stroke = element.getAttribute('data-sitelen-stroke'),
+                output = element.getAttribute('data-sitelen-css')===''?'css-background':'inline-svg',
+                settings = {optimalRatio: ratio? ratio : 0.8, output: {format: output}};
+
+            if (stroke) {
+                settings.styling = {strokeWidth: stroke};
+            }
 
             structuredSentences.forEach(function (structuredSentence) {
-                renderCompoundSentence(structuredSentence, element, {optimalRatio: ratio ? ratio : 0.8});
+                renderCompoundSentence(structuredSentence, element, settings);
             });
         });
     }

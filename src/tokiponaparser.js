@@ -32,7 +32,10 @@ var sitelenParser = function () {
                 return;
             } else if (token === 'o' && part.tokens.length > 0) {
                 // the o token should be in a container when it is used to address something, not in commands
+                part.part = 'address';
                 part.sep = 'o';
+                sentence.push({part: 'subject', tokens: []});
+                part = sentence[sentence.length - 1];
                 return;
             } else if (token === 'a' && part.tokens.length > 0 && part.sep) {
                 // the a token should never be in a container
@@ -58,12 +61,13 @@ var sitelenParser = function () {
      * @returns {{parsable: Array, raw: Array}} parsable array of raw text and punctuation
      */
     function preformat(text) {
-        var result = text.match(/[^\.!\?#]+[\.!\?#]+/g);
+        var result = text.match(/[^\.!\?#]+[\.!\?#]+/g),
+            punctuation = ['.', ':', '?', '!', ','];
 
         var parsableParts = [], rawParts = [];
         if (!result) { // allow sentence fractions without any punctuation
-            result = [text + '|'];
-            console.log('WARNING: sentence fraction without punctuation');
+            result = [text + (punctuation.indexOf(text) === -1?'|':'')];
+            // console.log('WARNING: sentence fraction without punctuation');
         }
         result.forEach(function (sentence) {
             sentence = sentence.trim();

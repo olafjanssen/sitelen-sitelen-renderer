@@ -25,8 +25,7 @@ var sitelenCoreRenderer = function (debug) {
     }
 
     window.addEventListener('load', function () {
-        var newsvg = document.importNode(sprite, false); // surprisingly optional in these browsers
-        document.body.appendChild(newsvg);
+        document.body.appendChild(sprite);
     });
 
     var svgNS = "http://www.w3.org/2000/svg",
@@ -372,7 +371,9 @@ var sitelenCoreRenderer = function (debug) {
             });
         }
 
-        target.appendChild(sentenceContainer);
+        if (target){
+            target.appendChild(sentenceContainer);
+        }
 
         return sentenceContainer;
     }

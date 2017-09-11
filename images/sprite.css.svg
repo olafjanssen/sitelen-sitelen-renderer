@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <style>
-        ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke}
-        .filler {stroke:none;}
-    </style>
+    <!--<style>-->
+        <!--ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke}-->
+        <!--.filler {stroke:none;}-->
+    <!--</style>-->
     <symbol viewBox="0 0 134.779 266.25" id="tp-c-pi-tall" preserveAspectRatio="none" style="overflow:visible;">
         <g id="pi-tall" transform="matrix(1 0 0 1.1 0 0)">
             <path style="fill:#FFFFFF;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;" d="
