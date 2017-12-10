@@ -189,9 +189,9 @@ var sitelenCoreRenderer = function (debug) {
                         x: box[0],
                         y: box[1],
                         rx: 15.0 / sizeParentNormed[0] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[0],
-                        ry: 15.0 / sizeParentNormed[1] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[1]
-                    }, {
+                        ry: 15.0 / sizeParentNormed[1] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[1],
                         fill: '#fff'
+                    }, {
                     }, svgNS);
                 }
 

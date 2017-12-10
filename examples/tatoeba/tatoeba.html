@@ -40,8 +40,8 @@
 </div>
 
 <script>
+    'use strict';
     function loadJSON(url, callback) {
-
         var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
         xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
@@ -57,13 +57,16 @@
     loadJSON('tokitatoeba.json', function (data) {
         var counter = 0, counterMax = data.length, element = document.querySelector('.sitelen-sitelen');
 
+        // data = data.filter(function(item){
+        //     return item.toki.includes('kepeken');
+        // });
+
         data = data.filter(function(item){
-            return item.toki.includes('kepeken');
+            return item.toki.split(' ').length == 2;
         });
 
         function loop() {
-            var text = data[counter].toki,
-                    text = text.replace(/"/g,''),
+            var text = data[counter].toki.replace(/"/g,''),
                     sent = document.createElement('div'),
                     structuredSentences = sitelenParser.parse(text);
 

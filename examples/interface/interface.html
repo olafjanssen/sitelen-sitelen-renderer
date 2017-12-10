@@ -29,23 +29,6 @@
             position: relative;
         }
 
-        #sitelen svg {
-            width: 100%;
-        }
-
-        #sitelen input {
-            margin: 1em auto;
-            display: block;
-            width: 50%;
-        }
-
-        #sitelen a {
-            text-align: center;
-            display: block;
-            margin: 1em 0;
-            width: 100%;
-        }
-
         #sitelen > [data-sitelen-sentence] {
             background-position: center center;
             background-repeat: no-repeat;
@@ -55,13 +38,19 @@
             position: absolute;
             top: 0;
             left: 0;
+            pointer-events: none;
         }
 
         #tokiInput {
-            margin: 2em auto;
+            position: absolute;
             display: block;
-            font-size: 1em;
-            width: 20em;
+            font-size: 0.5em;
+            width: 100%;
+            bottom: -2.5em;
+        }
+
+        #tokiInput:focus {
+            outline: 1px solid red;
         }
 
         #known-issues a {
@@ -82,10 +71,12 @@
             position: absolute;
             /*transform: scale(0, 0) rotate(1600deg);*/
             /*transition: transform 0.2s ease-out;*/
-            z-index: 100;
+            pointer-events: none;
         }
 
         #interface.show {
+            pointer-events: auto;
+            z-index: 100;
             /*transform: scale(1, 1) rotate(0deg);*/
         }
 
@@ -143,6 +134,36 @@
             width: 80%;
         }
 
+        button[data-sitelen] {
+            border-radius: 10em;
+            position: relative;
+            background: #eee;
+            font-size: 1.5em;
+            border: none;
+            height: 1em;
+            width: 1em;
+        }
+
+        button[data-sitelen]:focus {
+            outline:none;
+            background-color: darkred;
+        }
+
+        button[data-sitelen]:hover {
+            background-color: red;
+        }
+
+        div[data-sitelen-sentence] {
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            position: absolute;
+            height: 80%;
+            width: 80%;
+            left: 10%;
+            top: 10%;
+        }
+
     </style>
 </head>
 <body>
@@ -154,6 +175,10 @@
 
     <div id="sitelen" data-sitelen-text="">
         <div id="interface"></div>
+        <button id="remove-glyph" data-sitelen data-sitelen-css data-sitelen-stroke="1">weka</button>
+        <button id="add-glyph" data-sitelen data-sitelen-css data-sitelen-stroke="1">sin</button>
+        <button data-sitelen data-sitelen-css data-sitelen-stroke="1">kulupu</button>
+        <input type="text" id="tokiInput"/>
     </div>
 </div>
 
@@ -161,6 +186,9 @@
 <script>
 
     function addInterface(element) {
+        var input = document.getElementById('tokiInput');
+        input.addEventListener('input', renderInput);
+
         var arc = 1, separation = 1, numPoints = 120;
 
         var r = 0.75 * arc;
@@ -195,28 +223,18 @@
             glyph.setAttribute('name', item.name);
             glyph.setAttribute('label', item.name + (item.gloss ? (' (' + item.gloss + ')') : ''));
 
-            glyph.addEventListener('mouseover', function (e) {
-                element.setAttribute('data-selected', glyph.getAttribute('name'));
-            });
-
             glyph.addEventListener('click', function (e) {
                 console.log('remove show');
                 e.stopPropagation();
                 element.classList.remove('show');
 
-                var text = element.parentNode.getAttribute('data-sitelen-text') + element.getAttribute('data-selected') + (item.type==='syllable'?'':' ');
-                element.parentNode.setAttribute('data-sitelen-text', text);
-
-                var structuredSentence = sitelenParser.parse(text)[0];
-                var renderedElement = document.querySelector('#sitelen > [data-sitelen-sentence]');
-                if (renderedElement) {
-                    renderedElement.parentNode.removeChild(renderedElement);
+                if (item.type==='punctuation') {
+                    input.value = input.value.trim();
+                    console.log(input.value);
                 }
-                sitelenRenderer.renderCompoundSentence(structuredSentence, element.parentNode, {
-//                    minRatio: 0,
-                    output: {format: 'css-background'}
-                });
 
+                input.value = input.value + item.name + (item.type==='syllable'?'':' ');
+                renderInput();
             });
 
             interface.appendChild(glyph);
@@ -231,13 +249,35 @@
 
         });
 
-        element.parentNode.addEventListener('click', function (e) {
+        document.getElementById('add-glyph').addEventListener('click', function (e) {
             e.preventDefault();
             element.classList.add('show');
             console.log('add show');
 
             return false;
         });
+
+        document.getElementById('remove-glyph').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            return false;
+        });
+
+        function renderInput(){
+            var text = input.value;
+            console.log(text);
+            element.parentNode.setAttribute('data-sitelen-text', text);
+
+            var structuredSentence = sitelenParser.parse(text)[0];
+            var renderedElement = document.querySelector('#sitelen > [data-sitelen-sentence]');
+            if (renderedElement) {
+                renderedElement.parentNode.removeChild(renderedElement);
+            }
+            sitelenRenderer.renderCompoundSentence(structuredSentence, element.parentNode, {
+//                    minRatio: 0,
+                output: {format: 'css-background'}
+            });
+        }
 
     }
 
@@ -376,11 +416,11 @@
         {name: 'wawa', gloss: 'power'},
         {name: 'weka', gloss: 'away'},
         {name: 'wile', gloss: 'need'},
-        {name: ' .', category: 'separator', gloss: 'period'},
-        {name: ' ?', category: 'separator', gloss: 'question'},
-        {name: ' !', category: 'separator', gloss: 'exclamation'},
-        {name: ' :', category: 'separator', gloss: 'colon'},
-        {name: ' ,', category: 'separator', gloss: 'comma'}
+        {name: '.', category: 'separator', gloss: 'period', type:'punctuation'},
+        {name: '?', category: 'separator', gloss: 'question', type:'punctuation'},
+        {name: '!', category: 'separator', gloss: 'exclamation', type:'punctuation'},
+        {name: ':', category: 'separator', gloss: 'colon', type:'punctuation'},
+        {name: ',', category: 'separator', gloss: 'comma', type:'punctuation'}
     ];
 
     addInterface(document.getElementById('interface'));
