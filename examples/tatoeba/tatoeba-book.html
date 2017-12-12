@@ -91,11 +91,15 @@
     var blacklist = [
         4910825,
         5297780,
-        4713695, // monsuta
-        4637020,
-        3572522,
-        4884346 // illegal capitals and quotes "
+        4884346, // illegal capitals and quotes "
+
+        // illegal syllables
+        2797007,1893227,3938393,4433728,4692460,3938392,1728226,719050,2796997,4427927,5292049,3005350,3005350,3494307,4671597,3938547,4755672,3486725,3938685,4695277,695823,4620018,3996612,4819845,3938373,3005509,3005103,3938394,3938559,3938350,4535065,4535062,4066393,3850649,4260477,4545010,3938362,3938364,2112660,4437544,3938426,4543501,1483953,2176413,1529611,4077219,3349677,4648560,4648562,3938423,3938677,5433044,4535067,3005624,4709046,4709047,4709050,4709051,3850653,3938461,4807999,3996578,2268287,4804393,3938666,3938666,3005506,4061843,4803217,4710026,3005639,3005634,3005632,3938658,4809793,4686000,640961,2325577,2796978,4933084,3447175,2969999,3938358,3938410,3938374,3938374,4811415,4661769,1725248,3446500,2278717,5075256,3465581,4933082,3938374,4842100,2277403,4752977,1704180,1458478,4447143,2278739,4636468,3354393,2244842,4879748,4879750,4879754,3081244,3005636,4447143,2972137,3005668,658886,3938674,2316601,2797087,641083,4768981,4768960,3080398,3005517,5119759,1037785,1725100,4884342,4564580,4543481,4945156,4182273,4931931,4805258,4811420,2155982,4792787,3938555,3081118,3005681,3081118,4435373,4767288,4435371,4405292,3081107,4811152,4812025,3445158,2735428,4889411,1704115,3576643,4781516,2062242,3444775,1704122,2760775,
+        // illegal word tokens
+        4637020,3572522,4866135,4819963,3352908,5334985,5334985,2277823,2275024,4933782,4938125,4803156,4908233,3357475,4543067,1882718,4847615,4548711,4957499,4825800,4976921,1855036,4643783,4969463,4843359,5275129,5180623,4514795,1907811,2907834,4966603,1902526,4957502,5121847,1836722,4681285,4548719,2333233,4573622,4580013,4467664,4966609,3642649,4552474,4843358,4893219,4834095,1529772,4878571,4573842,4580004,4675153,4828298,4581363,5139145,1720614,2345461,2129521,4957512,4581366,4957508,4790132,4790134,4584017,4878570,4580019,4737812,3851720,2298823,2298823,3635110,3352303,4580093,4929424,5224082,2306465,4893348,4938330,5075251,4957526,4728406,4429312,4674929,4674928,3491503,4820128,4820128,1703362,2278051,4863502,2291248,4925640,4600833,3494290,5139181,4580041,1902546,4140515,3357580,4769818,3517454,4893861,2316139,740241,4885736,3501627,4573534,4893166,4581044,4925575,4584690,5034102,2344322,3358563,5143557,4662325,4919471,5143517,5011268,4574065,4581190,4581189,4580351,4937344,4662326,2318667,4514785,4929425,675493,4900607,2102710,3361334,4573911,2732109,4919788,4678098,3677698,4842503,676635,1704182,4922312,4921070
     ];
+
+
 
     function addPageBreaks() {
         var columns = 0, pages = 0;
@@ -164,9 +168,11 @@
         //     return (item.toki.split(' ').length === len);
         // });
 
-        data = data.filter(function (item) {
-            return item.id === 4919419;
-        });
+        // data = data.filter(function (item) {
+        //     return item.id === 4799492;
+        // });
+
+        var blockable = [];
 
         var shadow = document.createDocumentFragment();
 
@@ -175,25 +181,31 @@
                 return;
             }
 
-            // remove quotes, replace ; with ., replace multiple ... as a single .
-            var text = item.toki.replace(/"/g, '').replace(/;/g, '.').replace(/\.+/, '.');
+            // remove quotes and hyphens, replace ; with ., replace multiple ... as a single .
+            var text = item.toki.replace(/["-]/g, '').replace(/;/g, '.').replace(/\.+/g, '.');
 
             // console.log(index, item.id, item.toki, item.eng);
+            try {
+                var sent = document.createElement('div'),
+                    structuredSentences = sitelenParser.parse(text);
 
-            var sent = document.createElement('div'),
-                structuredSentences = sitelenParser.parse(text);
+                sent.classList.add('sentence');
 
-            sent.classList.add('sentence');
-
-            structuredSentences.forEach(function (sentence) {
-                var ratio = 1.25;
-                var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
-                    optimalRatio: ratio,
-                    ignoreHeight: true,
-                    // output: {format: 'png'}
+                structuredSentences.forEach(function (sentence) {
+                    var ratio = 1.25;
+                    var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
+                        optimalRatio: ratio,
+                        ignoreHeight: true,
+                        // output: {format: 'png'}
+                    });
                 });
-            });
-
+            } catch (e){
+                console.log(e);
+                // if (e.type === 'illegal syllable'){
+                    blockable.push(item.id);
+                    console.log(blockable);
+                // }
+            }
             var label = document.createElement('label');
             label.innerHTML = '<div class="toki-label">' + text + '</div><div class="eng-label">' + item.eng + '</div>';
             sent.appendChild(label);
@@ -203,7 +215,7 @@
 
         console.log('done rendering, inserting into dom');
 
-        element.appendChild(shadow);
+        // element.appendChild(shadow);
         // setTimeout(function () {
         //     addPageBreaks();
         // }, 1000);
