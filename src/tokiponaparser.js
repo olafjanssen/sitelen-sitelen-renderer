@@ -67,7 +67,7 @@ var sitelenParser = function () {
 
         var parsableParts = [], rawParts = [];
         if (!result) { // allow sentence fractions without any punctuation
-            result = [text + (punctuation.indexOf(text) === -1?'|':'')];
+            result = [text + (punctuation.indexOf(text) === -1 ? '|' : '')];
             // console.log('WARNING: sentence fraction without punctuation');
         }
         result.forEach(function (sentence) {
@@ -184,7 +184,6 @@ var sitelenParser = function () {
         // split prepositional phrases inside containers (such as the verb li-container)
         sentence.forEach(function (part, index) {
             prepositionSplitIndex = -1;
-
             part.tokens.forEach(function (token, tokenIndex) {
                 if (prepositionContainers.indexOf(token) > -1 && tokenIndex < part.tokens.length - 1) {
                     prepositionSplitIndex = tokenIndex;
@@ -207,31 +206,41 @@ var sitelenParser = function () {
 
         // split proper names inside containers
         sentence.forEach(function (part, index) {
-            nameSplitIndex = -1;
+            var parts = [part];
             if (!part.tokens) {
-                return;
+                if (part.parts) {
+                    parts = part.parts;
+                } else {
+                    return;
+                }
             }
-            part.tokens.forEach(function (token, tokenIndex) {
-                if (token.substr(0, 1).toUpperCase() === token.substr(0, 1)) {
-                    nameSplitIndex = tokenIndex;
+            parts.forEach(function (part) {
+                var nameSplitIndex = [];
+                part.tokens.forEach(function (token, tokenIndex) {
+                    if (token.substr(0, 1).toUpperCase() === token.substr(0, 1)) {
+                        nameSplitIndex.push(tokenIndex);
+                    }
+                });
+                var last = -1;
+                var newParts = [];
+                nameSplitIndex.forEach(function (idx) {
+                    if (idx > last + 1) {
+                        newParts.push({part: part.part, tokens: part.tokens.slice(last + 1, idx)});
+                    }
+                    newParts.push({
+                        part: part.part,
+                        sep: 'cartouche',
+                        tokens: splitProperIntoSyllables(part.tokens[idx].toLowerCase())
+                    });
+                    last = idx;
+                });
+                if (nameSplitIndex.length > 0 && nameSplitIndex[nameSplitIndex.length - 1] < part.tokens.length - 1) {
+                    newParts.push({part: part.part, tokens: part.tokens.slice([nameSplitIndex.length - 1] + 1)});
+                }
+                if (nameSplitIndex.length > 0) {
+                    sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
                 }
             });
-
-            if (nameSplitIndex > -1) {
-                var newParts = [];
-                if (nameSplitIndex > 0) {
-                    newParts.push({part: part.part, tokens: part.tokens.slice(0, nameSplitIndex)});
-                }
-                newParts.push({
-                    part: part.part,
-                    sep: 'cartouche',
-                    tokens: splitProperIntoSyllables(part.tokens[nameSplitIndex].toLowerCase())
-                });
-                if (nameSplitIndex < part.tokens.length - 1) {
-                    newParts.push({part: part.part, tokens: part.tokens.slice(nameSplitIndex + 1)});
-                }
-                sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
-            }
         });
         return sentence;
     }

@@ -159,9 +159,13 @@
             return a.toki.split(' ').length - b.toki.split(' ').length;
         });
 
-        var len = parseInt(getParameterByName('len'));
+        // var len = parseInt(getParameterByName('len'));
+        // data = data.filter(function (item) {
+        //     return (item.toki.split(' ').length === len);
+        // });
+
         data = data.filter(function (item) {
-            return (item.toki.split(' ').length === len);
+            return item.id === 4919419;
         });
 
         var shadow = document.createDocumentFragment();
@@ -174,7 +178,7 @@
             // remove quotes, replace ; with ., replace multiple ... as a single .
             var text = item.toki.replace(/"/g, '').replace(/;/g, '.').replace(/\.+/, '.');
 
-            console.log(index, item.id, item.toki, item.eng);
+            // console.log(index, item.id, item.toki, item.eng);
 
             var sent = document.createElement('div'),
                 structuredSentences = sitelenParser.parse(text);
@@ -182,8 +186,7 @@
             sent.classList.add('sentence');
 
             structuredSentences.forEach(function (sentence) {
-                var ratio = 1.2;
-
+                var ratio = 1.25;
                 var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
                     optimalRatio: ratio,
                     ignoreHeight: true,
@@ -200,14 +203,10 @@
 
         console.log('done rendering, inserting into dom');
 
-        // var label = document.createElement('label');
-        // label.innerHTML = text + ' / ' + data[counter].eng;
-        // sent.appendChild(label);
-        //
         element.appendChild(shadow);
-        setTimeout(function () {
-            addPageBreaks();
-        }, 1000);
+        // setTimeout(function () {
+        //     addPageBreaks();
+        // }, 1000);
     });
 
 </script>
