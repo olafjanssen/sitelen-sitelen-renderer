@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css">
+    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
+    <style>
+        @page {
+            size: A4 landscape;
+        }
+
+        body {
+            font-family: sans-serif;
+            text-align: justify-all;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 1.5em;
+            margin: 0.25em auto;
+            display: block;
+        }
+
+        [data-sitelen] {
+            writing-mode: initial;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            height: 210mm;
+        }
+
+        [data-sitelen-sentence] {
+            width: 38mm;
+            padding: 2.1mm 2.2mm 0 2.1mm;
+            display: block;
+        }
+
+        label {
+            font-size: 0.8em;
+            display: block;
+            text-align: center;
+            width: 34mm;
+            padding: 0mm 4mm 2mm;
+            margin-top: -2mm;
+        }
+
+        .rotate {
+            transform-origin: left bottom;
+            transform: rotate(90deg) translate(-297mm, 0);
+        }
+
+        .page-break {
+            writing-mode: initial;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            /*padding: 2em;*/
+            justify-content: space-evenly;
+            align-content: flex-start;
+            box-sizing: content-box;
+            overflow: hidden;
+
+            background: none;
+            height: 210mm;
+            width: 297mm;
+        }
+
+        .toki-label {
+            font-weight: bold;
+            margin-bottom: 0.25em;
+        }
+
+        .eng-label {
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+<div id="text" data-sitelen data-sitelen-ratio="1.25"></div>
+
+<div id="book">
+
+</div>
+
+<!--<h1>Toki Pona Tatoeba Corpus</h1>-->
+
+<!--<div class="sitelen-sitelen">-->
+<!--</div>-->
+
+<script>
+    var blacklist = [
+        4910825,
+        5297780,
+        4713695, // monsuta
+        4637020,
+        3572522,
+        4884346 // illegal capitals and quotes "
+    ];
+
+    function addPageBreaks() {
+        var columns = 0, pages = 0;
+        [].slice.call(document.querySelectorAll('#text > .sentence')).forEach(function (child) {
+            var childRect = child.getBoundingClientRect(),
+                siblingRect = child.nextElementSibling ? child.nextElementSibling.getBoundingClientRect() : null;
+
+            child.setAttribute('sitelen-column', columns);
+            child.setAttribute('sitelen-page', pages);
+
+            if (!siblingRect || siblingRect.top < childRect.bottom) {
+                columns++;
+                if (columns % 7 === 0) {
+                    columns = 0;
+                    pages++;
+                }
+            }
+        });
+
+        for (page = 0; page <= pages; page++) {
+            var pageElement = document.createElement('div');
+            pageElement.classList.add('page-break');
+            [].slice.call(document.querySelectorAll('[sitelen-page="' + page + '"]')).forEach(function (child) {
+                pageElement.appendChild(child);
+            });
+            document.getElementById('book').appendChild(pageElement);
+        }
+
+        document.getElementById('text').style.display = 'none';
+    }
+
+    'use strict';
+
+    function loadJSON(url, callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+        xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
+        xobj.onreadystatechange = function () {
+            if (xobj.readyState == 4 && xobj.status == "200") {
+                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                callback(JSON.parse(xobj.responseText));
+            }
+        };
+        xobj.send(null);
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    loadJSON('tokitatoeba.json', function (data) {
+        var element = document.querySelector('#text');
+
+        data.sort(function (a, b) {
+            return a.toki.split(' ').length - b.toki.split(' ').length;
+        });
+
+        var len = parseInt(getParameterByName('len'));
+        data = data.filter(function (item) {
+            return (item.toki.split(' ').length === len);
+        });
+
+        var shadow = document.createDocumentFragment();
+
+        data.forEach(function (item, index) {
+            if (blacklist.indexOf(item.id) > -1) {
+                return;
+            }
+
+            // remove quotes, replace ; with ., replace multiple ... as a single .
+            var text = item.toki.replace(/"/g, '').replace(/;/g, '.').replace(/\.+/, '.');
+
+            console.log(index, item.id, item.toki, item.eng);
+
+            var sent = document.createElement('div'),
+                structuredSentences = sitelenParser.parse(text);
+
+            sent.classList.add('sentence');
+
+            structuredSentences.forEach(function (sentence) {
+                var ratio = 1.2;
+
+                var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
+                    optimalRatio: ratio,
+                    ignoreHeight: true,
+                    // output: {format: 'png'}
+                });
+            });
+
+            var label = document.createElement('label');
+            label.innerHTML = '<div class="toki-label">' + text + '</div><div class="eng-label">' + item.eng + '</div>';
+            sent.appendChild(label);
+
+            shadow.appendChild(sent);
+        });
+
+        console.log('done rendering, inserting into dom');
+
+        // var label = document.createElement('label');
+        // label.innerHTML = text + ' / ' + data[counter].eng;
+        // sent.appendChild(label);
+        //
+        element.appendChild(shadow);
+        setTimeout(function () {
+            addPageBreaks();
+        }, 1000);
+    });
+
+</script>
+
+</body>
+</html>

@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css">
     <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
     <style>
+        @page {
+            size: A4 portrait;
+        }
+
         body {
             font-family: sans-serif;
             text-align: center;
@@ -16,31 +20,68 @@
         }
 
         .sentence {
-            width: 13em;
-            display: inline-block;
+            position: relative;
+            display: inline;
+            writing-mode: rl;
             padding: 1em;
+            width: 13em;
+            transform: rotate(90deg);
         }
 
         .sitelen-sitelen {
-            text-align: left;
+            display: flex;
+            flex-direction: row-reverse;
+            flex-wrap: wrap;
+            text-align: center;
         }
 
+
         .sitelen-sitelen > .sentence > svg {
+            padding: 1em;
             width: 12em;
             display: block;
         }
+
+        /*.sitelen-sitelen > .sentence > label {*/
+            /*display: inline-block;*/
+            /*position: absolute;*/
+            /*width: 100%;*/
+            /*left: 0;*/
+            /*top: 0;*/
+        /*}*/
 
     </style>
 </head>
 <body>
 
-<h1>Toki Pona Tatoeba Corpus</h1>
+<!--<h1>Toki Pona Tatoeba Corpus</h1>-->
 
 <div class="sitelen-sitelen">
 </div>
 
 <script>
+    /*
+        todo:
+            * tp-c-tan cannot
+            * tp-c-tawa-tall
+            * tp-wg-alasa
+            * tp-c-kepeken
+            * tp-c-kepeken-tall
+            * tp-syl-nl
+     */
+
+
+    var blacklist = [
+        4910825,
+        5297780,
+        4713695, // monsuta
+        4637020,
+        3572522
+    ];
+
+
     'use strict';
+
     function loadJSON(url, callback) {
         var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
@@ -55,41 +96,95 @@
     }
 
     loadJSON('tokitatoeba.json', function (data) {
-        var counter = 0, counterMax = data.length, element = document.querySelector('.sitelen-sitelen');
+        var element = document.querySelector('.sitelen-sitelen');
 
-        // data = data.filter(function(item){
-        //     return item.toki.includes('kepeken');
-        // });
-
-        data = data.filter(function(item){
-            return item.toki.split(' ').length == 2;
+        var data1 = data.filter(function (item) {
+            return item.toki.split(' ').length === 1;
         });
 
-        function loop() {
-            var text = data[counter].toki.replace(/"/g,''),
-                    sent = document.createElement('div'),
+        var data2 = data.filter(function (item) {
+            return item.toki.split(' ').length === 2;
+        });
+
+        var data3 = data.filter(function (item) {
+            return item.toki.split(' ').length === 3;
+        });
+
+        var data4 = data.filter(function (item) {
+            return item.toki.split(' ').length === 4;
+        });
+
+        renderData(data1, function () {
+            renderData(data2, function () {
+                // renderData(data3, function () {
+                    // renderData(data4, function () {
+                    // });
+                // });
+            });
+        });
+
+        function renderData(data, cb) {
+
+            var counter = 0, counterMax = data.length;
+            console.log(counterMax);
+
+            function loop() {
+                // check blacklist
+                if (blacklist.indexOf(data[counter].id) > -1) {
+                    next();
+                    return;
+                }
+
+                var text = data[counter].toki;
+
+                if (!text) {
+                    next();
+                    return;
+                } else {
+                    text = text.replace(/"/g, '');
+                }
+
+                // console.log(data[counter].id + ': ' + text + ' / ' + data[counter].eng);
+
+                var sent = document.createElement('div'),
                     structuredSentences = sitelenParser.parse(text);
 
-            sent.classList.add('sentence');
+                sent.classList.add('sentence');
 
-            console.log(text);
+                structuredSentences.forEach(function (sentence) {
+                    var ratio = 1;
+                    if (sentence.length === 2) {
+                        ratio = 1.25;
+                    } else if (sentence.length === 3) {
+                        ratio = 1;
+                    }
 
-            structuredSentences.forEach(function (sentence) {
-                var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {optimalRatio: 0.75, ignoreHeight: true});
-            });
+                    var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
+                        optimalRatio: ratio,
+                        ignoreHeight: true,
+                        // output: {format: 'png'}
+                    });
+                });
 
-            var label = document.createElement('label');
-            label.innerHTML = text + ' / ' + data[counter].eng;
-            sent.appendChild(label);
+                var label = document.createElement('label');
+                label.innerHTML = text + ' / ' + data[counter].eng;
+                sent.appendChild(label);
 
-            element.appendChild(sent);
-            counter++;
-            if (counter < counterMax) {
-                requestAnimationFrame(loop);
+                element.appendChild(sent);
+                next();
+
+                function next() {
+                    counter++;
+                    if (counter < counterMax) {
+                        requestAnimationFrame(loop);
+                    } else {
+                        cb();
+                    }
+                }
             }
-        }
 
-        requestAnimationFrame(loop);
+            requestAnimationFrame(loop);
+        }
     });
 
 </script>

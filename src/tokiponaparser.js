@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Parsing toki pona texts into sentences and sentence parts, and then into structured sentences that reflect the
  * structure of sitelen sitelen blocks.
