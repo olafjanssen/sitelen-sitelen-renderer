@@ -106,11 +106,29 @@ var sitelenCoreRenderer = function (debug) {
             scale[3] = -10;
         }
 
+        if (option.ratio === 1 && option.separator === 'kepeken') {
+            scale[0] = baseScale * 0.9;
+            scale[1] = baseScale * 1.1;
+            scale[2] = 5;
+            scale[3] = -20;
+        }
+        if (option.ratio > 1.5 && option.separator === 'kepeken') {
+            scale[2] = 15;
+            scale[3] = -5;
+        }
+        if (option.ratio < 0.667 && option.separator === 'kepeken') {
+            scale[2] = 10;
+            scale[3] = -15;
+        }
+
         if (option.ratio === 1 && option.separator === 'tan') {
-             // scale[0] = baseScale * 0.9;
-            scale[1] = baseScale * 1;
-            // scale[2] = 5;
             scale[3] = -30;
+        }
+        if (option.ratio < 0.667 && option.separator === 'tan') {
+            scale[3] = -15;
+        }
+        if (option.ratio > 1.5 && option.separator === 'tan') {
+            scale[2] = 15;
         }
 
         if (option.ratio === 1 && option.separator === 'lon') {
@@ -142,8 +160,20 @@ var sitelenCoreRenderer = function (debug) {
         if (option.ratio === 1 && option.separator === 'tawa') {
             scale = baseScale * 1.2;
         }
+        if (option.ratio > 1.5 && option.separator === 'tan') {
+            scale = baseScale * 1.2;
+        }
         if (option.ratio === 1 && option.separator === 'tan') {
             scale = baseScale * 1.4;
+        }
+        if (option.ratio > 1.5 && option.separator === 'kepeken') {
+            scale = baseScale * 1.2;
+        }
+        if (option.ratio < 0.667 && option.separator === 'kepeken') {
+            scale = baseScale * 1.2;
+        }
+        if (option.ratio < 0.667 && option.separator === 'tan') {
+            scale = baseScale * 1.2;
         }
         if (option.ratio < 0.667 && option.separator === 'tawa') {
             scale = baseScale * 1.4;
@@ -206,8 +236,7 @@ var sitelenCoreRenderer = function (debug) {
                         rx: 15.0 / sizeParentNormed[0] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[0],
                         ry: 15.0 / sizeParentNormed[1] * Math.max(sizeParent[0], sizeParent[1]) / separatorScale[1],
                         fill: '#fff'
-                    }, {
-                    }, svgNS);
+                    }, {}, svgNS);
                 }
 
                 if (option.separator === 'cartouche') {
@@ -317,7 +346,7 @@ var sitelenCoreRenderer = function (debug) {
                     version: 1.2,
                     preserveAspectRatio: 'xMidYMin meet',
                     viewBox: [-(box[2] * settings.scaleSkew - box[2]) / 2,
-                        -(box[3] * settings.scale - box[3] ) / 2,
+                        -(box[3] * settings.scale - box[3]) / 2,
                         box[2] * settings.scaleSkew,
                         box[3] * settings.scale].join(' ')
                 }, {}, svgNS);
@@ -325,9 +354,9 @@ var sitelenCoreRenderer = function (debug) {
         sentenceContainer.setAttribute('data-sitelen-sentence', '');
 
         var styling = document.createElement('style');
-        var strokeWidth = settings.styling.strokeWidth?settings.styling.strokeWidth:'2';
+        var strokeWidth = settings.styling.strokeWidth ? settings.styling.strokeWidth : '2';
 
-        styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:'+strokeWidth+';stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';
+        styling.innerHTML = 'ellipse,polygon,polyline,rect,circle,line,path{stroke-width:' + strokeWidth + ';stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}';
 
         sentenceContainer.appendChild(styling);
 
@@ -386,7 +415,7 @@ var sitelenCoreRenderer = function (debug) {
             });
         }
 
-        if (target){
+        if (target) {
             target.appendChild(sentenceContainer);
         }
 

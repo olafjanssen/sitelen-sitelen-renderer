@@ -175,10 +175,10 @@
             return a.toki.split(' ').length - b.toki.split(' ').length;
         });
 
-        var len = parseInt(getParameterByName('len'));
-        data = data.filter(function (item) {
-            return (item.toki.split(' ').length === len);
-        });
+        // var len = parseInt(getParameterByName('len'));
+        // data = data.filter(function (item) {
+        //     return (item.toki.split(' ').length === len);
+        // });
 
         // data = data.filter(function (item) {
         //     return item.id === 4799492;
@@ -227,7 +227,7 @@
 
         console.log('done rendering, inserting into dom');
 
-        element.appendChild(shadow);
+        // element.appendChild(shadow);
         // setTimeout(function () {
         //     addPageBreaks();
         // }, 1000);
