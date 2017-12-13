@@ -104,6 +104,14 @@ var sitelenCoreRenderer = function (debug) {
             scale[2] = 5;
             scale[3] = -10;
         }
+
+        if (option.ratio === 1 && option.separator === 'tan') {
+             // scale[0] = baseScale * 0.9;
+            scale[1] = baseScale * 1;
+            // scale[2] = 5;
+            scale[3] = -30;
+        }
+
         if (option.ratio === 1 && option.separator === 'lon') {
             scale[2] = 15;
             scale[3] = -15;
@@ -132,6 +140,9 @@ var sitelenCoreRenderer = function (debug) {
         }
         if (option.ratio === 1 && option.separator === 'tawa') {
             scale = baseScale * 1.2;
+        }
+        if (option.ratio === 1 && option.separator === 'tan') {
+            scale = baseScale * 1.4;
         }
         if (option.ratio < 0.667 && option.separator === 'tawa') {
             scale = baseScale * 1.4;

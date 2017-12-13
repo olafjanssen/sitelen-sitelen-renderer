@@ -15,7 +15,7 @@ var sitelenParser = function () {
      */
     function getSimpleStructuredSentence(parseable) {
         var tokens = parseable.split(' '),
-            prepositions = ['tawa', 'lon', 'kepeken'],
+            prepositions = ['tawa', 'tan', 'lon', 'kepeken'],
             objectMarker = ['li', 'e'],
             part = {part: 'subject', tokens: []},
             sentence = [part];

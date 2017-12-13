@@ -12,10 +12,10 @@ var glob = require('glob');
 //    console.log(token);
 //});
 
-//var files = glob.sync('../../images/glyphs/tp-wg-pre-*.svg');
-var files = glob.sync('../../images/sylgl/tp-syl-*.svg');
+var files = glob.sync('../../images/glyphs/tp-c-pre-tan*.svg');
+//  var files = glob.sync('../../images/sylgl/tp-syl-*.svg');
 files.forEach(function (filename) {
-    var token = filename.substring(26);
+    var token = filename.substring(29);
     console.log(token);
 
     var buf = fs.readFileSync(filename, "utf8");
@@ -45,7 +45,7 @@ files.forEach(function (filename) {
 
     svgo.optimize(doc.toString(), function (result) {
         "use strict";
-        fs.writeFileSync('../../images/sylgl2/tp-syl-' + token, result.data);
+        fs.writeFileSync('../../images/glyphs/tp-c-' + token, result.data);
     });
 
 });
