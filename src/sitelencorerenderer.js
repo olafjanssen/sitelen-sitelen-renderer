@@ -133,6 +133,9 @@ var sitelenCoreRenderer = function (debug) {
         if (option.ratio === 1 && option.separator === 'tawa') {
             scale = baseScale * 1.2;
         }
+        if (option.ratio < 0.667 && option.separator === 'tawa') {
+            scale = baseScale * 1.4;
+        }
         if (option.ratio === 1 && option.separator === 'lon') {
             scale = baseScale * 1.4;
         }

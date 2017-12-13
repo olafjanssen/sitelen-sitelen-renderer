@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!--<style>-->
-        <!--ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke}-->
-        <!--.filler {stroke:none;}-->
+    <!--ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke}-->
+    <!--.filler {stroke:none;}-->
     <!--</style>-->
     <symbol viewBox="0 0 134.779 266.25" id="tp-c-pi-tall" preserveAspectRatio="none" style="overflow:visible;">
         <g id="pi-tall" transform="matrix(1 0 0 1.1 0 0)">
@@ -33,6 +34,15 @@
 			c-10.677,0-19.332-8.655-19.332-14.735v-47.18V34.945H2.501z"/>
             <circle cx="21.833" cy="253.274" r="3.785"/>
             <circle cx="21.833" cy="240.296" r="3.785"/>
+        </g>
+    </symbol>
+    <symbol viewBox="-2 -2 138.048 281.747" preserveAspectRatio="none" id="tp-c-tawa-tall">
+        <g id="tawa-tall" fill="#FFF" stroke="#000" stroke-width="5" stroke-miterlimit="10">
+            <path d="M131.548 242.985c0 17.818-14.444 32.262-32.262 32.262H34.762c-17.818 0-32.262-14.444-32.262-32.262v-154.3c0-35.635 28.888-64.523 64.524-64.523s64.524 28.888 64.524 64.524v154.3z"/>
+            <g stroke-linecap="round" stroke-linejoin="round">
+                <path d="M97.187 24.484c1.925-9.814-4.103-19.956-14.763-21.602C67.74.615 53.598 8.508 43.404 24.594 35.883 36.456 38.14 66.35 38.14 66.35s12.812-12.34 33.548-9.713c16.774 2.125 22.037 8.5 38.81 7.59 12.477-.677 21.05-7.59 21.05-18.364 0-8.8-7.73-15.023-17.267-15.023 0 0-17.905-2.215-17.093-6.356z"/>
+                <path d="M38.14 66.35S37.035 43.19 62.15 34.177c23.68-8.5 21.696-15.24 34.232-20.64 9.867-4.248 19.282-.453 22.697 3.644 6.577 7.89 6.877 25.19-22.068 27.013-29.862 1.88-46.374-.002-58.872 22.154z"/>
+            </g>
         </g>
     </symbol>
     <symbol viewBox="-2 -2 288.796 156.603" preserveAspectRatio="none" id="tp-c-tawa-wide" style="overflow:visible;">
