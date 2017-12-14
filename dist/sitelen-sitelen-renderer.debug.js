@@ -1118,7 +1118,7 @@ var sitelenParser = function () {
      */
     function getSimpleStructuredSentence(parseable) {
         var tokens = parseable.split(' '),
-            prepositions = ['tawa', 'tan', 'lon', 'kepeken'],
+            prepositions = ['tawa', 'tan', 'lon', 'kepeken', 'sama', 'poka'],
             objectMarker = ['li', 'e'],
             part = {part: 'subject', tokens: []},
             sentence = [part];
@@ -1291,7 +1291,7 @@ var sitelenParser = function () {
      * @returns {*} a processed structured sentence
      */
     function postprocessing(sentence) {
-        var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'pi'],
+        var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'sama', 'poka', 'pi'],
             prepositionSplitIndex,
             nameSplitIndex;
 

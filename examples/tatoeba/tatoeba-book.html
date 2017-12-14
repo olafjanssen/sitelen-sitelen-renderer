@@ -112,6 +112,7 @@
         4637020, 3572522, 4866135, 4819963, 3352908, 5334985, 5334985, 2277823, 2275024, 4933782, 4938125, 4803156, 4908233, 3357475, 4543067, 1882718, 4847615, 4548711, 4957499, 4825800, 4976921, 1855036, 4643783, 4969463, 4843359, 5275129, 5180623, 4514795, 1907811, 2907834, 4966603, 1902526, 4957502, 5121847, 1836722, 4681285, 4548719, 2333233, 4573622, 4580013, 4467664, 4966609, 3642649, 4552474, 4843358, 4893219, 4834095, 1529772, 4878571, 4573842, 4580004, 4675153, 4828298, 4581363, 5139145, 1720614, 2345461, 2129521, 4957512, 4581366, 4957508, 4790132, 4790134, 4584017, 4878570, 4580019, 4737812, 3851720, 2298823, 2298823, 3635110, 3352303, 4580093, 4929424, 5224082, 2306465, 4893348, 4938330, 5075251, 4957526, 4728406, 4429312, 4674929, 4674928, 3491503, 4820128, 4820128, 1703362, 2278051, 4863502, 2291248, 4925640, 4600833, 3494290, 5139181, 4580041, 1902546, 4140515, 3357580, 4769818, 3517454, 4893861, 2316139, 740241, 4885736, 3501627, 4573534, 4893166, 4581044, 4925575, 4584690, 5034102, 2344322, 3358563, 5143557, 4662325, 4919471, 5143517, 5011268, 4574065, 4581190, 4581189, 4580351, 4937344, 4662326, 2318667, 4514785, 4929425, 675493, 4900607, 2102710, 3361334, 4573911, 2732109, 4919788, 4678098, 3677698, 4842503, 676635, 1704182, 4922312, 4921070
     ];
 
+// [null,15,58,227,495,797,938,1043,993,813,633,512,317,262,170,144,74,70,39,29,23,18,20,6,6,5,7,6,2,3,2,1,3,3,null,1,null,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null,2,null,null,null,null,null,null,null,1,1,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1,null,null,null,1]
 
     function addPageBreaks() {
         var columns = 0, pages = 0;
@@ -171,14 +172,25 @@
     loadJSON('tokitatoeba.json', function (data) {
         var element = document.querySelector('#text');
 
-        data.sort(function (a, b) {
-            return a.toki.split(' ').length - b.toki.split(' ').length;
+        data.map(function(a){
+           a.tokens = a.toki.split(' ').length;
         });
 
-        // var len = parseInt(getParameterByName('len'));
-        // data = data.filter(function (item) {
-        //     return (item.toki.split(' ').length === len);
-        // });
+        window.counts = [];
+        for (var i = 0; i < data.length; i++) {
+            var num = data[i].tokens;
+            counts[num] = counts[num] ? counts[num] + 1 : 1;
+        }
+        console.log(counts);
+
+        data.sort(function (a, b) {
+            return a.tokens - b.tokens;
+        });
+
+        var len = parseInt(getParameterByName('len'));
+        data = data.filter(function (item) {
+            return (item.toki.split(' ').length === len);
+        });
 
         // data = data.filter(function (item) {
         //     return item.id === 4799492;
@@ -204,7 +216,7 @@
                 sent.classList.add('sentence');
 
                 structuredSentences.forEach(function (sentence) {
-                    var ratio = 1.25;
+                    var ratio = 1;
                     var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
                         optimalRatio: ratio,
                         ignoreHeight: true,
@@ -227,10 +239,10 @@
 
         console.log('done rendering, inserting into dom');
 
-        // element.appendChild(shadow);
-        // setTimeout(function () {
-        //     addPageBreaks();
-        // }, 1000);
+        element.appendChild(shadow);
+        setTimeout(function () {
+            addPageBreaks();
+        }, 1000);
     });
 
 </script>
