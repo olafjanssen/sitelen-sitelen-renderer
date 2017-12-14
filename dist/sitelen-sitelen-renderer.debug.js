@@ -143,7 +143,6 @@ var sitelenCoreRenderer = function (debug) {
             scale[3] = -20;
         }
         if (option.ratio > 1.5 && option.separator === 'kepeken') {
-            // scale[0] = baseScale * 0.9;
             scale[2] = 15;
             scale[3] = -5;
         }
@@ -154,9 +153,11 @@ var sitelenCoreRenderer = function (debug) {
         }
 
         if (option.ratio === 1 && option.separator === 'tan') {
-            scale[3] = -30;
+            scale[0] = baseScale * 0.8;
+            scale[3] = -20;
         }
         if (option.ratio < 0.667 && option.separator === 'tan') {
+            scale[0] = baseScale * 0.9;
             scale[3] = -15;
         }
         if (option.ratio > 1.5 && option.separator === 'tan') {
@@ -215,9 +216,6 @@ var sitelenCoreRenderer = function (debug) {
         if (option.ratio < 0.667 && option.separator === 'tan') {
             scale = baseScale * 1.2;
         }
-        // if (option.ratio < 0.667 && option.separator === 'tawa') {
-        //     scale = baseScale * 1.4;
-        // }
         if (option.ratio === 1 && option.separator === 'lon') {
             scale = baseScale * 1.3;
         }
