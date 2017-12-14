@@ -182,6 +182,10 @@ var sitelenRenderer = function () {
             var text = element.textContent,
                 structuredSentences = sitelenParser.parse(text);
 
+            if (text.length===0){
+                return;
+            }
+
             element.innerHTML = '';
 
             var ratio = element.getAttribute('data-sitelen-ratio'),

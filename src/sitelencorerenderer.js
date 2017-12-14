@@ -104,6 +104,36 @@ var sitelenCoreRenderer = function (debug) {
             scale[2] = 5;
             scale[3] = -10;
         }
+        if (option.ratio < 0.667 && option.separator === 'tawa') {
+            scale[0] = baseScale * 0.9;
+            scale[3] = -10;
+        }
+
+        if (option.ratio === 1 && option.separator === 'poka') {
+            scale[0] = baseScale * 0.9;
+            scale[1] = baseScale * 1.1;
+            scale[3] = -20;
+        }
+        if (option.ratio < 0.667 && option.separator === 'poka') {
+            scale[0] = baseScale * 0.9;
+            scale[3] = -10;
+        }
+        if (option.ratio > 1.5 && option.separator === 'poka') {
+            scale[2] = 10;
+        }
+
+        if (option.ratio === 1 && option.separator === 'sama') {
+            scale[0] = baseScale * 0.9;
+            scale[1] = baseScale * 1.1;
+            scale[3] = -15;
+        }
+        if (option.ratio < 0.667 && option.separator === 'sama') {
+            scale[0] = baseScale * 0.9;
+            scale[3] = -10;
+        }
+        if (option.ratio > 1.5 && option.separator === 'sama') {
+            scale[2] = 10;
+        }
 
         if (option.ratio === 1 && option.separator === 'kepeken') {
             scale[0] = baseScale * 0.9;
@@ -112,11 +142,13 @@ var sitelenCoreRenderer = function (debug) {
             scale[3] = -20;
         }
         if (option.ratio > 1.5 && option.separator === 'kepeken') {
+            // scale[0] = baseScale * 0.9;
             scale[2] = 15;
             scale[3] = -5;
         }
         if (option.ratio < 0.667 && option.separator === 'kepeken') {
-            scale[2] = 10;
+            scale[0] = baseScale * 0.9;
+            scale[2] = 7;
             scale[3] = -15;
         }
 
@@ -134,6 +166,14 @@ var sitelenCoreRenderer = function (debug) {
             scale[2] = 15;
             scale[3] = -15;
         }
+        if (option.ratio < 0.667 && option.separator === 'lon') {
+            scale[0] = baseScale * 0.9;
+            scale[3] = -10;
+        }
+        if (option.ratio > 1.5 && option.separator === 'lon') {
+            scale[2] = 10;
+        }
+
         if (option.ratio > 1.5 && option.separator === 'e') {
             scale[2] = 5;
         }
@@ -174,11 +214,11 @@ var sitelenCoreRenderer = function (debug) {
         if (option.ratio < 0.667 && option.separator === 'tan') {
             scale = baseScale * 1.2;
         }
-        if (option.ratio < 0.667 && option.separator === 'tawa') {
-            scale = baseScale * 1.4;
-        }
+        // if (option.ratio < 0.667 && option.separator === 'tawa') {
+        //     scale = baseScale * 1.4;
+        // }
         if (option.ratio === 1 && option.separator === 'lon') {
-            scale = baseScale * 1.4;
+            scale = baseScale * 1.3;
         }
 
         return scale;

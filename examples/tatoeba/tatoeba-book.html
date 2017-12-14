@@ -76,7 +76,7 @@
     </style>
 </head>
 <body>
-<div id="text" data-sitelen data-sitelen-ratio="1.25"></div>
+<div id="text" data-sitelen></div>
 
 <div id="book">
 
@@ -220,15 +220,16 @@
                     var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
                         optimalRatio: ratio,
                         ignoreHeight: true,
+                        styling: {
+                            strokeWidth: '1px'
+                        }
                         // output: {format: 'png'}
                     });
                 });
             } catch (e) {
                 console.log(e);
-                // if (e.type === 'illegal syllable'){
                 blockable.push(item.id);
                 console.log(blockable);
-                // }
             }
             var label = document.createElement('label');
             label.innerHTML = '<div class="toki-label">' + text + '</div><div class="eng-label">' + item.eng + '</div>';
@@ -241,7 +242,7 @@
 
         element.appendChild(shadow);
         setTimeout(function () {
-            addPageBreaks();
+            // addPageBreaks();
         }, 1000);
     });
 
