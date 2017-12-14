@@ -189,8 +189,7 @@ var sitelenParser = function () {
      */
     function postprocessing(sentence) {
         var prepositionContainers = ['lon', 'tan', 'kepeken', 'tawa', 'sama', 'poka', 'pi'],
-            prepositionSplitIndex,
-            nameSplitIndex;
+            prepositionSplitIndex;
 
         // split prepositional phrases inside containers (such as the verb li-container)
         sentence.forEach(function (part, index) {

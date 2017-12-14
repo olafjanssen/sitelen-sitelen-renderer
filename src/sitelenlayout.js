@@ -115,7 +115,6 @@ var sitelenLayout = function () {
                     return;
                 }
 
-                prevSize = addSize;
                 newState.units.push({unit: units[i], size: glyphSize, position: unitPosition});
 
                 // update glyph position to slot for next glyph

@@ -233,7 +233,6 @@ var sitelenCoreRenderer = function (debug) {
      */
     function renderPartOption(option, target, settings, position, sizeParent, sizeParentNormed) {
         var container = target,
-            scale = settings.scale / 1.1,
             glyphScale = settings.scale,
             separatorScale = getSeparatorScale(option, settings.scale),
             containerScale = getContainerScale(option, settings.scale);
@@ -283,9 +282,7 @@ var sitelenCoreRenderer = function (debug) {
                 }
             }
 
-            matrix = [scale, 0, 0, scale, center[0] - scale * center[0], center[1] - scale * center[1]];
             container = createNewElement('svg', {
-                // transform: 'matrix(' + matrix.join(',') + ')',
                 viewBox: [separatorScale[2] - (100 * containerScale - 100) / 2,
                     (option.type === 'punctuation' ? 20 : separatorScale[3]) - (100 * containerScale - 100) / 2,
                     100 * containerScale,
@@ -540,4 +537,4 @@ var sitelenCoreRenderer = function (debug) {
         renderComplexLayout: renderComplexLayout,
         renderAllOptions: renderOptions
     };
-}(true);
+}(false);
