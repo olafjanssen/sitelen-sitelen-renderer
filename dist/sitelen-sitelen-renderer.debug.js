@@ -610,7 +610,10 @@ var sitelenLayout = function () {
                     return;
                 }
                 for (j = 1; j < units.length; j++) {
-                    go(units, newState, {goesDown: false, index: 1, length: j});
+                    // prevent punctuation elements to be placed to the right, alone
+                    if (units[1].type !== 'punctuation') {
+                        go(units, newState, {goesDown: false, index: 1, length: j});
+                    }
                     go(units, newState, {goesDown: true, index: 1, length: j});
                 }
                 return;
@@ -691,7 +694,10 @@ var sitelenLayout = function () {
             }
 
             for (j = 1; j < units.length - (index + length) + 1; j++) {
-                go(units, newState, {goesDown: false, index: index + length, length: j});
+                // prevent punctuation elements to be placed to the right, alone
+                if (units[index + length].type !== 'punctuation') {
+                    go(units, newState, {goesDown: false, index: index + length, length: j});
+                }
                 go(units, newState, {goesDown: true, index: index + length, length: j});
             }
         }
