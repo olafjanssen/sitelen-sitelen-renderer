@@ -819,7 +819,6 @@ var sitelenLayout = function () {
     };
 }();
 
-"use strict";
 /* global sitelenLayout, sitelenCoreRenderer, sitelenParser */
 
 /**
@@ -1318,10 +1317,16 @@ var sitelenParser = function () {
             allowed = ['o', 'u', 'i', 'a', 'e', 'mo', 'mu', 'mi', 'ma', 'me', 'no', 'nu', 'ni', 'na', 'ne', 'po', 'pu', 'pi', 'pa', 'pe', 'to', 'tu', 'ta', 'te', 'ko', 'ku', 'ki', 'ka', 'ke', 'so', 'su', 'si', 'sa', 'se', 'wi', 'wa', 'we', 'lo', 'lu', 'li', 'la', 'le', 'jo', 'ju', 'ja', 'je', 'on', 'un', 'in', 'an', 'en', 'mon', 'mun', 'min', 'man', 'men', 'non', 'nun', 'nin', 'nan', 'nen', 'pon', 'pun', 'pin', 'pan', 'pen', 'ton', 'tun', 'tan', 'ten', 'kon', 'kun', 'kin', 'kan', 'ken', 'son', 'sun', 'sin', 'san', 'sen', 'win', 'wan', 'wen', 'lon', 'lun', 'lin', 'lan', 'len', 'jon', 'jun', 'jan', 'jen'],
             syllables = [],
             first = properName.substr(0, 1),
+            second = properName.substr(1, 1),
             third = properName.substr(2, 1),
             fourth = properName.substr(3, 1);
 
-        // ponoman, monsi, akesi
+        // ponoman, monsi, akesi, unpa
+
+        // if (1) is a consonant, and (3) is an 'n' and (4) is a consonant: syllable length = 3: MONsi
+        // if (1) is a consonant, and (3) is not a 'n' or (4) is a vowel: syllable length = 2: POnoman, POki
+        // if (1) is a vowel, and (2) is a 'n' and (3) is a consonant then: syllable length = 2: UNpa
+        console.log(first,second,third,fourth);
 
         if (vowels.indexOf(first) === -1) {
             if (third === 'n' && vowels.indexOf(fourth) === -1) {
@@ -1334,7 +1339,12 @@ var sitelenParser = function () {
         } else {
             if (properName.length === 2) {
                 return [properName];
+            } else if (second === 'n' && vowels.indexOf(third) === -1) {
+                console.log('2-vowel', first,second);
+                syllables.push(properName.substr(0, 2));
+                syllables = syllables.concat(splitProperIntoSyllables(properName.substr(2)));
             } else {
+                console.log('singleton:', first);
                 syllables.push(first);
                 syllables = syllables.concat(splitProperIntoSyllables(properName.substr(1)));
             }

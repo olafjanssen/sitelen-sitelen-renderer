@@ -6,8 +6,7 @@
   "directories": {
     "example": "examples"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "glob": "^6.0.4",
     "svg-sprite": "^1.2.19",
