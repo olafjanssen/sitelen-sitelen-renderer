@@ -819,6 +819,7 @@ var sitelenLayout = function () {
     };
 }();
 
+"use strict";
 /* global sitelenLayout, sitelenCoreRenderer, sitelenParser */
 
 /**
@@ -1003,7 +1004,7 @@ var sitelenRenderer = function () {
             var text = element.textContent,
                 structuredSentences = sitelenParser.parse(text);
 
-            if (text.length===0){
+            if (text.length === 0) {
                 return;
             }
 
@@ -1060,8 +1061,20 @@ var sitelenRenderer = function () {
         var img = document.createElement("img");
         img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
 
-        element.parentNode.replaceChild(img, element);
+        img.onload = function () {
+            canvas.getContext('2d').drawImage(img, 0, 0);
+
+            var outImg = document.createElement("img");
+            outImg.setAttribute('data-sitelen-sentence', '');
+            outImg.src = canvas.toDataURL('image/png');
+            outImg.style.width = svgSize.width + 'px';
+            outImg.style.height = svgSize.height + 'px';
+            element.parentNode.replaceChild(outImg, element);
+        };
+
+        //element.parentNode.replaceChild(img, element);
     }
+
 
     window.onload = function () {
         init();

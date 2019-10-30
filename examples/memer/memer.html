@@ -3,7 +3,7 @@
 <head>
     <!--<link rel="stylesheet" href="styles/sitelen.css">-->
     <meta charset="utf-8">
-    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
+    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.debug.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -247,8 +247,7 @@
 
             sitelenRenderer.renderInteractiveSentence(structuredSentence,
                     {
-                        output: {format: 'png', background: customBackground()},
-                        shadow: true
+                        output: {format: 'png', background: customBackground()}, shadow: true
                     });
         }
 
