@@ -10,6 +10,7 @@ var sitelenCoreRenderer = function (debug) {
     'use strict';
 
     var sprite = new DOMParser().parseFromString(sitelenSprite, "image/svg+xml").documentElement;
+    console.log(sprite);
 
     // load raw svg file for debugging purposes instead of a prebaked string
     if (debug) {
@@ -329,7 +330,9 @@ var sitelenCoreRenderer = function (debug) {
                     y: box[1]
                 }, {}, svgNS);
 
-                container.insertBefore(use, container.firstChild);
+                // this determines the order of the glyphs in direct proximity
+                // container.insertBefore(use, container.firstChild);
+                container.append(use);
 
             } else {
                 renderPartOption(glyph.unit, container, settings, glyph.position, glyph.size, option.size);
