@@ -1,4 +1,3 @@
-"use strict";
 /**
  * Parsing toki pona texts into sentences and sentence parts, and then into structured sentences that reflect the
  * structure of sitelen sitelen blocks.
@@ -326,6 +325,7 @@ var tokiPonaDictionary = [
     {name: 'a', gloss: 'ah', grammar: ['interj']},
     {name: 'akesi', category: 'animal', gloss: 'reptile', grammar: ['n']},
     {name: 'ala', gloss: 'no', grammar: ['mod', 'n', 'interj']},
+    {name: 'alasa', gloss: 'hunt', grammar: ['vt']},
     {name: 'ali', gloss: 'all', grammar: ['n', 'mod']},
     {name: 'anpa', gloss: 'under', grammar: ['n', 'mod']},
     {name: 'ante', gloss: 'different', grammar: ['n', 'mod', 'conj', 'vt']},
@@ -453,6 +453,7 @@ var tokiPonaDictionary = [
 ];
 
 var allowedWords = tokiPonaDictionary.map(function(item){
+    "use strict";
     return item.name;
 });
 allowedWords.push('ale');
