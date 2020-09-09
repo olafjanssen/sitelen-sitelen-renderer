@@ -6,18 +6,19 @@
   "directories": {
     "example": "examples"
   },
-  "dependencies": {},
+  "dependencies": {
+    "concat": "^1.0.3",
+    "uglify-js": "^3.10.4"
+  },
   "devDependencies": {
     "glob": "^6.0.4",
     "svg-sprite": "^1.2.19",
     "svgo": "^0.6.1",
-    "xmldom": "^0.1.19",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-uglify": "^2.0.0"
+    "xmldom": "^0.1.19"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "concat -o dist/sitelen-sitelen-renderer.debug.js src/*.js | uglifyjs dist/sitelen-sitelen-renderer.debug.js -o dist/sitelen-sitelen-renderer.min.js"
   },
   "repository": {
     "type": "git",

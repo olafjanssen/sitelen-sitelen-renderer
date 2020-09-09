@@ -10,7 +10,6 @@ var sitelenCoreRenderer = function (debug) {
     'use strict';
 
     var sprite = new DOMParser().parseFromString(sitelenSprite, "image/svg+xml").documentElement;
-    console.log(sprite);
 
     // load raw svg file for debugging purposes instead of a prebaked string
     if (debug) {
@@ -407,7 +406,6 @@ var sitelenCoreRenderer = function (debug) {
             filter.innerHTML = '<feOffset result = "offOut" in = "SourceGraphic" dx = "0" dy = "2"></feOffset><feColorMatrix result = "matrixOut" in = "offOut" type = "matrix" values = "0.2 0 0 0 0 0 0.2 0 0 0 0 0 0.2 0 0 0 0 0 1 0"></feColorMatrix><feGaussianBlur result = "blurOut" in = "matrixOut" stdDeviation = "2"></feGaussianBlur><feBlend in = "SourceGraphic" in2 = "blurOut" mode = "normal"></feBlend>';
             sentenceContainer.appendChild(filter);
         }
-
         var yPos = 0;
         options.forEach(function (option) {
             var box = [0, 0, xSize * 100, option.size[1] * xSize / option.size[0] * 100],
@@ -477,7 +475,7 @@ var sitelenCoreRenderer = function (debug) {
         if (!settings.scale) {
             settings.scale = 1.2;
         }
-
+        var margin = 10;
         var box = [0, 0,
                 option.size[0] * 100,
                 option.size[1] * 100
@@ -495,7 +493,7 @@ var sitelenCoreRenderer = function (debug) {
                 {
                     width: box[2],
                     height: box[3],
-                    viewBox: [0, 0, 100, 100].join(' '),
+                    viewBox: [-margin, -margin, 100 + margin, 100 + margin].join(' '),
                     preserveAspectRatio: 'none'
                 }, {
                     overflow: 'visible'
@@ -1061,15 +1059,14 @@ var sitelenRenderer = function () {
         var svgData = new XMLSerializer().serializeToString(svg);
         svgData = svgData.replace('path{stroke-width:2;', 'path{stroke-width:4;');
 
-        var canvas = document.createElement("canvas");
-        var svgSize = svg.getBoundingClientRect();
-        canvas.width = 2 * svgSize.width;
-        canvas.height = 2 * svgSize.height;
-
         var img = document.createElement("img");
         img.setAttribute("src", "data:image/svg+xml;base64," + btoa(svgData));
 
         img.onload = function () {
+            var canvas = document.createElement("canvas");
+            var svgSize = svg.getBoundingClientRect();
+            canvas.width = 2 * svgSize.width;
+            canvas.height = 2 * svgSize.height;
             canvas.getContext('2d').drawImage(img, 0, 0);
 
             var outImg = document.createElement("img");
@@ -1080,7 +1077,7 @@ var sitelenRenderer = function () {
             element.parentNode.replaceChild(outImg, element);
         };
 
-        //element.parentNode.replaceChild(img, element);
+        // element.parentNode.replaceChild(img, element);
     }
 
 
@@ -1193,38 +1190,59 @@ var sitelenParser = function () {
         var tokens = parseable.split(' '),
             prepositions = ['tawa', 'tan', 'lon', 'kepeken', 'sama', 'poka'],
             objectMarker = ['li', 'e'],
-            part = {part: 'subject', tokens: []},
+            part = {
+                part: 'subject',
+                tokens: []
+            },
             sentence = [part];
 
         tokens.forEach(function (token, index) {
             if (objectMarker.indexOf(token) > -1 &&
                 index < tokens.length - 1) {
-                sentence.push({part: 'objectMarker', sep: token, tokens: []});
+                sentence.push({
+                    part: 'objectMarker',
+                    sep: token,
+                    tokens: []
+                });
                 part = sentence[sentence.length - 1];
                 return;
             } else if (prepositions.indexOf(token) > -1 && objectMarker.indexOf(tokens[index - 1]) === -1 &&
                 index < tokens.length - 1 && objectMarker.indexOf(tokens[index + 1]) === -1) {
-                sentence.push({part: 'prepPhrase', sep: token, tokens: []});
+                sentence.push({
+                    part: 'prepPhrase',
+                    sep: token,
+                    tokens: []
+                });
                 part = sentence[sentence.length - 1];
                 return;
             } else if (token === 'o' && part.tokens.length > 0) {
                 // the o token should be in a container when it is used to address something, not in commands
                 part.part = 'address';
                 part.sep = 'o';
-                sentence.push({part: 'subject', tokens: []});
+                sentence.push({
+                    part: 'subject',
+                    tokens: []
+                });
                 part = sentence[sentence.length - 1];
                 return;
             } else if (token === 'a' && part.tokens.length > 0 && part.sep) {
                 // the a token should never be in a container
-                sentence.push({part: 'interjection', sep: null, tokens: [token]});
+                sentence.push({
+                    part: 'interjection',
+                    sep: null,
+                    tokens: [token]
+                });
                 part = sentence[sentence.length - 1];
                 return;
             }
 
             part.tokens.push(token);
 
-            if (allowedWords.indexOf(token) === -1){
-                throw {type: 'illegal token', message: 'illegal token: ' + token};
+            if (allowedWords.indexOf(token) === -1) {
+                throw {
+                    type: 'illegal token',
+                    message: 'illegal token: ' + token
+                };
             }
         });
 
@@ -1245,7 +1263,8 @@ var sitelenParser = function () {
         var result = text.match(/[^\.!\?#]+[\.!\?#]+/g),
             punctuation = ['.', ':', '?', '!', ','];
 
-        var parsableParts = [], rawParts = [];
+        var parsableParts = [],
+            rawParts = [];
         if (!result) { // allow sentence fractions without any punctuation
             result = [text + (punctuation.indexOf(text) === -1 ? '|' : '')];
             // console.log('WARNING: sentence fraction without punctuation');
@@ -1272,44 +1291,65 @@ var sitelenParser = function () {
                     commaparts.forEach(function (commapart, index) {
                         commapart = commapart.trim();
 
-                        parsableSentence.push({content: commapart});
+                        parsableSentence.push({
+                            content: commapart
+                        });
                         if (index < commaparts.length - 1) {
-                            parsableSentence.push({punctuation: ['comma']});
+                            parsableSentence.push({
+                                punctuation: ['comma']
+                            });
                         }
                     });
 
                     if (index < colonparts.length - 1) {
-                        parsableSentence.push({punctuation: ['colon']});
+                        parsableSentence.push({
+                            punctuation: ['colon']
+                        });
                     }
                 });
                 if (laparts.length === 2 && index === 0) {
-                    parsableSentence.push({punctuation: ['la']});
+                    parsableSentence.push({
+                        punctuation: ['la']
+                    });
                 }
             });
 
             var terminator = sentence.substr(-1);
             switch (terminator) {
                 case '.':
-                    parsableSentence.push({punctuation: ['period']});
+                    parsableSentence.push({
+                        punctuation: ['period']
+                    });
                     break;
                 case ':':
-                    parsableSentence.push({punctuation: ['colon']});
+                    parsableSentence.push({
+                        punctuation: ['colon']
+                    });
                     break;
                 case '!':
-                    parsableSentence.push({punctuation: ['exclamation']});
+                    parsableSentence.push({
+                        punctuation: ['exclamation']
+                    });
                     break;
                 case '?':
-                    parsableSentence.push({punctuation: ['question']});
+                    parsableSentence.push({
+                        punctuation: ['question']
+                    });
                     break;
                 case '#':
-                    parsableSentence.push({punctuation: ['banner']});
+                    parsableSentence.push({
+                        punctuation: ['banner']
+                    });
                     break;
                 default:
                     break;
             }
 
         });
-        return {parsable: parsableParts, raw: rawParts};
+        return {
+            parsable: parsableParts,
+            raw: rawParts
+        };
     }
 
     /**
@@ -1334,7 +1374,6 @@ var sitelenParser = function () {
         // if (1) is a consonant, and (3) is an 'n' and (4) is a consonant: syllable length = 3: MONsi
         // if (1) is a consonant, and (3) is not a 'n' or (4) is a vowel: syllable length = 2: POnoman, POki
         // if (1) is a vowel, and (2) is a 'n' and (3) is a consonant then: syllable length = 2: UNpa
-        console.log(first,second,third,fourth);
 
         if (vowels.indexOf(first) === -1) {
             if (third === 'n' && vowels.indexOf(fourth) === -1) {
@@ -1348,7 +1387,7 @@ var sitelenParser = function () {
             if (properName.length === 2) {
                 return [properName];
             } else if (second === 'n' && vowels.indexOf(third) === -1) {
-                console.log('2-vowel', first,second);
+                console.log('2-vowel', first, second);
                 syllables.push(properName.substr(0, 2));
                 syllables = syllables.concat(splitProperIntoSyllables(properName.substr(2)));
             } else {
@@ -1358,9 +1397,12 @@ var sitelenParser = function () {
             }
         }
 
-        syllables.forEach(function(syllable){
-            if (allowed.indexOf(syllable) === -1){
-                throw {type: 'illegal syllable' ,message: 'following syllabe not allowed: ' + syllable};
+        syllables.forEach(function (syllable) {
+            if (allowed.indexOf(syllable) === -1) {
+                throw {
+                    type: 'illegal syllable',
+                    message: 'following syllabe not allowed: ' + syllable
+                };
             }
         });
 
@@ -1390,28 +1432,37 @@ var sitelenParser = function () {
             if (prepositionSplitIndex > -1) {
                 var newParts = [];
                 if (prepositionSplitIndex > 0) {
-                    newParts.push({part: part.part, tokens: part.tokens.slice(0, prepositionSplitIndex)});
+                    newParts.push({
+                        part: part.part,
+                        tokens: part.tokens.slice(0, prepositionSplitIndex)
+                    });
                 }
                 newParts.push({
                     part: part.part,
                     sep: part.tokens[prepositionSplitIndex],
                     tokens: part.tokens.slice(prepositionSplitIndex + 1)
                 });
-                sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
+                sentence[index] = {
+                    part: part.part,
+                    sep: part.sep,
+                    parts: newParts
+                };
             }
         });
 
         // split proper names inside containers
-        sentence.forEach(function (part, index) {
-            var parts = [part];
-            if (!part.tokens) {
-                if (part.parts) {
-                    parts = part.parts;
+        sentence.forEach(function (opart, index) {
+            var nested = false;
+            var parts = [opart];
+            if (!opart.tokens) {
+                if (opart.parts) {
+                    nested = true;
+                    parts = opart.parts;
                 } else {
                     return;
                 }
             }
-            parts.forEach(function (part) {
+            parts.forEach(function (part, partIndex) {
                 var nameSplitIndex = [];
                 part.tokens.forEach(function (token, tokenIndex) {
                     if (token.substr(0, 1).toUpperCase() === token.substr(0, 1)) {
@@ -1422,7 +1473,10 @@ var sitelenParser = function () {
                 var newParts = [];
                 nameSplitIndex.forEach(function (idx) {
                     if (idx > last + 1) {
-                        newParts.push({part: part.part, tokens: part.tokens.slice(last + 1, idx)});
+                        newParts.push({
+                            part: part.part,
+                            tokens: part.tokens.slice(last + 1, idx)
+                        });
                     }
                     newParts.push({
                         part: part.part,
@@ -1431,17 +1485,32 @@ var sitelenParser = function () {
                     });
                     last = idx;
                 });
+
                 if (nameSplitIndex.length > 0 && nameSplitIndex[nameSplitIndex.length - 1] < part.tokens.length - 1) {
                     newParts.push({
                         part: part.part,
                         tokens: part.tokens.slice(nameSplitIndex[nameSplitIndex.length - 1] + 1)
                     });
                 }
+
                 if (nameSplitIndex.length > 0) {
-                    sentence[index] = {part: part.part, sep: part.sep, parts: newParts};
+                    if (nested) {
+                        sentence[index].parts[partIndex] = {
+                            part: part.part,
+                            sep: part.sep,
+                            parts: newParts
+                        };
+                    } else {
+                        sentence[index] = {
+                            part: part.part,
+                            sep: part.sep,
+                            parts: newParts
+                        };
+                    }
                 }
             });
         });
+
         return sentence;
     }
 
@@ -1474,7 +1543,10 @@ var sitelenParser = function () {
                 });
                 structuredSentence.push.apply(structuredSentence, value);
             } else if (part.punctuation) {
-                structuredSentence.push({part: 'punctuation', tokens: part.punctuation});
+                structuredSentence.push({
+                    part: 'punctuation',
+                    tokens: part.punctuation
+                });
             }
         });
 
@@ -1498,141 +1570,681 @@ var sitelenParser = function () {
     };
 }();
 
-var tokiPonaDictionary = [
-    {name: 'a', gloss: 'ah', grammar: ['interj']},
-    {name: 'akesi', category: 'animal', gloss: 'reptile', grammar: ['n']},
-    {name: 'ala', gloss: 'no', grammar: ['mod', 'n', 'interj']},
-    {name: 'alasa', gloss: 'hunt', grammar: ['vt']},
-    {name: 'ali', gloss: 'all', grammar: ['n', 'mod']},
-    {name: 'anpa', gloss: 'under', grammar: ['n', 'mod']},
-    {name: 'ante', gloss: 'different', grammar: ['n', 'mod', 'conj', 'vt']},
-    {name: 'anu', category: 'separator', gloss: 'or', grammar: ['conj']},
-    {name: 'awen', gloss: 'remain', grammar: ['vi', 'vt', 'mod']},
-    {name: 'e', category: 'separator', gloss: 'object marker', grammar: ['sep']},
-    {name: 'en', category: 'separator', gloss: 'and', grammar: ['conj']},
-    {name: 'esun', gloss: 'shop', grammar: ['n']},
-    {name: 'ijo', gloss: 'thing', grammar: ['n', 'mod', 'vt']},
-    {name: 'ike', gloss: 'evil', grammar: ['mod', 'interj', 'n', 'vt', 'vi']},
-    {name: 'ilo', gloss: 'tool', grammar: ['n']},
-    {name: 'insa', gloss: 'inside', grammar: ['n', 'mod']},
-    {name: 'jaki', gloss: 'dirty', grammar: ['mod', 'n', 'vt', 'interj']},
-    {name: 'jan', category: 'animal', gloss: 'person', grammar: ['n', 'mod', 'vt']},
-    {name: 'jelo', category: 'color', gloss: 'yellow', grammar: ['mod']},
-    {name: 'jo', gloss: 'have', grammar: ['vt', 'n']},
-    {name: 'kala', category: 'animal', gloss: 'fish', grammar: ['n']},
-    {name: 'kalama', gloss: 'sound', grammar: ['n', 'vi', 'vt']},
-    {name: 'kama', gloss: 'come', grammar: ['vi', 'n', 'mod', 'vt']},
-    {name: 'kasi', gloss: 'plant', grammar: ['n']},
-    {name: 'ken', gloss: 'possible', grammar: ['vi', 'n', 'vt']},
-    {name: 'kepeken', gloss: 'use', grammar: ['vt', 'prep']},
-    {name: 'kili', gloss: 'fruit', grammar: ['n']},
-    {name: 'kin', gloss: 'also', grammar: ['mod']},
-    {name: 'kiwen', gloss: 'rock', grammar: ['mod', 'n']},
-    {name: 'ko', gloss: 'squishy', grammar: ['n']},
-    {name: 'kon', gloss: 'soul', grammar: ['n', 'mod']},
-    {name: 'kule', gloss: 'color', grammar: ['n', 'mod', 'vt']},
-    {name: 'kulupu', gloss: 'group', grammar: ['n', 'mod']},
-    {name: 'kute', gloss: 'listen', grammar: ['vt', 'mod']},
-    {name: 'la', category: 'separator', gloss: 'in context', grammar: ['sep']},
-    {name: 'lape', gloss: 'rest', grammar: ['n', 'vi', 'mod']},
-    {name: 'laso', category: 'color', gloss: 'blue/green', grammar: ['mod']},
-    {name: 'lawa', gloss: 'head', grammar: ['n', 'mod', 'vt']},
-    {name: 'len', gloss: 'cloth', grammar: ['n']},
-    {name: 'lete', gloss: 'cold', grammar: ['n', 'mod', 'vt']},
-    {name: 'li', category: 'separator', gloss: 'is', grammar: ['sep']},
-    {name: 'lili', gloss: 'small', grammar: ['mod', 'vt']},
-    {name: 'linja', gloss: 'string', grammar: ['n']},
-    {name: 'lipu', gloss: 'paper', grammar: ['n']},
-    {name: 'loje', category: 'color', gloss: 'red', grammar: ['mod']},
-    {name: 'lon', gloss: 'located', grammar: ['prep', 'vi']},
-    {name: 'luka', gloss: 'hand', grammar: ['n']},
-    {name: 'lukin', gloss: 'see', grammar: ['vt', 'vi', 'mod']},
-    {name: 'lupa', gloss: 'hole', grammar: ['n']},
-    {name: 'ma', gloss: 'land', grammar: ['n']},
-    {name: 'mama', category: 'animal', gloss: 'parent', grammar: ['n', 'mod']},
-    {name: 'mani', gloss: 'money', grammar: ['n']},
-    {name: 'meli', category: 'animal', gloss: 'female', grammar: ['n', 'mod']},
-    {name: 'mi', gloss: 'I/we', grammar: ['n', 'mod']},
-    {name: 'mije', category: 'animal', gloss: 'male', grammar: ['n', 'mod']},
-    {name: 'moku', gloss: 'food', grammar: ['n', 'vt']},
-    {name: 'moli', gloss: 'death', grammar: ['n', 'vi', 'vt', 'mod']},
-    {name: 'monsi', gloss: 'back', grammar: ['n', 'mod']},
-    {name: 'mu', gloss: 'moo!', grammar: ['interj']},
-    {name: 'mun', gloss: 'moon', grammar: ['n', 'mod']},
-    {name: 'musi', gloss: 'play', grammar: ['n', 'mod', 'vi', 'vt']},
-    {name: 'mute', gloss: 'many', grammar: ['mod', 'n', 'vt']},
-    {name: 'namako', gloss: 'extra', grammar: ['n', 'mod']},
-    {name: 'nanpa', gloss: 'number', grammar: ['n']},
-    {name: 'nasa', gloss: 'crazy', grammar: ['mod', 'vt']},
-    {name: 'nasin', gloss: 'manner', grammar: ['n']},
-    {name: 'nena', gloss: 'bump', grammar: ['n']},
-    {name: 'ni', gloss: 'this', grammar: ['mod']},
-    {name: 'nimi', gloss: 'name', grammar: ['n']},
-    {name: 'noka', gloss: 'leg', grammar: ['n']},
-    {name: 'o', gloss: 'imperative', grammar: ['sep', 'interj']},
-    {name: 'oko', gloss: 'eye', grammar: ['n']},
-    {name: 'olin', gloss: 'love', grammar: ['n', 'mod', 'vt']},
-    {name: 'ona', gloss: 'he/she/it', grammar: ['n', 'mod']},
-    {name: 'open', gloss: 'open', grammar: ['vt']},
-    {name: 'pakala', gloss: 'destroy', grammar: ['n', 'vt', 'vi', 'interj']},
-    {name: 'pali', gloss: 'make', grammar: ['n', 'mod', 'vt', 'vi']},
-    {name: 'palisa', gloss: 'rod', grammar: ['n']},
-    {name: 'pan', gloss: 'grain', grammar: ['n']},
-    {name: 'pana', gloss: 'give', grammar: ['vt', 'n']},
-    {name: 'pi', category: 'separator', gloss: 'of', grammar: ['sep']},
-    {name: 'pilin', gloss: 'feel', grammar: ['n', 'vi', 'vt']},
-    {name: 'pimeja', category: 'color', gloss: 'black', grammar: ['mod', 'n', 'vt']},
-    {name: 'pini', gloss: 'end', grammar: ['n', 'mod', 'vt']},
-    {name: 'pipi', category: 'animal', gloss: 'insect', grammar: ['n']},
-    {name: 'poka', gloss: 'side', grammar: ['n', 'mod', 'prep']},
-    {name: 'poki', gloss: 'box', grammar: ['n']},
-    {name: 'pona', gloss: 'good', grammar: ['n', 'mod', 'interj', 'vt']},
-    {name: 'pu', gloss: 'toki ponist', grammar: ['n', 'mod', 'vi']},
-    {name: 'sama', gloss: 'similar', grammar: ['mod', 'prep']},
-    {name: 'seli', gloss: 'warm', grammar: ['n', 'mod', 'vt']},
-    {name: 'selo', gloss: 'surface', grammar: ['n']},
-    {name: 'seme', gloss: 'what', grammar: ['n', 'mod', 'vi']},
-    {name: 'sewi', gloss: 'superior', grammar: ['n', 'mod']},
-    {name: 'sijelo', gloss: 'body', grammar: ['n']},
-    {name: 'sike', gloss: 'circle', grammar: ['n', 'mod']},
-    {name: 'sin', gloss: 'new', grammar: ['mod', 'vt']},
-    {name: 'sina', gloss: 'you', grammar: ['n', 'mod']},
-    {name: 'sinpin', gloss: 'front', grammar: ['n']},
-    {name: 'sitelen', gloss: 'draw', grammar: ['n', 'vt']},
-    {name: 'sona', gloss: 'wisdom', grammar: ['n', 'vt', 'vi']},
-    {name: 'soweli', category: 'animal', gloss: 'mammal', grammar: ['n']},
-    {name: 'suli', gloss: 'big', grammar: ['mod', 'vt', 'n']},
-    {name: 'suno', gloss: 'light', grammar: ['n']},
-    {name: 'supa', gloss: 'table', grammar: ['n']},
-    {name: 'suwi', gloss: 'sweet', grammar: ['n', 'mod', 'vt']},
-    {name: 'tan', gloss: 'because', grammar: ['prep', 'n']},
-    {name: 'taso', gloss: 'only', grammar: ['mod', 'conj']},
-    {name: 'tawa', gloss: 'move', grammar: ['prep', 'vi', 'n', 'mod', 'vt']},
-    {name: 'telo', gloss: 'liquid', grammar: ['n', 'vt']},
-    {name: 'tenpo', gloss: 'time', grammar: ['n']},
-    {name: 'toki', gloss: 'talking', grammar: ['n', 'mod', 'vt', 'vi', 'interj']},
-    {name: 'tomo', gloss: 'house', grammar: ['n', 'mod']},
-    {name: 'tu', gloss: 'two', grammar: ['mod', 'n']},
-    {name: 'unpa', gloss: 'sex', grammar: ['n', 'mod', 'vt', 'vi']},
-    {name: 'uta', gloss: 'mouth', grammar: ['n', 'mod']},
-    {name: 'utala', gloss: 'attack', grammar: ['n', 'vt']},
-    {name: 'walo', category: 'color', gloss: 'white', grammar: ['mod', 'n']},
-    {name: 'wan', gloss: 'one', grammar: ['mod', 'n', 'vt']},
-    {name: 'waso', category: 'animal', gloss: 'bird', grammar: ['n']},
-    {name: 'wawa', gloss: 'power', grammar: ['n', 'mod', 'vt']},
-    {name: 'weka', gloss: 'away', grammar: ['mod', 'n', 'vt']},
-    {name: 'wile', gloss: 'need', grammar: ['vt', 'n', 'mod']},
-    {name: '.', category: 'separator', gloss: 'period', type: 'punctuation', grammar: ['punct']},
-    {name: '?', category: 'separator', gloss: 'question', type: 'punctuation', grammar: ['punct']},
-    {name: '!', category: 'separator', gloss: 'exclamation', type: 'punctuation', grammar: ['punct']},
-    {name: ':', category: 'separator', gloss: 'colon', type: 'punctuation', grammar: ['punct']},
-    {name: ',', category: 'separator', gloss: 'comma', type: 'punctuation', grammar: ['punct']}
+var tokiPonaDictionary = [{
+        name: 'a',
+        gloss: 'ah',
+        grammar: ['interj']
+    },
+    {
+        name: 'akesi',
+        category: 'animal',
+        gloss: 'reptile',
+        grammar: ['n']
+    },
+    {
+        name: 'ala',
+        gloss: 'no',
+        grammar: ['mod', 'n', 'interj']
+    },
+    {
+        name: 'alasa',
+        gloss: 'hunt',
+        grammar: ['vt']
+    },
+    {
+        name: 'ali',
+        gloss: 'all',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'anpa',
+        gloss: 'under',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'ante',
+        gloss: 'different',
+        grammar: ['n', 'mod', 'conj', 'vt']
+    },
+    {
+        name: 'anu',
+        category: 'separator',
+        gloss: 'or',
+        grammar: ['conj']
+    },
+    {
+        name: 'awen',
+        gloss: 'remain',
+        grammar: ['vi', 'vt', 'mod']
+    },
+    {
+        name: 'e',
+        category: 'separator',
+        gloss: 'object marker',
+        grammar: ['sep']
+    },
+    {
+        name: 'en',
+        category: 'separator',
+        gloss: 'and',
+        grammar: ['conj']
+    },
+    {
+        name: 'esun',
+        gloss: 'shop',
+        grammar: ['n']
+    },
+    {
+        name: 'ijo',
+        gloss: 'thing',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'ike',
+        gloss: 'evil',
+        grammar: ['mod', 'interj', 'n', 'vt', 'vi']
+    },
+    {
+        name: 'ilo',
+        gloss: 'tool',
+        grammar: ['n']
+    },
+    {
+        name: 'insa',
+        gloss: 'inside',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'jaki',
+        gloss: 'dirty',
+        grammar: ['mod', 'n', 'vt', 'interj']
+    },
+    {
+        name: 'jan',
+        category: 'animal',
+        gloss: 'person',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'jelo',
+        category: 'color',
+        gloss: 'yellow',
+        grammar: ['mod']
+    },
+    {
+        name: 'jo',
+        gloss: 'have',
+        grammar: ['vt', 'n']
+    },
+    {
+        name: 'kala',
+        category: 'animal',
+        gloss: 'fish',
+        grammar: ['n']
+    },
+    {
+        name: 'kalama',
+        gloss: 'sound',
+        grammar: ['n', 'vi', 'vt']
+    },
+    {
+        name: 'kama',
+        gloss: 'come',
+        grammar: ['vi', 'n', 'mod', 'vt']
+    },
+    {
+        name: 'kasi',
+        gloss: 'plant',
+        grammar: ['n']
+    },
+    {
+        name: 'ken',
+        gloss: 'possible',
+        grammar: ['vi', 'n', 'vt']
+    },
+    {
+        name: 'kepeken',
+        gloss: 'use',
+        grammar: ['vt', 'prep']
+    },
+    {
+        name: 'kili',
+        gloss: 'fruit',
+        grammar: ['n']
+    },
+    {
+        name: 'kin',
+        gloss: 'also',
+        grammar: ['mod']
+    },
+    {
+        name: 'kiwen',
+        gloss: 'rock',
+        grammar: ['mod', 'n']
+    },
+    {
+        name: 'ko',
+        gloss: 'squishy',
+        grammar: ['n']
+    },
+    {
+        name: 'kon',
+        gloss: 'soul',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'kule',
+        gloss: 'color',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'kulupu',
+        gloss: 'group',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'kute',
+        gloss: 'listen',
+        grammar: ['vt', 'mod']
+    },
+    {
+        name: 'la',
+        category: 'separator',
+        gloss: 'in context',
+        grammar: ['sep']
+    },
+    {
+        name: 'lape',
+        gloss: 'rest',
+        grammar: ['n', 'vi', 'mod']
+    },
+    {
+        name: 'laso',
+        category: 'color',
+        gloss: 'blue/green',
+        grammar: ['mod']
+    },
+    {
+        name: 'lawa',
+        gloss: 'head',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'len',
+        gloss: 'cloth',
+        grammar: ['n']
+    },
+    {
+        name: 'lete',
+        gloss: 'cold',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'li',
+        category: 'separator',
+        gloss: 'is',
+        grammar: ['sep']
+    },
+    {
+        name: 'lili',
+        gloss: 'small',
+        grammar: ['mod', 'vt']
+    },
+    {
+        name: 'linja',
+        gloss: 'string',
+        grammar: ['n']
+    },
+    {
+        name: 'lipu',
+        gloss: 'paper',
+        grammar: ['n']
+    },
+    {
+        name: 'loje',
+        category: 'color',
+        gloss: 'red',
+        grammar: ['mod']
+    },
+    {
+        name: 'lon',
+        gloss: 'located',
+        grammar: ['prep', 'vi']
+    },
+    {
+        name: 'luka',
+        gloss: 'hand',
+        grammar: ['n']
+    },
+    {
+        name: 'lukin',
+        gloss: 'see',
+        grammar: ['vt', 'vi', 'mod']
+    },
+    {
+        name: 'lupa',
+        gloss: 'hole',
+        grammar: ['n']
+    },
+    {
+        name: 'ma',
+        gloss: 'land',
+        grammar: ['n']
+    },
+    {
+        name: 'mama',
+        category: 'animal',
+        gloss: 'parent',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'mani',
+        gloss: 'money',
+        grammar: ['n']
+    },
+    {
+        name: 'meli',
+        category: 'animal',
+        gloss: 'female',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'mi',
+        gloss: 'I/we',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'mije',
+        category: 'animal',
+        gloss: 'male',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'moku',
+        gloss: 'food',
+        grammar: ['n', 'vt']
+    },
+    {
+        name: 'moli',
+        gloss: 'death',
+        grammar: ['n', 'vi', 'vt', 'mod']
+    },
+    {
+        name: 'monsi',
+        gloss: 'back',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'mu',
+        gloss: 'moo!',
+        grammar: ['interj']
+    },
+    {
+        name: 'mun',
+        gloss: 'moon',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'musi',
+        gloss: 'play',
+        grammar: ['n', 'mod', 'vi', 'vt']
+    },
+    {
+        name: 'mute',
+        gloss: 'many',
+        grammar: ['mod', 'n', 'vt']
+    },
+    {
+        name: 'namako',
+        gloss: 'extra',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'nanpa',
+        gloss: 'number',
+        grammar: ['n']
+    },
+    {
+        name: 'nasa',
+        gloss: 'crazy',
+        grammar: ['mod', 'vt']
+    },
+    {
+        name: 'nasin',
+        gloss: 'manner',
+        grammar: ['n']
+    },
+    {
+        name: 'nena',
+        gloss: 'bump',
+        grammar: ['n']
+    },
+    {
+        name: 'ni',
+        gloss: 'this',
+        grammar: ['mod']
+    },
+    {
+        name: 'nimi',
+        gloss: 'name',
+        grammar: ['n']
+    },
+    {
+        name: 'noka',
+        gloss: 'leg',
+        grammar: ['n']
+    },
+    {
+        name: 'o',
+        gloss: 'imperative',
+        grammar: ['sep', 'interj']
+    },
+    {
+        name: 'oko',
+        gloss: 'eye',
+        grammar: ['n']
+    },
+    {
+        name: 'olin',
+        gloss: 'love',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'ona',
+        gloss: 'he/she/it',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'open',
+        gloss: 'open',
+        grammar: ['vt']
+    },
+    {
+        name: 'pakala',
+        gloss: 'destroy',
+        grammar: ['n', 'vt', 'vi', 'interj']
+    },
+    {
+        name: 'pali',
+        gloss: 'make',
+        grammar: ['n', 'mod', 'vt', 'vi']
+    },
+    {
+        name: 'palisa',
+        gloss: 'rod',
+        grammar: ['n']
+    },
+    {
+        name: 'pan',
+        gloss: 'grain',
+        grammar: ['n']
+    },
+    {
+        name: 'pana',
+        gloss: 'give',
+        grammar: ['vt', 'n']
+    },
+    {
+        name: 'pi',
+        category: 'separator',
+        gloss: 'of',
+        grammar: ['sep']
+    },
+    {
+        name: 'pilin',
+        gloss: 'feel',
+        grammar: ['n', 'vi', 'vt']
+    },
+    {
+        name: 'pimeja',
+        category: 'color',
+        gloss: 'black',
+        grammar: ['mod', 'n', 'vt']
+    },
+    {
+        name: 'pini',
+        gloss: 'end',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'pipi',
+        category: 'animal',
+        gloss: 'insect',
+        grammar: ['n']
+    },
+    {
+        name: 'poka',
+        gloss: 'side',
+        grammar: ['n', 'mod', 'prep']
+    },
+    {
+        name: 'poki',
+        gloss: 'box',
+        grammar: ['n']
+    },
+    {
+        name: 'pona',
+        gloss: 'good',
+        grammar: ['n', 'mod', 'interj', 'vt']
+    },
+    {
+        name: 'pu',
+        gloss: 'toki ponist',
+        grammar: ['n', 'mod', 'vi']
+    },
+    {
+        name: 'sama',
+        gloss: 'similar',
+        grammar: ['mod', 'prep']
+    },
+    {
+        name: 'seli',
+        gloss: 'warm',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'selo',
+        gloss: 'surface',
+        grammar: ['n']
+    },
+    {
+        name: 'seme',
+        gloss: 'what',
+        grammar: ['n', 'mod', 'vi']
+    },
+    {
+        name: 'sewi',
+        gloss: 'superior',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'sijelo',
+        gloss: 'body',
+        grammar: ['n']
+    },
+    {
+        name: 'sike',
+        gloss: 'circle',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'sin',
+        gloss: 'new',
+        grammar: ['mod', 'vt']
+    },
+    {
+        name: 'sina',
+        gloss: 'you',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'sinpin',
+        gloss: 'front',
+        grammar: ['n']
+    },
+    {
+        name: 'sitelen',
+        gloss: 'draw',
+        grammar: ['n', 'vt']
+    },
+    {
+        name: 'sona',
+        gloss: 'wisdom',
+        grammar: ['n', 'vt', 'vi']
+    },
+    {
+        name: 'soweli',
+        category: 'animal',
+        gloss: 'mammal',
+        grammar: ['n']
+    },
+    {
+        name: 'suli',
+        gloss: 'big',
+        grammar: ['mod', 'vt', 'n']
+    },
+    {
+        name: 'suno',
+        gloss: 'light',
+        grammar: ['n']
+    },
+    {
+        name: 'supa',
+        gloss: 'table',
+        grammar: ['n']
+    },
+    {
+        name: 'suwi',
+        gloss: 'sweet',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'tan',
+        gloss: 'because',
+        grammar: ['prep', 'n']
+    },
+    {
+        name: 'taso',
+        gloss: 'only',
+        grammar: ['mod', 'conj']
+    },
+    {
+        name: 'tawa',
+        gloss: 'move',
+        grammar: ['prep', 'vi', 'n', 'mod', 'vt']
+    },
+    {
+        name: 'telo',
+        gloss: 'liquid',
+        grammar: ['n', 'vt']
+    },
+    {
+        name: 'tenpo',
+        gloss: 'time',
+        grammar: ['n']
+    },
+    {
+        name: 'toki',
+        gloss: 'talking',
+        grammar: ['n', 'mod', 'vt', 'vi', 'interj']
+    },
+    {
+        name: 'tomo',
+        gloss: 'house',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'tu',
+        gloss: 'two',
+        grammar: ['mod', 'n']
+    },
+    {
+        name: 'unpa',
+        gloss: 'sex',
+        grammar: ['n', 'mod', 'vt', 'vi']
+    },
+    {
+        name: 'uta',
+        gloss: 'mouth',
+        grammar: ['n', 'mod']
+    },
+    {
+        name: 'utala',
+        gloss: 'attack',
+        grammar: ['n', 'vt']
+    },
+    {
+        name: 'walo',
+        category: 'color',
+        gloss: 'white',
+        grammar: ['mod', 'n']
+    },
+    {
+        name: 'wan',
+        gloss: 'one',
+        grammar: ['mod', 'n', 'vt']
+    },
+    {
+        name: 'waso',
+        category: 'animal',
+        gloss: 'bird',
+        grammar: ['n']
+    },
+    {
+        name: 'wawa',
+        gloss: 'power',
+        grammar: ['n', 'mod', 'vt']
+    },
+    {
+        name: 'weka',
+        gloss: 'away',
+        grammar: ['mod', 'n', 'vt']
+    },
+    {
+        name: 'wile',
+        gloss: 'need',
+        grammar: ['vt', 'n', 'mod']
+    },
+    {
+        name: '.',
+        category: 'separator',
+        gloss: 'period',
+        type: 'punctuation',
+        grammar: ['punct']
+    },
+    {
+        name: '?',
+        category: 'separator',
+        gloss: 'question',
+        type: 'punctuation',
+        grammar: ['punct']
+    },
+    {
+        name: '!',
+        category: 'separator',
+        gloss: 'exclamation',
+        type: 'punctuation',
+        grammar: ['punct']
+    },
+    {
+        name: ':',
+        category: 'separator',
+        gloss: 'colon',
+        type: 'punctuation',
+        grammar: ['punct']
+    },
+    {
+        name: ',',
+        category: 'separator',
+        gloss: 'comma',
+        type: 'punctuation',
+        grammar: ['punct']
+    }
 ];
 
-var allowedWords = tokiPonaDictionary.map(function(item){
+var allowedWords = tokiPonaDictionary.map(function (item) {
     "use strict";
     return item.name;
 });
 allowedWords.push('ale');
 allowedWords.push("'Name'");
-

@@ -116,10 +116,10 @@
 
         renderData(data1, function () {
             renderData(data2, function () {
-                // renderData(data3, function () {
-                    // renderData(data4, function () {
-                    // });
-                // });
+                 renderData(data3, function () {
+                     renderData(data4, function () {
+                     });
+                 });
             });
         });
 
@@ -144,7 +144,7 @@
                     text = text.replace(/"/g, '');
                 }
 
-                // console.log(data[counter].id + ': ' + text + ' / ' + data[counter].eng);
+                console.log(data[counter].id + ': ' + text + ' / ' + data[counter].eng);
 
                 var sent = document.createElement('div'),
                     structuredSentences = sitelenParser.parse(text);
