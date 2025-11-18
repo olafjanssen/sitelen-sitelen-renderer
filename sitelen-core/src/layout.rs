@@ -1,17 +1,47 @@
 /// Layout algorithm for Sitelen Sitelen
+///
+/// This module implements a recursive layout algorithm that generates multiple
+/// arrangement options for Sitelen Sitelen glyphs. The algorithm:
+///
+/// 1. Places units (glyphs, syllables, or containers) in a 2D grid
+/// 2. Allows units to be placed either downward (vertically) or to the right (horizontally)
+/// 3. Prevents punctuation from being placed horizontally (to maintain reading flow)
+/// 4. Generates all valid layout combinations
+/// 5. Normalizes and deduplicates options based on their structure
+///
+/// The algorithm uses a recursive backtracking approach, exploring all valid
+/// placement combinations while respecting size compatibility constraints.
 
 use crate::types::*;
 use std::collections::HashMap;
 
-/// Layout engine
+// Constants
+const INITIAL_MIN_SURFACE: f64 = 1_000_000.0;
+const EPSILON: f64 = 1e-6;
+const MAX_SURFACE_RATIO: f64 = 2.0;
+const NORMALIZATION_MIN_SIZE: f64 = 1.0;
+
+/// Layout engine for generating arrangement options for Sitelen Sitelen text
 pub struct LayoutEngine;
 
 impl LayoutEngine {
+    /// Create a new layout engine
     pub fn new() -> Self {
         Self
     }
 
-    /// Layout a compound sentence
+    /// Layout a compound sentence into all possible arrangement options
+    ///
+    /// This is the main entry point for layout generation. It processes a sentence
+    /// by breaking it into parts (subject, object markers, prepositional phrases, etc.),
+    /// generates layout options for each part, and then combines them into final
+    /// compound layout options.
+    ///
+    /// # Arguments
+    /// * `sentence` - The structured sentence to layout
+    ///
+    /// # Returns
+    /// A vector of layout options, each representing a different valid arrangement
     pub fn layout_compound(&self, sentence: &Sentence) -> Vec<LayoutOption> {
         let mut hash_map = Vec::new();
 
@@ -71,13 +101,24 @@ impl LayoutEngine {
 
         let mut compound_options = Vec::new();
         if !hash_map.is_empty() {
-            self.go(0, &hash_map, &mut Vec::new(), &mut compound_options);
+            self.combine_part_options(0, &hash_map, &mut Vec::new(), &mut compound_options);
         }
 
         compound_options
     }
 
-    fn go(
+    /// Recursively combine part options into compound layout options
+    ///
+    /// This function generates all combinations of layout options from different
+    /// sentence parts. For each option of the current part, it recursively processes
+    /// the remaining parts, building up complete compound layouts.
+    ///
+    /// # Arguments
+    /// * `index` - Current part index in the hash_map
+    /// * `hash_map` - Map of sentence parts to their layout options
+    /// * `units` - Accumulated layout units from previous parts
+    /// * `compound_options` - Output vector for completed compound options
+    fn combine_part_options(
         &self,
         index: usize,
         hash_map: &[HashMapEntry],
@@ -106,7 +147,7 @@ impl LayoutEngine {
             new_units.push(container_unit);
 
             if index + 1 < hash_map.len() {
-                self.go(index + 1, hash_map, &mut new_units, compound_options);
+                self.combine_part_options(index + 1, hash_map, &mut new_units, compound_options);
             } else {
                 let container_options = self.layout_container(&new_units);
                 for mut opt in container_options {
@@ -118,7 +159,17 @@ impl LayoutEngine {
         }
     }
 
-    /// Layout a container with units
+    /// Generate all layout options for a container of units
+    ///
+    /// This function explores all possible arrangements of units within a container.
+    /// Units can be placed either downward (vertically) or to the right (horizontally),
+    /// with constraints to ensure valid layouts.
+    ///
+    /// # Arguments
+    /// * `units` - The units to arrange within the container
+    ///
+    /// # Returns
+    /// A vector of layout options, each representing a different valid arrangement
     fn layout_container(&self, units: &[LayoutUnit]) -> Vec<LayoutOption> {
         if units.is_empty() {
             return Vec::new();
@@ -126,18 +177,33 @@ impl LayoutEngine {
 
         let mut options = Vec::new();
         let mut hash: HashMap<String, LayoutOption> = HashMap::new();
-        let mut min_surface = 1e6;
+        let mut min_surface = INITIAL_MIN_SURFACE;
 
         self.layout_container_recursive(units, None, None, &mut options, &mut hash, &mut min_surface);
 
         options
     }
 
+    /// Recursively generate layout options by placing units
+    ///
+    /// This is the core recursive function that explores all valid placement combinations.
+    /// It handles three phases:
+    /// 1. Initialization: Place the first unit at origin
+    /// 2. Placement: Place groups of units either downward or to the right
+    /// 3. Continuation: Recursively place remaining units
+    ///
+    /// # Arguments
+    /// * `units` - All units to be placed
+    /// * `state` - Current layout state (None for initialization)
+    /// * `placement` - Placement strategy (None for initialization)
+    /// * `options` - Output vector for completed options
+    /// * `hash` - Hash map for deduplication
+    /// * `min_surface` - Track minimum surface area for filtering
     fn layout_container_recursive(
         &self,
         units: &[LayoutUnit],
         state: Option<&LayoutState>,
-        iterator: Option<IteratorState>,
+        placement: Option<PlacementStrategy>,
         options: &mut Vec<LayoutOption>,
         hash: &mut HashMap<String, LayoutOption>,
         min_surface: &mut f64,
@@ -165,27 +231,23 @@ impl LayoutEngine {
             for j in 1..units.len() {
                 // Prevent punctuation elements to be placed to the right, alone
                 if !self.is_punctuation(&units[1]) {
-                    self.layout_container_recursive(
+                    self.try_place_units(
                         units,
-                        Some(&new_state),
-                        Some(IteratorState {
-                            goes_down: false,
-                            index: 1,
-                            length: j,
-                        }),
+                        &new_state,
+                        1,
+                        j,
+                        false,
                         options,
                         hash,
                         min_surface,
                     );
                 }
-                self.layout_container_recursive(
+                self.try_place_units(
                     units,
-                    Some(&new_state),
-                    Some(IteratorState {
-                        goes_down: true,
-                        index: 1,
-                        length: j,
-                    }),
+                    &new_state,
+                    1,
+                    j,
+                    true,
                     options,
                     hash,
                     min_surface,
@@ -195,11 +257,83 @@ impl LayoutEngine {
         }
 
         let state = state.unwrap();
-        let iterator = iterator.unwrap();
+        let placement = placement.unwrap();
+        
+        self.place_unit_group(
+            units,
+            state,
+            placement,
+            options,
+            hash,
+            min_surface,
+        );
+    }
 
-        let goes_down = iterator.goes_down;
-        let index = iterator.index;
-        let length = iterator.length;
+    /// Initialize the layout by placing the first unit
+    fn initialize_first_unit(
+        &self,
+        units: &[LayoutUnit],
+        options: &mut Vec<LayoutOption>,
+        hash: &mut HashMap<String, LayoutOption>,
+        min_surface: &mut f64,
+    ) {
+        let first_size = self.get_unit_size(&units[0]);
+        let new_state = LayoutState {
+            units: vec![PlacedUnit {
+                unit: units[0].clone(),
+                size: first_size,
+                position: Position::new(0.0, 0.0),
+            }],
+            size: first_size,
+            forbidden: Vec::new(),
+        };
+
+        if units.len() == 1 {
+            let mut new_option = self.create_option(&new_state, LayoutType::Container, None);
+            new_option = self.normalize_option(new_option);
+            options.push(new_option);
+            return;
+        }
+
+        // Try placing remaining units in various combinations
+        for j in 1..units.len() {
+            // Prevent punctuation elements to be placed to the right, alone
+            if !self.is_punctuation(&units[1]) {
+                self.try_place_units(
+                    units,
+                    &new_state,
+                    1,
+                    j,
+                    false,
+                    options,
+                    hash,
+                    min_surface,
+                );
+            }
+            self.try_place_units(
+                units,
+                &new_state,
+                1,
+                j,
+                true,
+                options,
+                hash,
+                min_surface,
+            );
+        }
+    }
+
+    /// Place a group of units according to the placement strategy
+    fn place_unit_group(
+        &self,
+        units: &[LayoutUnit],
+        state: &LayoutState,
+        placement: PlacementStrategy,
+        options: &mut Vec<LayoutOption>,
+        hash: &mut HashMap<String, LayoutOption>,
+        min_surface: &mut f64,
+    ) {
+        let PlacementStrategy { goes_down, index, length } = placement;
 
         let mut new_state = LayoutState {
             units: state.units.clone(),
@@ -208,50 +342,27 @@ impl LayoutEngine {
         };
 
         let prev_size = self.get_unit_size(&units[index]);
-        let unit_position = if goes_down {
-            Position::new(0.0, state.size.height)
-        } else {
-            Position::new(state.size.width, 0.0)
+        let unit_position = self.calculate_placement_position(state, goes_down);
+
+        // Check size compatibility and calculate size sum
+        let size_sum = match self.check_size_compatibility_and_sum(units, index, length, goes_down, prev_size) {
+            Some(sum) => sum,
+            None => return, // Incompatible sizes
         };
 
-        // Determine size sum and check compatibility
-        let mut size_sum = Size::new(0.0, 0.0);
-        for i in index..index + length {
-            let add_size = self.get_unit_size(&units[i]);
-            if (goes_down && (add_size.height - prev_size.height).abs() > 1e-6)
-                || (!goes_down && (add_size.width - prev_size.width).abs() > 1e-6)
-            {
-                return;
-            }
-            size_sum.width += add_size.width;
-            size_sum.height += add_size.height;
-        }
-
-        // Add units one by one
+        // Place units one by one
         let mut current_pos = unit_position;
         for i in index..index + length {
             let add_size = self.get_unit_size(&units[i]);
-            let add_axis = if goes_down { 1 } else { 0 };
-            let fixed_axis = if goes_down { 0 } else { 1 };
+            let glyph_size = self.calculate_glyph_size(
+                add_size,
+                &new_state.size,
+                &size_sum,
+                goes_down,
+            );
+            let add = if goes_down { glyph_size.height } else { glyph_size.width };
 
-            let add = if goes_down {
-                add_size.height * new_state.size.width / size_sum.width
-            } else {
-                add_size.width * new_state.size.height / size_sum.height
-            };
-
-            let glyph_size = if goes_down {
-                Size::new(
-                    add_size.width * add / add_size.height,
-                    add,
-                )
-            } else {
-                Size::new(
-                    add,
-                    add_size.height * add / add_size.width,
-                )
-            };
-
+            // Update container size when placing first unit of group
             if i == index {
                 if goes_down {
                     new_state.size.height += add;
@@ -260,29 +371,26 @@ impl LayoutEngine {
                 }
             }
 
-            if goes_down {
-                let pos_key = format!("{:.2},{:.2}", current_pos.x, current_pos.y);
-                if new_state.forbidden.iter().any(|p| {
-                    (p.x - current_pos.x).abs() < 1e-6 && (p.y - current_pos.y).abs() < 1e-6
-                }) {
-                    return;
-                }
+            // Check forbidden position (only for downward placement)
+            if goes_down && self.is_position_forbidden(&new_state.forbidden, &current_pos) {
+                return;
             }
 
+            // Add unit to layout
             new_state.units.push(PlacedUnit {
                 unit: units[i].clone(),
                 size: glyph_size,
                 position: current_pos,
             });
 
-            // Update position
+            // Update position for next unit
             if goes_down {
                 current_pos.x += glyph_size.width;
             } else {
                 current_pos.y += glyph_size.height;
             }
 
-            // Forbid next position
+            // Mark next position as forbidden to prevent overlap
             let forbidden_pos = if goes_down {
                 Position::new(
                     current_pos.x + glyph_size.width,
@@ -297,46 +405,66 @@ impl LayoutEngine {
             new_state.forbidden.push(forbidden_pos);
         }
 
-        // If all units are used up, add final result
+        // If all units are placed, finalize the option
         if index + length == units.len() {
-            let mut new_option = self.create_option(&new_state, LayoutType::Container, None);
-            new_option = self.normalize_option(new_option);
-
-            *min_surface = (*min_surface).min(new_option.surface);
-            if new_option.surface / *min_surface < 2.0 {
-                let key = self.option_key(&new_option);
-                if !hash.contains_key(&key) {
-                    hash.insert(key, new_option.clone());
-                    options.push(new_option);
-                }
-            }
+            self.finalize_option(&new_state, options, hash, min_surface);
             return;
         }
 
-        // Continue with remaining units
-        for j in 1..units.len() - (index + length) + 1 {
-            if !self.is_punctuation(&units[index + length]) {
-                self.layout_container_recursive(
+        // Continue placing remaining units
+        self.continue_placement(units, &new_state, index + length, options, hash, min_surface);
+    }
+
+    /// Finalize a completed layout option
+    fn finalize_option(
+        &self,
+        state: &LayoutState,
+        options: &mut Vec<LayoutOption>,
+        hash: &mut HashMap<String, LayoutOption>,
+        min_surface: &mut f64,
+    ) {
+        let mut new_option = self.create_option(state, LayoutType::Container, None);
+        new_option = self.normalize_option(new_option);
+
+        *min_surface = (*min_surface).min(new_option.surface);
+        if new_option.surface / *min_surface < MAX_SURFACE_RATIO {
+            let key = self.option_key(&new_option);
+            if !hash.contains_key(&key) {
+                hash.insert(key, new_option.clone());
+                options.push(new_option);
+            }
+        }
+    }
+
+    /// Continue placing remaining units after a group has been placed
+    fn continue_placement(
+        &self,
+        units: &[LayoutUnit],
+        state: &LayoutState,
+        next_index: usize,
+        options: &mut Vec<LayoutOption>,
+        hash: &mut HashMap<String, LayoutOption>,
+        min_surface: &mut f64,
+    ) {
+        for j in 1..units.len() - next_index + 1 {
+            if !self.is_punctuation(&units[next_index]) {
+                self.try_place_units(
                     units,
-                    Some(&new_state),
-                    Some(IteratorState {
-                        goes_down: false,
-                        index: index + length,
-                        length: j,
-                    }),
+                    state,
+                    next_index,
+                    j,
+                    false,
                     options,
                     hash,
                     min_surface,
                 );
             }
-            self.layout_container_recursive(
+            self.try_place_units(
                 units,
-                Some(&new_state),
-                Some(IteratorState {
-                    goes_down: true,
-                    index: index + length,
-                    length: j,
-                }),
+                state,
+                next_index,
+                j,
+                true,
                 options,
                 hash,
                 min_surface,
@@ -364,7 +492,7 @@ impl LayoutEngine {
     }
 
     fn normalize_option(&self, mut option: LayoutOption) -> LayoutOption {
-        let mut min_size = 1.0;
+        let mut min_size = NORMALIZATION_MIN_SIZE;
         for glyph in &option.state.units {
             if glyph.size.width < min_size {
                 min_size = glyph.size.width.max(glyph.size.height);
@@ -434,6 +562,106 @@ impl LayoutEngine {
         }
     }
 
+    /// Calculate the position where the next group of units should be placed
+    fn calculate_placement_position(&self, state: &LayoutState, goes_down: bool) -> Position {
+        if goes_down {
+            Position::new(0.0, state.size.height)
+        } else {
+            Position::new(state.size.width, 0.0)
+        }
+    }
+
+    /// Check if units can be placed together and calculate their combined size
+    ///
+    /// Returns `Some(size_sum)` if compatible, `None` if incompatible.
+    fn check_size_compatibility_and_sum(
+        &self,
+        units: &[LayoutUnit],
+        index: usize,
+        length: usize,
+        goes_down: bool,
+        prev_size: Size,
+    ) -> Option<Size> {
+        let mut size_sum = Size::new(0.0, 0.0);
+        for i in index..index + length {
+            let add_size = self.get_unit_size(&units[i]);
+            if (goes_down && (add_size.height - prev_size.height).abs() > EPSILON)
+                || (!goes_down && (add_size.width - prev_size.width).abs() > EPSILON)
+            {
+                return None; // Incompatible sizes
+            }
+            size_sum.width += add_size.width;
+            size_sum.height += add_size.height;
+        }
+        Some(size_sum)
+    }
+
+    /// Check if a position is in the forbidden list
+    fn is_position_forbidden(&self, forbidden: &[Position], pos: &Position) -> bool {
+        forbidden.iter().any(|p| {
+            (p.x - pos.x).abs() < EPSILON && (p.y - pos.y).abs() < EPSILON
+        })
+    }
+
+    /// Calculate the size of a glyph when placed in a group
+    ///
+    /// The size is scaled proportionally based on the available space and
+    /// the unit's relative size within the group.
+    fn calculate_glyph_size(
+        &self,
+        unit_size: Size,
+        container_size: &Size,
+        group_size_sum: &Size,
+        goes_down: bool,
+    ) -> Size {
+        let add = if goes_down {
+            unit_size.height * container_size.width / group_size_sum.width
+        } else {
+            unit_size.width * container_size.height / group_size_sum.height
+        };
+
+        if goes_down {
+            Size::new(
+                unit_size.width * add / unit_size.height,
+                add,
+            )
+        } else {
+            Size::new(
+                add,
+                unit_size.height * add / unit_size.width,
+            )
+        }
+    }
+
+    /// Try to place a group of units with the given strategy
+    ///
+    /// Helper function to reduce duplication in recursive calls.
+    fn try_place_units(
+        &self,
+        units: &[LayoutUnit],
+        state: &LayoutState,
+        index: usize,
+        length: usize,
+        goes_down: bool,
+        options: &mut Vec<LayoutOption>,
+        hash: &mut HashMap<String, LayoutOption>,
+        min_surface: &mut f64,
+    ) {
+        self.layout_container_recursive(
+            units,
+            Some(state),
+            Some(PlacementStrategy {
+                goes_down,
+                index,
+                length,
+            }),
+            options,
+            hash,
+            min_surface,
+        );
+    }
+
+    /// Check if a unit is punctuation (cannot be placed horizontally)
     fn is_punctuation(&self, unit: &LayoutUnit) -> bool {
         match unit {
             LayoutUnit::Punctuation { .. } => true,
@@ -518,10 +746,17 @@ struct HashMapEntry {
     options: Vec<LayoutOption>,
 }
 
+/// Strategy for placing a group of units in the layout
+///
+/// Describes how to place the next group of units: their starting index,
+/// how many to place together, and the direction (downward or to the right).
 #[derive(Debug, Clone, Copy)]
-struct IteratorState {
+struct PlacementStrategy {
+    /// If true, place units downward (vertically); if false, place to the right (horizontally)
     goes_down: bool,
+    /// Starting index of units to place
     index: usize,
+    /// Number of units to place in this group
     length: usize,
 }
 
