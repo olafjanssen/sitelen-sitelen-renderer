@@ -1,9 +1,8 @@
 /// Glyph loading and management
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 use std::sync::OnceLock;
 use roxmltree::Document;
-use regex::Regex;
 
 #[derive(Debug, thiserror::Error)]
 pub enum GlyphError {
@@ -15,18 +14,12 @@ pub enum GlyphError {
 
 /// Glyph registry
 pub struct GlyphRegistry {
-    word_glyphs: HashMap<String, String>,
-    syllable_glyphs: HashMap<String, String>,
-    container_glyphs: HashMap<String, String>,
     sprite: Option<String>,
 }
 
 impl GlyphRegistry {
     pub fn new() -> Self {
         Self {
-            word_glyphs: HashMap::new(),
-            syllable_glyphs: HashMap::new(),
-            container_glyphs: HashMap::new(),
             sprite: None,
         }
     }

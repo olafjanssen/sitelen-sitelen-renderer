@@ -211,7 +211,7 @@ impl LayoutEngine {
         if state.is_none() {
             // Place the first unit directly
             let first_size = self.get_unit_size(&units[0]);
-            let mut new_state = LayoutState {
+            let new_state = LayoutState {
                 units: vec![PlacedUnit {
                     unit: units[0].clone(),
                     size: first_size,
@@ -223,7 +223,6 @@ impl LayoutEngine {
 
             if units.len() == 1 {
                 let new_option = self.create_option(&new_state, LayoutType::Container, None);
-                let key = self.option_key(&new_option);
                 options.push(new_option);
                 return;
             }
@@ -269,59 +268,6 @@ impl LayoutEngine {
         );
     }
 
-    /// Initialize the layout by placing the first unit
-    fn initialize_first_unit(
-        &self,
-        units: &[LayoutUnit],
-        options: &mut Vec<LayoutOption>,
-        hash: &mut HashMap<String, LayoutOption>,
-        min_surface: &mut f64,
-    ) {
-        let first_size = self.get_unit_size(&units[0]);
-        let new_state = LayoutState {
-            units: vec![PlacedUnit {
-                unit: units[0].clone(),
-                size: first_size,
-                position: Position::new(0.0, 0.0),
-            }],
-            size: first_size,
-            forbidden: Vec::new(),
-        };
-
-        if units.len() == 1 {
-            let mut new_option = self.create_option(&new_state, LayoutType::Container, None);
-            new_option = self.normalize_option(new_option);
-            options.push(new_option);
-            return;
-        }
-
-        // Try placing remaining units in various combinations
-        for j in 1..units.len() {
-            // Prevent punctuation elements to be placed to the right, alone
-            if !self.is_punctuation(&units[1]) {
-                self.try_place_units(
-                    units,
-                    &new_state,
-                    1,
-                    j,
-                    false,
-                    options,
-                    hash,
-                    min_surface,
-                );
-            }
-            self.try_place_units(
-                units,
-                &new_state,
-                1,
-                j,
-                true,
-                options,
-                hash,
-                min_surface,
-            );
-        }
-    }
 
     /// Place a group of units according to the placement strategy
     fn place_unit_group(
@@ -537,7 +483,7 @@ impl LayoutEngine {
                     format!("syl:{}:pos({:.4},{:.4}):size({:.4},{:.4})", 
                         token, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
                 },
-                LayoutUnit::Container { layout_type, separator, size, .. } => {
+                LayoutUnit::Container { layout_type, separator, .. } => {
                     format!("cont:{:?}:sep:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})", 
                         layout_type, separator.as_ref().map(|s| s.as_str()).unwrap_or("none"),
                         placed.position.x, placed.position.y, placed.size.width, placed.size.height)
