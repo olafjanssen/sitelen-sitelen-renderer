@@ -77,12 +77,40 @@ impl Pipeline {
         
         let mut compounds = Vec::new();
         let optimal_ratio = self.renderer.borrow().config.optimal_ratio;
+        
         for sentence in sentences {
-            let options = self.layout(&sentence);
-            if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
-                compounds.push(best.clone());
-            } else if let Some(first) = options.first() {
-                compounds.push(first.clone());
+            // Split sentence into compounds at punctuation marks (like JavaScript does)
+            let mut sentence_compound = Vec::new();
+            
+            for part in &sentence.parts {
+                sentence_compound.push(part.clone());
+                
+                // When we encounter punctuation, finalize current compound and start a new one
+                if matches!(part, SentencePart::Punctuation { .. }) {
+                    let compound_sentence = Sentence {
+                        parts: sentence_compound.clone(),
+                    };
+                    let options = self.layout(&compound_sentence);
+                    if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
+                        compounds.push(best.clone());
+                    } else if let Some(first) = options.first() {
+                        compounds.push(first.clone());
+                    }
+                    sentence_compound.clear();
+                }
+            }
+            
+            // If there are remaining parts (no trailing punctuation), add them as a final compound
+            if !sentence_compound.is_empty() {
+                let compound_sentence = Sentence {
+                    parts: sentence_compound,
+                };
+                let options = self.layout(&compound_sentence);
+                if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
+                    compounds.push(best.clone());
+                } else if let Some(first) = options.first() {
+                    compounds.push(first.clone());
+                }
             }
         }
 
