@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitelen Sitelen Editor</title>
+    <link rel="icon" href="data:,">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: #f5f5f5;
+        }
+
+        .editor-container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .editor-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-right: 1px solid #e0e0e0;
+        }
+
+        .preview-pane {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fafafa;
+            overflow: hidden;
+        }
+
+        .pane-header {
+            padding: 12px 16px;
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 600;
+            font-size: 13px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .editor-textarea {
+            flex: 1;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            outline: none;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            background: white;
+            color: #333;
+        }
+
+        .editor-textarea::placeholder {
+            color: #999;
+        }
+
+        .preview-content {
+            flex: 1;
+            padding: 20px;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .sentences-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 20px;
+            min-width: fit-content;
+        }
+
+        .sentence-column {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .sentence-column svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .preview-empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .preview-error {
+            color: #d32f2f;
+            padding: 16px;
+            background: #ffebee;
+            border-left: 4px solid #d32f2f;
+            margin: 16px;
+            border-radius: 4px;
+        }
+
+        .preview-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .resizer {
+            width: 4px;
+            background: #e0e0e0;
+            cursor: col-resize;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+
+        .resizer:hover {
+            background: #bdbdbd;
+        }
+
+        .resizer.active {
+            background: #2196f3;
+        }
+
+        /* Scrollbar styling */
+        .preview-content::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .preview-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .preview-content::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .preview-content::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        .editor-textarea::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .editor-textarea::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .editor-textarea::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .editor-textarea::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        @media (max-width: 768px) {
+            .editor-container {
+                flex-direction: column;
+            }
+
+            .editor-pane {
+                height: 50vh;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+
+            .preview-pane {
+                height: 50vh;
+            }
+
+            .resizer {
+                width: 100%;
+                height: 4px;
+                cursor: row-resize;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="editor-container">
+        <div class="editor-pane">
+            <div class="pane-header">Editor</div>
+            <textarea 
+                id="editor" 
+                class="editor-textarea" 
+                placeholder="Type Toki Pona text here...&#10;&#10;Example:&#10;mi pilin e ni: kama pona mute.&#10;toki pona li pona.&#10;ale li jo e tenpo."
+                spellcheck="false"
+            ></textarea>
+        </div>
+        
+        <div class="resizer" id="resizer"></div>
+        
+        <div class="preview-pane">
+            <div class="pane-header">Preview</div>
+            <div class="preview-content" id="preview">
+                <div class="preview-loading">Loading WASM module...</div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+
+        let initialized = false;
+        let renderTimeout = null;
+
+        // Initialize WASM
+        async function ensureInit() {
+            if (!initialized) {
+                try {
+                    await init();
+                    initialized = true;
+                    document.getElementById('preview').innerHTML = '<div class="preview-empty">Start typing to see the preview...</div>';
+                    console.log('WASM module initialized');
+                } catch (error) {
+                    document.getElementById('preview').innerHTML = 
+                        `<div class="preview-error">Failed to initialize WASM module: ${error.message}</div>`;
+                    console.error('Initialization error:', error);
+                    throw error;
+                }
+            }
+        }
+
+        // Split text into sentences (similar to layout.html and parser)
+        function splitIntoSentences(text) {
+            // Normalize whitespace (like layout.html line 58)
+            const normalized = text.replace(/\s\s+/g, ' ').trim();
+            if (!normalized) return [];
+            
+            // Split on punctuation marks (. ! ? #) - matching parser regex: /[^\.!\?#]+[\.!\?#]+/g
+            const sentenceMatches = normalized.match(/[^\.!\?#]+[\.!\?#]+/g);
+            
+            if (sentenceMatches) {
+                return sentenceMatches.map(s => s.trim()).filter(s => s.length > 0);
+            }
+            
+            // If no punctuation found, treat entire text as one sentence (or split by newlines)
+            const lines = normalized.split(/\n+/).map(l => l.trim()).filter(l => l.length > 0);
+            return lines.length > 0 ? lines : [normalized];
+        }
+
+        // Render text with debouncing
+        async function renderText() {
+            if (!initialized) {
+                await ensureInit();
+            }
+
+            const text = document.getElementById('editor').value.trim();
+            const preview = document.getElementById('preview');
+
+            if (!text) {
+                preview.innerHTML = '<div class="preview-empty">Start typing to see the preview...</div>';
+                return;
+            }
+
+            try {
+                // Split into sentences
+                const sentences = splitIntoSentences(text);
+                
+                if (sentences.length === 0) {
+                    preview.innerHTML = '<div class="preview-empty">No valid sentences found...</div>';
+                    return;
+                }
+
+                // Render each sentence separately
+                const container = document.createElement('div');
+                container.className = 'sentences-container';
+                
+                const columns = [];
+                let currentColumn = null;
+                let currentColumnHeight = 0;
+                
+                // Get available height for columns
+                const previewRect = preview.getBoundingClientRect();
+                const maxColumnHeight = previewRect.height - 40; // Account for padding
+                
+                for (let i = 0; i < sentences.length; i++) {
+                    const sentence = sentences[i];
+                    
+                    try {
+                        const bytes = render_svg(sentence);
+                        const svgContent = new TextDecoder().decode(bytes);
+                        
+                        // Parse SVG to get its dimensions
+                        const parser = new DOMParser();
+                        const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
+                        const svgElement = svgDoc.querySelector('svg');
+                        
+                        let svgWidth = 100; // Default width
+                        let svgHeight = 100; // Default height
+                        
+                        if (svgElement) {
+                            const viewBox = svgElement.getAttribute('viewBox');
+                            if (viewBox) {
+                                const parts = viewBox.split(' ');
+                                if (parts.length >= 4) {
+                                    svgWidth = parseFloat(parts[2]) || 100;
+                                    svgHeight = parseFloat(parts[3]) || 100;
+                                }
+                            } else {
+                                const width = svgElement.getAttribute('width');
+                                const height = svgElement.getAttribute('height');
+                                if (width) svgWidth = parseFloat(width) || 100;
+                                if (height) svgHeight = parseFloat(height) || 100;
+                            }
+                        }
+                        
+                        // Calculate scaled height based on column width (200px)
+                        // Maintain aspect ratio
+                        const aspectRatio = svgHeight / svgWidth;
+                        const columnWidth = 200;
+                        const scaledHeight = columnWidth * aspectRatio;
+                        
+                        // Create new column if needed (flow top to bottom, then to the right)
+                        if (!currentColumn || currentColumnHeight + scaledHeight > maxColumnHeight) {
+                            currentColumn = document.createElement('div');
+                            currentColumn.className = 'sentence-column';
+                            columns.push(currentColumn);
+                            container.appendChild(currentColumn);
+                            currentColumnHeight = 0;
+                        }
+                        
+                        // Add sentence SVG to current column
+                        const sentenceDiv = document.createElement('div');
+                        sentenceDiv.innerHTML = svgContent;
+                        currentColumn.appendChild(sentenceDiv);
+                        currentColumnHeight += scaledHeight + 20; // Add gap between sentences
+                    } catch (error) {
+                        console.error(`Error rendering sentence "${sentence}":`, error);
+                        // Continue with next sentence
+                    }
+                }
+                
+                preview.innerHTML = '';
+                preview.appendChild(container);
+            } catch (error) {
+                const errorMsg = error.message || String(error);
+                preview.innerHTML = `<div class="preview-error">Error rendering: ${errorMsg}</div>`;
+                console.error('Rendering error:', error);
+            }
+        }
+
+        // Debounced render function
+        function debouncedRender() {
+            if (renderTimeout) {
+                clearTimeout(renderTimeout);
+            }
+            renderTimeout = setTimeout(renderText, 300); // 300ms debounce
+        }
+
+        // Resizer functionality
+        let isResizing = false;
+        const resizer = document.getElementById('resizer');
+        const editorPane = document.querySelector('.editor-pane');
+        const previewPane = document.querySelector('.preview-pane');
+
+        resizer.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            resizer.classList.add('active');
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+
+            const container = document.querySelector('.editor-container');
+            const containerRect = container.getBoundingClientRect();
+            const newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+            
+            if (newLeftWidth > 10 && newLeftWidth < 90) {
+                editorPane.style.flex = `0 0 ${newLeftWidth}%`;
+                previewPane.style.flex = `0 0 ${100 - newLeftWidth}%`;
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                resizer.classList.remove('active');
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+            }
+        });
+
+        // Initialize on page load
+        window.addEventListener('load', async () => {
+            await ensureInit();
+            
+            const editor = document.getElementById('editor');
+            
+            // Set initial example text with multiple sentences
+            editor.value = 'mi pilin e ni: kama pona mute.\ntoki pona li pona.\nale li jo e tenpo.\nsina pona.\nmi wile e ni.';
+            
+            // Render initial text
+            renderText();
+            
+            // Add event listeners
+            editor.addEventListener('input', debouncedRender);
+            editor.addEventListener('paste', () => {
+                setTimeout(debouncedRender, 100);
+            });
+        });
+    </script>
+</body>
+</html>
+
