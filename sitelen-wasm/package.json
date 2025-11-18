@@ -1,0 +1,25 @@
+{
+  "name": "sitelen-sitelen-wasm",
+  "version": "0.2.0",
+  "description": "WASM bindings for Sitelen Sitelen renderer",
+  "main": "pkg/sitelen_wasm.js",
+  "types": "pkg/sitelen_wasm.d.ts",
+  "files": [
+    "pkg"
+  ],
+  "scripts": {
+    "build": "wasm-pack build --target web --out-dir pkg"
+  },
+  "keywords": [
+    "toki-pona",
+    "sitelen-sitelen",
+    "wasm"
+  ],
+  "author": "Olaf T.A. Janssen",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olafjanssen/sitelen-sitelen-renderer.git"
+  }
+}
+

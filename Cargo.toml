@@ -1,0 +1,11 @@
+[workspace]
+members = ["sitelen-core", "sitelen-cli", "sitelen-wasm"]
+resolver = "2"
+
+[workspace.package]
+version = "0.2.0"
+edition = "2021"
+authors = ["Olaf T.A. Janssen <o.t.a.janssen@gmail.com>"]
+license = "ISC"
+repository = "https://github.com/olafjanssen/sitelen-sitelen-renderer"
+

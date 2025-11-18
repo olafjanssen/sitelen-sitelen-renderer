@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" preserveAspectRatio="xMidYMin meet" viewBox="-15 -30.416666666666657 130 364.99999999999994">
+<style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}</style>
+<svg width="100" height="218.75" viewBox="0 0 100 100" y="0" preserveAspectRatio="none">
+<g style="overflow:visible">
+<use href="#tp-wg-mi" transform="matrix(1.2,0,0,1.2,-10,-5)" height="50" width="100" x="0" y="0"></use>
+<use href="#tp-wg-pona" transform="matrix(1.2,0,0,1.2,-10,-15)" height="50" width="100" x="0" y="50"></use>
+<use href="#tp-wg-period" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+</g>
+</svg>
+<svg width="100" height="85.41666666666666" viewBox="0 0 100 100" y="218.75" preserveAspectRatio="none">
+<g style="overflow:visible">
+<use href="#tp-wg-ale" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+<use href="#tp-wg-jo" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+<use href="#tp-wg-tenpo" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+<use href="#tp-wg-period" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+</g>
+</svg>
+</svg>
