@@ -263,16 +263,19 @@ impl Renderer {
             ).unwrap();
         }
 
-        // Render all units
+        // Collect containers and render in correct order
+        // 1. Separator is inserted at beginning of parent (if present)
+        // 2. Container is inserted at beginning (punctuation) or appended (regular)
+        // Since we're building a string, we need to collect separators and write them first
+        let mut containers = Vec::new();
+        
         for glyph in &option.state.units {
             match &glyph.unit {
                 LayoutUnit::Container { units, size, separator, layout_type } => {
-                    // For nested containers, create a nested option and render recursively
-                    // The nested container should use its own ratio, separator, and layout_type to calculate scales
                     let nested_ratio = size.ratio();
                     let nested_option = LayoutOption {
-                        layout_type: layout_type.clone(), // Preserve layout_type from container unit
-                        separator: separator.clone(), // Preserve separator from container unit
+                        layout_type: layout_type.clone(),
+                        separator: separator.clone(),
                         state: LayoutState {
                             units: units.clone(),
                             size: *size,
@@ -283,18 +286,27 @@ impl Renderer {
                         normed_ratio: if nested_ratio < 1.0 { nested_ratio } else { 1.0 / nested_ratio },
                         surface: size.surface(),
                     };
-                    self.render_part_option(
-                        &nested_option,
-                        svg,
-                        Some(glyph.position),
-                        Some(glyph.size),
-                        Some(option.size),
-                    )?;
+                    containers.push((nested_option, glyph.position, glyph.size));
                 }
                 _ => {
+                    // Regular glyphs - render directly
                     self.render_glyph(glyph, svg, &option.size, glyph_scale)?;
                 }
             }
+        }
+        
+        // Render containers in reverse order
+        // In JS: when renderPartOption is called, separator is inserted at beginning,
+        // then container is inserted at beginning (punctuation) or appended (regular)
+        // Since we iterate forward but insert at beginning, we need to reverse
+        for (nested_option, pos, size) in containers.iter().rev() {
+            self.render_part_option(
+                nested_option,
+                svg,
+                Some(*pos),
+                Some(*size),
+                Some(option.size),
+            )?;
         }
 
         // Close nested container if we created one
