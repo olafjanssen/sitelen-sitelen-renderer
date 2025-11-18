@@ -177,16 +177,23 @@ impl Parser {
                     let value = self.get_simple_structured_sentence(&content_with_placeholders)?;
                     
                     // Replace placeholders with actual names
+                    // Reverse the vector so we can pop in the correct order
+                    proper_names.reverse();
                     let mut value = value;
                     for part in &mut value {
-                        if let SentencePart::Subject { tokens, .. } = part {
-                            for token in tokens {
-                                if *token == "'Name'" {
-                                    if let Some(name) = proper_names.pop() {
-                                        *token = name;
+                        match part {
+                            SentencePart::Subject { tokens, .. }
+                            | SentencePart::ObjectMarker { tokens, .. }
+                            | SentencePart::PrepPhrase { tokens, .. } => {
+                                for token in tokens {
+                                    if *token == "'Name'" {
+                                        if let Some(name) = proper_names.pop() {
+                                            *token = name;
+                                        }
                                     }
                                 }
                             }
+                            _ => {}
                         }
                     }
 
@@ -281,18 +288,23 @@ impl Parser {
                 }
             }
 
-            // Validate token
+            // Validate token (preserve 'Name' placeholder case)
+            let is_name_placeholder = *token == "'Name'";
             if !self.allowed_words.contains(&token_lower) && token_lower != "'name'" {
                 return Err(ParseError::IllegalToken(token_lower));
             }
 
-            // Add token to current part
+            // Add token to current part (preserve case for 'Name' placeholder)
             match &mut sentence[current_part] {
                 SentencePart::Subject { tokens, .. }
                 | SentencePart::ObjectMarker { tokens, .. }
                 | SentencePart::PrepPhrase { tokens, .. }
                 | SentencePart::Address { tokens, .. } => {
-                    tokens.push(token_lower.clone());
+                    if is_name_placeholder {
+                        tokens.push(token.to_string()); // Preserve 'Name' capitalization
+                    } else {
+                        tokens.push(token_lower.clone());
+                    }
                 }
                 _ => {}
             }
