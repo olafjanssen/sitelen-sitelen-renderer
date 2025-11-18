@@ -18,7 +18,7 @@ macro_rules! console_log {
 
 #[wasm_bindgen]
 pub struct SitelenRenderer {
-    pipeline: Pipeline,
+    pub(crate) pipeline: Pipeline,
 }
 
 #[wasm_bindgen]
@@ -100,5 +100,55 @@ pub fn render_html(text: &str) -> Result<Vec<u8>, JsValue> {
 pub fn init_glyphs(sprite_content: &str) -> Result<(), JsValue> {
     init_glyph_registry(sprite_content)
         .map_err(|e| JsValue::from_str(&format!("Failed to initialize glyphs: {}", e)))
+}
+
+/// Get all layout option ratios for a text
+/// Returns a JSON array of ratios sorted from smallest to largest
+#[wasm_bindgen]
+pub fn get_layout_ratios(text: &str) -> Result<String, JsValue> {
+    let renderer = SitelenRenderer::new()?;
+    let sentences = renderer.pipeline.parse(text)
+        .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
+    
+    if sentences.is_empty() {
+        return Ok("[]".to_string());
+    }
+    
+    // For interactive rendering, we work with the first sentence as a whole
+    // (not split by punctuation like in render_text)
+    let sentence = &sentences[0];
+    let options = renderer.pipeline.layout(sentence);
+    
+    let mut ratios: Vec<f64> = options.iter().map(|opt| opt.ratio).collect();
+    ratios.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
+    
+    serde_json::to_string(&ratios)
+        .map_err(|e| JsValue::from_str(&format!("Failed to serialize ratios: {}", e)))
+}
+
+/// Render text with a specific optimal ratio
+#[wasm_bindgen]
+pub fn render_with_ratio(text: &str, optimal_ratio: f64, format: &str) -> Result<Vec<u8>, JsValue> {
+    let output_format = match format {
+        "svg" => OutputFormat::Svg,
+        "png" => OutputFormat::Png,
+        "html" => OutputFormat::Html,
+        _ => return Err(JsValue::from_str("Invalid format. Use 'svg', 'png', or 'html'")),
+    };
+    
+    // Temporarily set the optimal ratio
+    let mut config = RenderConfig::default();
+    config.optimal_ratio = optimal_ratio;
+    let temp_pipeline = Pipeline::with_config(config)
+        .map_err(|e| JsValue::from_str(&format!("Failed to create pipeline: {}", e)))?;
+    
+    temp_pipeline.render_text(text, output_format)
+        .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))
+}
+
+/// Render SVG with a specific optimal ratio
+#[wasm_bindgen]
+pub fn render_svg_with_ratio(text: &str, optimal_ratio: f64) -> Result<Vec<u8>, JsValue> {
+    render_with_ratio(text, optimal_ratio, "svg")
 }
 

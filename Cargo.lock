@@ -800,6 +800,8 @@ name = "sitelen-wasm"
 version = "0.2.0"
 dependencies = [
  "js-sys",
+ "serde",
+ "serde_json",
  "sitelen-core",
  "wasm-bindgen",
  "web-sys",
