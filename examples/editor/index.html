@@ -78,21 +78,19 @@
         }
 
         .sentences-container {
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            gap: 20px;
-            min-width: fit-content;
+            column-width: 100px;
+            column-gap: 20px;
+            column-fill: auto;
+            height: 100%;
         }
 
-        .sentence-column {
-            width: 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .sentence-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .sentence-column svg {
+        .sentence-item svg {
             width: 100%;
             height: auto;
             display: block;
@@ -290,14 +288,6 @@
                 const container = document.createElement('div');
                 container.className = 'sentences-container';
                 
-                const columns = [];
-                let currentColumn = null;
-                let currentColumnHeight = 0;
-                
-                // Get available height for columns
-                const previewRect = preview.getBoundingClientRect();
-                const maxColumnHeight = previewRect.height - 40; // Account for padding
-                
                 for (let i = 0; i < sentences.length; i++) {
                     const sentence = sentences[i];
                     
@@ -305,50 +295,11 @@
                         const bytes = render_svg(sentence);
                         const svgContent = new TextDecoder().decode(bytes);
                         
-                        // Parse SVG to get its dimensions
-                        const parser = new DOMParser();
-                        const svgDoc = parser.parseFromString(svgContent, 'image/svg+xml');
-                        const svgElement = svgDoc.querySelector('svg');
-                        
-                        let svgWidth = 100; // Default width
-                        let svgHeight = 100; // Default height
-                        
-                        if (svgElement) {
-                            const viewBox = svgElement.getAttribute('viewBox');
-                            if (viewBox) {
-                                const parts = viewBox.split(' ');
-                                if (parts.length >= 4) {
-                                    svgWidth = parseFloat(parts[2]) || 100;
-                                    svgHeight = parseFloat(parts[3]) || 100;
-                                }
-                            } else {
-                                const width = svgElement.getAttribute('width');
-                                const height = svgElement.getAttribute('height');
-                                if (width) svgWidth = parseFloat(width) || 100;
-                                if (height) svgHeight = parseFloat(height) || 100;
-                            }
-                        }
-                        
-                        // Calculate scaled height based on column width (200px)
-                        // Maintain aspect ratio
-                        const aspectRatio = svgHeight / svgWidth;
-                        const columnWidth = 200;
-                        const scaledHeight = columnWidth * aspectRatio;
-                        
-                        // Create new column if needed (flow top to bottom, then to the right)
-                        if (!currentColumn || currentColumnHeight + scaledHeight > maxColumnHeight) {
-                            currentColumn = document.createElement('div');
-                            currentColumn.className = 'sentence-column';
-                            columns.push(currentColumn);
-                            container.appendChild(currentColumn);
-                            currentColumnHeight = 0;
-                        }
-                        
-                        // Add sentence SVG to current column
+                        // Create a wrapper div for each sentence
                         const sentenceDiv = document.createElement('div');
+                        sentenceDiv.className = 'sentence-item';
                         sentenceDiv.innerHTML = svgContent;
-                        currentColumn.appendChild(sentenceDiv);
-                        currentColumnHeight += scaledHeight + 20; // Add gap between sentences
+                        container.appendChild(sentenceDiv);
                     } catch (error) {
                         console.error(`Error rendering sentence "${sentence}":`, error);
                         // Continue with next sentence
