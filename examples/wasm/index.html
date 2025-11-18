@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sitelen Sitelen WASM Example</title>
+    <link rel="icon" href="data:,">
     <style>
         body {
             font-family: sans-serif;
@@ -49,14 +50,32 @@
     <div id="output"></div>
 
     <script type="module">
-        import init, { render_svg, render_png, render_html } from '../sitelen-wasm/pkg/sitelen_wasm.js';
+        import init, { render_svg, render_png, render_html, init_glyphs } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
 
         let initialized = false;
+        let glyphsInitialized = false;
 
         async function ensureInit() {
             if (!initialized) {
                 await init();
                 initialized = true;
+            }
+            
+            if (!glyphsInitialized) {
+                try {
+                    // Load the sprite file
+                    const response = await fetch('../../images/sprite.css.svg');
+                    if (!response.ok) {
+                        throw new Error(`Failed to load sprite file: ${response.statusText}`);
+                    }
+                    const spriteContent = await response.text();
+                    init_glyphs(spriteContent);
+                    glyphsInitialized = true;
+                    console.log('Glyphs initialized successfully');
+                } catch (error) {
+                    console.error('Failed to initialize glyphs:', error);
+                    throw error;
+                }
             }
         }
 
@@ -94,8 +113,9 @@
                         break;
                 }
             } catch (error) {
-                output.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
-                console.error(error);
+                const errorMsg = error.message || String(error);
+                output.innerHTML = `<p style="color: red;">Error: ${errorMsg}</p>`;
+                console.error('Rendering error:', error);
             }
         }
 

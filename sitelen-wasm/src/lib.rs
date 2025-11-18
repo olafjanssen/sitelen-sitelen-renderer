@@ -1,6 +1,6 @@
 /// WASM bindings for Sitelen Sitelen renderer
 
-use sitelen_core::{OutputFormat, Pipeline, RenderConfig};
+use sitelen_core::{OutputFormat, Pipeline, RenderConfig, init_glyph_registry};
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
@@ -80,5 +80,13 @@ pub fn render_png(text: &str) -> Result<Vec<u8>, JsValue> {
 #[wasm_bindgen]
 pub fn render_html(text: &str) -> Result<Vec<u8>, JsValue> {
     render(text, "html")
+}
+
+/// Initialize the glyph registry with sprite content
+/// This must be called before rendering, as WASM cannot access the file system
+#[wasm_bindgen]
+pub fn init_glyphs(sprite_content: &str) -> Result<(), JsValue> {
+    init_glyph_registry(sprite_content)
+        .map_err(|e| JsValue::from_str(&format!("Failed to initialize glyphs: {}", e)))
 }
 
