@@ -129,12 +129,12 @@
 
                 <input type="text" id="tokiInput" placeholder="write toki pona here">
 
-                <div id="sitelen">
-                    <p class="loading">Loading WASM module...</p>
+                <div id="sliderContainer" class="slider-container" style="display: none; width: 200px; margin: 1em auto;">
+                    <input type="range" id="ratioSlider" min="0" max="0" step="1" value="0">
                 </div>
 
-                <div id="sliderContainer" class="slider-container" style="display: none;">
-                    <input type="range" id="ratioSlider" min="0" max="0" step="1" value="0">
+                <div id="sitelen">
+                    <p class="loading">Loading WASM module...</p>
                 </div>
 
                 <button id="downloadBtn" class="download-btn" style="display: none;">Download as SVG</button>
