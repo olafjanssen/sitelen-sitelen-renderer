@@ -369,9 +369,6 @@ impl LayoutEngine {
             if glyph.size.width < min_size {
                 min_size = glyph.size.width.max(glyph.size.height);
             }
-            if glyph.size.height < min_size {
-                min_size = glyph.size.width.max(glyph.size.height);
-            }
         }
 
         option.size.width /= min_size;
@@ -389,10 +386,43 @@ impl LayoutEngine {
     }
 
     fn option_key(&self, option: &LayoutOption) -> String {
-        format!(
-            "{:?}:{:.2}:{:.2}:{:.2}",
-            option.layout_type, option.size.width, option.size.height, option.ratio
-        )
+        // Create a comprehensive key that includes the layout structure
+        // This matches JavaScript's JSON.stringify behavior which includes the entire structure
+        // We need to capture: type, size, ratio, and all units with their positions and types
+        let mut key_parts = Vec::new();
+        
+        // Add layout type and dimensions (matching JavaScript structure)
+        key_parts.push(format!("type:{:?}", option.layout_type));
+        key_parts.push(format!("size:{:.4}:{:.4}", option.size.width, option.size.height));
+        key_parts.push(format!("ratio:{:.4}", option.ratio));
+        key_parts.push(format!("surface:{:.4}", option.surface));
+        
+        // Add all units in order (JSON.stringify preserves array order)
+        // Include unit type, token, position, and size to fully capture the layout
+        for placed in &option.state.units {
+            let unit_str = match &placed.unit {
+                LayoutUnit::WordGlyph { token, .. } => {
+                    format!("wg:{}:pos({:.4},{:.4}):size({:.4},{:.4})", 
+                        token, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
+                },
+                LayoutUnit::SyllableGlyph { token, .. } => {
+                    format!("syl:{}:pos({:.4},{:.4}):size({:.4},{:.4})", 
+                        token, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
+                },
+                LayoutUnit::Container { layout_type, separator, size, .. } => {
+                    format!("cont:{:?}:sep:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})", 
+                        layout_type, separator.as_ref().map(|s| s.as_str()).unwrap_or("none"),
+                        placed.position.x, placed.position.y, placed.size.width, placed.size.height)
+                },
+                LayoutUnit::Punctuation { tokens, .. } => {
+                    format!("punct:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})", 
+                        tokens, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
+                },
+            };
+            key_parts.push(unit_str);
+        }
+        
+        key_parts.join("|")
     }
 
     fn get_unit_size(&self, unit: &LayoutUnit) -> Size {
@@ -405,7 +435,11 @@ impl LayoutEngine {
     }
 
     fn is_punctuation(&self, unit: &LayoutUnit) -> bool {
-        matches!(unit, LayoutUnit::Punctuation { .. })
+        match unit {
+            LayoutUnit::Punctuation { .. } => true,
+            LayoutUnit::Container { layout_type, .. } => *layout_type == LayoutType::Punctuation,
+            _ => false,
+        }
     }
 
     /// Convert noun phrase tokens to layout units
