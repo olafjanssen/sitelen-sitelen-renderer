@@ -88,6 +88,8 @@ pub enum LayoutUnit {
     Container {
         units: Vec<PlacedUnit>,
         size: Size,
+        separator: Option<String>,
+        layout_type: LayoutType,
     },
     Punctuation {
         tokens: Vec<String>,

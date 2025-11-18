@@ -788,6 +788,7 @@ dependencies = [
  "criterion",
  "regex",
  "resvg",
+ "roxmltree",
  "serde",
  "thiserror",
  "tiny-skia",

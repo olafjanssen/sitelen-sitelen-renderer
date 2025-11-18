@@ -33,6 +33,10 @@ struct Cli {
     #[arg(long)]
     shadow: bool,
 
+    /// Don't embed glyph definitions in SVG (output will only contain references). By default, glyphs are embedded.
+    #[arg(long = "no-embed-glyphs", action = clap::ArgAction::SetTrue)]
+    no_embed_glyphs: bool,
+
     /// Input text directly (alternative to --input)
     text: Option<String>,
 }
@@ -76,6 +80,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     config.optimal_ratio = cli.ratio;
     config.stroke_width = cli.stroke_width;
     config.shadow = cli.shadow;
+    config.exportable = !cli.no_embed_glyphs;
 
     // Create pipeline
     let pipeline = Pipeline::with_config(config)?;

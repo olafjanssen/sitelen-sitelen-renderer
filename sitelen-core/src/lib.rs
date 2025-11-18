@@ -22,7 +22,7 @@ use std::fs;
 pub struct Pipeline {
     parser: Parser,
     layout_engine: LayoutEngine,
-    renderer: Renderer,
+    renderer: std::cell::RefCell<Renderer>,
 }
 
 impl Pipeline {
@@ -43,7 +43,7 @@ impl Pipeline {
         Ok(Self {
             parser: Parser::new(),
             layout_engine: LayoutEngine::new(),
-            renderer: Renderer::new(config),
+            renderer: std::cell::RefCell::new(Renderer::new(config)),
         })
     }
 
@@ -68,7 +68,7 @@ impl Pipeline {
 
     /// Render a layout to bytes
     pub fn render(&self, layout: &Layout, format: OutputFormat) -> Result<Vec<u8>, RenderError> {
-        self.renderer.render(layout, format)
+        self.renderer.borrow_mut().render(layout, format)
     }
 
     /// Complete pipeline: parse, layout, and render
@@ -76,9 +76,10 @@ impl Pipeline {
         let sentences = self.parse(text)?;
         
         let mut compounds = Vec::new();
+        let optimal_ratio = self.renderer.borrow().config.optimal_ratio;
         for sentence in sentences {
             let options = self.layout(&sentence);
-            if let Some(best) = self.select_best_layout(&options, self.renderer.config.optimal_ratio) {
+            if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
                 compounds.push(best.clone());
             } else if let Some(first) = options.first() {
                 compounds.push(first.clone());

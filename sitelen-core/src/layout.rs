@@ -99,6 +99,8 @@ impl LayoutEngine {
             let container_unit = LayoutUnit::Container {
                 units: option.state.units.clone(),
                 size: option.size,
+                separator: separator.clone(),
+                layout_type: layout_type.clone(),
             };
             
             new_units.push(container_unit);
