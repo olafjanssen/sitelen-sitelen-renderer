@@ -3,6 +3,9 @@
 use sitelen_core::{OutputFormat, Pipeline, RenderConfig, init_glyph_registry};
 use wasm_bindgen::prelude::*;
 
+// Embed the sprite file at compile time
+const SPRITE_CONTENT: &str = include_str!("../../images/sprite.css.svg");
+
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
@@ -61,6 +64,15 @@ impl SitelenRenderer {
     }
 }
 
+/// Initialize glyph registry (called automatically, but can be called manually for custom sprites)
+#[wasm_bindgen(start)]
+pub fn init() {
+    // Initialize with embedded sprite on module load
+    if let Err(e) = init_glyph_registry(SPRITE_CONTENT) {
+        console_log!("Warning: Failed to initialize embedded glyphs: {}", e);
+    }
+}
+
 #[wasm_bindgen]
 pub fn render(text: &str, format: &str) -> Result<Vec<u8>, JsValue> {
     let renderer = SitelenRenderer::new()?;
@@ -82,8 +94,8 @@ pub fn render_html(text: &str) -> Result<Vec<u8>, JsValue> {
     render(text, "html")
 }
 
-/// Initialize the glyph registry with sprite content
-/// This must be called before rendering, as WASM cannot access the file system
+/// Initialize the glyph registry with custom sprite content
+/// This allows overriding the default embedded sprite with a custom one
 #[wasm_bindgen]
 pub fn init_glyphs(sprite_content: &str) -> Result<(), JsValue> {
     init_glyph_registry(sprite_content)

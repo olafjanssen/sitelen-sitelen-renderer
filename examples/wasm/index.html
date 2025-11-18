@@ -50,32 +50,16 @@
     <div id="output"></div>
 
     <script type="module">
-        import init, { render_svg, render_png, render_html, init_glyphs } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+        import init, { render_svg, render_png, render_html } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
 
         let initialized = false;
-        let glyphsInitialized = false;
 
         async function ensureInit() {
             if (!initialized) {
+                // The sprite is embedded in the WASM module, so it initializes automatically
                 await init();
                 initialized = true;
-            }
-            
-            if (!glyphsInitialized) {
-                try {
-                    // Load the sprite file
-                    const response = await fetch('../../images/sprite.css.svg');
-                    if (!response.ok) {
-                        throw new Error(`Failed to load sprite file: ${response.statusText}`);
-                    }
-                    const spriteContent = await response.text();
-                    init_glyphs(spriteContent);
-                    glyphsInitialized = true;
-                    console.log('Glyphs initialized successfully');
-                } catch (error) {
-                    console.error('Failed to initialize glyphs:', error);
-                    throw error;
-                }
+                console.log('WASM module initialized with embedded glyphs');
             }
         }
 
