@@ -361,8 +361,7 @@
 
                 var ratio = 1.2;
                 // Render with WASM using the specified ratio
-                var bytes = render_svg_with_ratio(text, ratio);
-                var svgText = new TextDecoder().decode(bytes);
+                var svgText = render_svg_with_ratio(text, ratio);
                 var parser = new DOMParser();
                 var doc = parser.parseFromString(svgText, 'image/svg+xml');
                 var svgEl = document.importNode(doc.documentElement, true);
@@ -396,8 +395,7 @@
         var ratio = r ? r : 1.2;
         try {
             // Render with WASM using the specified ratio
-            var bytes = render_svg_with_ratio(text, ratio);
-            var svgText = new TextDecoder().decode(bytes);
+            var svgText = render_svg_with_ratio(text, ratio);
             var parser = new DOMParser();
             var doc = parser.parseFromString(svgText, 'image/svg+xml');
             var svgEl = document.importNode(doc.documentElement, true);

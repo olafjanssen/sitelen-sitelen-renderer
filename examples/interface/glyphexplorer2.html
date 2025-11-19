@@ -1342,8 +1342,7 @@
                 .data(nodes)
                 .enter().append(function (d) {
                     try {
-                        var bytes = window.render_svg(d.words);
-                        var svgText = new TextDecoder().decode(bytes);
+                        var svgText = window.render_svg(d.words);
                         var parser = new DOMParser();
                         var doc = parser.parseFromString(svgText, 'image/svg+xml');
                         return document.importNode(doc.documentElement, true);

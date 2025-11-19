@@ -257,8 +257,7 @@
             element.appendChild(glyph);
 
             try {
-                var bytes = render_svg(item.name);
-                var svgText = new TextDecoder().decode(bytes);
+                var svgText = render_svg(item.name);
                 glyph.innerHTML = svgText;
             } catch (e) {
                 console.error('Render error:', item.name, e);
@@ -290,8 +289,7 @@
                 renderedElement.parentNode.removeChild(renderedElement);
             }
             try {
-                var bytesText = render_svg(text);
-                var svgString = new TextDecoder().decode(bytesText);
+                var svgString = render_svg(text);
                 var parser = new DOMParser();
                 var doc = parser.parseFromString(svgString, 'image/svg+xml');
                 var svgEl = document.importNode(doc.documentElement, true);

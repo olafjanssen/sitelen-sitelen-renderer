@@ -50,8 +50,10 @@ impl SitelenRenderer {
     }
 
     #[wasm_bindgen]
-    pub fn render_svg(&self, text: &str) -> Result<Vec<u8>, JsValue> {
-        self.render(text, "svg")
+    pub fn render_svg(&self, text: &str) -> Result<String, JsValue> {
+        let bytes = self.render(text, "svg")?;
+        String::from_utf8(bytes)
+            .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))
     }
 
     #[wasm_bindgen]
@@ -60,8 +62,10 @@ impl SitelenRenderer {
     }
 
     #[wasm_bindgen]
-    pub fn render_html(&self, text: &str) -> Result<Vec<u8>, JsValue> {
-        self.render(text, "html")
+    pub fn render_html(&self, text: &str) -> Result<String, JsValue> {
+        let bytes = self.render(text, "html")?;
+        String::from_utf8(bytes)
+            .map_err(|e| JsValue::from_str(&format!("Invalid HTML UTF-8: {}", e)))
     }
 }
 
@@ -81,8 +85,9 @@ pub fn render(text: &str, format: &str) -> Result<Vec<u8>, JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn render_svg(text: &str) -> Result<Vec<u8>, JsValue> {
-    render(text, "svg")
+pub fn render_svg(text: &str) -> Result<String, JsValue> {
+    let renderer = SitelenRenderer::new()?;
+    renderer.render_svg(text)
 }
 
 #[wasm_bindgen]
@@ -91,8 +96,9 @@ pub fn render_png(text: &str) -> Result<Vec<u8>, JsValue> {
 }
 
 #[wasm_bindgen]
-pub fn render_html(text: &str) -> Result<Vec<u8>, JsValue> {
-    render(text, "html")
+pub fn render_html(text: &str) -> Result<String, JsValue> {
+    let renderer = SitelenRenderer::new()?;
+    renderer.render_html(text)
 }
 
 /// Initialize the glyph registry with custom sprite content
@@ -149,8 +155,10 @@ pub fn render_with_ratio(text: &str, optimal_ratio: f64, format: &str) -> Result
 
 /// Render SVG with a specific optimal ratio
 #[wasm_bindgen]
-pub fn render_svg_with_ratio(text: &str, optimal_ratio: f64) -> Result<Vec<u8>, JsValue> {
-    render_with_ratio(text, optimal_ratio, "svg")
+pub fn render_svg_with_ratio(text: &str, optimal_ratio: f64) -> Result<String, JsValue> {
+    let bytes = render_with_ratio(text, optimal_ratio, "svg")?;
+    String::from_utf8(bytes)
+        .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))
 }
 
 /// Render each parsed sentence to its own SVG and return HTML markup

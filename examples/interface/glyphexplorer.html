@@ -1315,8 +1315,7 @@
                     .data(nodes)
                     .enter().append(function (d) {
                         try {
-                            var bytes = window.render_svg(d.name);
-                        var svgText = new TextDecoder().decode(bytes);
+                            var svgText = window.render_svg(d.name);
                         var parser = new DOMParser();
                         var doc = parser.parseFromString(svgText, 'image/svg+xml');
                         return document.importNode(doc.documentElement, true);

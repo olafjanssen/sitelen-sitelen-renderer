@@ -270,8 +270,7 @@
 
             if (layoutRatios.length === 0) {
                 try {
-                    const bytes = render_svg(text);
-                    const svgContent = new TextDecoder().decode(bytes);
+                    const svgContent = render_svg(text);
                     output.innerHTML = svgContent;
                     currentSvg = svgContent;
                     downloadBtn.style.display = 'block';
@@ -284,8 +283,7 @@
             } else {
                 try {
                     const ratio = layoutRatios[currentRatioIndex];
-                    const bytes = render_svg_with_ratio(text, ratio);
-                    const svgContent = new TextDecoder().decode(bytes);
+                    const svgContent = render_svg_with_ratio(text, ratio);
                     output.innerHTML = svgContent;
                     currentSvg = svgContent;
                     downloadBtn.style.display = 'block';
