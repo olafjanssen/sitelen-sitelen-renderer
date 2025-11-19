@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css">
-    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
     <style>
         @page {
             size: A4 landscape;
@@ -168,7 +167,10 @@
     </div>
 </div>
 
-<script>
+<script type="module">
+    import init, { render_svg_with_ratio } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+    await init();
+
     var blacklist = [
         4910825,
         5297780,
@@ -200,7 +202,7 @@
             }
         });
 
-        for (page = 0; page <= pages; page++) {
+        for (let page = 0; page <= pages; page++) {
             var pageElement = document.createElement('div');
             pageElement.classList.add('page-break');
             [].slice.call(document.querySelectorAll('[sitelen-page="' + page + '"]')).forEach(function (child) {
@@ -271,7 +273,7 @@
         // create book pages
         let colPerPage = 7;
         let pages = Math.ceil(columns.length / colPerPage);
-        for (page = 0; page < pages; page++) {
+        for (let page = 0; page < pages; page++) {
             let pageElement = document.createElement('div');
             pageElement.classList.add('page-break');
             for (let col = 0; col < colPerPage; col++) {
@@ -354,23 +356,18 @@
 
 //            console.log(index, item.id, item.toki, item.eng);
             try {
-                var sent = document.createElement('div'),
-                    structuredSentences = sitelenParser.parse(text);
-
+                var sent = document.createElement('div');
                 sent.classList.add('sentence');
                 sent.id = "sent-id-" + sentCounter++;
 
-                structuredSentences.forEach(function (sentence) {
-                    var ratio = 1.2;
-                    var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
-                        optimalRatio: ratio,
-                        ignoreHeight: true,
-                        styling: {
-                            strokeWidth: '1px'
-                        },
-                        output: {format: 'svg'}
-                    });
-                });
+                var ratio = 1.2;
+                // Render with WASM using the specified ratio
+                var bytes = render_svg_with_ratio(text, ratio);
+                var svgText = new TextDecoder().decode(bytes);
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(svgText, 'image/svg+xml');
+                var svgEl = document.importNode(doc.documentElement, true);
+                sent.appendChild(svgEl);
             } catch (e) {
                 console.log(e);
                 blockable.push(item.id);
@@ -394,21 +391,21 @@
     });
 
     function renderSentence(text, r){
-        var sent = document.createElement('div'),
-            structuredSentences = sitelenParser.parse(text);
-
+        var sent = document.createElement('div');
         sent.classList.add('sentence');
-        structuredSentences.forEach(function (sentence) {
-            var ratio = r?r:1.2;
-            var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
-                optimalRatio: ratio,
-                ignoreHeight: true,
-                styling: {
-                    strokeWidth: '1px',
-                },
-                output: {format: 'inline-svg'}
-            });
-        });
+        
+        var ratio = r ? r : 1.2;
+        try {
+            // Render with WASM using the specified ratio
+            var bytes = render_svg_with_ratio(text, ratio);
+            var svgText = new TextDecoder().decode(bytes);
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(svgText, 'image/svg+xml');
+            var svgEl = document.importNode(doc.documentElement, true);
+            sent.appendChild(svgEl);
+        } catch (e) {
+            console.error('Render error:', text, e);
+        }
         return sent;
     }
 

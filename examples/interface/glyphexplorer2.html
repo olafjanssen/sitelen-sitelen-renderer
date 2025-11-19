@@ -27,6 +27,8 @@
 <script type="module">
     import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
     await init();
+    // Make render_svg available globally for non-module scripts
+    window.render_svg = render_svg;
     var data = [{
         "words": "a",
         "partofspeech": "Particle",
@@ -1108,6 +1110,8 @@
         "pairword": "ken",
         "gloss": "want"
     }];
+    // Make data available globally for non-module scripts
+    window.data = data;
 </script>
 
 <script>
@@ -1244,10 +1248,21 @@
 
 </script>
 <script>
+    function waitForRenderSvg(callback) {
+        if (window.render_svg && window.data) {
+            callback();
+        } else {
+            setTimeout(function() {
+                waitForRenderSvg(callback);
+            }, 50);
+        }
+    }
+
     window.addEventListener('load', function () {
-        // find categories
-        var categories = [];
-        data.forEach(function (word) {
+        waitForRenderSvg(function() {
+            // find categories
+            var categories = [];
+            window.data.forEach(function (word) {
             if (categories.indexOf(word.category) === -1) {
                 categories.push(word.category);
             }
@@ -1257,7 +1272,7 @@
 
         var fill = d3.scale.category10();
 
-        var nodes = data;
+        var nodes = window.data;
         nodes.forEach(function (node) {
             node.group = categories.indexOf(node.category);
             node.radius = 20;
@@ -1327,7 +1342,7 @@
                 .data(nodes)
                 .enter().append(function (d) {
                     try {
-                        var bytes = render_svg(d.words);
+                        var bytes = window.render_svg(d.words);
                         var svgText = new TextDecoder().decode(bytes);
                         var parser = new DOMParser();
                         var doc = parser.parseFromString(svgText, 'image/svg+xml');
@@ -1474,7 +1489,6 @@
                 });
             };
         }
-
-
-    });
+        }); // End of waitForRenderSvg callback
+    }); // End of window.addEventListener('load')
 </script>

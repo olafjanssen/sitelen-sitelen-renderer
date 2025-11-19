@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css">
-    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
     <style>
         @page {
             size: A4 portrait;
@@ -40,6 +39,7 @@
             padding: 1em;
             width: 12em;
             display: block;
+            overflow: visible;
         }
 
         /*.sitelen-sitelen > .sentence > label {*/
@@ -59,7 +59,10 @@
 <div class="sitelen-sitelen">
 </div>
 
-<script>
+<script type="module">
+    import init, { render_svg_with_ratio } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+    await init();
+
     /*
         todo:
             * tp-c-tan cannot
@@ -146,25 +149,29 @@
 
                 console.log(data[counter].id + ': ' + text + ' / ' + data[counter].eng);
 
-                var sent = document.createElement('div'),
-                    structuredSentences = sitelenParser.parse(text);
-
+                var sent = document.createElement('div');
                 sent.classList.add('sentence');
 
-                structuredSentences.forEach(function (sentence) {
-                    var ratio = 1;
-                    if (sentence.length === 2) {
-                        ratio = 1.25;
-                    } else if (sentence.length === 3) {
-                        ratio = 1;
-                    }
+                // Determine ratio based on word count
+                var wordCount = text.split(' ').length;
+                var ratio = 0.75;
+                if (wordCount === 2) {
+                    ratio = 1.25;
+                } else if (wordCount === 3) {
+                    ratio = 1;
+                }
 
-                    var renderedElement = sitelenRenderer.renderCompoundSentence(sentence, sent, {
-                        optimalRatio: ratio,
-                        ignoreHeight: true,
-                        // output: {format: 'png'}
-                    });
-                });
+                try {
+                    // Render with WASM using the specified ratio
+                    var bytes = render_svg_with_ratio(text, ratio);
+                    var svgText = new TextDecoder().decode(bytes);
+                    var parser = new DOMParser();
+                    var doc = parser.parseFromString(svgText, 'image/svg+xml');
+                    var svgEl = document.importNode(doc.documentElement, true);
+                    sent.appendChild(svgEl);
+                } catch (e) {
+                    console.error('Render error:', text, e);
+                }
 
                 var label = document.createElement('label');
                 label.innerHTML = text + ' / ' + data[counter].eng;
