@@ -1,9 +1,10 @@
 /// CLI application for Sitelen Sitelen renderer
 
 use clap::{Parser, ValueEnum};
-use sitelen_core::{OutputFormat, Pipeline, RenderConfig};
+use sitelen_core::{OutputFormat, Pipeline, RenderConfig, Sentence};
 use std::fs;
 use std::path::PathBuf;
+use std::io::{self, Write, Read, IsTerminal};
 
 #[derive(Parser)]
 #[command(name = "sitelen")]
@@ -61,8 +62,16 @@ impl From<Format> for OutputFormat {
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let cli = Cli::parse();
 
-    // Get input text
-    let text = if let Some(input) = &cli.input {
+    // Prefer stdin if data is piped
+    let mut stdin_text = String::new();
+    if !io::stdin().is_terminal() {
+        io::stdin().read_to_string(&mut stdin_text)?;
+    }
+
+    // Get input text from stdin, or fall back to flags for backward compatibility
+    let text = if !stdin_text.trim().is_empty() {
+        stdin_text
+    } else if let Some(input) = &cli.input {
         if PathBuf::from(input).exists() {
             fs::read_to_string(input)?
         } else {
@@ -71,7 +80,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     } else if let Some(text) = &cli.text {
         text.clone()
     } else {
-        eprintln!("Error: No input provided. Use --input <file> or provide text as argument.");
+        eprintln!("Error: No input provided. Pipe text via stdin, or use --input <file> or --text.");
         std::process::exit(1);
     };
 
@@ -85,22 +94,71 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Create pipeline
     let pipeline = Pipeline::with_config(config)?;
 
-    // Render
+    // Parse into sentences
+    let sentences: Vec<Sentence> = pipeline.parse(&text)?;
+
     let format: OutputFormat = cli.format.clone().into();
-    let output_bytes = pipeline.render_text(&text, format)?;
 
-    // Write output
-    let output_path = cli.output.unwrap_or_else(|| {
-        let ext = match cli.format {
-            Format::Svg => "svg",
-            Format::Png => "png",
-            Format::Html => "html",
+    // Determine output naming
+    let ext = match cli.format {
+        Format::Svg => "svg",
+        Format::Png => "png",
+        Format::Html => "html",
+    };
+
+    // If only one sentence, keep previous behavior (single output file)
+    if sentences.len() <= 1 {
+        let bytes = if let Some(sentence) = sentences.first() {
+            pipeline.render_sentence(sentence, format)?
+        } else {
+            // No sentences parsed; render empty input to maintain behavior
+            pipeline.render_text("", format)?
         };
-        PathBuf::from(format!("output.{}", ext))
-    });
 
-    fs::write(&output_path, output_bytes)?;
-    println!("Rendered to: {}", output_path.display());
+        if cli.output.is_none() {
+            let mut stdout = io::stdout();
+            stdout.write_all(&bytes)?;
+            stdout.flush()?;
+        } else {
+            let output_path = cli.output.unwrap_or_else(|| PathBuf::from(format!("output.{}", ext)));
+            fs::write(&output_path, bytes)?;
+            eprintln!("Rendered to: {}", output_path.display());
+        }
+        return Ok(());
+    }
+
+    // Multiple sentences -> write multiple files with index suffix
+    let (base_dir, base_stem) = match &cli.output {
+        Some(path) => {
+            if path.is_dir() {
+                (path.clone(), String::from("output"))
+            } else {
+                let dir = path.parent().map(|p| p.to_path_buf()).unwrap_or_else(|| PathBuf::from("."));
+                let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("output").to_string();
+                (dir, stem)
+            }
+        }
+        None => (PathBuf::from("."), String::from("output")),
+    };
+
+    if cli.output.is_none() {
+        // Stream all rendered outputs to stdout (no extra messages on stdout)
+        let mut stdout = io::stdout();
+        for sentence in &sentences {
+            let bytes = pipeline.render_sentence(sentence, format.clone())?;
+            stdout.write_all(&bytes)?;
+        }
+        stdout.flush()?;
+    } else {
+        for (idx, sentence) in sentences.iter().enumerate() {
+            let bytes = pipeline.render_sentence(sentence, format.clone())?;
+            let filename = format!("{}_{}.{}", base_stem, idx + 1, ext);
+            let mut out_path = base_dir.clone();
+            out_path.push(filename);
+            fs::write(&out_path, &bytes)?;
+            eprintln!("Rendered sentence {} to: {}", idx + 1, out_path.display());
+        }
+    }
 
     Ok(())
 }

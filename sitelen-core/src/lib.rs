@@ -71,6 +71,41 @@ impl Pipeline {
         self.renderer.borrow_mut().render(layout, format)
     }
 
+    /// Render a single parsed sentence to bytes
+    pub fn render_sentence(&self, sentence: &Sentence, format: OutputFormat) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+        let mut compounds = Vec::new();
+        let optimal_ratio = self.renderer.borrow().config.optimal_ratio;
+
+        // Split sentence into compounds at punctuation and select best layout per compound
+        let mut sentence_compound = Vec::new();
+        for part in &sentence.parts {
+            sentence_compound.push(part.clone());
+            if matches!(part, SentencePart::Punctuation { .. }) {
+                let compound_sentence = Sentence { parts: sentence_compound.clone() };
+                let options = self.layout(&compound_sentence);
+                if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
+                    compounds.push(best.clone());
+                } else if let Some(first) = options.first() {
+                    compounds.push(first.clone());
+                }
+                sentence_compound.clear();
+            }
+        }
+        if !sentence_compound.is_empty() {
+            let compound_sentence = Sentence { parts: sentence_compound };
+            let options = self.layout(&compound_sentence);
+            if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
+                compounds.push(best.clone());
+            } else if let Some(first) = options.first() {
+                compounds.push(first.clone());
+            }
+        }
+
+        let layout = Layout { compounds };
+        let bytes = self.render(&layout, format)?;
+        Ok(bytes)
+    }
+
     /// Complete pipeline: parse, layout, and render
     pub fn render_text(&self, text: &str, format: OutputFormat) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
         let sentences = self.parse(text)?;
