@@ -2,6 +2,7 @@
 
 use sitelen_core::{OutputFormat, Pipeline, RenderConfig, init_glyph_registry};
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
 
 // Embed the sprite file at compile time
 const SPRITE_CONTENT: &str = include_str!("../../images/sprite.css.svg");
@@ -150,5 +151,34 @@ pub fn render_with_ratio(text: &str, optimal_ratio: f64, format: &str) -> Result
 #[wasm_bindgen]
 pub fn render_svg_with_ratio(text: &str, optimal_ratio: f64) -> Result<Vec<u8>, JsValue> {
     render_with_ratio(text, optimal_ratio, "svg")
+}
+
+/// Render each parsed sentence to its own SVG and return HTML markup
+/// The returned string contains multiple <div class="sentence-item">...</div> blocks
+#[wasm_bindgen]
+pub fn render_sentence_svgs_html(text: &str) -> Result<String, JsValue> {
+    let renderer = SitelenRenderer::new()?;
+    let sentences = renderer
+        .pipeline
+        .parse(text)
+        .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
+
+    if sentences.is_empty() {
+        return Ok(String::new());
+    }
+
+    let mut html = String::new();
+    for sentence in &sentences {
+        let bytes = renderer
+            .pipeline
+            .render_sentence(sentence, OutputFormat::Svg)
+            .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
+        let svg = String::from_utf8(bytes)
+            .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
+        html.push_str(&svg);
+        html.push('\n');
+    }
+
+    Ok(html)
 }
 

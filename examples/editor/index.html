@@ -96,6 +96,15 @@
             display: block;
         }
 
+        /* Direct SVGs returned from WASM without wrappers */
+        .sentences-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            break-inside: avoid;
+            margin-bottom: 20px;
+        }
+
         .preview-empty {
             display: flex;
             align-items: center;
@@ -221,7 +230,7 @@
     </div>
 
     <script type="module">
-        import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+        import init, { render_sentence_svgs_html } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
 
         let initialized = false;
         let renderTimeout = null;
@@ -243,24 +252,6 @@
             }
         }
 
-        // Split text into sentences (similar to layout.html and parser)
-        function splitIntoSentences(text) {
-            // Normalize whitespace (like layout.html line 58)
-            const normalized = text.replace(/\s\s+/g, ' ').trim();
-            if (!normalized) return [];
-            
-            // Split on punctuation marks (. ! ? #) - matching parser regex: /[^\.!\?#]+[\.!\?#]+/g
-            const sentenceMatches = normalized.match(/[^\.!\?#]+[\.!\?#]+/g);
-            
-            if (sentenceMatches) {
-                return sentenceMatches.map(s => s.trim()).filter(s => s.length > 0);
-            }
-            
-            // If no punctuation found, treat entire text as one sentence (or split by newlines)
-            const lines = normalized.split(/\n+/).map(l => l.trim()).filter(l => l.length > 0);
-            return lines.length > 0 ? lines : [normalized];
-        }
-
         // Render text with debouncing
         async function renderText() {
             if (!initialized) {
@@ -276,36 +267,16 @@
             }
 
             try {
-                // Split into sentences
-                const sentences = splitIntoSentences(text);
-                
-                if (sentences.length === 0) {
+                const container = document.createElement('div');
+                container.className = 'sentences-container';
+
+                const html = render_sentence_svgs_html(text);
+                if (!html || html.trim().length === 0) {
                     preview.innerHTML = '<div class="preview-empty">No valid sentences found...</div>';
                     return;
                 }
 
-                // Render each sentence separately
-                const container = document.createElement('div');
-                container.className = 'sentences-container';
-                
-                for (let i = 0; i < sentences.length; i++) {
-                    const sentence = sentences[i];
-                    
-                    try {
-                        const bytes = render_svg(sentence);
-                        const svgContent = new TextDecoder().decode(bytes);
-                        
-                        // Create a wrapper div for each sentence
-                        const sentenceDiv = document.createElement('div');
-                        sentenceDiv.className = 'sentence-item';
-                        sentenceDiv.innerHTML = svgContent;
-                        container.appendChild(sentenceDiv);
-                    } catch (error) {
-                        console.error(`Error rendering sentence "${sentence}":`, error);
-                        // Continue with next sentence
-                    }
-                }
-                
+                container.innerHTML = html;
                 preview.innerHTML = '';
                 preview.appendChild(container);
             } catch (error) {
