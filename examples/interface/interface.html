@@ -40,6 +40,14 @@
             left: 0;
             pointer-events: none;
         }
+        #sitelen > svg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
 
         #tokiInput {
             position: absolute;
@@ -133,6 +141,14 @@
             height: 80%;
             width: 80%;
         }
+        .interface-item > svg {
+            position: relative;
+            top: 10%;
+            left: 10%;
+            height: 80%;
+            width: 80%;
+            display: block;
+        }
 
         button[data-sitelen] {
             border-radius: 10em;
@@ -183,7 +199,9 @@
 </div>
 
 
-<script>
+<script type="module">
+    import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+    await init();
 
     function addInterface(element) {
         var input = document.getElementById('tokiInput');
@@ -199,7 +217,7 @@
         glyph.classList.add('interface-center');
         glyph.style.top = '50%';
         glyph.style.left = '50%';
-        interface.appendChild(glyph);
+        element.appendChild(glyph);
 
         var shownDictionary = tokiPonaDictionary; //.sort(function(a,b){
         //return (a.category?a.category:'').localeCompare(b.category);
@@ -237,15 +255,15 @@
                 renderInput();
             });
 
-            interface.appendChild(glyph);
+            element.appendChild(glyph);
 
-            var structuredSentence = sitelenParser.parse(item.name)[0];
-
-            sitelenRenderer.renderCompoundSentence(structuredSentence, glyph,
-                    {
-                        output: {format: 'css-background'},
-                        styling: {strokeWidth: 1}
-                    });
+            try {
+                var bytes = render_svg(item.name);
+                var svgText = new TextDecoder().decode(bytes);
+                glyph.innerHTML = svgText;
+            } catch (e) {
+                console.error('Render error:', item.name, e);
+            }
 
         });
 
@@ -268,15 +286,20 @@
             console.log(text);
             element.parentNode.setAttribute('data-sitelen-text', text);
 
-            var structuredSentence = sitelenParser.parse(text)[0];
-            var renderedElement = document.querySelector('#sitelen > [data-sitelen-sentence]');
+            var renderedElement = document.querySelector('#sitelen > svg');
             if (renderedElement) {
                 renderedElement.parentNode.removeChild(renderedElement);
             }
-            sitelenRenderer.renderCompoundSentence(structuredSentence, element.parentNode, {
-//                    minRatio: 0,
-                output: {format: 'css-background'}
-            });
+            try {
+                var bytesText = render_svg(text);
+                var svgString = new TextDecoder().decode(bytesText);
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(svgString, 'image/svg+xml');
+                var svgEl = document.importNode(doc.documentElement, true);
+                element.parentNode.appendChild(svgEl);
+            } catch (e) {
+                console.error('Render error (input):', e);
+            }
         }
 
     }

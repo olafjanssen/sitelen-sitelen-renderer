@@ -22,9 +22,11 @@
 </style>
 <body>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
+ 
 
-<script>
+<script type="module">
+    import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+    await init();
     var data = [{
         "words": "a",
         "partofspeech": "Particle",
@@ -1324,11 +1326,19 @@
         var node = svg.selectAll(".node")
                 .data(nodes)
                 .enter().append(function (d) {
-                    return sitelenRenderer.renderCompoundSentence(sitelenParser.parse(d.words)[0], null,
-                            {
-                                output: {format: 'inline-svg', background: customBackground(fill(d.group % 10))},
-                                styling: {strokeWidth: 1}
-                            });
+                    try {
+                        var bytes = render_svg(d.words);
+                        var svgText = new TextDecoder().decode(bytes);
+                        var parser = new DOMParser();
+                        var doc = parser.parseFromString(svgText, 'image/svg+xml');
+                        return document.importNode(doc.documentElement, true);
+                    } catch (e) {
+                        console.error('Render error:', d.words, e);
+                        var fallback = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                        fallback.setAttribute('width', '30');
+                        fallback.setAttribute('height', '30');
+                        return fallback;
+                    }
                 })
                 .attr("class", "node")
                 .attr("x", function (d) {
