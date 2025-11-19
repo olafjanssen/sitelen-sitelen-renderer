@@ -68,7 +68,7 @@ impl Renderer {
 
         writeln!(
             svg,
-            r#"<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" preserveAspectRatio="xMidYMin meet" viewBox="{} {} {} {}">"#,
+            r#"<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" preserveAspectRatio="xMidYMin meet" viewBox="{} {} {} {}" style="overflow: visible;">"#,
             viewbox_x, viewbox_y, viewbox_width, viewbox_height
         ).unwrap();
 
