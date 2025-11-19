@@ -103,7 +103,13 @@ impl Parser {
             }
 
             let mut parsable = ParsableSentence::new();
-            let body = if trimmed.len() > 1 {
+            // Only remove last character if it's punctuation
+            // Check if the sentence ends with punctuation
+            let has_punctuation = trimmed.chars().last()
+                .map(|c| matches!(c, '.' | ':' | '!' | '?' | '#'))
+                .unwrap_or(false);
+            
+            let body = if has_punctuation && trimmed.len() > 1 {
                 &trimmed[..trimmed.len() - 1]
             } else {
                 trimmed
