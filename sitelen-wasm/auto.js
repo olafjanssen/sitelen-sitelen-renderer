@@ -1,7 +1,7 @@
 // Auto-render all elements with [data-sitelen] using the WASM module
 // Usage: import this file as a module; it will auto-run on DOMContentLoaded
 
-import init, { render_sentence_svgs_html } from './pkg/sitelen_wasm.js';
+import init, { render_sentences } from './pkg/sitelen_wasm.js';
 
 async function ensureInit() {
     await init();
@@ -46,7 +46,7 @@ async function renderElement(el) {
     if (!text) return;
     const container = document.createElement('div');
     container.className = 'sentences-container';
-    const html = render_sentence_svgs_html(text);
+    const html = render_sentences(text, null);
     if (html && html.trim().length > 0) {
         container.innerHTML = html;
         el.innerHTML = '';

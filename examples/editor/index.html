@@ -230,7 +230,7 @@
     </div>
 
     <script type="module">
-        import init, { render_sentence_svgs_html } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+        import init, { render_sentences } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
 
         let initialized = false;
         let renderTimeout = null;
@@ -270,7 +270,7 @@
                 const container = document.createElement('div');
                 container.className = 'sentences-container';
 
-                const html = render_sentence_svgs_html(text);
+                const html = render_sentences(text, null);
                 if (!html || html.trim().length === 0) {
                     preview.innerHTML = '<div class="preview-empty">No valid sentences found...</div>';
                     return;

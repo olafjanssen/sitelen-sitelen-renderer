@@ -180,7 +180,7 @@
     </div>
 
     <script type="module">
-        import init, { render_svg, get_layout_ratios, render_svg_with_ratio } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+        import init, { render_svg, get_layout_ratios } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
 
         let initialized = false;
         let currentSvg = null;
@@ -283,7 +283,7 @@
             } else {
                 try {
                     const ratio = layoutRatios[currentRatioIndex];
-                    const svgContent = render_svg_with_ratio(text, ratio);
+                    const svgContent = render_svg(text, ratio);
                     output.innerHTML = svgContent;
                     currentSvg = svgContent;
                     downloadBtn.style.display = 'block';

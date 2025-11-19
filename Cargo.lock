@@ -800,6 +800,7 @@ name = "sitelen-wasm"
 version = "0.2.0"
 dependencies = [
  "js-sys",
+ "once_cell",
  "serde",
  "serde_json",
  "sitelen-core",
