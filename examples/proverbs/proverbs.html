@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css">
-    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
             font-family: sans-serif;
@@ -12,6 +12,31 @@
         h1 {
             font-size: 1.5em;
             margin: 0.25em auto;
+            display: block;
+        }
+
+        [data-sitelen] {
+            padding: 20px;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        [data-sitelen] .sentences-container {
+            column-width: 100px;
+            column-gap: 20px;
+            column-fill: auto;
+            height: 90vh;
+        }
+
+        [data-sitelen] .sentence-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        [data-sitelen] .sentence-item svg {
+            width: 100%;
+            height: auto;
             display: block;
         }
     </style>
@@ -32,6 +57,62 @@
     li nasa e mije. mi weka e ike jan, la mi weka e ike mi. nasin ante li pona tawa jan ante. telo li pona. lape li
     pona. toki li pona. o pana e pona tawa ma. utala li ike.
 </div>
+
+<script type="module">
+    import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+
+    function splitIntoSentences(text) {
+        const normalized = text.replace(/\s\s+/g, ' ').trim();
+        if (!normalized) return [];
+        const matches = normalized.match(/[^\.!\?#]+[\.!\?#]+/g);
+        if (matches) return matches.map(s => s.trim()).filter(Boolean);
+        const lines = normalized.split(/\n+/).map(l => l.trim()).filter(Boolean);
+        return lines.length > 0 ? lines : [normalized];
+    }
+
+    async function main() {
+        try {
+            await init();
+            const container = document.querySelector('[data-sitelen]');
+            if (!container) return;
+            const text = (container.textContent || '').trim().replace(/\s*\n\s*/g, ' ');
+            if (!text) {
+                container.innerHTML = '<p>Please provide some Toki Pona text.</p>';
+                return;
+            }
+
+            const sentences = splitIntoSentences(text);
+            const containerDiv = document.createElement('div');
+            containerDiv.className = 'sentences-container';
+
+            for (const sentence of sentences) {
+                try {
+                    const bytes = render_svg(sentence);
+                    const svg = new TextDecoder().decode(bytes);
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'sentence-item';
+                    wrapper.innerHTML = svg;
+                    containerDiv.appendChild(wrapper);
+                } catch (e) {
+                    // Skip problematic sentence, continue
+                    console.error('Render error for sentence:', sentence, e);
+                }
+            }
+
+            container.innerHTML = '';
+            container.appendChild(containerDiv);
+        } catch (error) {
+            const container = document.querySelector('[data-sitelen]');
+            if (container) {
+                const msg = (error && error.message) ? error.message : String(error);
+                container.innerHTML = `<p style="color: red;">Error: ${msg}</p>`;
+            }
+            console.error('WASM rendering error:', error);
+        }
+    }
+
+    main();
+    </script>
 
 </body>
 </html>
