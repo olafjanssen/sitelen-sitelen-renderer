@@ -2,7 +2,6 @@
 <html>
 <head>
     <!--<link rel="stylesheet" href="styles/sitelen.css">-->
-    <script type="text/javascript" src="../../dist/sitelen-sitelen-renderer.min.js"></script>
     <style>
         body {
             font-family: sans-serif;
@@ -29,8 +28,8 @@
 
         .rendered-sitelen > svg,
         .sitelen-sitelen > svg {
-            width: 12em;
-            padding: 1em;
+            width: 40mm;
+            padding: 6mm;
         }
 
     </style>
@@ -51,47 +50,195 @@
     <!--pona. toki li pona. o pana e pona tawa ma. utala li ike.-->
 </div>
 
-<script>
+<script type="module">
+    import init, { render_svg, get_layout_ratios } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
+    await init();
+
     "use strict";
-    window.onload = function () {
-        [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(function (element) {
-            var text = element.textContent.replace(/\s\s+/g, ' '),
-                    stucturedSentences = sitelenParser.parse(text);
+    
+    // Split text into sentences (similar to parser logic)
+    function splitIntoSentences(text) {
+        // Split on sentence-ending punctuation, but keep the punctuation
+        var sentences = [];
+        var regex = /([^.!?:#]+[.!?:#])/g;
+        var match;
+        var lastIndex = 0;
+        
+        while ((match = regex.exec(text)) !== null) {
+            var sentence = match[1].trim();
+            if (sentence.length > 0) {
+                sentences.push(sentence);
+            }
+            lastIndex = regex.lastIndex;
+        }
+        
+        // Handle any remaining text without punctuation
+        var remaining = text.substring(lastIndex).trim();
+        if (remaining.length > 0) {
+            sentences.push(remaining);
+        }
+        
+        return sentences;
+    }
+    
+    function runLayout() {
+        [].slice.call(document.querySelectorAll('.sitelen-sitelen')).forEach(async function (element) {
+            var text = element.textContent.replace(/\s\s+/g, ' ').trim();
+            console.log('Full text:', text);
+            
+            // Split text into sentences
+            var sentences = splitIntoSentences(text);
+            console.log('Split into', sentences.length, 'sentences:', sentences);
+            
+            // Get available ratios for each sentence
+            var sentenceRatios = [];
+            for (var i = 0; i < sentences.length; i++) {
+                var sentence = sentences[i];
+                var ratiosJson = get_layout_ratios(sentence);
+                var ratios = [];
+                try {
+                    ratios = JSON.parse(ratiosJson);
+                    if (ratios.length === 0) {
+                        ratios = [1.25]; // Default if no ratios
+                    }
+                } catch (e) {
+                    console.warn('Error parsing ratios for sentence', i, ':', e);
+                    ratios = [1.25]; // Default on error
+                }
+                sentenceRatios.push(ratios);
+                console.log('Sentence', i, 'ratios:', ratios);
+            }
 
             element.parentNode.removeChild(element);
 
             var counter = 0, invCost = 0, prevElement;
 
             function renderLoop(frame) {
-
                 var element = document.createElement('div');
                 element.setAttribute('frame', counter);
                 element.classList.add('rendered-sitelen');
                 document.body.appendChild(element);
-                stucturedSentences.forEach(function (structuredSentence) {
-                    sitelenRenderer.renderCompoundSentence(structuredSentence, element, {
-                        optimalRatio: 1.25,
-                        random: true,
-                        ignoreHeight: true
-                    });
-                });
+                
+                try {
+                    // Render each sentence with a random ratio from its available options
+                    var parser = new DOMParser();
+                    for (var i = 0; i < sentences.length; i++) {
+                        var sentence = sentences[i];
+                        var ratios = sentenceRatios[i];
+                        
+                        // Pick a random ratio for this sentence
+                        var ratio = ratios.length > 0 
+                            ? ratios[Math.floor(Math.random() * ratios.length)]
+                            : 1.25;
+                        
+                        // Render this sentence
+                        var svgText = render_svg(sentence, ratio);
+                        var doc = parser.parseFromString(svgText, 'image/svg+xml');
+                        var svgEl = document.importNode(doc.documentElement, true);
+                        element.appendChild(svgEl);
+                    }
+                } catch (e) {
+                    console.error('Render error:', e);
+                    element.parentNode.removeChild(element);
+                    if (counter < 100) {
+                        counter++;
+                        requestAnimationFrame(renderLoop);
+                    }
+                    return;
+                }
 
                 // compute cost function
-                var cost = 0, columns = 0;
+                // With vertical-lr writing mode, SVGs flow top-to-bottom and wrap left-to-right
+                // We need to detect columns based on horizontal position
+                var cost = 0;
                 var pageRect = element.getBoundingClientRect();
-                [].slice.call(element.childNodes).forEach(function (child) {
-                    var childRect = child.getBoundingClientRect(),
-                            siblingRect = child.nextElementSibling ? child.nextElementSibling.getBoundingClientRect() : null;
-                    if (!siblingRect || siblingRect.top < childRect.bottom) {
-                        var penalty = pageRect.bottom - childRect.bottom;
-                        cost += penalty*penalty;
-                        columns++;
+                var svgs = [].slice.call(element.querySelectorAll('svg'));
+                
+                if (svgs.length === 0) {
+                    // No content, skip this frame
+                    element.parentNode.removeChild(element);
+                    if (counter < 100) {
+                        counter++;
+                        requestAnimationFrame(renderLoop);
+                    }
+                    return;
+                }
+                
+                // Get positions for all SVGs
+                var svgPositions = svgs.map(function(svg) {
+                    var rect = svg.getBoundingClientRect();
+                    return {
+                        svg: svg,
+                        left: rect.left,
+                        top: rect.top,
+                        bottom: rect.bottom,
+                        right: rect.right
+                    };
+                });
+                
+                // Sort by top position first, then by left (to process in reading order)
+                svgPositions.sort(function(a, b) {
+                    if (Math.abs(a.top - b.top) < 5) {
+                        // Same row, sort by left
+                        return a.left - b.left;
+                    }
+                    return a.top - b.top;
+                });
+                
+                // Group SVGs into columns based on horizontal position
+                // SVGs in the same column have similar left positions
+                var columnGroups = [];
+                var columnThreshold = 20; // pixels - SVGs within this horizontal distance are in the same column
+                
+                svgPositions.forEach(function(pos) {
+                    var placed = false;
+                    
+                    // Try to find an existing column group for this SVG
+                    for (var i = 0; i < columnGroups.length; i++) {
+                        var group = columnGroups[i];
+                        // Check if this SVG's left position matches any SVG in this column
+                        var inColumn = group.some(function(groupPos) {
+                            return Math.abs(pos.left - groupPos.left) < columnThreshold;
+                        });
+                        
+                        if (inColumn) {
+                            group.push(pos);
+                            placed = true;
+                            break;
+                        }
+                    }
+                    
+                    // If not placed, create a new column
+                    if (!placed) {
+                        columnGroups.push([pos]);
                     }
                 });
+                
+                var columns = columnGroups.length;
+                
+                // Calculate cost: sum of unused space at bottom of each column
+                // Lower cost = better packing (less wasted space)
+                columnGroups.forEach(function(column) {
+                    // Find the bottom-most SVG in this column
+                    var bottomMost = column.reduce(function(max, pos) {
+                        return pos.bottom > max.bottom ? pos : max;
+                    }, column[0]);
+                    
+                    var unusedSpace = pageRect.bottom - bottomMost.bottom;
+                    if (unusedSpace > 0) {
+                        cost += unusedSpace * unusedSpace; // Square penalty for unused space
+                    }
+                });
+                
+                // Avoid division by zero
+                if (cost === 0) {
+                    cost = 0.1; // Perfect fit
+                }
+                
+                // Inverse cost: higher is better (more columns, less wasted space)
+                var icost = columns / cost;
 
-                var icost = columns * 1. / cost;
-
-                console.log(counter, invCost, icost);
+                console.log(counter, invCost, icost, columns, cost);
 
                 if (icost > invCost) {
                     console.log('newer');
@@ -112,6 +259,13 @@
 
             requestAnimationFrame(renderLoop);
         });
+    }
+    
+    // Run when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runLayout);
+    } else {
+        runLayout();
     }
 </script>
 
