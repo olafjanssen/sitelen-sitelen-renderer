@@ -1,6 +1,6 @@
 # Sitelen Sitelen Renderer
 
-Modern Rust-based library and command-line tool to turn Toki Pona text into the **sitelen sitelen** non-linear writing style. This is a complete rewrite of the original JavaScript implementation, providing better performance, type safety, and a cleaner API while maintaining the same visual output and spirit of the original project.
+Modern Rust-based library and command-line tool to turn Toki Pona text into the **sitelen sitelen** non-linear writing style. This is a complete rewrite of the original JavaScript implementation.
 
 ![example](images/example.svg)
 
@@ -16,6 +16,8 @@ The project had since then been mostly dormant, with only a few minor fixes here
 - **WASM support**: Browser-compatible WebAssembly build for web integration
 - **High performance**: Significantly faster than the JavaScript version
 - **Same visual output**: Maintains compatibility with the original JavaScript implementation
+
+- **Soon**: Fixes such as adding a few *nimi sin* to complete the *nimi ku suli*.
 
 ## Installation
 
