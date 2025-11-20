@@ -19,6 +19,16 @@ The project had since then been mostly dormant, with only a few minor fixes here
 
 - **Soon**: Fixes such as adding a few *nimi sin* to complete the *nimi ku suli*.
 
+## Writing tips
+
+- **Lowercase text**: All Toki Pona text is expected in lower case
+- **Sentence endings**: All sentences should end with `.`, `!`, `?`, or `#` (for banners). The colon `:` and `,` are also recognized as punctuation
+- **Proper nouns in cartouches**: Syllables appear in cartouches by writing words starting with an upper case letter: `jan Pona` vs `jan pona`
+- **Multiple sentences**: Multiple sentences are automatically split by punctuation. Each sentence is rendered separately unless using `render_sentences()`
+- **Commas**: Commas before `la` and `li` are automatically removed, so `tenpo, la` becomes `tenpo la`
+- **Spacing**: Double spaces are automatically normalized to single spaces
+- **Context separators**: The `la` particle is recognized as a context separator and creates separate sentence parts
+
 ## Installation
 
 ### CLI
