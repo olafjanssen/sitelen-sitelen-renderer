@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" preserveAspectRatio="xMidYMin meet" viewBox="-45 -40.625 390 487.5" width="250">
+<style>ellipse,polygon,polyline,rect,circle,line,path{stroke-width:2;stroke:black;vector-effect:non-scaling-stroke} .filler{stroke:none;}</style>
+<svg width="300" height="406.25" viewBox="0 0 100 100" y="0" preserveAspectRatio="none" style="overflow: visible;">
+<svg viewBox="-1 19 102 102" preserveAspectRatio="none" height="13.846153846153847" width="100" x="0" y="86.15384615384616" style="overflow: visible;">
+<use xlink:href="#tp-wg-period" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+</svg>
+<use xlink:href="#tp-c-e-wide" transform="matrix(1.104,0,0,1.104,-5.200000000000003,-7.040000000000006)" height="36.92307692307692" width="100" x="0" y="49.23076923076923"></use>
+<svg viewBox="-11 -16 132 132" preserveAspectRatio="none" height="36.92307692307692" width="100" x="0" y="49.23076923076923" style="overflow: visible;">
+<use xlink:href="#tp-wg-sijelo" transform="matrix(1.2,0,0,1.2,-5,-10)" height="100" width="50" x="0" y="0"></use>
+<use xlink:href="#tp-wg-pona" transform="matrix(1.2,0,0,1.2,-15,-10)" height="100" width="50" x="50" y="0"></use>
+</svg>
+<rect transform="matrix(1.056,0,0,1.056,-3.7333333333333343,-1.37846153846154)" height="49.23076923076923" width="66.66666666666667" x="33.333333333333336" y="0" rx="9.469696969696969" ry="6.993006993006993" fill="#fff"></rect>
+<svg viewBox="-16 -16 132 132" preserveAspectRatio="none" height="49.23076923076923" width="66.66666666666667" x="33.333333333333336" y="0" style="overflow: visible;">
+<use xlink:href="#tp-wg-pana" transform="matrix(1.2,0,0,1.2,-10,-10)" height="100" width="100" x="0" y="0"></use>
+</svg>
+<svg viewBox="-1 -1 102 102" preserveAspectRatio="none" height="49.23076923076923" width="33.333333333333336" x="0" y="0" style="overflow: visible;">
+<use xlink:href="#tp-wg-pilin" transform="matrix(1.2,0,0,1.2,-10,-5)" height="50" width="100" x="0" y="0"></use>
+<use xlink:href="#tp-wg-pona" transform="matrix(1.2,0,0,1.2,-10,-15)" height="50" width="100" x="0" y="50"></use>
+</svg>
+</svg>
+<symbol viewBox="-2 -2 273 157" preserveAspectRatio="none" id="tp-c-e-wide">
+        <g id="ame-wide">
+            <g id="ame-wide_1_" fill="#FFF" stroke-miterlimit="10">
+                <path d="M239.74 115.89c20.69 0 24.452 8.273 24.452 18.48 0 10.206-3.763 18.48-24.45 18.48h-50.113"/>
+                <path d="M241.74 91.77c20.688 0 24.45 8.274 24.45 18.48s-3.762 18.482-24.45 18.482h-50.112"/>
+                <path d="M241.74 67.652c20.688 0 24.45 8.274 24.45 18.48s-3.762 18.482-24.45 18.482h-50.112"/>
+                <path d="M241.74 43.533c20.688 0 24.45 8.274 24.45 18.48s-3.762 18.482-24.45 18.482h-50.112"/>
+                <path d="M151.67 152.85h63.938c16.55 0 25.965-8.414 25.965-18.794V96.47v12.528V71.41c0-8.143 3.94-17.04 6.8-18.835 2.863-1.795 20.15-6.223 20.15-18.96v-12.32c0-10.38-.41-18.795-16.96-18.795h-71.11 1.852H38.42C5.32 2.5 2.5 19.33 2.5 40.088v75.175c0 20.76 2.82 37.588 35.92 37.588h143.885"/>
+            </g>
+        </g>
+    </symbol>
+<symbol viewBox="-2 -2 129.285 129.029" preserveAspectRatio="none" id="tp-wg-pana">
+        <g id="dipana" fill="#FFF" stroke-miterlimit="10">
+            <ellipse transform="rotate(-35.59 62.647 59.195)" cx="62.643" cy="59.195" rx="63.546" ry="52.84"/>
+            <path d="M73.45 97.503c22.717-16.26 34.39-44.738 25.015-58.02-9.515-13.48-37.642-7.608-59.515 9.77-25.185 20.01-40.76 50.894-35.25 63.75 4.5 10.5 12.5 9.5 18.25 9.5h68s19.5-.5 19.5-16.5c0-19-36-8.5-36-8.5z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M24.2 22.753c8.442 10.18 23.09 20.608 23.09 20.608m-34.63-6.357c7.17 8.645 19.61 17.5 19.61 17.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+    </symbol>
+<symbol viewBox="-2 -2 129 129.333" preserveAspectRatio="none" id="tp-wg-sijelo">
+        <g id="ipsijelo" fill="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+            <path d="M107.383 50.882c3.27-3.512 5.284-8.206 5.284-13.382 0-10.862-8.805-19.667-19.667-19.667-9.233 0-16.958 6.37-19.074 14.95-3.166-2.467-7.12-3.95-11.427-3.95-4.308 0-8.26 1.483-11.427 3.95-2.116-8.58-9.84-14.95-19.073-14.95-10.86 0-19.666 8.805-19.666 19.667 0 5.176 2.015 9.87 5.284 13.382C8.588 54.924 2.5 62.524 2.5 71.242v4.69c0 25.902 26.863 46.9 60 46.9s60-20.998 60-46.9v-4.69c0-8.718-6.088-16.318-15.117-20.36z"/>
+            <path d="M46.192 33.162a19.573 19.573 0 0 1-3.36-10.996C42.832 11.306 51.64 2.5 62.5 2.5s19.667 8.805 19.667 19.667c0 4.5-1.51 8.646-4.053 11.96"/>
+            <path d="M29.556 37.606c8.558-4.26 20.38-6.416 33.44-6.416 12.562 0 23.98 2.438 32.448 6.416"/>
+            <path d="M43.25 50.94c5-2.49 11.91-3.75 19.54-3.75 7.34 0 14.012 1.425 18.96 3.75"/>
+            <path d="M27.666 89.5c35 0 36-20 69.667-20" stroke-width="4.5"/>
+        </g>
+    </symbol>
+<symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-wg-pilin">
+        <g id="dkpilin" stroke-miterlimit="10">
+            <circle cx="62.5" cy="62.5" r="60" fill="#FFF"/>
+            <ellipse cx="62.5" cy="90.5" rx="35.322" ry="32" fill="#FFF"/>
+            <circle cx="62.5" cy="98.942" r="22.557" fill="none"/>
+            <path fill="none" stroke-linecap="round" stroke-linejoin="round" d="M111.005 56.422l-8.435 6.575M89.83 35.26l-4.764 10.247m-22.7-17.88v11.57m-27.463-3.93l4.764 10.244M13.73 56.433l8.436 6.574"/>
+        </g>
+    </symbol>
+<symbol viewBox="-2 -2 129.01999999999998 129" preserveAspectRatio="none" id="tp-wg-pona">
+        <g id="dqpona" fill="#FFF">
+            <ellipse cx="71.361" cy="40.749" rx="38.75" ry="10.251"/>
+            <path d="M12 38.5c-14.5-14.75-4.75-36 11.5-36 13 0 21 12.54 21 25.54 0-11.97 6.5-23.672 18-23.672 12.5 0 18 11.703 18 23.67C80.5 15.04 89.25 2.5 101.75 2.5c11.6 0 20.77 11.52 20.77 24.52l-.02 35.48c0 33.137-26.862 60-60 60s-60-26.863-60-60c0 0-.5-28.25 22-28.25 19.25 0 25.002 10.5 42.253 10.5 16.75 0 25.545-5.542 30.75-9.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+            <path d="M25.002 57.997c9.5-5.5 19.25 6 38 6.416 14.998.334 29.67-9.913 36.75-5.166 9.25 6.2 5.5 37.248-38.5 37.248s-44.35-33.807-36.25-38.498z" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+            <path d="M36.754 72.604s12 7.615 26.75 7.615 23-7.277 23-7.277" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/>
+        </g>
+    </symbol>
+<symbol viewBox="-2 -2 269 38" preserveAspectRatio="none" id="tp-wg-period">
+        <g id="period" fill="#FFF" stroke-miterlimit="10">
+            <path d="M262.707 22.562c0 5.074-3.526 9.188-7.875 9.188H10.375c-4.35 0-7.875-4.113-7.875-9.188 0-5.074 3.526-9.188 7.875-9.188h244.457c4.35 0 7.875 4.114 7.875 9.188z"/>
+            <path d="M262.707 11.688c0 5.074-3.526 9.188-7.875 9.188H10.375c-4.35 0-7.875-4.113-7.875-9.188S6.026 2.5 10.375 2.5h244.457c4.35 0 7.875 4.113 7.875 9.188z"/>
+        </g>
+    </symbol>
+</svg>
