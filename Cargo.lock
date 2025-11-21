@@ -773,7 +773,7 @@ checksum = "56199f7ddabf13fe5074ce809e7d3f42b42ae711800501b5b16ea82ad029c39d"
 
 [[package]]
 name = "sitelen-cli"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "anyhow",
  "clap",
@@ -783,7 +783,7 @@ dependencies = [
 
 [[package]]
 name = "sitelen-core"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "criterion",
  "regex",
@@ -797,7 +797,7 @@ dependencies = [
 
 [[package]]
 name = "sitelen-wasm"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "js-sys",
  "once_cell",

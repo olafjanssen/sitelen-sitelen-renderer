@@ -89,7 +89,26 @@ impl Parser {
         let re = Regex::new(r"[^.!?#]+[.!?#]+").unwrap();
         
         let matches: Vec<&str> = if let Some(_) = re.find(text) {
-            re.find_iter(text).map(|m| m.as_str()).collect()
+            let match_ranges: Vec<(usize, usize)> = re.find_iter(text)
+                .map(|m| (m.start(), m.end()))
+                .collect();
+            
+            let mut result: Vec<&str> = match_ranges.iter()
+                .map(|(start, end)| &text[*start..*end])
+                .collect();
+            
+            // Check if there's remaining text after the last match
+            if let Some(&(_, last_end)) = match_ranges.last() {
+                if last_end < text.len() {
+                    let remaining = text[last_end..].trim();
+                    if !remaining.is_empty() {
+                        // Add the remaining text as an additional sentence (without punctuation)
+                        result.push(remaining);
+                    }
+                }
+            }
+            
+            result
         } else {
             // Allow sentence fractions without punctuation
             vec![text]

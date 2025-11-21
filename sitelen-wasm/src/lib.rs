@@ -133,6 +133,9 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
         let sentences = pipeline.parse(text)
             .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
 
+        // Filter out sentences with no parts (they won't render anything useful)
+        let sentences: Vec<_> = sentences.into_iter().filter(|s| !s.parts.is_empty()).collect();
+
         if sentences.is_empty() {
             return Ok(String::new());
         }
@@ -143,8 +146,11 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
                 .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
             let svg = String::from_utf8(bytes)
                 .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
-            result.push_str(&svg);
-            result.push('\n');
+            // Only add non-empty SVGs (skip empty ones that might result from sentences with no layout options)
+            if !svg.trim().is_empty() && svg.contains("<svg") {
+                result.push_str(&svg);
+                result.push('\n');
+            }
         }
 
         Ok(result)
@@ -152,6 +158,9 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
         with_pipeline(|pipeline| {
             let sentences = pipeline.parse(text)
                 .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
+
+            // Filter out sentences with no parts (they won't render anything useful)
+            let sentences: Vec<_> = sentences.into_iter().filter(|s| !s.parts.is_empty()).collect();
 
             if sentences.is_empty() {
                 return Ok(String::new());
@@ -163,8 +172,11 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
                     .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
                 let svg = String::from_utf8(bytes)
                     .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
-                result.push_str(&svg);
-                result.push('\n');
+                // Only add non-empty SVGs (skip empty ones that might result from sentences with no layout options)
+                if !svg.trim().is_empty() && svg.contains("<svg") {
+                    result.push_str(&svg);
+                    result.push('\n');
+                }
             }
 
             Ok(result)

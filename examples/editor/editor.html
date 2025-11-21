@@ -426,7 +426,7 @@
 </head>
 <body>
     <div class="main-header">
-        <h1>Sitelen Sitelen <span class="wordmark">Editor</span></h1>
+        <h1>Sitelen Sitelen Renderer <span class="wordmark">Live Editor</span></h1>
         <div class="header-controls">
             <div class="scale-controls">
                 <button class="scale-btn" id="scaleDown" title="Decrease scale">−</button>
@@ -537,7 +537,7 @@
             try {
                 const container = document.createElement('div');
                 container.className = 'sentences-container';
-
+                
                 const html = render_sentences(text, null);
                 if (!html || html.trim().length === 0) {
                     preview.innerHTML = '<div class="preview-empty">No valid sentences found...</div>';

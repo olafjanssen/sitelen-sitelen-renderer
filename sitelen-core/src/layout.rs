@@ -151,7 +151,8 @@ impl LayoutEngine {
             } else {
                 let container_options = self.layout_container(&new_units);
                 for mut opt in container_options {
-                    opt.separator = separator.clone();
+                    // Don't set separator on the final compound - separators only apply to individual parts
+                    opt.separator = None;
                     opt.layout_type = layout_type;
                     compound_options.push(opt);
                 }
