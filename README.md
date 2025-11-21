@@ -2,6 +2,11 @@
 
 Modern Rust-based library and command-line tool to turn Toki Pona text into the **sitelen sitelen** non-linear writing style. This is a complete rewrite of the original JavaScript implementation.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Version](https://img.shields.io/badge/version-0.3.0-blue.svg)](https://github.com/olafjanssen/sitelen-sitelen-renderer/releases)
+[![Rust](https://img.shields.io/badge/rust-1.70+-orange.svg)](https://www.rust-lang.org/)
+[![GitHub stars](https://img.shields.io/github/stars/olafjanssen/sitelen-sitelen-renderer.svg?style=social&label=Star)](https://github.com/olafjanssen/sitelen-sitelen-renderer)
+
 ![example](images/example.svg)
 
 ## Motivation
@@ -91,14 +96,19 @@ For web integration, use the WASM module:
 ```javascript
 import init, { render_svg } from './pkg/sitelen_wasm.js';
 
-await init();
-const svgString = render_svg("mi pona.", null);
-document.body.innerHTML = svgString;
+async function main() {
+    await init();  // Initialize the WASM module (required before use)
+    const svgString = render_svg("mi pona.", null);
+    document.body.innerHTML = svgString;
+}
+
+main();
 ```
 
 With a specific layout ratio:
 
 ```javascript
+await init();
 const svgString = render_svg("ale li jo e tenpo. ale li pona.", 1.0);
 ```
 
@@ -107,7 +117,7 @@ const svgString = render_svg("ale li jo e tenpo. ale li pona.", 1.0);
 For automatic rendering of elements with the `data-sitelen` attribute (similar to the original JavaScript version):
 
 ```javascript
-import './pkg/auto.js';
+import './auto.js';
 ```
 
 Then in your HTML:
@@ -118,21 +128,20 @@ Then in your HTML:
 </section>
 ```
 
-You can also specify a preferred ratio:
-
-```html
-<section data-sitelen data-sitelen-ratio="1">
-    ale li jo e tenpo. ale li pona.
-</section>
-```
+The auto-rendering script automatically:
+- Initializes the WASM module
+- Renders all elements with `data-sitelen` attribute using `render_sentences()`
+- Injects default styles for proper display
+- Handles multiple sentences with column layout
 
 #### Available WASM Functions
 
-- `render_svg(text: string, optimal_ratio: number | null): string` - Render text to SVG string
-- `render_png(text: string, optimal_ratio: number | null): Uint8Array` - Render text to PNG bytes
+- `init(): Promise<void>` - Initialize the WASM module (automatically called on import, but should be awaited before use)
+- `render_svg(text: string, optimal_ratio?: number | null): string` - Render text to SVG string
+- `render_png(text: string, optimal_ratio?: number | null): Uint8Array` - Render text to PNG bytes
 - `get_layout_ratios(text: string): string` - Get all available layout ratios as JSON array
-- `render_sentences(text: string, optimal_ratio: number | null): string` - Render each sentence separately
-- `init_glyphs(sprite_content: string): void` - Initialize with custom glyph sprite (optional)
+- `render_sentences(text: string, optimal_ratio?: number | null): string` - Render each sentence separately, returns concatenated SVG strings
+- `init_glyphs(sprite_content: string): void` - Initialize with custom glyph sprite (optional, overrides default embedded sprite)
 
 ## Examples
 
