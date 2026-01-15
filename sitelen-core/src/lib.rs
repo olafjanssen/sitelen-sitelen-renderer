@@ -35,7 +35,7 @@ impl Pipeline {
     /// Create a new pipeline with custom configuration
     pub fn with_config(config: RenderConfig) -> Result<Self, Box<dyn std::error::Error>> {
         // Load sprite if available
-        let sprite_path = "images/sprite.css.svg";
+        let sprite_path = "images/new_sprite.css.svg";
         if let Ok(sprite_content) = fs::read_to_string(sprite_path) {
             init_glyph_registry(&sprite_content)?;
         }
