@@ -3440,7 +3440,7 @@
             <path fill="none" d="M53.554 89.25l6.328 13m12.832-13l6.328 13m12.83-13l6.33 13"/>
         </g>
     </symbol>
-    <!-- SHOWCASE: All Symbols -->
+        <!-- SHOWCASE: All Symbols -->
     <g id="showcase">
         <svg x="20" y="20" width="150" height="150" viewBox="0 0 298.495 245" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-c-cartouche"/>
@@ -3865,352 +3865,385 @@
         <svg x="820" y="1620" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-en"/>
         </svg>
-        <svg x="1020" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1020" y="1620" width="150" height="150" viewBox="-2 -2 172 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-epiku"/>
+        </svg>
+        <svg x="1220" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-esun"/>
         </svg>
-        <svg x="1220" y="1620" width="150" height="150" viewBox="-2 -2 277.443 42.247" preserveAspectRatio="xMidYMid meet">
+        <svg x="1420" y="1620" width="150" height="150" viewBox="-2 -2 277.443 42.247" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-exclamation"/>
         </svg>
-        <svg x="1420" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1620" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-ijo"/>
         </svg>
-        <svg x="1620" y="1620" width="150" height="150" viewBox="-2 -2 129 129.074" preserveAspectRatio="xMidYMid meet">
+        <svg x="1820" y="1620" width="150" height="150" viewBox="-2 -2 129 129.074" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-ike"/>
         </svg>
-        <svg x="1820" y="1620" width="150" height="150" viewBox="-2 -2 129 129.125" preserveAspectRatio="xMidYMid meet">
+        <svg x="2020" y="1620" width="150" height="150" viewBox="-2 -2 129 129.125" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-ilo"/>
         </svg>
-        <svg x="2020" y="1620" width="150" height="150" viewBox="-2 -2 129.03300000000002 129.03300000000002" preserveAspectRatio="xMidYMid meet">
+        <svg x="2220" y="1620" width="150" height="150" viewBox="-2 -2 129.03300000000002 129.03300000000002" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-insa"/>
         </svg>
-        <svg x="2220" y="1620" width="150" height="150" viewBox="-2 -2 133.5 129.358" preserveAspectRatio="xMidYMid meet">
+        <svg x="2420" y="1620" width="150" height="150" viewBox="-2 -2 133.5 129.358" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-jaki"/>
         </svg>
-        <svg x="2420" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="2620" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-jan"/>
         </svg>
-        <svg x="2620" y="1620" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="2820" y="1620" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-jasima"/>
+        </svg>
+        <svg x="3020" y="1620" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-jelo"/>
         </svg>
-        <svg x="2820" y="1620" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="3220" y="1620" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-jo"/>
         </svg>
-        <svg x="3020" y="1620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="20" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kala"/>
         </svg>
-        <svg x="3220" y="1620" width="150" height="150" viewBox="-2 -2 129 69" preserveAspectRatio="xMidYMid meet">
+        <svg x="220" y="1820" width="150" height="150" viewBox="-2 -2 129 69" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kalama"/>
         </svg>
-        <svg x="20" y="1820" width="150" height="150" viewBox="-2 -2 129.007 72.491" preserveAspectRatio="xMidYMid meet">
+        <svg x="420" y="1820" width="150" height="150" viewBox="-2 -2 129.007 72.491" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kama"/>
         </svg>
-        <svg x="220" y="1820" width="150" height="150" viewBox="-2 -2 129.087 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="620" y="1820" width="150" height="150" viewBox="-2 -2 129.087 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kasi"/>
         </svg>
-        <svg x="420" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="820" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-ken"/>
         </svg>
-        <svg x="620" y="1820" width="150" height="150" viewBox="-2 -2 74.857 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1020" y="1820" width="150" height="150" viewBox="-2 -2 74.857 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kepeken"/>
         </svg>
-        <svg x="820" y="1820" width="150" height="150" viewBox="-2 -2 129 117" preserveAspectRatio="xMidYMid meet">
+        <svg x="1220" y="1820" width="150" height="150" viewBox="-2 -2 129 117" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kijetesantakalu"/>
         </svg>
-        <svg x="1020" y="1820" width="150" height="150" viewBox="-2 -2 128.81799999999998 133.268" preserveAspectRatio="xMidYMid meet">
+        <svg x="1420" y="1820" width="150" height="150" viewBox="-2 -2 128.81799999999998 133.268" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kili"/>
         </svg>
-        <svg x="1220" y="1820" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1620" y="1820" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kin"/>
         </svg>
-        <svg x="1420" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1820" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kipisi"/>
         </svg>
-        <svg x="1620" y="1820" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="2020" y="1820" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kiwen"/>
         </svg>
-        <svg x="1820" y="1820" width="150" height="150" viewBox="-2 -2 129 129.667" preserveAspectRatio="xMidYMid meet">
+        <svg x="2220" y="1820" width="150" height="150" viewBox="-2 -2 129 129.667" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-ko"/>
         </svg>
-        <svg x="2020" y="1820" width="150" height="150" viewBox="-2 -2 129.007 72.491" preserveAspectRatio="xMidYMid meet">
+        <svg x="2420" y="1820" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-kokosila"/>
+        </svg>
+        <svg x="2620" y="1820" width="150" height="150" viewBox="-2 -2 129.007 72.491" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kon"/>
         </svg>
-        <svg x="2220" y="1820" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="2820" y="1820" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kule"/>
         </svg>
-        <svg x="2420" y="1820" width="150" height="150" viewBox="-2 -2 128 128" preserveAspectRatio="xMidYMid meet">
+        <svg x="3020" y="1820" width="150" height="150" viewBox="-2 -2 128 128" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kulupu"/>
         </svg>
-        <svg x="2620" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="3220" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-kute"/>
         </svg>
-        <svg x="2820" y="1820" width="150" height="150" viewBox="-2 -2 274.507 68.121" preserveAspectRatio="xMidYMid meet">
+        <svg x="20" y="2020" width="150" height="150" viewBox="-2 -2 274.507 68.121" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-la"/>
         </svg>
-        <svg x="3020" y="1820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-lape"/>
-        </svg>
-        <svg x="3220" y="1820" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-laso"/>
-        </svg>
-        <svg x="20" y="2020" width="150" height="150" viewBox="-2 -2 129.001 137.002" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-lawa"/>
-        </svg>
-        <svg x="220" y="2020" width="150" height="150" viewBox="-2 -2 132.125 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-len"/>
+        <svg x="220" y="2020" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-lanpan"/>
         </svg>
         <svg x="420" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-lape"/>
+        </svg>
+        <svg x="620" y="2020" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-laso"/>
+        </svg>
+        <svg x="820" y="2020" width="150" height="150" viewBox="-2 -2 129.001 137.002" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-lawa"/>
+        </svg>
+        <svg x="1020" y="2020" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-leko"/>
+        </svg>
+        <svg x="1220" y="2020" width="150" height="150" viewBox="-2 -2 132.125 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-len"/>
+        </svg>
+        <svg x="1420" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-lete"/>
         </svg>
-        <svg x="620" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1620" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-li"/>
         </svg>
-        <svg x="820" y="2020" width="150" height="150" viewBox="-2 -2 129 49" preserveAspectRatio="xMidYMid meet">
+        <svg x="1820" y="2020" width="150" height="150" viewBox="-2 -2 129 49" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-lili"/>
         </svg>
-        <svg x="1020" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="2020" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-linja"/>
         </svg>
-        <svg x="1220" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="2220" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-lipu"/>
         </svg>
-        <svg x="1420" y="2020" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="2420" y="2020" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-loje"/>
         </svg>
-        <svg x="1620" y="2020" width="150" height="150" viewBox="-2 -2 137.002 137.002" preserveAspectRatio="xMidYMid meet">
+        <svg x="2620" y="2020" width="150" height="150" viewBox="-2 -2 137.002 137.002" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-lon"/>
         </svg>
-        <svg x="1820" y="2020" width="150" height="150" viewBox="-2 -2 129.199 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="2820" y="2020" width="150" height="150" viewBox="-2 -2 129.199 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-luka"/>
         </svg>
-        <svg x="2020" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="3020" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-lukin"/>
         </svg>
-        <svg x="2220" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="3220" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-lupa"/>
         </svg>
-        <svg x="2420" y="2020" width="150" height="150" viewBox="-2 -2 129 128.75" preserveAspectRatio="xMidYMid meet">
+        <svg x="20" y="2220" width="150" height="150" viewBox="-2 -2 129 128.75" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-ma"/>
         </svg>
-        <svg x="2620" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="220" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-mama"/>
         </svg>
-        <svg x="2820" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="420" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-mani"/>
         </svg>
-        <svg x="3020" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="620" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-meli"/>
         </svg>
-        <svg x="3220" y="2020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-mi"/>
-        </svg>
-        <svg x="20" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-mije"/>
-        </svg>
-        <svg x="220" y="2220" width="150" height="150" viewBox="-2 -2 129.019 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-moku"/>
-        </svg>
-        <svg x="420" y="2220" width="150" height="150" viewBox="-2 -2 128.75 129.25" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-moli"/>
-        </svg>
-        <svg x="620" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-monsi"/>
-        </svg>
-        <svg x="820" y="2220" width="150" height="150" viewBox="-2 -2 129.137 128.79399999999998" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-mu"/>
+        <svg x="820" y="2220" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-meso"/>
         </svg>
         <svg x="1020" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-mun"/>
+            <use href="#tp-wg-mi"/>
         </svg>
         <svg x="1220" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-musi"/>
+            <use href="#tp-wg-mije"/>
         </svg>
-        <svg x="1420" y="2220" width="150" height="150" viewBox="-2 -2 128.12900000000002 69.25" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-mute"/>
+        <svg x="1420" y="2220" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-misikeke"/>
         </svg>
-        <svg x="1620" y="2220" width="150" height="150" viewBox="-2 -2 129 129.136" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-namako"/>
+        <svg x="1620" y="2220" width="150" height="150" viewBox="-2 -2 129.019 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-moku"/>
         </svg>
-        <svg x="1820" y="2220" width="150" height="150" viewBox="-2 -2 129.25 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-nanpa"/>
+        <svg x="1820" y="2220" width="150" height="150" viewBox="-2 -2 128.75 129.25" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-moli"/>
         </svg>
         <svg x="2020" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-nasa"/>
+            <use href="#tp-wg-monsi"/>
         </svg>
-        <svg x="2220" y="2220" width="150" height="150" viewBox="-2 -2 128.659 129.333" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-nasin"/>
+        <svg x="2220" y="2220" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-monsuta"/>
         </svg>
-        <svg x="2420" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-nena"/>
+        <svg x="2420" y="2220" width="150" height="150" viewBox="-2 -2 129.137 128.79399999999998" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-mu"/>
         </svg>
         <svg x="2620" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-ni"/>
+            <use href="#tp-wg-mun"/>
         </svg>
         <svg x="2820" y="2220" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-nimi"/>
+            <use href="#tp-wg-musi"/>
         </svg>
-        <svg x="3020" y="2220" width="150" height="150" viewBox="-2 -2 129.119 129.119" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-noka"/>
+        <svg x="3020" y="2220" width="150" height="150" viewBox="-2 -2 128.12900000000002 69.25" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-mute"/>
         </svg>
-        <svg x="3220" y="2220" width="150" height="150" viewBox="-2 -2 129 130.476" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-o"/>
+        <svg x="3220" y="2220" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-n"/>
         </svg>
-        <svg x="20" y="2420" width="150" height="150" viewBox="-2 -5 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-oko"/>
+        <svg x="20" y="2420" width="150" height="150" viewBox="-2 -2 129 129.136" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-namako"/>
         </svg>
-        <svg x="220" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-olin"/>
+        <svg x="220" y="2420" width="150" height="150" viewBox="-2 -2 129.25 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-nanpa"/>
         </svg>
         <svg x="420" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-ona"/>
+            <use href="#tp-wg-nasa"/>
         </svg>
-        <svg x="620" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-open"/>
+        <svg x="620" y="2420" width="150" height="150" viewBox="-2 -2 128.659 129.333" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-nasin"/>
         </svg>
-        <svg x="820" y="2420" width="150" height="150" viewBox="-2 -2 129 129.099" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-pakala"/>
+        <svg x="820" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-nena"/>
         </svg>
         <svg x="1020" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-pali"/>
+            <use href="#tp-wg-ni"/>
         </svg>
-        <svg x="1220" y="2420" width="150" height="150" viewBox="-2 -2 129 129.067" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-palisa"/>
+        <svg x="1220" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-nimi"/>
         </svg>
-        <svg x="1420" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-pan"/>
+        <svg x="1420" y="2420" width="150" height="150" viewBox="-2 -2 129.119 129.119" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-noka"/>
         </svg>
-        <svg x="1620" y="2420" width="150" height="150" viewBox="-2 -2 129.285 129.029" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-pana"/>
+        <svg x="1620" y="2420" width="150" height="150" viewBox="-2 -2 129 130.476" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-o"/>
         </svg>
-        <svg x="1820" y="2420" width="150" height="150" viewBox="-2 -2 269 38" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-period"/>
+        <svg x="1820" y="2420" width="150" height="150" viewBox="-2 -5 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-oko"/>
         </svg>
         <svg x="2020" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-pi"/>
+            <use href="#tp-wg-olin"/>
         </svg>
         <svg x="2220" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-ona"/>
+        </svg>
+        <svg x="2420" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-open"/>
+        </svg>
+        <svg x="2620" y="2420" width="150" height="150" viewBox="-2 -2 129 129.099" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-pakala"/>
+        </svg>
+        <svg x="2820" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-pali"/>
+        </svg>
+        <svg x="3020" y="2420" width="150" height="150" viewBox="-2 -2 129 129.067" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-palisa"/>
+        </svg>
+        <svg x="3220" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-pan"/>
+        </svg>
+        <svg x="20" y="2620" width="150" height="150" viewBox="-2 -2 129.285 129.029" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-pana"/>
+        </svg>
+        <svg x="220" y="2620" width="150" height="150" viewBox="-2 -2 269 38" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-period"/>
+        </svg>
+        <svg x="420" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-pi"/>
+        </svg>
+        <svg x="620" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-pilin"/>
         </svg>
-        <svg x="2420" y="2420" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="820" y="2620" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-pimeja"/>
         </svg>
-        <svg x="2620" y="2420" width="150" height="150" viewBox="-2 -2 128.999 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1020" y="2620" width="150" height="150" viewBox="-2 -2 128.999 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-pini"/>
         </svg>
-        <svg x="2820" y="2420" width="150" height="150" viewBox="-2 -2 128.70600000000002 129.20499999999998" preserveAspectRatio="xMidYMid meet">
+        <svg x="1220" y="2620" width="150" height="150" viewBox="-2 -2 128.70600000000002 129.20499999999998" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-pipi"/>
         </svg>
-        <svg x="3020" y="2420" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1420" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-poka"/>
         </svg>
-        <svg x="3220" y="2420" width="150" height="150" viewBox="-2 -2 129 128.667" preserveAspectRatio="xMidYMid meet">
+        <svg x="1620" y="2620" width="150" height="150" viewBox="-2 -2 129 128.667" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-poki"/>
         </svg>
-        <svg x="20" y="2620" width="150" height="150" viewBox="-2 -2 129.01999999999998 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="1820" y="2620" width="150" height="150" viewBox="-2 -2 129.01999999999998 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-pona"/>
         </svg>
-        <svg x="220" y="2620" width="150" height="150" viewBox="0 0 281.756 38.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="2020" y="2620" width="150" height="150" viewBox="0 0 281.756 38.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-question"/>
         </svg>
-        <svg x="420" y="2620" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="2220" y="2620" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sama"/>
         </svg>
-        <svg x="620" y="2620" width="150" height="150" viewBox="-2 -2 129 132.132" preserveAspectRatio="xMidYMid meet">
+        <svg x="2420" y="2620" width="150" height="150" viewBox="-2 -2 129 132.132" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-seli"/>
         </svg>
-        <svg x="820" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="2620" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-selo"/>
         </svg>
-        <svg x="1020" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="2820" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-seme"/>
         </svg>
-        <svg x="1220" y="2620" width="150" height="150" viewBox="-2 -2 129.003 129.002" preserveAspectRatio="xMidYMid meet">
+        <svg x="3020" y="2620" width="150" height="150" viewBox="-2 -2 129.003 129.002" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sewi"/>
         </svg>
-        <svg x="1420" y="2620" width="150" height="150" viewBox="-2 -2 129 129.333" preserveAspectRatio="xMidYMid meet">
+        <svg x="3220" y="2620" width="150" height="150" viewBox="-2 -2 129 129.333" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sijelo"/>
         </svg>
-        <svg x="1620" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="20" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sike"/>
         </svg>
-        <svg x="1820" y="2620" width="150" height="150" viewBox="-2 -2 129.333 73.667" preserveAspectRatio="xMidYMid meet">
+        <svg x="220" y="2820" width="150" height="150" viewBox="-2 -2 129.333 73.667" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sin"/>
         </svg>
-        <svg x="2020" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+        <svg x="420" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sina"/>
         </svg>
-        <svg x="2220" y="2620" width="150" height="150" viewBox="-2 -2 129.5 129.375" preserveAspectRatio="xMidYMid meet">
+        <svg x="620" y="2820" width="150" height="150" viewBox="-2 -2 129.5 129.375" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sinpin"/>
         </svg>
-        <svg x="2420" y="2620" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
+        <svg x="820" y="2820" width="150" height="150" viewBox="-2 -2 129 129.25" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-sitelen"/>
         </svg>
-        <svg x="2620" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-sona"/>
-        </svg>
-        <svg x="2820" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-soweli"/>
-        </svg>
-        <svg x="3020" y="2620" width="150" height="150" viewBox="-2 -2 129 130" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-suli"/>
-        </svg>
-        <svg x="3220" y="2620" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-suno"/>
-        </svg>
-        <svg x="20" y="2820" width="150" height="150" viewBox="-2 -2 129.333 129.667" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-supa"/>
-        </svg>
-        <svg x="220" y="2820" width="150" height="150" viewBox="-2 -2 129.144 129.111" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-suwi"/>
-        </svg>
-        <svg x="420" y="2820" width="150" height="150" viewBox="-2 -2 129.25 128.52800000000002" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-tan"/>
-        </svg>
-        <svg x="620" y="2820" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-taso"/>
-        </svg>
-        <svg x="820" y="2820" width="150" height="150" viewBox="-2 -2 129.25 128.678" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-tawa"/>
-        </svg>
-        <svg x="1020" y="2820" width="150" height="150" viewBox="-2 -2 129.03199999999998 129.132" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-telo"/>
+        <svg x="1020" y="2820" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-soko"/>
         </svg>
         <svg x="1220" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-tenpo"/>
+            <use href="#tp-wg-sona"/>
         </svg>
-        <svg x="1420" y="2820" width="150" height="150" viewBox="-2 -2 132.25 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-toki"/>
+        <svg x="1420" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-soweli"/>
         </svg>
-        <svg x="1620" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-tomo"/>
+        <svg x="1620" y="2820" width="150" height="150" viewBox="-2 -2 129 130" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-suli"/>
         </svg>
-        <svg x="1820" y="2820" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-tu"/>
+        <svg x="1820" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-suno"/>
         </svg>
-        <svg x="2020" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-unpa"/>
+        <svg x="2020" y="2820" width="150" height="150" viewBox="-2 -2 129.333 129.667" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-supa"/>
         </svg>
-        <svg x="2220" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-uta"/>
+        <svg x="2220" y="2820" width="150" height="150" viewBox="-2 -2 129.144 129.111" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-suwi"/>
         </svg>
-        <svg x="2420" y="2820" width="150" height="150" viewBox="-2 -2 129 128.733" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-utala"/>
+        <svg x="2420" y="2820" width="150" height="150" viewBox="-2 -2 129.25 128.52800000000002" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-tan"/>
         </svg>
-        <svg x="2620" y="2820" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-walo"/>
+        <svg x="2620" y="2820" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-taso"/>
         </svg>
-        <svg x="2820" y="2820" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-wan"/>
+        <svg x="2820" y="2820" width="150" height="150" viewBox="-2 -2 129.25 128.678" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-tawa"/>
         </svg>
-        <svg x="3020" y="2820" width="150" height="150" viewBox="-2 -2 128.75 128.938" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-waso"/>
+        <svg x="3020" y="2820" width="150" height="150" viewBox="-2 -2 129.03199999999998 129.132" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-telo"/>
         </svg>
         <svg x="3220" y="2820" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-wawa"/>
+            <use href="#tp-wg-tenpo"/>
         </svg>
-        <svg x="20" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
-            <use href="#tp-wg-weka"/>
+        <svg x="20" y="3020" width="150" height="150" viewBox="-2 -2 132.25 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-toki"/>
         </svg>
         <svg x="220" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-tomo"/>
+        </svg>
+        <svg x="420" y="3020" width="150" height="150" viewBox="-2 -2 168 168" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-tonsi"/>
+        </svg>
+        <svg x="620" y="3020" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-tu"/>
+        </svg>
+        <svg x="820" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-unpa"/>
+        </svg>
+        <svg x="1020" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-uta"/>
+        </svg>
+        <svg x="1220" y="3020" width="150" height="150" viewBox="-2 -2 129 128.733" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-utala"/>
+        </svg>
+        <svg x="1420" y="3020" width="150" height="150" viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-walo"/>
+        </svg>
+        <svg x="1620" y="3020" width="150" height="150" viewBox="-2 -2 69 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-wan"/>
+        </svg>
+        <svg x="1820" y="3020" width="150" height="150" viewBox="-2 -2 128.75 128.938" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-waso"/>
+        </svg>
+        <svg x="2020" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-wawa"/>
+        </svg>
+        <svg x="2220" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
+            <use href="#tp-wg-weka"/>
+        </svg>
+        <svg x="2420" y="3020" width="150" height="150" viewBox="-2 -2 129 129" preserveAspectRatio="xMidYMid meet">
             <use href="#tp-wg-wile"/>
         </svg>
     </g>
