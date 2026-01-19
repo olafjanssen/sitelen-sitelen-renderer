@@ -1,7 +1,6 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
+<!doctype html>
+<meta charset="utf-8" />
 <style>
-
     .node {
         stroke-width: 5px;
     }
@@ -18,1476 +17,1847 @@
         background: #ddd;
         padding: 0.5em;
     }
-
 </style>
 <body>
-<script src="http://d3js.org/d3.v3.min.js"></script>
- 
+    <script src="http://d3js.org/d3.v3.min.js"></script>
 
-<script type="module">
-    import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
-    await init();
-    // Make render_svg available globally for non-module scripts
-    window.render_svg = render_svg;
-    var data = [{
-        "words": "a",
-        "partofspeech": "Particle",
-        "frequencyrank": "1",
-        "definition": "PARTICLE (emphasis, emotion, or confirmation)",
-        "numberofsyllables": "1",
-        "category": "language",
-        "pairword": "o",
-        "gloss": "[emphasis]"
-    }, {
-        "words": "akesi",
-        "partofspeech": "Noun",
-        "frequencyrank": "115",
-        "definition": "NOUN non-cute animal; reptile, amphibian",
-        "numberofsyllables": "3",
-        "category": "people",
-        "pairword": "pipi",
-        "gloss": "lizard"
-    }, {
-        "words": "ala",
-        "partofspeech": "Adjective",
-        "frequencyrank": "13",
-        "definition": "ADJECTIVE no, not, zero",
-        "numberofsyllables": "2",
-        "category": "relational logic",
-        "pairword": "ali",
-        "gloss": "no"
-    }, {
-        "words": "alasa",
-        "partofspeech": "Verb",
-        "frequencyrank": "117",
-        "definition": "VERB to hunt, forage",
-        "numberofsyllables": "3",
-        "category": "interacting",
-        "pairword": "musi",
-        "gloss": "hunt"
-    }, {
-        "words": "ale",
-        "partofspeech": "Adjective, Noun, Number",
-        "frequencyrank": "22",
-        "definition": "ADJECTIVE all; abundant, countless, bountiful, every, plentiful NOUN abundance, everything, life, universe NUMBER 100",
-        "numberofsyllables": "2",
-        "category": "relational logic",
-        "pairword": "ala",
-        "gloss": "all"
-    }, {
-        "words": "anpa",
-        "partofspeech": "Adjective",
-        "frequencyrank": "88",
-        "definition": "ADJECTIVE bowing down, downward, humble, lowly, dependent",
-        "numberofsyllables": "2",
-        "category": "position/direction",
-        "pairword": "sewi",
-        "gloss": "low"
-    }, {
-        "words": "ante",
-        "partofspeech": "Adjective",
-        "frequencyrank": "47",
-        "definition": "ADJECTIVE different, altered, changed, other",
-        "numberofsyllables": "2",
-        "category": "distinction",
-        "pairword": "sama",
-        "gloss": "different"
-    }, {
-        "words": "anu",
-        "partofspeech": "Particle",
-        "frequencyrank": "67",
-        "definition": "PARTICLE or",
-        "numberofsyllables": "2",
-        "category": "relational logic",
-        "pairword": "en",
-        "gloss": "or"
-    }, {
-        "words": "awen",
-        "partofspeech": "Adjective, Pre-verb",
-        "frequencyrank": "66",
-        "definition": "ADJECTIVE enduring, kept, protected, safe, waiting, staying PRE-VERB to continue to",
-        "numberofsyllables": "2",
-        "category": "motion",
-        "pairword": "weka",
-        "gloss": "keep"
-    }, {
-        "words": "e",
-        "partofspeech": "Particle",
-        "frequencyrank": "4",
-        "definition": "PARTICLE (before the direct object)",
-        "numberofsyllables": "1",
-        "category": "basic grammar",
-        "pairword": "li",
-        "gloss": "[object]"
-    }, {
-        "words": "en",
-        "partofspeech": "Particle",
-        "frequencyrank": "15",
-        "definition": "PARTICLE (between multiple subjects)",
-        "numberofsyllables": "1",
-        "category": "relational logic",
-        "pairword": "anu",
-        "gloss": "[and]"
-    }, {
-        "words": "esun",
-        "partofspeech": "Noun",
-        "frequencyrank": "118",
-        "definition": "NOUN market, shop, fair, bazaar, business transaction",
-        "numberofsyllables": "2",
-        "category": "social structure",
-        "pairword": "mani",
-        "gloss": "shop"
-    }, {
-        "words": "ijo",
-        "partofspeech": "Noun",
-        "frequencyrank": "32",
-        "definition": "NOUN thing, phenomenon, object, matter",
-        "numberofsyllables": "2",
-        "category": "physical boundary",
-        "pairword": "kulupu",
-        "gloss": "thing"
-    }, {
-        "words": "ike",
-        "partofspeech": "Adjective",
-        "frequencyrank": "25",
-        "definition": "ADJECTIVE bad, negative; non-essential, irrelevant",
-        "numberofsyllables": "2",
-        "category": "likes/dislikes",
-        "pairword": "pona",
-        "gloss": "bad"
-    }, {
-        "words": "ilo",
-        "partofspeech": "Noun",
-        "frequencyrank": "63",
-        "definition": "NOUN tool, implement, machine, device",
-        "numberofsyllables": "2",
-        "category": "interacting",
-        "pairword": "kepeken",
-        "gloss": "tool"
-    }, {
-        "words": "insa",
-        "partofspeech": "Noun",
-        "frequencyrank": "83",
-        "definition": "NOUN centre, content, inside, between; internal organ, stomach",
-        "numberofsyllables": "2",
-        "category": "physical boundary",
-        "pairword": "selo",
-        "gloss": "inside"
-    }, {
-        "words": "jaki",
-        "partofspeech": "Adjective",
-        "frequencyrank": "94",
-        "definition": "ADJECTIVE disgusting, obscene, sickly, toxic, unclean, unsanitary",
-        "numberofsyllables": "2",
-        "category": "likes/dislikes",
-        "pairword": "suwi",
-        "gloss": "dirty"
-    }, {
-        "words": "jan",
-        "partofspeech": "Noun",
-        "frequencyrank": "7",
-        "definition": "NOUN human being, person, somebody",
-        "numberofsyllables": "1",
-        "category": "people",
-        "pairword": "soweli",
-        "gloss": "person"
-    }, {
-        "words": "jelo",
-        "partofspeech": "Ajdective",
-        "frequencyrank": "98",
-        "definition": "ADJECTIVE yellow, yellowish",
-        "numberofsyllables": "2",
-        "category": "color",
-        "pairword": "loje",
-        "gloss": "yellow"
-    }, {
-        "words": "jo",
-        "partofspeech": "Verb",
-        "frequencyrank": "30",
-        "definition": "VERB to have, carry, contain, hold",
-        "numberofsyllables": "1",
-        "category": "presence",
-        "pairword": "noka",
-        "gloss": "have"
-    }, {
-        "words": "kala",
-        "partofspeech": "Noun",
-        "frequencyrank": "108",
-        "definition": "NOUN fish, marine animal, sea creature",
-        "numberofsyllables": "2",
-        "category": "people",
-        "pairword": "waso",
-        "gloss": "fish"
-    }, {
-        "words": "kalama",
-        "partofspeech": "Verb",
-        "frequencyrank": "36",
-        "definition": "VERB to produce a sound; recite, utter aloud",
-        "numberofsyllables": "3",
-        "category": "perception",
-        "pairword": "kute",
-        "gloss": "sound"
-    }, {
-        "words": "kama",
-        "partofspeech": "Adjective, Pre-verb",
-        "frequencyrank": "16",
-        "definition": "ADJECTIVE arriving, coming, future, summoned PRE-VERB to become, manage to, succeed in",
-        "numberofsyllables": "2",
-        "category": "motion",
-        "pairword": "tawa",
-        "gloss": "come"
-    }, {
-        "words": "kasi",
-        "partofspeech": "Noun",
-        "frequencyrank": "79",
-        "definition": "NOUN plant, vegetation, herb, leaf",
-        "numberofsyllables": "2",
-        "category": "biological reproduction",
-        "pairword": "laso",
-        "gloss": "plant"
-    }, {
-        "words": "ken",
-        "partofspeech": "Pre-verb, Adjective",
-        "frequencyrank": "24",
-        "definition": "PRE-VERB to be able to, be allowed to, can, may ADJECTIVE possible",
-        "numberofsyllables": "1",
-        "category": "story language",
-        "pairword": "wile",
-        "gloss": "can"
-    }, {
-        "words": "kepeken",
-        "partofspeech": "Preposition",
-        "frequencyrank": "53",
-        "definition": "PREPOSITION to use, with, by means of",
-        "numberofsyllables": "3",
-        "category": "interacting",
-        "pairword": "ilo",
-        "gloss": "use"
-    }, {
-        "words": "kili",
-        "partofspeech": "Noun",
-        "frequencyrank": "62",
-        "definition": "NOUN fruit, vegetable, mushroom",
-        "numberofsyllables": "2",
-        "category": "biological reproduction",
-        "pairword": "unpa",
-        "gloss": "fruit"
-    }, {
-        "words": "kiwen",
-        "partofspeech": "Noun",
-        "frequencyrank": "38",
-        "definition": "NOUN hard object, metal, rock, stone",
-        "numberofsyllables": "2",
-        "category": "forms of matter",
-        "pairword": "ko",
-        "gloss": "rock"
-    }, {
-        "words": "ko",
-        "partofspeech": "Noun",
-        "frequencyrank": "111",
-        "definition": "NOUN clay, clinging form, dough, semi-solid, paste, powder",
-        "numberofsyllables": "1",
-        "category": "forms of matter",
-        "pairword": "kiwen",
-        "gloss": "paste"
-    }, {
-        "words": "kon",
-        "partofspeech": "Noun",
-        "frequencyrank": "74",
-        "definition": "NOUN air, breath; essence, spirit; hidden reality, unseen agent",
-        "numberofsyllables": "1",
-        "category": "forms of matter",
-        "pairword": "telo",
-        "gloss": "air"
-    }, {
-        "words": "kule",
-        "partofspeech": "Adjective",
-        "frequencyrank": "103",
-        "definition": "ADJECTIVE colourful, pigmented, painted",
-        "numberofsyllables": "2",
-        "category": "color",
-        "pairword": "sijelo",
-        "gloss": "color"
-    }, {
-        "words": "kulupu",
-        "partofspeech": "Noun",
-        "frequencyrank": "60",
-        "definition": "NOUN community, company, group, nation, society, tribe",
-        "numberofsyllables": "3",
-        "category": "distinction",
-        "pairword": "ijo",
-        "gloss": "group"
-    }, {
-        "words": "kute",
-        "partofspeech": "Noun,Verb",
-        "frequencyrank": "68",
-        "definition": "NOUN ear VERB to hear, listen; pay attention to, obey",
-        "numberofsyllables": "2",
-        "category": "perception",
-        "pairword": "kalama",
-        "gloss": "hear"
-    }, {
-        "words": "la",
-        "partofspeech": "Particle",
-        "frequencyrank": "8",
-        "definition": "PARTICLE (between the context phrase and the main sentence)",
-        "numberofsyllables": "1",
-        "category": "basic grammar",
-        "pairword": "pi",
-        "gloss": "[context]"
-    }, {
-        "words": "lape",
-        "partofspeech": "Adjective",
-        "frequencyrank": "75",
-        "definition": "ADJECTIVE sleeping, resting",
-        "numberofsyllables": "2",
-        "category": "biological activities",
-        "pairword": "pali",
-        "gloss": "sleep"
-    }, {
-        "words": "laso",
-        "partofspeech": "Adjective",
-        "frequencyrank": "80",
-        "definition": "ADJECTIVE blue, green",
-        "numberofsyllables": "2",
-        "category": "color",
-        "pairword": "kasi",
-        "gloss": "green"
-    }, {
-        "words": "lawa",
-        "partofspeech": "Noun, Verb",
-        "frequencyrank": "34",
-        "definition": "NOUN head, mind VERB to control, direct, guide, lead, own, plan, regulate, rule",
-        "numberofsyllables": "2",
-        "category": "body part",
-        "pairword": "pilin",
-        "gloss": "head"
-    }, {
-        "words": "len",
-        "partofspeech": "Noun",
-        "frequencyrank": "95",
-        "definition": "NOUN cloth, clothing, fabric, textile; cover, layer of privacy",
-        "numberofsyllables": "1",
-        "category": "artifacts",
-        "pairword": "poki",
-        "gloss": "cloth"
-    }, {
-        "words": "lete",
-        "partofspeech": "Adjective",
-        "frequencyrank": "110",
-        "definition": "ADJECTIVE cold, cool; uncooked, raw",
-        "numberofsyllables": "2",
-        "category": "sky",
-        "pairword": "seli",
-        "gloss": "cold"
-    }, {
-        "words": "li",
-        "partofspeech": "Particle",
-        "frequencyrank": "3",
-        "definition": "PARTICLE (between any subject except 'mi' alone or 'sina' alone and its verb; also to introduce a new verb for the same subject)",
-        "numberofsyllables": "1",
-        "category": "basic grammar",
-        "pairword": "e",
-        "gloss": "[predicate]"
-    }, {
-        "words": "lili",
-        "partofspeech": "Adjective",
-        "frequencyrank": "41",
-        "definition": "ADJECTIVE little, small, short; few; a bit; young",
-        "numberofsyllables": "2",
-        "category": "characterization",
-        "pairword": "suli",
-        "gloss": "small"
-    }, {
-        "words": "linja",
-        "partofspeech": "Noun",
-        "frequencyrank": "102",
-        "definition": "NOUN long and flexible thing; cord, hair, rope, thread, yarn",
-        "numberofsyllables": "2",
-        "category": "basic forms",
-        "pairword": "sike",
-        "gloss": "line"
-    }, {
-        "words": "lipu",
-        "partofspeech": "Noun",
-        "frequencyrank": "81",
-        "definition": "NOUN flat object; book, document, card, paper, record, website",
-        "numberofsyllables": "2",
-        "category": "artifacts",
-        "pairword": "sitelen",
-        "gloss": "paper"
-    }, {
-        "words": "loje",
-        "partofspeech": "Adjective",
-        "frequencyrank": "89",
-        "definition": "ADJECTIVE red, reddish",
-        "numberofsyllables": "2",
-        "category": "color",
-        "pairword": "jelo",
-        "gloss": "red"
-    }, {
-        "words": "lon",
-        "partofspeech": "Preposition",
-        "frequencyrank": "23",
-        "definition": "PREPOSITION located at, present at, real, true, existing",
-        "numberofsyllables": "1",
-        "category": "space",
-        "pairword": "sin",
-        "gloss": "at"
-    }, {
-        "words": "luka",
-        "partofspeech": "Noun, Number",
-        "frequencyrank": "29",
-        "definition": "NOUN arm, hand, tactile organ NUMBER five",
-        "numberofsyllables": "2",
-        "category": "body part",
-        "pairword": "poka",
-        "gloss": "hand"
-    }, {
-        "words": "lukin",
-        "partofspeech": "Noun, Verb, Pre-verb",
-        "frequencyrank": "31",
-        "definition": "NOUN eye VERB to look at, see, examine, observe, read, watch PRE-VERB to seek, look for, try to",
-        "numberofsyllables": "2",
-        "category": "perception",
-        "pairword": "uta",
-        "gloss": "see"
-    }, {
-        "words": "lupa",
-        "partofspeech": "Noun",
-        "frequencyrank": "54",
-        "definition": "NOUN door, hole, orifice, window",
-        "numberofsyllables": "2",
-        "category": "interacting",
-        "pairword": "nena",
-        "gloss": "hole"
-    }, {
-        "words": "ma",
-        "partofspeech": "Noun",
-        "frequencyrank": "28",
-        "definition": "NOUN earth, land; outdoors, world; country, territory; soil",
-        "numberofsyllables": "1",
-        "category": "space",
-        "pairword": "tenpo",
-        "gloss": "land"
-    }, {
-        "words": "mama",
-        "partofspeech": "Noun",
-        "frequencyrank": "76",
-        "definition": "NOUN parent, ancestor; creator, originator; caretaker, sustainer",
-        "numberofsyllables": "2",
-        "category": "biological reproduction",
-        "pairword": "pana",
-        "gloss": "parent"
-    }, {
-        "words": "mani",
-        "partofspeech": "Noun",
-        "frequencyrank": "104",
-        "definition": "NOUN money, cash, savings, wealth; large domesticated animal",
-        "numberofsyllables": "2",
-        "category": "social structure",
-        "pairword": "esun",
-        "gloss": "money"
-    }, {
-        "words": "meli",
-        "partofspeech": "Noun",
-        "frequencyrank": "48",
-        "definition": "NOUN woman, female, feminine person; wife",
-        "numberofsyllables": "2",
-        "category": "biological reproduction",
-        "pairword": "mije",
-        "gloss": "woman"
-    }, {
-        "words": "mi",
-        "partofspeech": "Noun",
-        "frequencyrank": "6",
-        "definition": "NOUN I, me, we, us",
-        "numberofsyllables": "1",
-        "category": "pronouns",
-        "pairword": "sina",
-        "gloss": "me"
-    }, {
-        "words": "mije",
-        "partofspeech": "Noun",
-        "frequencyrank": "64",
-        "definition": "NOUN man, male, masculine person; husband",
-        "numberofsyllables": "2",
-        "category": "biological reproduction",
-        "pairword": "meli",
-        "gloss": "man"
-    }, {
-        "words": "moku",
-        "partofspeech": "Verb",
-        "frequencyrank": "27",
-        "definition": "VERB to eat, drink, consume, swallow, ingest",
-        "numberofsyllables": "2",
-        "category": "biological activities",
-        "pairword": "pan",
-        "gloss": "eat"
-    }, {
-        "words": "moli",
-        "partofspeech": "Adjective",
-        "frequencyrank": "58",
-        "definition": "ADJECTIVE dead, dying",
-        "numberofsyllables": "2",
-        "category": "motion",
-        "pairword": "pakala",
-        "gloss": "dead"
-    }, {
-        "words": "monsi",
-        "partofspeech": "Noun",
-        "frequencyrank": "107",
-        "definition": "NOUN back, behind, rear",
-        "numberofsyllables": "2",
-        "category": "position/direction",
-        "pairword": "sinpin",
-        "gloss": "back"
-    }, {
-        "words": "mu",
-        "partofspeech": "Particle",
-        "frequencyrank": "96",
-        "definition": "PARTICLE (animal noise or communication)",
-        "numberofsyllables": "1",
-        "category": "language",
-        "pairword": "nimi",
-        "gloss": "[meow]"
-    }, {
-        "words": "mun",
-        "partofspeech": "Noun",
-        "frequencyrank": "112",
-        "definition": "NOUN moon, night sky object, star",
-        "numberofsyllables": "1",
-        "category": "sky",
-        "pairword": "suno",
-        "gloss": "moon"
-    }, {
-        "words": "musi",
-        "partofspeech": "Adjective",
-        "frequencyrank": "69",
-        "definition": "ADJECTIVE artistic, entertaining, frivolous, playful, recreational",
-        "numberofsyllables": "2",
-        "category": "biological activities",
-        "pairword": "alasa",
-        "gloss": "play"
-    }, {
-        "words": "mute",
-        "partofspeech": "Adjective, Noun",
-        "frequencyrank": "18",
-        "definition": "ADJECTIVE many, a lot, more, much, several, very NOUN quantity",
-        "numberofsyllables": "2",
-        "category": "numbers",
-        "pairword": "nanpa",
-        "gloss": "many"
-    }, {
-        "words": "nanpa",
-        "partofspeech": "Particle",
-        "frequencyrank": "55",
-        "definition": "PARTICLE -th (ordinal number) NOUN numbers",
-        "numberofsyllables": "2",
-        "category": "numbers",
-        "pairword": "mute",
-        "gloss": "number"
-    }, {
-        "words": "nasa",
-        "partofspeech": "Adjective",
-        "frequencyrank": "44",
-        "definition": "ADJECTIVE unusual, strange; foolish, crazy; drunk, intoxicated",
-        "numberofsyllables": "2",
-        "category": "characterization",
-        "pairword": "wawa",
-        "gloss": "strange"
-    }, {
-        "words": "nasin",
-        "partofspeech": "Noun",
-        "frequencyrank": "59",
-        "definition": "NOUN way, custom, doctrine, method, path, road",
-        "numberofsyllables": "2",
-        "category": "social structure",
-        "pairword": "tomo",
-        "gloss": "way"
-    }, {
-        "words": "nena",
-        "partofspeech": "Noun",
-        "frequencyrank": "105",
-        "definition": "NOUN bump, button, hill, mountain, nose, protuberance",
-        "numberofsyllables": "2",
-        "category": "body part",
-        "pairword": "lupa",
-        "gloss": "mountain"
-    }, {
-        "words": "ni",
-        "partofspeech": "Adjective",
-        "frequencyrank": "9",
-        "definition": "ADJECTIVE that, this",
-        "numberofsyllables": "1",
-        "category": "pronouns",
-        "pairword": "ona",
-        "gloss": "this"
-    }, {
-        "words": "nimi",
-        "partofspeech": "Noun",
-        "frequencyrank": "43",
-        "definition": "NOUN name, word",
-        "numberofsyllables": "2",
-        "category": "language",
-        "pairword": "mu",
-        "gloss": "name"
-    }, {
-        "words": "noka",
-        "partofspeech": "Noun",
-        "frequencyrank": "99",
-        "definition": "NOUN foot, leg, organ of locomotion; bottom, lower part",
-        "numberofsyllables": "2",
-        "category": "body part",
-        "pairword": "jo",
-        "gloss": "foot"
-    }, {
-        "words": "o",
-        "partofspeech": "Particle",
-        "frequencyrank": "21",
-        "definition": "PARTICLE hey! O! (vocative or imperative)",
-        "numberofsyllables": "1",
-        "category": "basic grammar",
-        "pairword": "a",
-        "gloss": "[command]"
-    }, {
-        "words": "olin",
-        "partofspeech": "Verb",
-        "frequencyrank": "61",
-        "definition": "VERB to love, have compassion for, respect, show affection to",
-        "numberofsyllables": "2",
-        "category": "between people",
-        "pairword": "utala",
-        "gloss": "love"
-    }, {
-        "words": "ona",
-        "partofspeech": "Noun",
-        "frequencyrank": "11",
-        "definition": "NOUN he, she, it, they",
-        "numberofsyllables": "2",
-        "category": "pronouns",
-        "pairword": "ni",
-        "gloss": "it"
-    }, {
-        "words": "open",
-        "partofspeech": "Verb",
-        "frequencyrank": "65",
-        "definition": "VERB to begin, start; open; turn on",
-        "numberofsyllables": "2",
-        "category": "interacting",
-        "pairword": "pini",
-        "gloss": "open"
-    }, {
-        "words": "pakala",
-        "partofspeech": "Adjective",
-        "frequencyrank": "84",
-        "definition": "ADJECTIVE botched, broken, damaged, harmed, messed up",
-        "numberofsyllables": "3",
-        "category": "between people",
-        "pairword": "moli",
-        "gloss": "break"
-    }, {
-        "words": "pali",
-        "partofspeech": "Verb",
-        "frequencyrank": "33",
-        "definition": "VERB to do, take action on, work on; build, make, prepare",
-        "numberofsyllables": "2",
-        "category": "biological activities",
-        "pairword": "lape",
-        "gloss": "do"
-    }, {
-        "words": "palisa",
-        "partofspeech": "Noun",
-        "frequencyrank": "82",
-        "definition": "NOUN long hard thing; branch, rod, stick",
-        "numberofsyllables": "3",
-        "category": "basic forms",
-        "pairword": "supa",
-        "gloss": "stick"
-    }, {
-        "words": "pan",
-        "partofspeech": "Noun",
-        "frequencyrank": "119",
-        "definition": "NOUN cereal, grain; barley, corn, oat, rice, wheat; bread, pasta",
-        "numberofsyllables": "1",
-        "category": "social structure",
-        "pairword": "moku",
-        "gloss": "food"
-    }, {
-        "words": "pana",
-        "partofspeech": "Verb",
-        "frequencyrank": "45",
-        "definition": "VERB to give, send, emit, provide, put, release",
-        "numberofsyllables": "2",
-        "category": "between people",
-        "pairword": "mama",
-        "gloss": "give"
-    }, {
-        "words": "pi",
-        "partofspeech": "Particle",
-        "frequencyrank": "12",
-        "definition": "PARTICLE of",
-        "numberofsyllables": "1",
-        "category": "basic grammar",
-        "pairword": "la",
-        "gloss": "of"
-    }, {
-        "words": "pilin",
-        "partofspeech": "Noun, Adjective",
-        "frequencyrank": "51",
-        "definition": "NOUN heart (physical or emotional) ADJECTIVE feeling (an emotion, a direct experience)",
-        "numberofsyllables": "2",
-        "category": "perception",
-        "pairword": "lawa",
-        "gloss": "feel"
-    }, {
-        "words": "pimeja",
-        "partofspeech": "Adjective",
-        "frequencyrank": "78",
-        "definition": "ADJECTIVE black, dark, unlit",
-        "numberofsyllables": "3",
-        "category": "color",
-        "pairword": "walo",
-        "gloss": "black"
-    }, {
-        "words": "pini",
-        "partofspeech": "Adjective",
-        "frequencyrank": "70",
-        "definition": "ADJECTIVE ago, completed, ended, finished, past",
-        "numberofsyllables": "2",
-        "category": "motion",
-        "pairword": "open",
-        "gloss": "end"
-    }, {
-        "words": "pipi",
-        "partofspeech": "Noun",
-        "frequencyrank": "109",
-        "definition": "NOUN bug, insect, ant, spider",
-        "numberofsyllables": "2",
-        "category": "people",
-        "pairword": "akesi",
-        "gloss": "bug"
-    }, {
-        "words": "poka",
-        "partofspeech": "Noun",
-        "frequencyrank": "113",
-        "definition": "NOUN hip, side; next to, nearby, vicinity",
-        "numberofsyllables": "2",
-        "category": "presence",
-        "pairword": "luka",
-        "gloss": "near"
-    }, {
-        "words": "poki",
-        "partofspeech": "Noun",
-        "frequencyrank": "100",
-        "definition": "NOUN container, bag, bowl, box, cup, cupboard, drawer, vessel",
-        "numberofsyllables": "2",
-        "category": "artifacts",
-        "pairword": "len",
-        "gloss": "box"
-    }, {
-        "words": "pona",
-        "partofspeech": "Adjective",
-        "frequencyrank": "5",
-        "definition": "ADJECTIVE good, positive, useful; friendly, peaceful; simple",
-        "numberofsyllables": "2",
-        "category": "likes/dislikes",
-        "pairword": "ike",
-        "gloss": "good"
-    }, {
-        "words": "pu",
-        "partofspeech": "Adjective",
-        "frequencyrank": "120",
-        "definition": "ADJECTIVE interacting with the official Toki Pona book",
-        "numberofsyllables": "1",
-        "category": "language",
-        "pairword": "taso",
-        "gloss": "The Book"
-    }, {
-        "words": "sama",
-        "partofspeech": "Adjective, Preposition",
-        "frequencyrank": "52",
-        "definition": "ADJECTIVE same, similar; each other; sibling, peer, fellow PREPOSITION as, like",
-        "numberofsyllables": "2",
-        "category": "distinction",
-        "pairword": "ante",
-        "gloss": "same"
-    }, {
-        "words": "seli",
-        "partofspeech": "Adjective",
-        "frequencyrank": "101",
-        "definition": "ADJECTIVE fire; cooking element, chemical reaction, heat source",
-        "numberofsyllables": "2",
-        "category": "sky",
-        "pairword": "lete",
-        "gloss": "fire"
-    }, {
-        "words": "selo",
-        "partofspeech": "Noun",
-        "frequencyrank": "106",
-        "definition": "NOUN outer form, outer layer; bark, peel, shell, skin; boundary",
-        "numberofsyllables": "2",
-        "category": "physical boundary",
-        "pairword": "insa",
-        "gloss": "skin"
-    }, {
-        "words": "seme",
-        "partofspeech": "Particle",
-        "frequencyrank": "39",
-        "definition": "PARTICLE what? which?",
-        "numberofsyllables": "2",
-        "category": "relational logic",
-        "pairword": "tan",
-        "gloss": "what"
-    }, {
-        "words": "sewi",
-        "partofspeech": "Noun, Adjective",
-        "frequencyrank": "77",
-        "definition": "NOUN area above, highest part, something elevated ADJECTIVE awe-inspiring, divine, sacred, supernatural",
-        "numberofsyllables": "2",
-        "category": "position/direction",
-        "pairword": "anpa",
-        "gloss": "high"
-    }, {
-        "words": "sijelo",
-        "partofspeech": "Noun",
-        "frequencyrank": "85",
-        "definition": "NOUN body (of person or animal), physical state, torso",
-        "numberofsyllables": "3",
-        "category": "perception",
-        "pairword": "kule",
-        "gloss": "body"
-    }, {
-        "words": "sike",
-        "partofspeech": "Noun, Adjective",
-        "frequencyrank": "91",
-        "definition": "NOUN round or circular thing; ball, circle, cycle, sphere, wheel ADJECTIVE of one year",
-        "numberofsyllables": "2",
-        "category": "basic forms",
-        "pairword": "linja",
-        "gloss": "circle"
-    }, {
-        "words": "sin",
-        "partofspeech": "Adjective",
-        "frequencyrank": "46",
-        "definition": "ADJECTIVE new, fresh; additional, another, extra",
-        "numberofsyllables": "1",
-        "category": "distinction",
-        "pairword": "lon",
-        "gloss": "new"
-    }, {
-        "words": "sina",
-        "partofspeech": "Noun",
-        "frequencyrank": "14",
-        "definition": "NOUN you",
-        "numberofsyllables": "2",
-        "category": "pronouns",
-        "pairword": "mi",
-        "gloss": "you"
-    }, {
-        "words": "sinpin",
-        "partofspeech": "Noun",
-        "frequencyrank": "92",
-        "definition": "NOUN face, foremost, front, wall",
-        "numberofsyllables": "2",
-        "category": "position/direction",
-        "pairword": "monsi",
-        "gloss": "face"
-    }, {
-        "words": "sitelen",
-        "partofspeech": "Noun",
-        "frequencyrank": "57",
-        "definition": "NOUN image, picture, representation, symbol, mark, writing",
-        "numberofsyllables": "3",
-        "category": "artifacts",
-        "pairword": "lipu",
-        "gloss": "picture"
-    }, {
-        "words": "sona",
-        "partofspeech": "Verb, Pre-verb",
-        "frequencyrank": "17",
-        "definition": "VERB to know, be skilled in, be wise about, have information on PRE-VERB to know how to",
-        "numberofsyllables": "2",
-        "category": "story language",
-        "pairword": "toki",
-        "gloss": "know"
-    }, {
-        "words": "soweli",
-        "partofspeech": "Noun",
-        "frequencyrank": "71",
-        "definition": "NOUN animal, beast, land mammal",
-        "numberofsyllables": "3",
-        "category": "people",
-        "pairword": "jan",
-        "gloss": "animal"
-    }, {
-        "words": "suli",
-        "partofspeech": "Adjective",
-        "frequencyrank": "26",
-        "definition": "ADJECTIVE big, heavy, large, long, tall; important; adult",
-        "numberofsyllables": "2",
-        "category": "characterization",
-        "pairword": "lili",
-        "gloss": "big"
-    }, {
-        "words": "suno",
-        "partofspeech": "Noun",
-        "frequencyrank": "56",
-        "definition": "NOUN sun; light, brightness, glow, radiance, shine; light source",
-        "numberofsyllables": "2",
-        "category": "sky",
-        "pairword": "mun",
-        "gloss": "sun"
-    }, {
-        "words": "supa",
-        "partofspeech": "Noun",
-        "frequencyrank": "114",
-        "definition": "NOUN horizontal surface, thing to put or rest something on",
-        "numberofsyllables": "2",
-        "category": "physical boundary",
-        "pairword": "palisa",
-        "gloss": "table"
-    }, {
-        "words": "suwi",
-        "partofspeech": "Adjective",
-        "frequencyrank": "116",
-        "definition": "ADJECTIVE sweet, fragrant; cute, innocent, adorable",
-        "numberofsyllables": "2",
-        "category": "likes/dislikes",
-        "pairword": "jaki",
-        "gloss": "sweet"
-    }, {
-        "words": "tan",
-        "partofspeech": "Preposition",
-        "frequencyrank": "49",
-        "definition": "PREPOSITION by, from, because of",
-        "numberofsyllables": "1",
-        "category": "space",
-        "pairword": "seme",
-        "gloss": "from"
-    }, {
-        "words": "taso",
-        "partofspeech": "Particle, Adjective",
-        "frequencyrank": "50",
-        "definition": "PARTICLE but, however ADJECTIVE only",
-        "numberofsyllables": "2",
-        "category": "numbers",
-        "pairword": "pu",
-        "gloss": "but"
-    }, {
-        "words": "tawa",
-        "partofspeech": "Preposition, Adjective",
-        "frequencyrank": "10",
-        "definition": "PREPOSITION going to, toward; for; from the perspective of ADJECTIVE moving",
-        "numberofsyllables": "2",
-        "category": "space",
-        "pairword": "kama",
-        "gloss": "to"
-    }, {
-        "words": "telo",
-        "partofspeech": "Noun",
-        "frequencyrank": "42",
-        "definition": "NOUN water, liquid, fluid, wet substance; beverage",
-        "numberofsyllables": "2",
-        "category": "forms of matter",
-        "pairword": "kon",
-        "gloss": "water"
-    }, {
-        "words": "tenpo",
-        "partofspeech": "Noun",
-        "frequencyrank": "19",
-        "definition": "NOUN time, duration, moment, occation, period, situation",
-        "numberofsyllables": "2",
-        "category": "sky",
-        "pairword": "ma",
-        "gloss": "time"
-    }, {
-        "words": "toki",
-        "partofspeech": "Verb",
-        "frequencyrank": "2",
-        "definition": "VERB to communicate, say, speak, say, talk, use language, think",
-        "numberofsyllables": "2",
-        "category": "language",
-        "pairword": "sona",
-        "gloss": "talk"
-    }, {
-        "words": "tomo",
-        "partofspeech": "Noun",
-        "frequencyrank": "37",
-        "definition": "NOUN indoor space; building, home, house, room",
-        "numberofsyllables": "2",
-        "category": "social structure",
-        "pairword": "nasin",
-        "gloss": "house"
-    }, {
-        "words": "tu",
-        "partofspeech": "Number",
-        "frequencyrank": "40",
-        "definition": "NUMBER two",
-        "numberofsyllables": "1",
-        "category": "numbers",
-        "pairword": "wan",
-        "gloss": "two"
-    }, {
-        "words": "unpa",
-        "partofspeech": "Verb",
-        "frequencyrank": "72",
-        "definition": "VERB to have sexual or marital relations with",
-        "numberofsyllables": "2",
-        "category": "biological activities",
-        "pairword": "kili",
-        "gloss": "sex"
-    }, {
-        "words": "uta",
-        "partofspeech": "Noun",
-        "frequencyrank": "97",
-        "definition": "NOUN mouth, lips, oral cavity, jaw",
-        "numberofsyllables": "2",
-        "category": "body part",
-        "pairword": "lukin",
-        "gloss": "mouth"
-    }, {
-        "words": "utala",
-        "partofspeech": "Verb",
-        "frequencyrank": "73",
-        "definition": "VERB to battle, challenge, compete against, struggle against",
-        "numberofsyllables": "3",
-        "category": "between people",
-        "pairword": "olin",
-        "gloss": "fight"
-    }, {
-        "words": "walo",
-        "partofspeech": "Adjective",
-        "frequencyrank": "86",
-        "definition": "ADJECTIVE white, whitish; light-coloured, pale",
-        "numberofsyllables": "2",
-        "category": "color",
-        "pairword": "pimeja",
-        "gloss": "white"
-    }, {
-        "words": "wan",
-        "partofspeech": "Adjective, Number",
-        "frequencyrank": "35",
-        "definition": "ADJECTIVE unique, united NUMBER one",
-        "numberofsyllables": "1",
-        "category": "numbers",
-        "pairword": "tu",
-        "gloss": "one"
-    }, {
-        "words": "waso",
-        "partofspeech": "Noun",
-        "frequencyrank": "90",
-        "definition": "NOUN bird, flying creature, winged animal",
-        "numberofsyllables": "2",
-        "category": "people",
-        "pairword": "kala",
-        "gloss": "bird"
-    }, {
-        "words": "wawa",
-        "partofspeech": "Adjective",
-        "frequencyrank": "87",
-        "definition": "ADJECTIVE strong, powerful; confident, sure; energetic, intense",
-        "numberofsyllables": "2",
-        "category": "characterization",
-        "pairword": "nasa",
-        "gloss": "strong"
-    }, {
-        "words": "weka",
-        "partofspeech": "Adjective",
-        "frequencyrank": "93",
-        "definition": "ADJECTIVE absent, away, ignored",
-        "numberofsyllables": "2",
-        "category": "presence",
-        "pairword": "awen",
-        "gloss": "away"
-    }, {
-        "words": "wile",
-        "partofspeech": "Pre-verb",
-        "frequencyrank": "20",
-        "definition": "PRE-VERB must, need, require, should, want, wish",
-        "numberofsyllables": "2",
-        "category": "story language",
-        "pairword": "ken",
-        "gloss": "want"
-    }];
-    // Make data available globally for non-module scripts
-    window.data = data;
-</script>
+    <script type="module">
+        import init, {
+            render_svg,
+        } from "../sitelen-sitelen-renderer/sitelen_wasm.js";
+        await init();
+        // Make render_svg available globally for non-module scripts
+        window.render_svg = render_svg;
+        var data = [
+            {
+                words: "a",
+                partofspeech: "Particle",
+                frequencyrank: "1",
+                definition: "PARTICLE (emphasis, emotion, or confirmation)",
+                numberofsyllables: "1",
+                category: "language",
+                pairword: "o",
+                gloss: "[emphasis]",
+            },
+            {
+                words: "akesi",
+                partofspeech: "Noun",
+                frequencyrank: "115",
+                definition: "NOUN non-cute animal; reptile, amphibian",
+                numberofsyllables: "3",
+                category: "people",
+                pairword: "pipi",
+                gloss: "lizard",
+            },
+            {
+                words: "ala",
+                partofspeech: "Adjective",
+                frequencyrank: "13",
+                definition: "ADJECTIVE no, not, zero",
+                numberofsyllables: "2",
+                category: "relational logic",
+                pairword: "ali",
+                gloss: "no",
+            },
+            {
+                words: "alasa",
+                partofspeech: "Verb",
+                frequencyrank: "117",
+                definition: "VERB to hunt, forage",
+                numberofsyllables: "3",
+                category: "interacting",
+                pairword: "musi",
+                gloss: "hunt",
+            },
+            {
+                words: "ale",
+                partofspeech: "Adjective, Noun, Number",
+                frequencyrank: "22",
+                definition:
+                    "ADJECTIVE all; abundant, countless, bountiful, every, plentiful NOUN abundance, everything, life, universe NUMBER 100",
+                numberofsyllables: "2",
+                category: "relational logic",
+                pairword: "ala",
+                gloss: "all",
+            },
+            {
+                words: "anpa",
+                partofspeech: "Adjective",
+                frequencyrank: "88",
+                definition:
+                    "ADJECTIVE bowing down, downward, humble, lowly, dependent",
+                numberofsyllables: "2",
+                category: "position/direction",
+                pairword: "sewi",
+                gloss: "low",
+            },
+            {
+                words: "ante",
+                partofspeech: "Adjective",
+                frequencyrank: "47",
+                definition: "ADJECTIVE different, altered, changed, other",
+                numberofsyllables: "2",
+                category: "distinction",
+                pairword: "sama",
+                gloss: "different",
+            },
+            {
+                words: "anu",
+                partofspeech: "Particle",
+                frequencyrank: "67",
+                definition: "PARTICLE or",
+                numberofsyllables: "2",
+                category: "relational logic",
+                pairword: "en",
+                gloss: "or",
+            },
+            {
+                words: "awen",
+                partofspeech: "Adjective, Pre-verb",
+                frequencyrank: "66",
+                definition:
+                    "ADJECTIVE enduring, kept, protected, safe, waiting, staying PRE-VERB to continue to",
+                numberofsyllables: "2",
+                category: "motion",
+                pairword: "weka",
+                gloss: "keep",
+            },
+            {
+                words: "e",
+                partofspeech: "Particle",
+                frequencyrank: "4",
+                definition: "PARTICLE (before the direct object)",
+                numberofsyllables: "1",
+                category: "basic grammar",
+                pairword: "li",
+                gloss: "[object]",
+            },
+            {
+                words: "en",
+                partofspeech: "Particle",
+                frequencyrank: "15",
+                definition: "PARTICLE (between multiple subjects)",
+                numberofsyllables: "1",
+                category: "relational logic",
+                pairword: "anu",
+                gloss: "[and]",
+            },
+            {
+                words: "esun",
+                partofspeech: "Noun",
+                frequencyrank: "118",
+                definition:
+                    "NOUN market, shop, fair, bazaar, business transaction",
+                numberofsyllables: "2",
+                category: "social structure",
+                pairword: "mani",
+                gloss: "shop",
+            },
+            {
+                words: "ijo",
+                partofspeech: "Noun",
+                frequencyrank: "32",
+                definition: "NOUN thing, phenomenon, object, matter",
+                numberofsyllables: "2",
+                category: "physical boundary",
+                pairword: "kulupu",
+                gloss: "thing",
+            },
+            {
+                words: "ike",
+                partofspeech: "Adjective",
+                frequencyrank: "25",
+                definition:
+                    "ADJECTIVE bad, negative; non-essential, irrelevant",
+                numberofsyllables: "2",
+                category: "likes/dislikes",
+                pairword: "pona",
+                gloss: "bad",
+            },
+            {
+                words: "ilo",
+                partofspeech: "Noun",
+                frequencyrank: "63",
+                definition: "NOUN tool, implement, machine, device",
+                numberofsyllables: "2",
+                category: "interacting",
+                pairword: "kepeken",
+                gloss: "tool",
+            },
+            {
+                words: "insa",
+                partofspeech: "Noun",
+                frequencyrank: "83",
+                definition:
+                    "NOUN centre, content, inside, between; internal organ, stomach",
+                numberofsyllables: "2",
+                category: "physical boundary",
+                pairword: "selo",
+                gloss: "inside",
+            },
+            {
+                words: "jaki",
+                partofspeech: "Adjective",
+                frequencyrank: "94",
+                definition:
+                    "ADJECTIVE disgusting, obscene, sickly, toxic, unclean, unsanitary",
+                numberofsyllables: "2",
+                category: "likes/dislikes",
+                pairword: "suwi",
+                gloss: "dirty",
+            },
+            {
+                words: "jan",
+                partofspeech: "Noun",
+                frequencyrank: "7",
+                definition: "NOUN human being, person, somebody",
+                numberofsyllables: "1",
+                category: "people",
+                pairword: "soweli",
+                gloss: "person",
+            },
+            {
+                words: "jelo",
+                partofspeech: "Ajdective",
+                frequencyrank: "98",
+                definition: "ADJECTIVE yellow, yellowish",
+                numberofsyllables: "2",
+                category: "color",
+                pairword: "loje",
+                gloss: "yellow",
+            },
+            {
+                words: "jo",
+                partofspeech: "Verb",
+                frequencyrank: "30",
+                definition: "VERB to have, carry, contain, hold",
+                numberofsyllables: "1",
+                category: "presence",
+                pairword: "noka",
+                gloss: "have",
+            },
+            {
+                words: "kala",
+                partofspeech: "Noun",
+                frequencyrank: "108",
+                definition: "NOUN fish, marine animal, sea creature",
+                numberofsyllables: "2",
+                category: "people",
+                pairword: "waso",
+                gloss: "fish",
+            },
+            {
+                words: "kalama",
+                partofspeech: "Verb",
+                frequencyrank: "36",
+                definition: "VERB to produce a sound; recite, utter aloud",
+                numberofsyllables: "3",
+                category: "perception",
+                pairword: "kute",
+                gloss: "sound",
+            },
+            {
+                words: "kama",
+                partofspeech: "Adjective, Pre-verb",
+                frequencyrank: "16",
+                definition:
+                    "ADJECTIVE arriving, coming, future, summoned PRE-VERB to become, manage to, succeed in",
+                numberofsyllables: "2",
+                category: "motion",
+                pairword: "tawa",
+                gloss: "come",
+            },
+            {
+                words: "kasi",
+                partofspeech: "Noun",
+                frequencyrank: "79",
+                definition: "NOUN plant, vegetation, herb, leaf",
+                numberofsyllables: "2",
+                category: "biological reproduction",
+                pairword: "laso",
+                gloss: "plant",
+            },
+            {
+                words: "ken",
+                partofspeech: "Pre-verb, Adjective",
+                frequencyrank: "24",
+                definition:
+                    "PRE-VERB to be able to, be allowed to, can, may ADJECTIVE possible",
+                numberofsyllables: "1",
+                category: "story language",
+                pairword: "wile",
+                gloss: "can",
+            },
+            {
+                words: "kepeken",
+                partofspeech: "Preposition",
+                frequencyrank: "53",
+                definition: "PREPOSITION to use, with, by means of",
+                numberofsyllables: "3",
+                category: "interacting",
+                pairword: "ilo",
+                gloss: "use",
+            },
+            {
+                words: "kili",
+                partofspeech: "Noun",
+                frequencyrank: "62",
+                definition: "NOUN fruit, vegetable, mushroom",
+                numberofsyllables: "2",
+                category: "biological reproduction",
+                pairword: "unpa",
+                gloss: "fruit",
+            },
+            {
+                words: "kiwen",
+                partofspeech: "Noun",
+                frequencyrank: "38",
+                definition: "NOUN hard object, metal, rock, stone",
+                numberofsyllables: "2",
+                category: "forms of matter",
+                pairword: "ko",
+                gloss: "rock",
+            },
+            {
+                words: "ko",
+                partofspeech: "Noun",
+                frequencyrank: "111",
+                definition:
+                    "NOUN clay, clinging form, dough, semi-solid, paste, powder",
+                numberofsyllables: "1",
+                category: "forms of matter",
+                pairword: "kiwen",
+                gloss: "paste",
+            },
+            {
+                words: "kon",
+                partofspeech: "Noun",
+                frequencyrank: "74",
+                definition:
+                    "NOUN air, breath; essence, spirit; hidden reality, unseen agent",
+                numberofsyllables: "1",
+                category: "forms of matter",
+                pairword: "telo",
+                gloss: "air",
+            },
+            {
+                words: "kule",
+                partofspeech: "Adjective",
+                frequencyrank: "103",
+                definition: "ADJECTIVE colourful, pigmented, painted",
+                numberofsyllables: "2",
+                category: "color",
+                pairword: "sijelo",
+                gloss: "color",
+            },
+            {
+                words: "kulupu",
+                partofspeech: "Noun",
+                frequencyrank: "60",
+                definition:
+                    "NOUN community, company, group, nation, society, tribe",
+                numberofsyllables: "3",
+                category: "distinction",
+                pairword: "ijo",
+                gloss: "group",
+            },
+            {
+                words: "kute",
+                partofspeech: "Noun,Verb",
+                frequencyrank: "68",
+                definition:
+                    "NOUN ear VERB to hear, listen; pay attention to, obey",
+                numberofsyllables: "2",
+                category: "perception",
+                pairword: "kalama",
+                gloss: "hear",
+            },
+            {
+                words: "la",
+                partofspeech: "Particle",
+                frequencyrank: "8",
+                definition:
+                    "PARTICLE (between the context phrase and the main sentence)",
+                numberofsyllables: "1",
+                category: "basic grammar",
+                pairword: "pi",
+                gloss: "[context]",
+            },
+            {
+                words: "lape",
+                partofspeech: "Adjective",
+                frequencyrank: "75",
+                definition: "ADJECTIVE sleeping, resting",
+                numberofsyllables: "2",
+                category: "biological activities",
+                pairword: "pali",
+                gloss: "sleep",
+            },
+            {
+                words: "laso",
+                partofspeech: "Adjective",
+                frequencyrank: "80",
+                definition: "ADJECTIVE blue, green",
+                numberofsyllables: "2",
+                category: "color",
+                pairword: "kasi",
+                gloss: "green",
+            },
+            {
+                words: "lawa",
+                partofspeech: "Noun, Verb",
+                frequencyrank: "34",
+                definition:
+                    "NOUN head, mind VERB to control, direct, guide, lead, own, plan, regulate, rule",
+                numberofsyllables: "2",
+                category: "body part",
+                pairword: "pilin",
+                gloss: "head",
+            },
+            {
+                words: "len",
+                partofspeech: "Noun",
+                frequencyrank: "95",
+                definition:
+                    "NOUN cloth, clothing, fabric, textile; cover, layer of privacy",
+                numberofsyllables: "1",
+                category: "artifacts",
+                pairword: "poki",
+                gloss: "cloth",
+            },
+            {
+                words: "lete",
+                partofspeech: "Adjective",
+                frequencyrank: "110",
+                definition: "ADJECTIVE cold, cool; uncooked, raw",
+                numberofsyllables: "2",
+                category: "sky",
+                pairword: "seli",
+                gloss: "cold",
+            },
+            {
+                words: "li",
+                partofspeech: "Particle",
+                frequencyrank: "3",
+                definition:
+                    "PARTICLE (between any subject except 'mi' alone or 'sina' alone and its verb; also to introduce a new verb for the same subject)",
+                numberofsyllables: "1",
+                category: "basic grammar",
+                pairword: "e",
+                gloss: "[predicate]",
+            },
+            {
+                words: "lili",
+                partofspeech: "Adjective",
+                frequencyrank: "41",
+                definition: "ADJECTIVE little, small, short; few; a bit; young",
+                numberofsyllables: "2",
+                category: "characterization",
+                pairword: "suli",
+                gloss: "small",
+            },
+            {
+                words: "linja",
+                partofspeech: "Noun",
+                frequencyrank: "102",
+                definition:
+                    "NOUN long and flexible thing; cord, hair, rope, thread, yarn",
+                numberofsyllables: "2",
+                category: "basic forms",
+                pairword: "sike",
+                gloss: "line",
+            },
+            {
+                words: "lipu",
+                partofspeech: "Noun",
+                frequencyrank: "81",
+                definition:
+                    "NOUN flat object; book, document, card, paper, record, website",
+                numberofsyllables: "2",
+                category: "artifacts",
+                pairword: "sitelen",
+                gloss: "paper",
+            },
+            {
+                words: "loje",
+                partofspeech: "Adjective",
+                frequencyrank: "89",
+                definition: "ADJECTIVE red, reddish",
+                numberofsyllables: "2",
+                category: "color",
+                pairword: "jelo",
+                gloss: "red",
+            },
+            {
+                words: "lon",
+                partofspeech: "Preposition",
+                frequencyrank: "23",
+                definition:
+                    "PREPOSITION located at, present at, real, true, existing",
+                numberofsyllables: "1",
+                category: "space",
+                pairword: "sin",
+                gloss: "at",
+            },
+            {
+                words: "luka",
+                partofspeech: "Noun, Number",
+                frequencyrank: "29",
+                definition: "NOUN arm, hand, tactile organ NUMBER five",
+                numberofsyllables: "2",
+                category: "body part",
+                pairword: "poka",
+                gloss: "hand",
+            },
+            {
+                words: "lukin",
+                partofspeech: "Noun, Verb, Pre-verb",
+                frequencyrank: "31",
+                definition:
+                    "NOUN eye VERB to look at, see, examine, observe, read, watch PRE-VERB to seek, look for, try to",
+                numberofsyllables: "2",
+                category: "perception",
+                pairword: "uta",
+                gloss: "see",
+            },
+            {
+                words: "lupa",
+                partofspeech: "Noun",
+                frequencyrank: "54",
+                definition: "NOUN door, hole, orifice, window",
+                numberofsyllables: "2",
+                category: "interacting",
+                pairword: "nena",
+                gloss: "hole",
+            },
+            {
+                words: "ma",
+                partofspeech: "Noun",
+                frequencyrank: "28",
+                definition:
+                    "NOUN earth, land; outdoors, world; country, territory; soil",
+                numberofsyllables: "1",
+                category: "space",
+                pairword: "tenpo",
+                gloss: "land",
+            },
+            {
+                words: "mama",
+                partofspeech: "Noun",
+                frequencyrank: "76",
+                definition:
+                    "NOUN parent, ancestor; creator, originator; caretaker, sustainer",
+                numberofsyllables: "2",
+                category: "biological reproduction",
+                pairword: "pana",
+                gloss: "parent",
+            },
+            {
+                words: "mani",
+                partofspeech: "Noun",
+                frequencyrank: "104",
+                definition:
+                    "NOUN money, cash, savings, wealth; large domesticated animal",
+                numberofsyllables: "2",
+                category: "social structure",
+                pairword: "esun",
+                gloss: "money",
+            },
+            {
+                words: "meli",
+                partofspeech: "Noun",
+                frequencyrank: "48",
+                definition: "NOUN woman, female, feminine person; wife",
+                numberofsyllables: "2",
+                category: "biological reproduction",
+                pairword: "mije",
+                gloss: "woman",
+            },
+            {
+                words: "mi",
+                partofspeech: "Noun",
+                frequencyrank: "6",
+                definition: "NOUN I, me, we, us",
+                numberofsyllables: "1",
+                category: "pronouns",
+                pairword: "sina",
+                gloss: "me",
+            },
+            {
+                words: "mije",
+                partofspeech: "Noun",
+                frequencyrank: "64",
+                definition: "NOUN man, male, masculine person; husband",
+                numberofsyllables: "2",
+                category: "biological reproduction",
+                pairword: "meli",
+                gloss: "man",
+            },
+            {
+                words: "moku",
+                partofspeech: "Verb",
+                frequencyrank: "27",
+                definition: "VERB to eat, drink, consume, swallow, ingest",
+                numberofsyllables: "2",
+                category: "biological activities",
+                pairword: "pan",
+                gloss: "eat",
+            },
+            {
+                words: "moli",
+                partofspeech: "Adjective",
+                frequencyrank: "58",
+                definition: "ADJECTIVE dead, dying",
+                numberofsyllables: "2",
+                category: "motion",
+                pairword: "pakala",
+                gloss: "dead",
+            },
+            {
+                words: "monsi",
+                partofspeech: "Noun",
+                frequencyrank: "107",
+                definition: "NOUN back, behind, rear",
+                numberofsyllables: "2",
+                category: "position/direction",
+                pairword: "sinpin",
+                gloss: "back",
+            },
+            {
+                words: "mu",
+                partofspeech: "Particle",
+                frequencyrank: "96",
+                definition: "PARTICLE (animal noise or communication)",
+                numberofsyllables: "1",
+                category: "language",
+                pairword: "nimi",
+                gloss: "[meow]",
+            },
+            {
+                words: "mun",
+                partofspeech: "Noun",
+                frequencyrank: "112",
+                definition: "NOUN moon, night sky object, star",
+                numberofsyllables: "1",
+                category: "sky",
+                pairword: "suno",
+                gloss: "moon",
+            },
+            {
+                words: "musi",
+                partofspeech: "Adjective",
+                frequencyrank: "69",
+                definition:
+                    "ADJECTIVE artistic, entertaining, frivolous, playful, recreational",
+                numberofsyllables: "2",
+                category: "biological activities",
+                pairword: "alasa",
+                gloss: "play",
+            },
+            {
+                words: "mute",
+                partofspeech: "Adjective, Noun",
+                frequencyrank: "18",
+                definition:
+                    "ADJECTIVE many, a lot, more, much, several, very NOUN quantity",
+                numberofsyllables: "2",
+                category: "numbers",
+                pairword: "nanpa",
+                gloss: "many",
+            },
+            {
+                words: "nanpa",
+                partofspeech: "Particle",
+                frequencyrank: "55",
+                definition: "PARTICLE -th (ordinal number) NOUN numbers",
+                numberofsyllables: "2",
+                category: "numbers",
+                pairword: "mute",
+                gloss: "number",
+            },
+            {
+                words: "nasa",
+                partofspeech: "Adjective",
+                frequencyrank: "44",
+                definition:
+                    "ADJECTIVE unusual, strange; foolish, crazy; drunk, intoxicated",
+                numberofsyllables: "2",
+                category: "characterization",
+                pairword: "wawa",
+                gloss: "strange",
+            },
+            {
+                words: "nasin",
+                partofspeech: "Noun",
+                frequencyrank: "59",
+                definition: "NOUN way, custom, doctrine, method, path, road",
+                numberofsyllables: "2",
+                category: "social structure",
+                pairword: "tomo",
+                gloss: "way",
+            },
+            {
+                words: "nena",
+                partofspeech: "Noun",
+                frequencyrank: "105",
+                definition:
+                    "NOUN bump, button, hill, mountain, nose, protuberance",
+                numberofsyllables: "2",
+                category: "body part",
+                pairword: "lupa",
+                gloss: "mountain",
+            },
+            {
+                words: "ni",
+                partofspeech: "Adjective",
+                frequencyrank: "9",
+                definition: "ADJECTIVE that, this",
+                numberofsyllables: "1",
+                category: "pronouns",
+                pairword: "ona",
+                gloss: "this",
+            },
+            {
+                words: "nimi",
+                partofspeech: "Noun",
+                frequencyrank: "43",
+                definition: "NOUN name, word",
+                numberofsyllables: "2",
+                category: "language",
+                pairword: "mu",
+                gloss: "name",
+            },
+            {
+                words: "noka",
+                partofspeech: "Noun",
+                frequencyrank: "99",
+                definition:
+                    "NOUN foot, leg, organ of locomotion; bottom, lower part",
+                numberofsyllables: "2",
+                category: "body part",
+                pairword: "jo",
+                gloss: "foot",
+            },
+            {
+                words: "o",
+                partofspeech: "Particle",
+                frequencyrank: "21",
+                definition: "PARTICLE hey! O! (vocative or imperative)",
+                numberofsyllables: "1",
+                category: "basic grammar",
+                pairword: "a",
+                gloss: "[command]",
+            },
+            {
+                words: "olin",
+                partofspeech: "Verb",
+                frequencyrank: "61",
+                definition:
+                    "VERB to love, have compassion for, respect, show affection to",
+                numberofsyllables: "2",
+                category: "between people",
+                pairword: "utala",
+                gloss: "love",
+            },
+            {
+                words: "ona",
+                partofspeech: "Noun",
+                frequencyrank: "11",
+                definition: "NOUN he, she, it, they",
+                numberofsyllables: "2",
+                category: "pronouns",
+                pairword: "ni",
+                gloss: "it",
+            },
+            {
+                words: "open",
+                partofspeech: "Verb",
+                frequencyrank: "65",
+                definition: "VERB to begin, start; open; turn on",
+                numberofsyllables: "2",
+                category: "interacting",
+                pairword: "pini",
+                gloss: "open",
+            },
+            {
+                words: "pakala",
+                partofspeech: "Adjective",
+                frequencyrank: "84",
+                definition:
+                    "ADJECTIVE botched, broken, damaged, harmed, messed up",
+                numberofsyllables: "3",
+                category: "between people",
+                pairword: "moli",
+                gloss: "break",
+            },
+            {
+                words: "pali",
+                partofspeech: "Verb",
+                frequencyrank: "33",
+                definition:
+                    "VERB to do, take action on, work on; build, make, prepare",
+                numberofsyllables: "2",
+                category: "biological activities",
+                pairword: "lape",
+                gloss: "do",
+            },
+            {
+                words: "palisa",
+                partofspeech: "Noun",
+                frequencyrank: "82",
+                definition: "NOUN long hard thing; branch, rod, stick",
+                numberofsyllables: "3",
+                category: "basic forms",
+                pairword: "supa",
+                gloss: "stick",
+            },
+            {
+                words: "pan",
+                partofspeech: "Noun",
+                frequencyrank: "119",
+                definition:
+                    "NOUN cereal, grain; barley, corn, oat, rice, wheat; bread, pasta",
+                numberofsyllables: "1",
+                category: "social structure",
+                pairword: "moku",
+                gloss: "food",
+            },
+            {
+                words: "pana",
+                partofspeech: "Verb",
+                frequencyrank: "45",
+                definition: "VERB to give, send, emit, provide, put, release",
+                numberofsyllables: "2",
+                category: "between people",
+                pairword: "mama",
+                gloss: "give",
+            },
+            {
+                words: "pi",
+                partofspeech: "Particle",
+                frequencyrank: "12",
+                definition: "PARTICLE of",
+                numberofsyllables: "1",
+                category: "basic grammar",
+                pairword: "la",
+                gloss: "of",
+            },
+            {
+                words: "pilin",
+                partofspeech: "Noun, Adjective",
+                frequencyrank: "51",
+                definition:
+                    "NOUN heart (physical or emotional) ADJECTIVE feeling (an emotion, a direct experience)",
+                numberofsyllables: "2",
+                category: "perception",
+                pairword: "lawa",
+                gloss: "feel",
+            },
+            {
+                words: "pimeja",
+                partofspeech: "Adjective",
+                frequencyrank: "78",
+                definition: "ADJECTIVE black, dark, unlit",
+                numberofsyllables: "3",
+                category: "color",
+                pairword: "walo",
+                gloss: "black",
+            },
+            {
+                words: "pini",
+                partofspeech: "Adjective",
+                frequencyrank: "70",
+                definition: "ADJECTIVE ago, completed, ended, finished, past",
+                numberofsyllables: "2",
+                category: "motion",
+                pairword: "open",
+                gloss: "end",
+            },
+            {
+                words: "pipi",
+                partofspeech: "Noun",
+                frequencyrank: "109",
+                definition: "NOUN bug, insect, ant, spider",
+                numberofsyllables: "2",
+                category: "people",
+                pairword: "akesi",
+                gloss: "bug",
+            },
+            {
+                words: "poka",
+                partofspeech: "Noun",
+                frequencyrank: "113",
+                definition: "NOUN hip, side; next to, nearby, vicinity",
+                numberofsyllables: "2",
+                category: "presence",
+                pairword: "luka",
+                gloss: "near",
+            },
+            {
+                words: "poki",
+                partofspeech: "Noun",
+                frequencyrank: "100",
+                definition:
+                    "NOUN container, bag, bowl, box, cup, cupboard, drawer, vessel",
+                numberofsyllables: "2",
+                category: "artifacts",
+                pairword: "len",
+                gloss: "box",
+            },
+            {
+                words: "pona",
+                partofspeech: "Adjective",
+                frequencyrank: "5",
+                definition:
+                    "ADJECTIVE good, positive, useful; friendly, peaceful; simple",
+                numberofsyllables: "2",
+                category: "likes/dislikes",
+                pairword: "ike",
+                gloss: "good",
+            },
+            {
+                words: "pu",
+                partofspeech: "Adjective",
+                frequencyrank: "120",
+                definition:
+                    "ADJECTIVE interacting with the official Toki Pona book",
+                numberofsyllables: "1",
+                category: "language",
+                pairword: "taso",
+                gloss: "The Book",
+            },
+            {
+                words: "sama",
+                partofspeech: "Adjective, Preposition",
+                frequencyrank: "52",
+                definition:
+                    "ADJECTIVE same, similar; each other; sibling, peer, fellow PREPOSITION as, like",
+                numberofsyllables: "2",
+                category: "distinction",
+                pairword: "ante",
+                gloss: "same",
+            },
+            {
+                words: "seli",
+                partofspeech: "Adjective",
+                frequencyrank: "101",
+                definition:
+                    "ADJECTIVE fire; cooking element, chemical reaction, heat source",
+                numberofsyllables: "2",
+                category: "sky",
+                pairword: "lete",
+                gloss: "fire",
+            },
+            {
+                words: "selo",
+                partofspeech: "Noun",
+                frequencyrank: "106",
+                definition:
+                    "NOUN outer form, outer layer; bark, peel, shell, skin; boundary",
+                numberofsyllables: "2",
+                category: "physical boundary",
+                pairword: "insa",
+                gloss: "skin",
+            },
+            {
+                words: "seme",
+                partofspeech: "Particle",
+                frequencyrank: "39",
+                definition: "PARTICLE what? which?",
+                numberofsyllables: "2",
+                category: "relational logic",
+                pairword: "tan",
+                gloss: "what",
+            },
+            {
+                words: "sewi",
+                partofspeech: "Noun, Adjective",
+                frequencyrank: "77",
+                definition:
+                    "NOUN area above, highest part, something elevated ADJECTIVE awe-inspiring, divine, sacred, supernatural",
+                numberofsyllables: "2",
+                category: "position/direction",
+                pairword: "anpa",
+                gloss: "high",
+            },
+            {
+                words: "sijelo",
+                partofspeech: "Noun",
+                frequencyrank: "85",
+                definition:
+                    "NOUN body (of person or animal), physical state, torso",
+                numberofsyllables: "3",
+                category: "perception",
+                pairword: "kule",
+                gloss: "body",
+            },
+            {
+                words: "sike",
+                partofspeech: "Noun, Adjective",
+                frequencyrank: "91",
+                definition:
+                    "NOUN round or circular thing; ball, circle, cycle, sphere, wheel ADJECTIVE of one year",
+                numberofsyllables: "2",
+                category: "basic forms",
+                pairword: "linja",
+                gloss: "circle",
+            },
+            {
+                words: "sin",
+                partofspeech: "Adjective",
+                frequencyrank: "46",
+                definition: "ADJECTIVE new, fresh; additional, another, extra",
+                numberofsyllables: "1",
+                category: "distinction",
+                pairword: "lon",
+                gloss: "new",
+            },
+            {
+                words: "sina",
+                partofspeech: "Noun",
+                frequencyrank: "14",
+                definition: "NOUN you",
+                numberofsyllables: "2",
+                category: "pronouns",
+                pairword: "mi",
+                gloss: "you",
+            },
+            {
+                words: "sinpin",
+                partofspeech: "Noun",
+                frequencyrank: "92",
+                definition: "NOUN face, foremost, front, wall",
+                numberofsyllables: "2",
+                category: "position/direction",
+                pairword: "monsi",
+                gloss: "face",
+            },
+            {
+                words: "sitelen",
+                partofspeech: "Noun",
+                frequencyrank: "57",
+                definition:
+                    "NOUN image, picture, representation, symbol, mark, writing",
+                numberofsyllables: "3",
+                category: "artifacts",
+                pairword: "lipu",
+                gloss: "picture",
+            },
+            {
+                words: "sona",
+                partofspeech: "Verb, Pre-verb",
+                frequencyrank: "17",
+                definition:
+                    "VERB to know, be skilled in, be wise about, have information on PRE-VERB to know how to",
+                numberofsyllables: "2",
+                category: "story language",
+                pairword: "toki",
+                gloss: "know",
+            },
+            {
+                words: "soweli",
+                partofspeech: "Noun",
+                frequencyrank: "71",
+                definition: "NOUN animal, beast, land mammal",
+                numberofsyllables: "3",
+                category: "people",
+                pairword: "jan",
+                gloss: "animal",
+            },
+            {
+                words: "suli",
+                partofspeech: "Adjective",
+                frequencyrank: "26",
+                definition:
+                    "ADJECTIVE big, heavy, large, long, tall; important; adult",
+                numberofsyllables: "2",
+                category: "characterization",
+                pairword: "lili",
+                gloss: "big",
+            },
+            {
+                words: "suno",
+                partofspeech: "Noun",
+                frequencyrank: "56",
+                definition:
+                    "NOUN sun; light, brightness, glow, radiance, shine; light source",
+                numberofsyllables: "2",
+                category: "sky",
+                pairword: "mun",
+                gloss: "sun",
+            },
+            {
+                words: "supa",
+                partofspeech: "Noun",
+                frequencyrank: "114",
+                definition:
+                    "NOUN horizontal surface, thing to put or rest something on",
+                numberofsyllables: "2",
+                category: "physical boundary",
+                pairword: "palisa",
+                gloss: "table",
+            },
+            {
+                words: "suwi",
+                partofspeech: "Adjective",
+                frequencyrank: "116",
+                definition:
+                    "ADJECTIVE sweet, fragrant; cute, innocent, adorable",
+                numberofsyllables: "2",
+                category: "likes/dislikes",
+                pairword: "jaki",
+                gloss: "sweet",
+            },
+            {
+                words: "tan",
+                partofspeech: "Preposition",
+                frequencyrank: "49",
+                definition: "PREPOSITION by, from, because of",
+                numberofsyllables: "1",
+                category: "space",
+                pairword: "seme",
+                gloss: "from",
+            },
+            {
+                words: "taso",
+                partofspeech: "Particle, Adjective",
+                frequencyrank: "50",
+                definition: "PARTICLE but, however ADJECTIVE only",
+                numberofsyllables: "2",
+                category: "numbers",
+                pairword: "pu",
+                gloss: "but",
+            },
+            {
+                words: "tawa",
+                partofspeech: "Preposition, Adjective",
+                frequencyrank: "10",
+                definition:
+                    "PREPOSITION going to, toward; for; from the perspective of ADJECTIVE moving",
+                numberofsyllables: "2",
+                category: "space",
+                pairword: "kama",
+                gloss: "to",
+            },
+            {
+                words: "telo",
+                partofspeech: "Noun",
+                frequencyrank: "42",
+                definition:
+                    "NOUN water, liquid, fluid, wet substance; beverage",
+                numberofsyllables: "2",
+                category: "forms of matter",
+                pairword: "kon",
+                gloss: "water",
+            },
+            {
+                words: "tenpo",
+                partofspeech: "Noun",
+                frequencyrank: "19",
+                definition:
+                    "NOUN time, duration, moment, occation, period, situation",
+                numberofsyllables: "2",
+                category: "sky",
+                pairword: "ma",
+                gloss: "time",
+            },
+            {
+                words: "toki",
+                partofspeech: "Verb",
+                frequencyrank: "2",
+                definition:
+                    "VERB to communicate, say, speak, say, talk, use language, think",
+                numberofsyllables: "2",
+                category: "language",
+                pairword: "sona",
+                gloss: "talk",
+            },
+            {
+                words: "tomo",
+                partofspeech: "Noun",
+                frequencyrank: "37",
+                definition: "NOUN indoor space; building, home, house, room",
+                numberofsyllables: "2",
+                category: "social structure",
+                pairword: "nasin",
+                gloss: "house",
+            },
+            {
+                words: "tu",
+                partofspeech: "Number",
+                frequencyrank: "40",
+                definition: "NUMBER two",
+                numberofsyllables: "1",
+                category: "numbers",
+                pairword: "wan",
+                gloss: "two",
+            },
+            {
+                words: "unpa",
+                partofspeech: "Verb",
+                frequencyrank: "72",
+                definition: "VERB to have sexual or marital relations with",
+                numberofsyllables: "2",
+                category: "biological activities",
+                pairword: "kili",
+                gloss: "sex",
+            },
+            {
+                words: "uta",
+                partofspeech: "Noun",
+                frequencyrank: "97",
+                definition: "NOUN mouth, lips, oral cavity, jaw",
+                numberofsyllables: "2",
+                category: "body part",
+                pairword: "lukin",
+                gloss: "mouth",
+            },
+            {
+                words: "utala",
+                partofspeech: "Verb",
+                frequencyrank: "73",
+                definition:
+                    "VERB to battle, challenge, compete against, struggle against",
+                numberofsyllables: "3",
+                category: "between people",
+                pairword: "olin",
+                gloss: "fight",
+            },
+            {
+                words: "walo",
+                partofspeech: "Adjective",
+                frequencyrank: "86",
+                definition: "ADJECTIVE white, whitish; light-coloured, pale",
+                numberofsyllables: "2",
+                category: "color",
+                pairword: "pimeja",
+                gloss: "white",
+            },
+            {
+                words: "wan",
+                partofspeech: "Adjective, Number",
+                frequencyrank: "35",
+                definition: "ADJECTIVE unique, united NUMBER one",
+                numberofsyllables: "1",
+                category: "numbers",
+                pairword: "tu",
+                gloss: "one",
+            },
+            {
+                words: "waso",
+                partofspeech: "Noun",
+                frequencyrank: "90",
+                definition: "NOUN bird, flying creature, winged animal",
+                numberofsyllables: "2",
+                category: "people",
+                pairword: "kala",
+                gloss: "bird",
+            },
+            {
+                words: "wawa",
+                partofspeech: "Adjective",
+                frequencyrank: "87",
+                definition:
+                    "ADJECTIVE strong, powerful; confident, sure; energetic, intense",
+                numberofsyllables: "2",
+                category: "characterization",
+                pairword: "nasa",
+                gloss: "strong",
+            },
+            {
+                words: "weka",
+                partofspeech: "Adjective",
+                frequencyrank: "93",
+                definition: "ADJECTIVE absent, away, ignored",
+                numberofsyllables: "2",
+                category: "presence",
+                pairword: "awen",
+                gloss: "away",
+            },
+            {
+                words: "wile",
+                partofspeech: "Pre-verb",
+                frequencyrank: "20",
+                definition: "PRE-VERB must, need, require, should, want, wish",
+                numberofsyllables: "2",
+                category: "story language",
+                pairword: "ken",
+                gloss: "want",
+            },
+        ];
+        // Make data available globally for non-module scripts
+        window.data = data;
+    </script>
 
-<script>
-
-    var tokiPonaDictionary = [
-        {name: 'a', gloss: 'ah', grammar: ['interj']},
-        {name: 'akesi', category: 'animal', gloss: 'reptile', grammar: ['n']},
-        {name: 'ala', gloss: 'no', grammar: ['mod', 'n', 'interj']},
-        {name: 'ali', gloss: 'all', grammar: ['n', 'mod']},
-        {name: 'anpa', gloss: 'under', grammar: ['n', 'mod']},
-        {name: 'ante', gloss: 'different', grammar: ['n', 'mod', 'conj', 'vt']},
-        {name: 'anu', category: 'separator', gloss: 'or', grammar: ['conj']},
-        {name: 'awen', gloss: 'remain', grammar: ['vi', 'vt', 'mod']},
-        {name: 'e', category: 'separator', gloss: 'object marker', grammar: ['sep']},
-        {name: 'en', category: 'separator', gloss: 'and', grammar: ['conj']},
-        {name: 'esun', gloss: 'shop', grammar: ['n']},
-        {name: 'ijo', gloss: 'thing', grammar: ['n', 'mod', 'vt']},
-        {name: 'ike', gloss: 'evil', grammar: ['mod', 'interj', 'n', 'vt', 'vi']},
-        {name: 'ilo', gloss: 'tool', grammar: ['n']},
-        {name: 'insa', gloss: 'inside', grammar: ['n', 'mod']},
-        {name: 'jaki', gloss: 'dirty', grammar: ['mod', 'n', 'vt', 'interj']},
-        {name: 'jan', category: 'animal', gloss: 'person', grammar: ['n', 'mod', 'vt']},
-        {name: 'jelo', category: 'color', gloss: 'yellow', grammar: ['mod']},
-        {name: 'jo', gloss: 'have', grammar: ['vt', 'n']},
-        {name: 'kala', category: 'animal', gloss: 'fish', grammar: ['n']},
-        {name: 'kalama', gloss: 'sound', grammar: ['n', 'vi', 'vt']},
-        {name: 'kama', gloss: 'come', grammar: ['vi', 'n', 'mod', 'vt']},
-        {name: 'kasi', gloss: 'plant', grammar: ['n']},
-        {name: 'ken', gloss: 'possible', grammar: ['vi', 'n', 'vt']},
-        {name: 'kepeken', gloss: 'use', grammar: ['vt', 'prep']},
-        {name: 'kili', gloss: 'fruit', grammar: ['n']},
-        {name: 'kin', gloss: 'also', grammar: ['mod']},
-        {name: 'kiwen', gloss: 'rock', grammar: ['mod', 'n']},
-        {name: 'ko', gloss: 'squishy', grammar: ['n']},
-        {name: 'kon', gloss: 'soul', grammar: ['n', 'mod']},
-        {name: 'kule', gloss: 'color', grammar: ['n', 'mod', 'vt']},
-        {name: 'kulupu', gloss: 'group', grammar: ['n', 'mod']},
-        {name: 'kute', gloss: 'listen', grammar: ['vt', 'mod']},
-        {name: 'la', category: 'separator', gloss: 'in context', grammar: ['sep']},
-        {name: 'lape', gloss: 'rest', grammar: ['n', 'vi', 'mod']},
-        {name: 'laso', category: 'color', gloss: 'blue/green', grammar: ['mod']},
-        {name: 'lawa', gloss: 'head', grammar: ['n', 'mod', 'vt']},
-        {name: 'len', gloss: 'cloth', grammar: ['n']},
-        {name: 'lete', gloss: 'cold', grammar: ['n', 'mod', 'vt']},
-        {name: 'li', category: 'separator', gloss: 'is', grammar: ['sep']},
-        {name: 'lili', gloss: 'small', grammar: ['mod', 'vt']},
-        {name: 'linja', gloss: 'string', grammar: ['n']},
-        {name: 'lipu', gloss: 'paper', grammar: ['n']},
-        {name: 'loje', category: 'color', gloss: 'red', grammar: ['mod']},
-        {name: 'lon', gloss: 'located', grammar: ['prep', 'vi']},
-        {name: 'luka', gloss: 'hand', grammar: ['n']},
-        {name: 'lukin', gloss: 'see', grammar: ['vt', 'vi', 'mod']},
-        {name: 'lupa', gloss: 'hole', grammar: ['n']},
-        {name: 'ma', gloss: 'land', grammar: ['n']},
-        {name: 'mama', category: 'animal', gloss: 'parent', grammar: ['n', 'mod']},
-        {name: 'mani', gloss: 'money', grammar: ['n']},
-        {name: 'meli', category: 'animal', gloss: 'female', grammar: ['n', 'mod']},
-        {name: 'mi', gloss: 'I/we', grammar: ['n', 'mod']},
-        {name: 'mije', category: 'animal', gloss: 'male', grammar: ['n', 'mod']},
-        {name: 'moku', gloss: 'food', grammar: ['n', 'vt']},
-        {name: 'moli', gloss: 'death', grammar: ['n', 'vi', 'vt', 'mod']},
-        {name: 'monsi', gloss: 'back', grammar: ['n', 'mod']},
-        {name: 'mu', gloss: 'moo!', grammar: ['interj']},
-        {name: 'mun', gloss: 'moon', grammar: ['n', 'mod']},
-        {name: 'musi', gloss: 'play', grammar: ['n', 'mod', 'vi', 'vt']},
-        {name: 'mute', gloss: 'many', grammar: ['mod', 'n', 'vt']},
-        {name: 'namako', gloss: 'extra', grammar: ['n', 'mod']},
-        {name: 'nanpa', gloss: 'number', grammar: ['n']},
-        {name: 'nasa', gloss: 'crazy', grammar: ['mod', 'vt']},
-        {name: 'nasin', gloss: 'manner', grammar: ['n']},
-        {name: 'nena', gloss: 'bump', grammar: ['n']},
-        {name: 'ni', gloss: 'this', grammar: ['mod']},
-        {name: 'nimi', gloss: 'name', grammar: ['n']},
-        {name: 'noka', gloss: 'leg', grammar: ['n']},
-        {name: 'o', gloss: 'imperative', grammar: ['sep', 'interj']},
-        {name: 'oko', gloss: 'eye', grammar: ['n']},
-        {name: 'olin', gloss: 'love', grammar: ['n', 'mod', 'vt']},
-        {name: 'ona', gloss: 'he/she/it', grammar: ['n', 'mod']},
-        {name: 'open', gloss: 'open', grammar: ['vt']},
-        {name: 'pakala', gloss: 'destroy', grammar: ['n', 'vt', 'vi', 'interj']},
-        {name: 'pali', gloss: 'make', grammar: ['n', 'mod', 'vt', 'vi']},
-        {name: 'palisa', gloss: 'rod', grammar: ['n']},
-        {name: 'pan', gloss: 'grain', grammar: ['n']},
-        {name: 'pana', gloss: 'give', grammar: ['vt', 'n']},
-        {name: 'pi', category: 'separator', gloss: 'of', grammar: ['sep']},
-        {name: 'pilin', gloss: 'feel', grammar: ['n', 'vi', 'vt']},
-        {name: 'pimeja', category: 'color', gloss: 'black', grammar: ['mod', 'n', 'vt']},
-        {name: 'pini', gloss: 'end', grammar: ['n', 'mod', 'vt']},
-        {name: 'pipi', category: 'animal', gloss: 'insect', grammar: ['n']},
-        {name: 'poka', gloss: 'side', grammar: ['n', 'mod', 'prep']},
-        {name: 'poki', gloss: 'box', grammar: ['n']},
-        {name: 'pona', gloss: 'good', grammar: ['n', 'mod', 'interj', 'vt']},
-        {name: 'pu', gloss: 'toki ponist', grammar: ['n', 'mod', 'vi']},
-        {name: 'sama', gloss: 'similar', grammar: ['mod', 'prep']},
-        {name: 'seli', gloss: 'warm', grammar: ['n', 'mod', 'vt']},
-        {name: 'selo', gloss: 'surface', grammar: ['n']},
-        {name: 'seme', gloss: 'what', grammar: ['n', 'mod', 'vi']},
-        {name: 'sewi', gloss: 'superior', grammar: ['n', 'mod']},
-        {name: 'sijelo', gloss: 'body', grammar: ['n']},
-        {name: 'sike', gloss: 'circle', grammar: ['n', 'mod']},
-        {name: 'sin', gloss: 'new', grammar: ['mod', 'vt']},
-        {name: 'sina', gloss: 'you', grammar: ['n', 'mod']},
-        {name: 'sinpin', gloss: 'front', grammar: ['n']},
-        {name: 'sitelen', gloss: 'draw', grammar: ['n', 'vt']},
-        {name: 'sona', gloss: 'wisdom', grammar: ['n', 'vt', 'vi']},
-        {name: 'soweli', category: 'animal', gloss: 'mammal', grammar: ['n']},
-        {name: 'suli', gloss: 'big', grammar: ['mod', 'vt', 'n']},
-        {name: 'suno', gloss: 'light', grammar: ['n']},
-        {name: 'supa', gloss: 'table', grammar: ['n']},
-        {name: 'suwi', gloss: 'sweet', grammar: ['n', 'mod', 'vt']},
-        {name: 'tan', gloss: 'because', grammar: ['prep', 'n']},
-        {name: 'taso', gloss: 'only', grammar: ['mod', 'conj']},
-        {name: 'tawa', gloss: 'move', grammar: ['prep', 'vi', 'n', 'mod', 'vt']},
-        {name: 'telo', gloss: 'liquid', grammar: ['n', 'vt']},
-        {name: 'tenpo', gloss: 'time', grammar: ['n']},
-        {name: 'toki', gloss: 'talking', grammar: ['n', 'mod', 'vt', 'vi', 'interj']},
-        {name: 'tomo', gloss: 'house', grammar: ['n', 'mod']},
-        {name: 'tu', gloss: 'two', grammar: ['mod', 'n']},
-        {name: 'unpa', gloss: 'sex', grammar: ['n', 'mod', 'vt', 'vi']},
-        {name: 'uta', gloss: 'mouth', grammar: ['n', 'mod']},
-        {name: 'utala', gloss: 'attack', grammar: ['n', 'vt']},
-        {name: 'walo', category: 'color', gloss: 'white', grammar: ['mod', 'n']},
-        {name: 'wan', gloss: 'one', grammar: ['mod', 'n', 'vt']},
-        {name: 'waso', category: 'animal', gloss: 'bird', grammar: ['n']},
-        {name: 'wawa', gloss: 'power', grammar: ['n', 'mod', 'vt']},
-        {name: 'weka', gloss: 'away', grammar: ['mod', 'n', 'vt']},
-        {name: 'wile', gloss: 'need', grammar: ['vt', 'n', 'mod']},
-        {name: '.', category: 'separator', gloss: 'period', type: 'punctuation', grammar: ['punct']},
-        {name: '?', category: 'separator', gloss: 'question', type: 'punctuation', grammar: ['punct']},
-        {name: '!', category: 'separator', gloss: 'exclamation', type: 'punctuation', grammar: ['punct']},
-        {name: ':', category: 'separator', gloss: 'colon', type: 'punctuation', grammar: ['punct']},
-        {name: ',', category: 'separator', gloss: 'comma', type: 'punctuation', grammar: ['punct']}
-    ];
-
-</script>
-<script>
-    function waitForRenderSvg(callback) {
-        if (window.render_svg && window.data) {
-            callback();
-        } else {
-            setTimeout(function() {
-                waitForRenderSvg(callback);
-            }, 50);
-        }
-    }
-
-    window.addEventListener('load', function () {
-        waitForRenderSvg(function() {
-            // find categories
-            var categories = [];
-            window.data.forEach(function (word) {
-            if (categories.indexOf(word.category) === -1) {
-                categories.push(word.category);
+    <script>
+        var tokiPonaDictionary = [
+            { name: "a", gloss: "ah", grammar: ["interj"] },
+            {
+                name: "akesi",
+                category: "animal",
+                gloss: "reptile",
+                grammar: ["n"],
+            },
+            { name: "ala", gloss: "no", grammar: ["mod", "n", "interj"] },
+            { name: "ali", gloss: "all", grammar: ["n", "mod"] },
+            { name: "anpa", gloss: "under", grammar: ["n", "mod"] },
+            {
+                name: "ante",
+                gloss: "different",
+                grammar: ["n", "mod", "conj", "vt"],
+            },
+            {
+                name: "anu",
+                category: "separator",
+                gloss: "or",
+                grammar: ["conj"],
+            },
+            { name: "awen", gloss: "remain", grammar: ["vi", "vt", "mod"] },
+            {
+                name: "e",
+                category: "separator",
+                gloss: "object marker",
+                grammar: ["sep"],
+            },
+            {
+                name: "en",
+                category: "separator",
+                gloss: "and",
+                grammar: ["conj"],
+            },
+            { name: "esun", gloss: "shop", grammar: ["n"] },
+            { name: "ijo", gloss: "thing", grammar: ["n", "mod", "vt"] },
+            {
+                name: "ike",
+                gloss: "evil",
+                grammar: ["mod", "interj", "n", "vt", "vi"],
+            },
+            { name: "ilo", gloss: "tool", grammar: ["n"] },
+            { name: "insa", gloss: "inside", grammar: ["n", "mod"] },
+            {
+                name: "jaki",
+                gloss: "dirty",
+                grammar: ["mod", "n", "vt", "interj"],
+            },
+            {
+                name: "jan",
+                category: "animal",
+                gloss: "person",
+                grammar: ["n", "mod", "vt"],
+            },
+            {
+                name: "jelo",
+                category: "color",
+                gloss: "yellow",
+                grammar: ["mod"],
+            },
+            { name: "jo", gloss: "have", grammar: ["vt", "n"] },
+            { name: "kala", category: "animal", gloss: "fish", grammar: ["n"] },
+            { name: "kalama", gloss: "sound", grammar: ["n", "vi", "vt"] },
+            { name: "kama", gloss: "come", grammar: ["vi", "n", "mod", "vt"] },
+            { name: "kasi", gloss: "plant", grammar: ["n"] },
+            { name: "ken", gloss: "possible", grammar: ["vi", "n", "vt"] },
+            { name: "kepeken", gloss: "use", grammar: ["vt", "prep"] },
+            { name: "kili", gloss: "fruit", grammar: ["n"] },
+            { name: "kin", gloss: "also", grammar: ["mod"] },
+            { name: "kiwen", gloss: "rock", grammar: ["mod", "n"] },
+            { name: "ko", gloss: "squishy", grammar: ["n"] },
+            { name: "kon", gloss: "soul", grammar: ["n", "mod"] },
+            { name: "kule", gloss: "color", grammar: ["n", "mod", "vt"] },
+            { name: "kulupu", gloss: "group", grammar: ["n", "mod"] },
+            { name: "kute", gloss: "listen", grammar: ["vt", "mod"] },
+            {
+                name: "la",
+                category: "separator",
+                gloss: "in context",
+                grammar: ["sep"],
+            },
+            { name: "lape", gloss: "rest", grammar: ["n", "vi", "mod"] },
+            {
+                name: "laso",
+                category: "color",
+                gloss: "blue/green",
+                grammar: ["mod"],
+            },
+            { name: "lawa", gloss: "head", grammar: ["n", "mod", "vt"] },
+            { name: "len", gloss: "cloth", grammar: ["n"] },
+            { name: "lete", gloss: "cold", grammar: ["n", "mod", "vt"] },
+            {
+                name: "li",
+                category: "separator",
+                gloss: "is",
+                grammar: ["sep"],
+            },
+            { name: "lili", gloss: "small", grammar: ["mod", "vt"] },
+            { name: "linja", gloss: "string", grammar: ["n"] },
+            { name: "lipu", gloss: "paper", grammar: ["n"] },
+            { name: "loje", category: "color", gloss: "red", grammar: ["mod"] },
+            { name: "lon", gloss: "located", grammar: ["prep", "vi"] },
+            { name: "luka", gloss: "hand", grammar: ["n"] },
+            { name: "lukin", gloss: "see", grammar: ["vt", "vi", "mod"] },
+            { name: "lupa", gloss: "hole", grammar: ["n"] },
+            { name: "ma", gloss: "land", grammar: ["n"] },
+            {
+                name: "mama",
+                category: "animal",
+                gloss: "parent",
+                grammar: ["n", "mod"],
+            },
+            { name: "mani", gloss: "money", grammar: ["n"] },
+            {
+                name: "meli",
+                category: "animal",
+                gloss: "female",
+                grammar: ["n", "mod"],
+            },
+            { name: "mi", gloss: "I/we", grammar: ["n", "mod"] },
+            {
+                name: "mije",
+                category: "animal",
+                gloss: "male",
+                grammar: ["n", "mod"],
+            },
+            { name: "moku", gloss: "food", grammar: ["n", "vt"] },
+            { name: "moli", gloss: "death", grammar: ["n", "vi", "vt", "mod"] },
+            { name: "monsi", gloss: "back", grammar: ["n", "mod"] },
+            { name: "mu", gloss: "moo!", grammar: ["interj"] },
+            { name: "mun", gloss: "moon", grammar: ["n", "mod"] },
+            { name: "musi", gloss: "play", grammar: ["n", "mod", "vi", "vt"] },
+            { name: "mute", gloss: "many", grammar: ["mod", "n", "vt"] },
+            { name: "namako", gloss: "extra", grammar: ["n", "mod"] },
+            { name: "nanpa", gloss: "number", grammar: ["n"] },
+            { name: "nasa", gloss: "crazy", grammar: ["mod", "vt"] },
+            { name: "nasin", gloss: "manner", grammar: ["n"] },
+            { name: "nena", gloss: "bump", grammar: ["n"] },
+            { name: "ni", gloss: "this", grammar: ["mod"] },
+            { name: "nimi", gloss: "name", grammar: ["n"] },
+            { name: "noka", gloss: "leg", grammar: ["n"] },
+            { name: "o", gloss: "imperative", grammar: ["sep", "interj"] },
+            { name: "oko", gloss: "eye", grammar: ["n"] },
+            { name: "olin", gloss: "love", grammar: ["n", "mod", "vt"] },
+            { name: "ona", gloss: "he/she/it", grammar: ["n", "mod"] },
+            { name: "open", gloss: "open", grammar: ["vt"] },
+            {
+                name: "pakala",
+                gloss: "destroy",
+                grammar: ["n", "vt", "vi", "interj"],
+            },
+            { name: "pali", gloss: "make", grammar: ["n", "mod", "vt", "vi"] },
+            { name: "palisa", gloss: "rod", grammar: ["n"] },
+            { name: "pan", gloss: "grain", grammar: ["n"] },
+            { name: "pana", gloss: "give", grammar: ["vt", "n"] },
+            {
+                name: "pi",
+                category: "separator",
+                gloss: "of",
+                grammar: ["sep"],
+            },
+            { name: "pilin", gloss: "feel", grammar: ["n", "vi", "vt"] },
+            {
+                name: "pimeja",
+                category: "color",
+                gloss: "black",
+                grammar: ["mod", "n", "vt"],
+            },
+            { name: "pini", gloss: "end", grammar: ["n", "mod", "vt"] },
+            {
+                name: "pipi",
+                category: "animal",
+                gloss: "insect",
+                grammar: ["n"],
+            },
+            { name: "poka", gloss: "side", grammar: ["n", "mod", "prep"] },
+            { name: "poki", gloss: "box", grammar: ["n"] },
+            {
+                name: "pona",
+                gloss: "good",
+                grammar: ["n", "mod", "interj", "vt"],
+            },
+            { name: "pu", gloss: "toki ponist", grammar: ["n", "mod", "vi"] },
+            { name: "sama", gloss: "similar", grammar: ["mod", "prep"] },
+            { name: "seli", gloss: "warm", grammar: ["n", "mod", "vt"] },
+            { name: "selo", gloss: "surface", grammar: ["n"] },
+            { name: "seme", gloss: "what", grammar: ["n", "mod", "vi"] },
+            { name: "sewi", gloss: "superior", grammar: ["n", "mod"] },
+            { name: "sijelo", gloss: "body", grammar: ["n"] },
+            { name: "sike", gloss: "circle", grammar: ["n", "mod"] },
+            { name: "sin", gloss: "new", grammar: ["mod", "vt"] },
+            { name: "sina", gloss: "you", grammar: ["n", "mod"] },
+            { name: "sinpin", gloss: "front", grammar: ["n"] },
+            { name: "sitelen", gloss: "draw", grammar: ["n", "vt"] },
+            { name: "sona", gloss: "wisdom", grammar: ["n", "vt", "vi"] },
+            {
+                name: "soweli",
+                category: "animal",
+                gloss: "mammal",
+                grammar: ["n"],
+            },
+            { name: "suli", gloss: "big", grammar: ["mod", "vt", "n"] },
+            { name: "suno", gloss: "light", grammar: ["n"] },
+            { name: "supa", gloss: "table", grammar: ["n"] },
+            { name: "suwi", gloss: "sweet", grammar: ["n", "mod", "vt"] },
+            { name: "tan", gloss: "because", grammar: ["prep", "n"] },
+            { name: "taso", gloss: "only", grammar: ["mod", "conj"] },
+            {
+                name: "tawa",
+                gloss: "move",
+                grammar: ["prep", "vi", "n", "mod", "vt"],
+            },
+            { name: "telo", gloss: "liquid", grammar: ["n", "vt"] },
+            { name: "tenpo", gloss: "time", grammar: ["n"] },
+            {
+                name: "toki",
+                gloss: "talking",
+                grammar: ["n", "mod", "vt", "vi", "interj"],
+            },
+            { name: "tomo", gloss: "house", grammar: ["n", "mod"] },
+            { name: "tu", gloss: "two", grammar: ["mod", "n"] },
+            { name: "unpa", gloss: "sex", grammar: ["n", "mod", "vt", "vi"] },
+            { name: "uta", gloss: "mouth", grammar: ["n", "mod"] },
+            { name: "utala", gloss: "attack", grammar: ["n", "vt"] },
+            {
+                name: "walo",
+                category: "color",
+                gloss: "white",
+                grammar: ["mod", "n"],
+            },
+            { name: "wan", gloss: "one", grammar: ["mod", "n", "vt"] },
+            { name: "waso", category: "animal", gloss: "bird", grammar: ["n"] },
+            { name: "wawa", gloss: "power", grammar: ["n", "mod", "vt"] },
+            { name: "weka", gloss: "away", grammar: ["mod", "n", "vt"] },
+            { name: "wile", gloss: "need", grammar: ["vt", "n", "mod"] },
+            {
+                name: ".",
+                category: "separator",
+                gloss: "period",
+                type: "punctuation",
+                grammar: ["punct"],
+            },
+            {
+                name: "?",
+                category: "separator",
+                gloss: "question",
+                type: "punctuation",
+                grammar: ["punct"],
+            },
+            {
+                name: "!",
+                category: "separator",
+                gloss: "exclamation",
+                type: "punctuation",
+                grammar: ["punct"],
+            },
+            {
+                name: ":",
+                category: "separator",
+                gloss: "colon",
+                type: "punctuation",
+                grammar: ["punct"],
+            },
+            {
+                name: ",",
+                category: "separator",
+                gloss: "comma",
+                type: "punctuation",
+                grammar: ["punct"],
+            },
+        ];
+    </script>
+    <script>
+        function waitForRenderSvg(callback) {
+            if (window.render_svg && window.data) {
+                callback();
+            } else {
+                setTimeout(function () {
+                    waitForRenderSvg(callback);
+                }, 50);
             }
-        });
-
-        var width = 900, height = 600, cx = width / 2, cy = height / 2, radius = 250, deg = Math.PI / 180;
-
-        var fill = d3.scale.category10();
-
-        var nodes = window.data;
-        nodes.forEach(function (node) {
-            node.group = categories.indexOf(node.category);
-            node.radius = 20;
-        });
-
-        var groupPath = function (d) {
-            return "M" +
-                    d3.geom.hull(d.values.map(function (i) {
-                        return [i.x, i.y];
-                    }))
-                            .join("L")
-                    + "Z";
-        };
-
-        var groups = d3.nest().key(function (d) {
-            return d.category;
-        }).entries(nodes);
-        groups.forEach(function (group, index) {
-            var angle = 360 / groups.length * index * deg;
-            var r = radius;// / groups.length * index;
-            group.x = cx + r * Math.cos(angle);
-            group.y = cy + r * Math.sin(angle);
-            group.radius = 1;
-        });
-
-        nodes.forEach(function (node) {
-            node.x = groups[node.group].x + (-5 + Math.random() * 10);
-            node.y = groups[node.group].y + (-5 + Math.random() * 10);
-        });
-
-        var groupFill = function (d, i) {
-            return fill(i % 10);
-        };
-
-        var force = d3.layout.force()
-                .nodes(nodes)
-                .size([width, height])
-                .gravity(0)
-                .charge(0)
-                .on("tick", tick)
-                .start();
-
-        var tooltip = d3.select("body")
-                .append("div")
-                .attr('class', 'tooltip')
-                .style("position", "absolute")
-                .style("z-index", "10")
-                .style("visibility", "hidden")
-                .text("a simple tooltip");
-
-        var svg = d3.select("body").append("svg")
-                .attr("preserveAspectRatio", "xMidYMid meet")
-                .attr("viewbox", '0 0 ' + width + ' ' + height);
-
-        function customBackground(fill){
-            var ns = 'http://www.w3.org/2000/svg';
-            var rect = document.createElementNS(ns, 'circle');
-            rect.style.r = '75%';
-            rect.style.cx = '40%';
-            rect.style.cy = '40%';
-            rect.style.fill = fill;
-            rect.style.stroke = 'none';
-            return rect;
         }
 
-        var node = svg.selectAll(".node")
-                .data(nodes)
-                .enter().append(function (d) {
-                    try {
-                        var svgText = window.render_svg(d.words);
-                        var parser = new DOMParser();
-                        var doc = parser.parseFromString(svgText, 'image/svg+xml');
-                        return document.importNode(doc.documentElement, true);
-                    } catch (e) {
-                        console.error('Render error:', d.words, e);
-                        var fallback = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                        fallback.setAttribute('width', '30');
-                        fallback.setAttribute('height', '30');
-                        return fallback;
-                    }
-                })
-                .attr("class", "node")
-                .attr("x", function (d) {
-                    return d.x;
-                })
-                .attr("y", function (d) {
-                    return d.y;
-                })
-                .attr("width", 30)
-                .attr("height", 30)
-                .attr("title", "hello")
-                .style('overflow','visible')
-                .call(force.drag)
-                .on("mousedown", function () {
-                    d3.event.stopPropagation();
-                })
-                .on("mouseover", function (d) {
-                    tooltip[0][0].innerHTML = '<b>' + d.words + '</b> <i>' + d.definition + '</i><br><span>'+ d.category +'</span>';
-                    return tooltip.style("visibility", "visible");
-                })
-                .on("mousemove", function () {
-                    return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
-                })
-                .on("mouseout", function () {
-                    return tooltip.style("visibility", "hidden");
-                });
-
-
-        svg.style("opacity", 1e-6)
-                .transition()
-                .duration(1000)
-                .style("opacity", 1);
-
-        d3.select("body")
-                .on("mousedown", mousedown);
-
-        function tick(e) {
-            var k = .1 * e.alpha;
-
-            // Push nodes toward their designated focus.
-            nodes.forEach(function (d, i) {
-                groups.forEach(function(group,index){
-                    if (d.group === index) return;
-                    var x = d.x - group.x,
-                            y = d.y - group.y,
-                            l = Math.sqrt(x * x + y * y);
-                    if (l < 150) {
-                        d.y += y * k;
-                        d.x += x * k;
+        window.addEventListener("load", function () {
+            waitForRenderSvg(function () {
+                // find categories
+                var categories = [];
+                window.data.forEach(function (word) {
+                    if (categories.indexOf(word.category) === -1) {
+                        categories.push(word.category);
                     }
                 });
-            });
 
-            node.each(cluster(10 * e.alpha * e.alpha))
-                    .each(collide(0.1))
+                var width = 900,
+                    height = 600,
+                    cx = width / 2,
+                    cy = height / 2,
+                    radius = 250,
+                    deg = Math.PI / 180;
+
+                var fill = d3.scale.category10();
+
+                var nodes = window.data;
+                nodes.forEach(function (node) {
+                    node.group = categories.indexOf(node.category);
+                    node.radius = 20;
+                });
+
+                var groupPath = function (d) {
+                    return (
+                        "M" +
+                        d3.geom
+                            .hull(
+                                d.values.map(function (i) {
+                                    return [i.x, i.y];
+                                }),
+                            )
+                            .join("L") +
+                        "Z"
+                    );
+                };
+
+                var groups = d3
+                    .nest()
+                    .key(function (d) {
+                        return d.category;
+                    })
+                    .entries(nodes);
+                groups.forEach(function (group, index) {
+                    var angle = (360 / groups.length) * index * deg;
+                    var r = radius; // / groups.length * index;
+                    group.x = cx + r * Math.cos(angle);
+                    group.y = cy + r * Math.sin(angle);
+                    group.radius = 1;
+                });
+
+                nodes.forEach(function (node) {
+                    node.x = groups[node.group].x + (-5 + Math.random() * 10);
+                    node.y = groups[node.group].y + (-5 + Math.random() * 10);
+                });
+
+                var groupFill = function (d, i) {
+                    return fill(i % 10);
+                };
+
+                var force = d3.layout
+                    .force()
+                    .nodes(nodes)
+                    .size([width, height])
+                    .gravity(0)
+                    .charge(0)
+                    .on("tick", tick)
+                    .start();
+
+                var tooltip = d3
+                    .select("body")
+                    .append("div")
+                    .attr("class", "tooltip")
+                    .style("position", "absolute")
+                    .style("z-index", "10")
+                    .style("visibility", "hidden")
+                    .text("a simple tooltip");
+
+                var svg = d3
+                    .select("body")
+                    .append("svg")
+                    .attr("preserveAspectRatio", "xMidYMid meet")
+                    .attr("viewbox", "0 0 " + width + " " + height);
+
+                function customBackground(fill) {
+                    var ns = "http://www.w3.org/2000/svg";
+                    var rect = document.createElementNS(ns, "circle");
+                    rect.style.r = "75%";
+                    rect.style.cx = "40%";
+                    rect.style.cy = "40%";
+                    rect.style.fill = fill;
+                    rect.style.stroke = "none";
+                    return rect;
+                }
+
+                var node = svg
+                    .selectAll(".node")
+                    .data(nodes)
+                    .enter()
+                    .append(function (d) {
+                        try {
+                            var svgText = window.render_svg(d.words);
+                            var parser = new DOMParser();
+                            var doc = parser.parseFromString(
+                                svgText,
+                                "image/svg+xml",
+                            );
+                            return document.importNode(
+                                doc.documentElement,
+                                true,
+                            );
+                        } catch (e) {
+                            console.error("Render error:", d.words, e);
+                            var fallback = document.createElementNS(
+                                "http://www.w3.org/2000/svg",
+                                "svg",
+                            );
+                            fallback.setAttribute("width", "30");
+                            fallback.setAttribute("height", "30");
+                            return fallback;
+                        }
+                    })
+                    .attr("class", "node")
                     .attr("x", function (d) {
                         return d.x;
                     })
                     .attr("y", function (d) {
                         return d.y;
+                    })
+                    .attr("width", 30)
+                    .attr("height", 30)
+                    .attr("title", "hello")
+                    .style("overflow", "visible")
+                    .call(force.drag)
+                    .on("mousedown", function () {
+                        d3.event.stopPropagation();
+                    })
+                    .on("mouseover", function (d) {
+                        tooltip[0][0].innerHTML =
+                            "<b>" +
+                            d.words +
+                            "</b> <i>" +
+                            d.definition +
+                            "</i><br><span>" +
+                            d.category +
+                            "</span>";
+                        return tooltip.style("visibility", "visible");
+                    })
+                    .on("mousemove", function () {
+                        return tooltip
+                            .style("top", event.pageY - 10 + "px")
+                            .style("left", event.pageX + 10 + "px");
+                    })
+                    .on("mouseout", function () {
+                        return tooltip.style("visibility", "hidden");
                     });
 
-            node.attr("x", function(d) { return d.x = Math.max(d.radius, Math.min(width - d.radius, d.x)); })
-                    .attr("y", function(d) { return d.y = Math.max(d.radius, Math.min(height - d.radius, d.y)); });
+                svg.style("opacity", 1e-6)
+                    .transition()
+                    .duration(1000)
+                    .style("opacity", 1);
 
-//            svg.selectAll(".hullpath")
-//                    .data(groups)
-//                    .attr("d", groupPath)
-//                    .enter().insert("path", "svg[data-sitelen-sentence]")
-//                    .attr('class', 'hullpath')
-//                    .style("fill", groupFill)
-//                    .style("stroke", groupFill)
-//                    .style("stroke-width", 40)
-//                    .style("stroke-linejoin", "round")
-//                    .style("opacity", .2)
-//                    .attr("d", groupPath);
-        }
+                d3.select("body").on("mousedown", mousedown);
 
-        function mousedown() {
-            nodes.forEach(function (o, i) {
-                o.x += (Math.random() - .5) * 40;
-                o.y += (Math.random() - .5) * 40;
-            });
-            force.resume();
-        }
+                function tick(e) {
+                    var k = 0.1 * e.alpha;
 
+                    // Push nodes toward their designated focus.
+                    nodes.forEach(function (d, i) {
+                        groups.forEach(function (group, index) {
+                            if (d.group === index) return;
+                            var x = d.x - group.x,
+                                y = d.y - group.y,
+                                l = Math.sqrt(x * x + y * y);
+                            if (l < 150) {
+                                d.y += y * k;
+                                d.x += x * k;
+                            }
+                        });
+                    });
 
-        // Move d to be adjacent to the cluster node.
-        function cluster(alpha) {
-            return function (d) {
-                var cluster = groups[d.group];
-                if (cluster === d) return;
-                var x = d.x - cluster.x,
-                        y = d.y - cluster.y,
-                        l = Math.sqrt(x * x + y * y),
-                        r = d.radius + cluster.radius;
-                if (l != r) {
-                    l = (l - r) / l * alpha;
-                    d.x -= x *= l;
-                    d.y -= y *= l;
-                    cluster.x += x;
-                    cluster.y += y;
+                    node.each(cluster(10 * e.alpha * e.alpha))
+                        .each(collide(0.1))
+                        .attr("x", function (d) {
+                            return d.x;
+                        })
+                        .attr("y", function (d) {
+                            return d.y;
+                        });
+
+                    node.attr("x", function (d) {
+                        return (d.x = Math.max(
+                            d.radius,
+                            Math.min(width - d.radius, d.x),
+                        ));
+                    }).attr("y", function (d) {
+                        return (d.y = Math.max(
+                            d.radius,
+                            Math.min(height - d.radius, d.y),
+                        ));
+                    });
+
+                    //            svg.selectAll(".hullpath")
+                    //                    .data(groups)
+                    //                    .attr("d", groupPath)
+                    //                    .enter().insert("path", "svg[data-sitelen-sentence]")
+                    //                    .attr('class', 'hullpath')
+                    //                    .style("fill", groupFill)
+                    //                    .style("stroke", groupFill)
+                    //                    .style("stroke-width", 40)
+                    //                    .style("stroke-linejoin", "round")
+                    //                    .style("opacity", .2)
+                    //                    .attr("d", groupPath);
                 }
-            };
-        }
 
-        var maxRadius = 1, padding = 1.6, clusterPadding = 1;
+                function mousedown() {
+                    nodes.forEach(function (o, i) {
+                        o.x += (Math.random() - 0.5) * 40;
+                        o.y += (Math.random() - 0.5) * 40;
+                    });
+                    force.resume();
+                }
 
-        // Resolves collisions between d and all other circles.
-        function collide(alpha) {
-            var quadtree = d3.geom.quadtree(nodes);
-            return function (d) {
-                var r = d.radius + maxRadius + Math.max(padding, clusterPadding),
-                        nx1 = d.x - r,
-                        nx2 = d.x + r,
-                        ny1 = d.y - r,
-                        ny2 = d.y + r;
-                quadtree.visit(function (quad, x1, y1, x2, y2) {
-                    if (quad.point && (quad.point !== d)) {
-                        var x = d.x - quad.point.x,
-                                y = d.y - quad.point.y,
-                                l = Math.sqrt(x * x + y * y),
-                                r = d.radius + quad.point.radius + (d.cluster === quad.point.cluster ? padding : clusterPadding);
-                        if (l < r) {
-                            l = (l - r) / l * alpha;
+                // Move d to be adjacent to the cluster node.
+                function cluster(alpha) {
+                    return function (d) {
+                        var cluster = groups[d.group];
+                        if (cluster === d) return;
+                        var x = d.x - cluster.x,
+                            y = d.y - cluster.y,
+                            l = Math.sqrt(x * x + y * y),
+                            r = d.radius + cluster.radius;
+                        if (l != r) {
+                            l = ((l - r) / l) * alpha;
                             d.x -= x *= l;
                             d.y -= y *= l;
-                            quad.point.x += x;
-                            quad.point.y += y;
+                            cluster.x += x;
+                            cluster.y += y;
                         }
-                    }
-                    return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-                });
-            };
-        }
-        }); // End of waitForRenderSvg callback
-    }); // End of window.addEventListener('load')
-</script>
+                    };
+                }
+
+                var maxRadius = 1,
+                    padding = 1.6,
+                    clusterPadding = 1;
+
+                // Resolves collisions between d and all other circles.
+                function collide(alpha) {
+                    var quadtree = d3.geom.quadtree(nodes);
+                    return function (d) {
+                        var r =
+                                d.radius +
+                                maxRadius +
+                                Math.max(padding, clusterPadding),
+                            nx1 = d.x - r,
+                            nx2 = d.x + r,
+                            ny1 = d.y - r,
+                            ny2 = d.y + r;
+                        quadtree.visit(function (quad, x1, y1, x2, y2) {
+                            if (quad.point && quad.point !== d) {
+                                var x = d.x - quad.point.x,
+                                    y = d.y - quad.point.y,
+                                    l = Math.sqrt(x * x + y * y),
+                                    r =
+                                        d.radius +
+                                        quad.point.radius +
+                                        (d.cluster === quad.point.cluster
+                                            ? padding
+                                            : clusterPadding);
+                                if (l < r) {
+                                    l = ((l - r) / l) * alpha;
+                                    d.x -= x *= l;
+                                    d.y -= y *= l;
+                                    quad.point.x += x;
+                                    quad.point.y += y;
+                                }
+                            }
+                            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
+                        });
+                    };
+                }
+            }); // End of waitForRenderSvg callback
+        }); // End of window.addEventListener('load')
+    </script>
+</body>

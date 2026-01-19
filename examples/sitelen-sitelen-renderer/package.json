@@ -1,0 +1,24 @@
+{
+  "name": "sitelen-wasm",
+  "type": "module",
+  "collaborators": [
+    "Olaf T.A. Janssen <olaf.janssen@pm.me>"
+  ],
+  "description": "WASM bindings for Sitelen Sitelen renderer",
+  "version": "0.3.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olafjanssen/sitelen-sitelen-renderer"
+  },
+  "files": [
+    "sitelen_wasm_bg.wasm",
+    "sitelen_wasm.js",
+    "sitelen_wasm.d.ts"
+  ],
+  "main": "sitelen_wasm.js",
+  "types": "sitelen_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

@@ -1,69 +1,70 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <link rel="stylesheet" href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css">
-    <style>
-        @page {
-            size: A4 portrait;
-        }
+    <head>
+        <link
+            rel="stylesheet"
+            href="../../styles/sitelen-sitelen-renderer-sitelen-renderer.css"
+        />
+        <style>
+            @page {
+                size: A4 portrait;
+            }
 
-        body {
-            font-family: sans-serif;
-            text-align: center;
-        }
+            body {
+                font-family: sans-serif;
+                text-align: center;
+            }
 
-        h1 {
-            font-size: 1.5em;
-            margin: 0.25em auto;
-            display: block;
-        }
+            h1 {
+                font-size: 1.5em;
+                margin: 0.25em auto;
+                display: block;
+            }
 
-        .sentence {
-            position: relative;
-            display: inline;
-            writing-mode: rl;
-            padding: 1em;
-            width: 13em;
-            transform: rotate(90deg);
-        }
+            .sentence {
+                position: relative;
+                display: inline;
+                writing-mode: rl;
+                padding: 1em;
+                width: 13em;
+                transform: rotate(90deg);
+            }
 
-        .sitelen-sitelen {
-            display: flex;
-            flex-direction: row-reverse;
-            flex-wrap: wrap;
-            text-align: center;
-        }
+            .sitelen-sitelen {
+                display: flex;
+                flex-direction: row-reverse;
+                flex-wrap: wrap;
+                text-align: center;
+            }
 
+            .sitelen-sitelen > .sentence > svg {
+                padding: 1em;
+                width: 12em;
+                display: block;
+                overflow: visible;
+            }
 
-        .sitelen-sitelen > .sentence > svg {
-            padding: 1em;
-            width: 12em;
-            display: block;
-            overflow: visible;
-        }
-
-        /*.sitelen-sitelen > .sentence > label {*/
+            /*.sitelen-sitelen > .sentence > label {*/
             /*display: inline-block;*/
             /*position: absolute;*/
             /*width: 100%;*/
             /*left: 0;*/
             /*top: 0;*/
-        /*}*/
+            /*}*/
+        </style>
+    </head>
+    <body>
+        <!--<h1>Toki Pona Tatoeba Corpus</h1>-->
 
-    </style>
-</head>
-<body>
+        <div class="sitelen-sitelen"></div>
 
-<!--<h1>Toki Pona Tatoeba Corpus</h1>-->
+        <script type="module">
+            import init, {
+                render_svg,
+            } from "../sitelen-sitelen-renderer/sitelen_wasm.js";
+            await init();
 
-<div class="sitelen-sitelen">
-</div>
-
-<script type="module">
-    import init, { render_svg } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
-    await init();
-
-    /*
+            /*
         todo:
             * tp-c-tan cannot
             * tp-c-tawa-tall
@@ -73,127 +74,134 @@
             * tp-syl-nl
      */
 
+            var blacklist = [
+                4910825,
+                5297780,
+                4713695, // monsuta
+                4637020,
+                3572522,
+            ];
 
-    var blacklist = [
-        4910825,
-        5297780,
-        4713695, // monsuta
-        4637020,
-        3572522
-    ];
+            ("use strict");
 
-
-    'use strict';
-
-    function loadJSON(url, callback) {
-        var xobj = new XMLHttpRequest();
-        xobj.overrideMimeType("application/json");
-        xobj.open('GET', url, true); // Replace 'my_data' with the path to your file
-        xobj.onreadystatechange = function () {
-            if (xobj.readyState == 4 && xobj.status == "200") {
-                // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
-                callback(JSON.parse(xobj.responseText));
-            }
-        };
-        xobj.send(null);
-    }
-
-    loadJSON('tokitatoeba.json', function (data) {
-        var element = document.querySelector('.sitelen-sitelen');
-
-        var data1 = data.filter(function (item) {
-            return item.toki.split(' ').length === 1;
-        });
-
-        var data2 = data.filter(function (item) {
-            return item.toki.split(' ').length === 2;
-        });
-
-        var data3 = data.filter(function (item) {
-            return item.toki.split(' ').length === 3;
-        });
-
-        var data4 = data.filter(function (item) {
-            return item.toki.split(' ').length === 4;
-        });
-
-        renderData(data1, function () {
-            renderData(data2, function () {
-                 renderData(data3, function () {
-                     renderData(data4, function () {
-                     });
-                 });
-            });
-        });
-
-        function renderData(data, cb) {
-
-            var counter = 0, counterMax = data.length;
-            console.log(counterMax);
-
-            function loop() {
-                // check blacklist
-                if (blacklist.indexOf(data[counter].id) > -1) {
-                    next();
-                    return;
-                }
-
-                var text = data[counter].toki;
-
-                if (!text) {
-                    next();
-                    return;
-                } else {
-                    text = text.replace(/"/g, '');
-                }
-
-                console.log(data[counter].id + ': ' + text + ' / ' + data[counter].eng);
-
-                var sent = document.createElement('div');
-                sent.classList.add('sentence');
-
-                // Determine ratio based on word count
-                var wordCount = text.split(' ').length;
-                var ratio = 0.75;
-                if (wordCount === 2) {
-                    ratio = 1.25;
-                } else if (wordCount === 3) {
-                    ratio = 1;
-                }
-
-                try {
-                    // Render with WASM using the specified ratio
-                    var svgText = render_svg(text, ratio);
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(svgText, 'image/svg+xml');
-                    var svgEl = document.importNode(doc.documentElement, true);
-                    sent.appendChild(svgEl);
-                } catch (e) {
-                    console.error('Render error:', text, e);
-                }
-
-                var label = document.createElement('label');
-                label.innerHTML = text + ' / ' + data[counter].eng;
-                sent.appendChild(label);
-
-                element.appendChild(sent);
-                next();
-
-                function next() {
-                    counter++;
-                    if (counter < counterMax) {
-                        requestAnimationFrame(loop);
-                    } else {
-                        cb();
+            function loadJSON(url, callback) {
+                var xobj = new XMLHttpRequest();
+                xobj.overrideMimeType("application/json");
+                xobj.open("GET", url, true); // Replace 'my_data' with the path to your file
+                xobj.onreadystatechange = function () {
+                    if (xobj.readyState == 4 && xobj.status == "200") {
+                        // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+                        callback(JSON.parse(xobj.responseText));
                     }
-                }
+                };
+                xobj.send(null);
             }
 
-            requestAnimationFrame(loop);
-        }
-    });
+            loadJSON("tokitatoeba.json", function (data) {
+                var element = document.querySelector(".sitelen-sitelen");
 
-</script>
+                var data1 = data.filter(function (item) {
+                    return item.toki.split(" ").length === 1;
+                });
 
-</body>
+                var data2 = data.filter(function (item) {
+                    return item.toki.split(" ").length === 2;
+                });
+
+                var data3 = data.filter(function (item) {
+                    return item.toki.split(" ").length === 3;
+                });
+
+                var data4 = data.filter(function (item) {
+                    return item.toki.split(" ").length === 4;
+                });
+
+                renderData(data1, function () {
+                    renderData(data2, function () {
+                        renderData(data3, function () {
+                            renderData(data4, function () {});
+                        });
+                    });
+                });
+
+                function renderData(data, cb) {
+                    var counter = 0,
+                        counterMax = data.length;
+                    console.log(counterMax);
+
+                    function loop() {
+                        // check blacklist
+                        if (blacklist.indexOf(data[counter].id) > -1) {
+                            next();
+                            return;
+                        }
+
+                        var text = data[counter].toki;
+
+                        if (!text) {
+                            next();
+                            return;
+                        } else {
+                            text = text.replace(/"/g, "");
+                        }
+
+                        console.log(
+                            data[counter].id +
+                                ": " +
+                                text +
+                                " / " +
+                                data[counter].eng,
+                        );
+
+                        var sent = document.createElement("div");
+                        sent.classList.add("sentence");
+
+                        // Determine ratio based on word count
+                        var wordCount = text.split(" ").length;
+                        var ratio = 0.75;
+                        if (wordCount === 2) {
+                            ratio = 1.25;
+                        } else if (wordCount === 3) {
+                            ratio = 1;
+                        }
+
+                        try {
+                            // Render with WASM using the specified ratio
+                            var svgText = render_svg(text, ratio);
+                            var parser = new DOMParser();
+                            var doc = parser.parseFromString(
+                                svgText,
+                                "image/svg+xml",
+                            );
+                            var svgEl = document.importNode(
+                                doc.documentElement,
+                                true,
+                            );
+                            sent.appendChild(svgEl);
+                        } catch (e) {
+                            console.error("Render error:", text, e);
+                        }
+
+                        var label = document.createElement("label");
+                        label.innerHTML = text + " / " + data[counter].eng;
+                        sent.appendChild(label);
+
+                        element.appendChild(sent);
+                        next();
+
+                        function next() {
+                            counter++;
+                            if (counter < counterMax) {
+                                requestAnimationFrame(loop);
+                            } else {
+                                cb();
+                            }
+                        }
+                    }
+
+                    requestAnimationFrame(loop);
+                }
+            });
+        </script>
+    </body>
 </html>

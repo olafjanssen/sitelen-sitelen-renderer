@@ -1,469 +1,645 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8" />
+        <link rel="icon" href="data:," />
+        <script
+            type="module"
+            src="../sitelen-sitelen-renderer/sitelen_wasm.js"
+        ></script>
+        <style>
+            :root {
+                --color-primary: #e63946;
+                --color-text: #2b2d42;
+                --color-text-light: #6c757d;
+                --color-bg: #ffffff;
+                --color-surface: #f8f9fa;
+                --color-border: #dee2e6;
+                --color-success: #28a745;
+                --color-success-hover: #218838;
+                --spacing-unit: 1rem;
+            }
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="utf-8">
-    <link rel="icon" href="data:,">
-    <script type="module" src="../../sitelen-wasm/pkg/sitelen_wasm.js"></script>
-    <style>
-        :root {
-            --color-primary: #e63946;
-            --color-text: #2b2d42;
-            --color-text-light: #6c757d;
-            --color-bg: #ffffff;
-            --color-surface: #f8f9fa;
-            --color-border: #dee2e6;
-            --color-success: #28a745;
-            --color-success-hover: #218838;
-            --spacing-unit: 1rem;
-        }
+            * {
+                box-sizing: border-box;
+            }
 
-        * {
-            box-sizing: border-box;
-        }
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                line-height: 1.6;
+                color: var(--color-text);
+                background: var(--color-bg);
+                margin: 0;
+                padding: 2rem 1rem;
+            }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--color-text);
-            background: var(--color-bg);
-            margin: 0;
-            padding: 2rem 1rem;
-        }
+            .container {
+                max-width: 48rem;
+                margin: 0 auto;
+            }
 
-        .container {
-            max-width: 48rem;
-            margin: 0 auto;
-        }
+            header {
+                text-align: center;
+                margin-bottom: 3rem;
+            }
 
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+            h1 {
+                font-size: 1.75rem;
+                font-weight: 600;
+                margin: 0 0 0.5rem 0;
+                color: var(--color-text);
+            }
 
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            color: var(--color-text);
-        }
+            .wordmark {
+                color: var(--color-primary);
+            }
 
-        .wordmark {
-            color: var(--color-primary);
-        }
+            .intro {
+                color: var(--color-text-light);
+                font-size: 0.95rem;
+                margin-bottom: 2rem;
+            }
 
-        .intro {
-            color: var(--color-text-light);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
+            .input-section {
+                background: var(--color-surface);
+                border-radius: 0.5rem;
+                padding: 2rem;
+                margin-bottom: 2rem;
+                border: 1px solid var(--color-border);
+            }
 
-        .input-section {
-            background: var(--color-surface);
-            border-radius: 0.5rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid var(--color-border);
-        }
+            #tokiInput {
+                width: 100%;
+                max-width: 20em;
+                margin: 0 auto 1.5rem;
+                display: block;
+                padding: 0.75rem 1rem;
+                font-size: 1rem;
+                border: 2px solid var(--color-border);
+                border-radius: 0.375rem;
+                transition: border-color 0.2s;
+            }
 
-        #tokiInput {
-            width: 100%;
-            max-width: 20em;
-            margin: 0 auto 1.5rem;
-            display: block;
-            padding: 0.75rem 1rem;
-            font-size: 1rem;
-            border: 2px solid var(--color-border);
-            border-radius: 0.375rem;
-            transition: border-color 0.2s;
-        }
+            #tokiInput:focus {
+                outline: none;
+                border-color: var(--color-primary);
+            }
 
-        #tokiInput:focus {
-            outline: none;
-            border-color: var(--color-primary);
-        }
+            .slider-container {
+                display: none;
+                max-width: 20em;
+                margin: 0 auto 1.5rem;
+            }
 
-        .slider-container {
-            display: none;
-            max-width: 20em;
-            margin: 0 auto 1.5rem;
-        }
+            #ratioSlider {
+                width: 100%;
+                height: 0.5rem;
+                border-radius: 0.25rem;
+                background: var(--color-border);
+                outline: none;
+                -webkit-appearance: none;
+                appearance: none;
+            }
 
-        #ratioSlider {
-            width: 100%;
-            height: 0.5rem;
-            border-radius: 0.25rem;
-            background: var(--color-border);
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
-        }
+            #ratioSlider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 1.25rem;
+                height: 1.25rem;
+                border-radius: 50%;
+                background: var(--color-primary);
+                cursor: pointer;
+            }
 
-        #ratioSlider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 50%;
-            background: var(--color-primary);
-            cursor: pointer;
-        }
+            #ratioSlider::-moz-range-thumb {
+                width: 1.25rem;
+                height: 1.25rem;
+                border-radius: 50%;
+                background: var(--color-primary);
+                cursor: pointer;
+                border: none;
+            }
 
-        #ratioSlider::-moz-range-thumb {
-            width: 1.25rem;
-            height: 1.25rem;
-            border-radius: 50%;
-            background: var(--color-primary);
-            cursor: pointer;
-            border: none;
-        }
+            #sitelen {
+                margin: 0 auto 1.5rem;
+                width: 20em;
+                min-height: 4rem;
+            }
 
-        #sitelen {
-            margin: 0 auto 1.5rem;
-            width: 20em;
-            min-height: 4rem;
-        }
+            #sitelen svg {
+                width: 100%;
+                display: block;
+            }
 
-        #sitelen svg {
-            width: 100%;
-            display: block;
-        }
+            .download-btn {
+                display: none;
+                margin: 0 auto 2rem;
+                padding: 0.75rem 1.5rem;
+                background: var(--color-success);
+                color: white;
+                border: none;
+                border-radius: 0.375rem;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+                transition: background-color 0.2s;
+            }
 
-        .download-btn {
-            display: none;
-            margin: 0 auto 2rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--color-success);
-            color: white;
-            border: none;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
+            .download-btn:hover {
+                background: var(--color-success-hover);
+            }
 
-        .download-btn:hover {
-            background: var(--color-success-hover);
-        }
+            .error {
+                color: var(--color-primary);
+                margin: 1rem 0;
+                text-align: center;
+            }
 
-        .error {
-            color: var(--color-primary);
-            margin: 1rem 0;
-            text-align: center;
-        }
+            .loading {
+                color: var(--color-text-light);
+                margin: 1rem 0;
+                text-align: center;
+            }
 
-        .loading {
-            color: var(--color-text-light);
-            margin: 1rem 0;
-            text-align: center;
-        }
+            section {
+                margin-bottom: 3rem;
+            }
 
-        section {
-            margin-bottom: 3rem;
-        }
+            h2 {
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin: 0 0 1rem 0;
+                color: var(--color-text);
+            }
 
-        h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0 0 1rem 0;
-            color: var(--color-text);
-        }
+            p {
+                margin: 0 0 1rem 0;
+                color: var(--color-text-light);
+            }
 
-        p {
-            margin: 0 0 1rem 0;
-            color: var(--color-text-light);
-        }
+            a {
+                color: var(--color-primary);
+                text-decoration: none;
+                transition: opacity 0.2s;
+            }
 
-        a {
-            color: var(--color-primary);
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
+            a:hover {
+                opacity: 0.8;
+                text-decoration: underline;
+            }
 
-        a:hover {
-            opacity: 0.8;
-            text-decoration: underline;
-        }
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
 
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+            .writing-tips {
+                list-style: disc;
+                padding-left: 1.5rem;
+                margin-bottom: 1rem;
+            }
 
-        .writing-tips {
-            list-style: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
+            .writing-tips li {
+                margin-bottom: 0.75rem;
+                color: var(--color-text-light);
+            }
 
-        .writing-tips li {
-            margin-bottom: 0.75rem;
-            color: var(--color-text-light);
-        }
+            .writing-tips code {
+                background: var(--color-surface);
+                padding: 0.125rem 0.375rem;
+                border-radius: 0.25rem;
+                font-size: 0.9em;
+                font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+            }
 
-        .writing-tips code {
-            background: var(--color-surface);
-            padding: 0.125rem 0.375rem;
-            border-radius: 0.25rem;
-            font-size: 0.9em;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-        }
+            #known-issues li {
+                margin-bottom: 0.5rem;
+            }
 
-        #known-issues li {
-            margin-bottom: 0.5rem;
-        }
+            #known-issues a {
+                display: inline-block;
+            }
+        </style>
+    </head>
 
-        #known-issues a {
-            display: inline-block;
-        }
-    </style>
-</head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>
+                    Live Toki Pona
+                    <span class="wordmark">Sitelen Sitelen Renderer</span>
+                </h1>
+                <p class="intro">
+                    Type Toki Pona text and see it rendered in the beautiful
+                    Sitelen Sitelen style. Also check out the Sitelen Sitelen
+                    <a href="../editor/editor.html" target="_blank"
+                        >live editor</a
+                    >
+                    to input entire texts.
+                </p>
+            </header>
 
-<body>
-    <div class="container">
-        <header>
-            <h1>Live Toki Pona <span class="wordmark">Sitelen Sitelen Renderer</span></h1>
-            <p class="intro">Type Toki Pona text and see it rendered in the beautiful Sitelen Sitelen style. Also check out the Sitelen Sitelen <a href="../editor/editor.html" target="_blank">live editor</a> to input entire texts.</p>
-        </header>
+            <div class="input-section">
+                <input
+                    type="text"
+                    id="tokiInput"
+                    placeholder="write toki pona here"
+                    autocomplete="off"
+                />
 
-        <div class="input-section">
-            <input type="text" id="tokiInput" placeholder="write toki pona here" autocomplete="off">
-            
-            <div id="sliderContainer" class="slider-container">
-                <input type="range" id="ratioSlider" min="0" max="0" step="1" value="0">
+                <div id="sliderContainer" class="slider-container">
+                    <input
+                        type="range"
+                        id="ratioSlider"
+                        min="0"
+                        max="0"
+                        step="1"
+                        value="0"
+                    />
+                </div>
+
+                <div id="sitelen">
+                    <p class="loading">Loading WASM module...</p>
+                </div>
+
+                <button id="downloadBtn" class="download-btn">
+                    Download as SVG
+                </button>
             </div>
 
-            <div id="sitelen">
-                <p class="loading">Loading WASM module...</p>
-            </div>
+            <section>
+                <h2>Writing Tips</h2>
+                <ul class="writing-tips">
+                    <li>
+                        <strong>Lowercase text</strong>: All Toki Pona text is
+                        expected in lower case
+                    </li>
+                    <li>
+                        <strong>Sentence endings</strong>: All sentences should
+                        end with <code>.</code>, <code>!</code>, <code>?</code>,
+                        or <code>#</code> (for banners). The colon
+                        <code>:</code> and <code>,</code> are also recognized as
+                        punctuation
+                    </li>
+                    <li>
+                        <strong>Proper nouns in cartouches</strong>: Syllables
+                        appear in cartouches by writing words starting with an
+                        upper case letter: <code>jan Pona</code> vs
+                        <code>jan pona</code>
+                    </li>
+                    <li>
+                        <strong>Multiple sentences</strong>: Multiple sentences
+                        are automatically split by punctuation. Each sentence is
+                        rendered separately
+                    </li>
+                    <li>
+                        <strong>Commas</strong>: Commas before
+                        <code>la</code> and <code>li</code> are automatically
+                        removed, so <code>tenpo, la</code> becomes
+                        <code>tenpo la</code>
+                    </li>
+                    <li>
+                        <strong>Spacing</strong>: Double spaces are
+                        automatically normalized to single spaces
+                    </li>
+                    <li>
+                        <strong>Context separators</strong>: The
+                        <code>la</code> particle is recognized as a context
+                        separator and creates separate sentence parts
+                    </li>
+                </ul>
+            </section>
 
-            <button id="downloadBtn" class="download-btn">Download as SVG</button>
+            <section>
+                <h2>About</h2>
+                <p>
+                    I created
+                    <span class="wordmark">Sitelen Sitelen Renderer</span>
+                    because I am fascinated by combining the artificial language
+                    Toki Pona with the non-linear writing style 'Sitelen
+                    Sitelen' by Jonathan Gabel. Unlike other work with Sitelen
+                    Sitelen I want the writings to be generated by the computer.
+                    My
+                    <a
+                        href="http://nullelement.org/2015/05/living-toki-pona-using-flexbox-layout-and-sitelen-sitelen/"
+                        target="_blank"
+                        >first attempt</a
+                    >
+                    was in the beginning of 2015 when I experimented with CSS
+                    Flexbox using SVG for the Glyphs. The algorithm was limited
+                    and doomed so in October 2015 I started anew, and set out to
+                    create SVG-only sitelen sitelen that can be exported and
+                    reused.
+                </p>
+                <p>
+                    The project had since then been mostly dormant, with only a
+                    few minor fixes here and there. Now, in 2025 the project has
+                    accumulated so much rust, its codebase is now rewritten in
+                    Rust. This Rust rewrite maintains the same visual output and
+                    algorithm spirit while providing better performance, type
+                    safety, and modern tooling. This is still a hobby project
+                    that I work on in my spare time.
+                </p>
+                <p>
+                    On this page you can type (proper) Toki Pona. The text is
+                    parsed into structures that can be rendered in the style of
+                    Sitelen Sitelen. By using the slider you can choose the form
+                    that you like. You can download the self-contained SVG which
+                    you can then use wherever.
+                </p>
+                <p>
+                    Mind that this project is very much in alpha, many language
+                    constructs are not implemented yet. If you find them you can
+                    add them to the issue list, see my
+                    <a
+                        href="https://github.com/olafjanssen/sitelen-sitelen-renderer/"
+                        target="_blank"
+                        >GitHub repo</a
+                    >. Also check out the Sitelen Sitelen
+                    <a href="../editor/editor.html" target="_blank"
+                        >live editor</a
+                    >
+                    to input entire texts.
+                </p>
+                <p>
+                    ~ Cheers!
+                    <a
+                        href="https://nl.linkedin.com/in/otajanssen"
+                        target="_blank"
+                        >Olaf Janssen</a
+                    >
+                </p>
+            </section>
+
+            <section>
+                <h2>Known Issues</h2>
+                <ul id="known-issues"></ul>
+                <p>
+                    <a
+                        href="https://github.com/olafjanssen/sitelen-sitelen-renderer/issues"
+                        target="_blank"
+                        >View all issues on GitHub</a
+                    >
+                </p>
+            </section>
+
+            <section>
+                <h2>Attribution</h2>
+                <p>
+                    This live sitelen sitelen sandbox web app is made possible
+                    by the great work done before me.
+                </p>
+                <p>
+                    <a href="http://tokipona.org/" target="_blank">Toki Pona</a>
+                    is an artificial language invented in 2001 by Sonja Lang as
+                    an attempt to understand the meaning of life in 120 words.
+                    In my own search, I am convinced this language should not be
+                    used to translate large bodies of text or as an actual means
+                    of communication but as a personal tool for soul searching.
+                </p>
+                <p>
+                    <a
+                        href="http://www.jonathangabel.com/archive/2012/projects_t47.html"
+                        target="_blank"
+                        >Sitelen Sitelen or Sitelen Suwi</a
+                    >
+                    is a project created by Jonathan Gabel in 2012 who created a
+                    non-linear writing style for Toki Pona inspired by Mayan
+                    script. I try to keep the algorithm behind the
+                    <span class="wordmark">sitelen sitelen renderer</span> in
+                    the spirit of Jonathan's project and allow for the different
+                    ways of drawing the sitelen sitelen.
+                </p>
+                <p>
+                    The
+                    <span class="wordmark">sitelen sitelen renderer</span>
+                    formerly parsed text based on the
+                    <a
+                        href="http://www2.hawaii.edu/~chin/661F12/projects.html"
+                        target="_blank"
+                        >context-free grammar by Zach Tomaszewski</a
+                    >
+                    in 2012. I have discontinued to improve this grammar now
+                    that I find it to give wrong parses in more and more
+                    sentences. I have replaced it by a simpler algorithm
+                    tailored to sitelen sitelen requirements.
+                </p>
+                <p>
+                    The
+                    <a
+                        href="http://forums.tokipona.org/viewtopic.php?f=7&p=13786#p13786"
+                        target="_blank"
+                        >vectorized glyphs</a
+                    >
+                    are based on the excellent work by jan Same. To make my SVGs
+                    scalable I sadly had to get rid of the non-uniform stroke
+                    widths. Also I have slightly different ideas about how to
+                    use the containers so I took the liberty of slightly
+                    altering some glyphs.
+                </p>
+            </section>
         </div>
 
-        <section>
-            <h2>Writing Tips</h2>
-            <ul class="writing-tips">
-                <li><strong>Lowercase text</strong>: All Toki Pona text is expected in lower case</li>
-                <li><strong>Sentence endings</strong>: All sentences should end with <code>.</code>, <code>!</code>, <code>?</code>, or <code>#</code> (for banners). The colon <code>:</code> and <code>,</code> are also recognized as punctuation</li>
-                <li><strong>Proper nouns in cartouches</strong>: Syllables appear in cartouches by writing words starting with an upper case letter: <code>jan Pona</code> vs <code>jan pona</code></li>
-                <li><strong>Multiple sentences</strong>: Multiple sentences are automatically split by punctuation. Each sentence is rendered separately</li>
-                <li><strong>Commas</strong>: Commas before <code>la</code> and <code>li</code> are automatically removed, so <code>tenpo, la</code> becomes <code>tenpo la</code></li>
-                <li><strong>Spacing</strong>: Double spaces are automatically normalized to single spaces</li>
-                <li><strong>Context separators</strong>: The <code>la</code> particle is recognized as a context separator and creates separate sentence parts</li>
-            </ul>
-        </section>
+        <script type="module">
+            import init, {
+                render_svg,
+                get_layout_ratios,
+            } from "../sitelen-sitelen-renderer/sitelen_wasm.js";
 
-        <section>
-            <h2>About</h2>
-            <p>I created <span class="wordmark">Sitelen Sitelen Renderer</span> because I am fascinated by combining the artificial language Toki Pona with the non-linear writing style 'Sitelen Sitelen' by Jonathan Gabel. Unlike other work with Sitelen Sitelen I want the writings to be generated by the computer. My <a href="http://nullelement.org/2015/05/living-toki-pona-using-flexbox-layout-and-sitelen-sitelen/" target="_blank">first attempt</a> was in the beginning of 2015 when I experimented with CSS Flexbox using SVG for the Glyphs. The algorithm was limited and doomed so in October 2015 I started anew, and set out to create SVG-only sitelen sitelen that can be exported and reused.</p>
-            <p>The project had since then been mostly dormant, with only a few minor fixes here and there. Now, in 2025 the project has accumulated so much rust, its codebase is now rewritten in Rust. This Rust rewrite maintains the same visual output and algorithm spirit while providing better performance, type safety, and modern tooling. This is still a hobby project that I work on in my spare time.</p>
-            <p>On this page you can type (proper) Toki Pona. The text is parsed into structures that can be rendered in the style of Sitelen Sitelen. By using the slider you can choose the form that you like. You can download the self-contained SVG which you can then use wherever.</p>
-            <p>Mind that this project is very much in alpha, many language constructs are not implemented yet. If you find them you can add them to the issue list, see my <a href="https://github.com/olafjanssen/sitelen-sitelen-renderer/" target="_blank">GitHub repo</a>. Also check out the Sitelen Sitelen <a href="../editor/editor.html" target="_blank">live editor</a> to input entire texts.</p>
-            <p>~ Cheers! <a href="https://nl.linkedin.com/in/otajanssen" target="_blank">Olaf Janssen</a></p>
-        </section>
+            let initialized = false;
+            let currentSvg = null;
+            let layoutRatios = [];
+            let currentRatioIndex = 0;
 
-        <section>
-            <h2>Known Issues</h2>
-            <ul id="known-issues"></ul>
-            <p><a href="https://github.com/olafjanssen/sitelen-sitelen-renderer/issues" target="_blank">View all issues on GitHub</a></p>
-        </section>
+            async function ensureInit() {
+                if (!initialized) {
+                    try {
+                        await init();
+                        initialized = true;
+                        document.getElementById("sitelen").innerHTML = "";
+                        console.log("Sitelen Sitelen renderer module");
+                    } catch (error) {
+                        document.getElementById("sitelen").innerHTML =
+                            `<p class="error">Failed to initialize WASM module: ${error.message}</p>`;
+                        console.error("Initialization error:", error);
+                        throw error;
+                    }
+                }
+            }
 
-        <section>
-            <h2>Attribution</h2>
-            <p>This live sitelen sitelen sandbox web app is made possible by the great work done before me.</p>
-            <p><a href="http://tokipona.org/" target="_blank">Toki Pona</a> is an artificial language invented in 2001 by Sonja Lang as an attempt to understand the meaning of life in 120 words. In my own search, I am convinced this language should not be used to translate large bodies of text or as an actual means of communication but as a personal tool for soul searching.</p>
-            <p><a href="http://www.jonathangabel.com/archive/2012/projects_t47.html" target="_blank">Sitelen Sitelen or Sitelen Suwi</a> is a project created by Jonathan Gabel in 2012 who created a non-linear writing style for Toki Pona inspired by Mayan script. I try to keep the algorithm behind the <span class="wordmark">sitelen sitelen renderer</span> in the spirit of Jonathan's project and allow for the different ways of drawing the sitelen sitelen.</p>
-            <p>The <span class="wordmark">sitelen sitelen renderer</span> formerly parsed text based on the <a href="http://www2.hawaii.edu/~chin/661F12/projects.html" target="_blank">context-free grammar by Zach Tomaszewski</a> in 2012. I have discontinued to improve this grammar now that I find it to give wrong parses in more and more sentences. I have replaced it by a simpler algorithm tailored to sitelen sitelen requirements.</p>
-            <p>The <a href="http://forums.tokipona.org/viewtopic.php?f=7&p=13786#p13786" target="_blank">vectorized glyphs</a> are based on the excellent work by jan Same. To make my SVGs scalable I sadly had to get rid of the non-uniform stroke widths. Also I have slightly different ideas about how to use the containers so I took the liberty of slightly altering some glyphs.</p>
-        </section>
-    </div>
+            async function updateLayoutOptions(text) {
+                if (!text.trim()) {
+                    layoutRatios = [];
+                    return;
+                }
 
-    <script type="module">
-        import init, { render_svg, get_layout_ratios } from '../../sitelen-wasm/pkg/sitelen_wasm.js';
-
-        let initialized = false;
-        let currentSvg = null;
-        let layoutRatios = [];
-        let currentRatioIndex = 0;
-
-        async function ensureInit() {
-            if (!initialized) {
                 try {
-                    await init();
-                    initialized = true;
-                    document.getElementById('sitelen').innerHTML = '';
-                    console.log('Sitelen Sitelen renderer module');
+                    const ratiosJson = get_layout_ratios(text);
+                    layoutRatios = JSON.parse(ratiosJson);
+
+                    const slider = document.getElementById("ratioSlider");
+                    const sliderContainer =
+                        document.getElementById("sliderContainer");
+
+                    if (layoutRatios.length > 1) {
+                        slider.max = layoutRatios.length - 1;
+                        sliderContainer.style.display = "block";
+
+                        // Find initial option closest to 0.8
+                        let initialOption = [0, 100];
+                        layoutRatios.forEach((ratio, index) => {
+                            const dif = Math.abs(ratio - 0.8);
+                            if (dif < initialOption[1]) {
+                                initialOption = [index, dif];
+                            }
+                        });
+                        currentRatioIndex = initialOption[0];
+                        slider.value = initialOption[0];
+                    } else {
+                        sliderContainer.style.display = "none";
+                        currentRatioIndex = 0;
+                    }
                 } catch (error) {
-                    document.getElementById('sitelen').innerHTML = 
-                        `<p class="error">Failed to initialize WASM module: ${error.message}</p>`;
-                    console.error('Initialization error:', error);
-                    throw error;
+                    console.error("Failed to get layout options:", error);
+                    layoutRatios = [];
                 }
             }
-        }
 
-        async function updateLayoutOptions(text) {
-            if (!text.trim()) {
-                layoutRatios = [];
-                return;
-            }
-
-            try {
-                const ratiosJson = get_layout_ratios(text);
-                layoutRatios = JSON.parse(ratiosJson);
-                
-                const slider = document.getElementById('ratioSlider');
-                const sliderContainer = document.getElementById('sliderContainer');
-                
-                if (layoutRatios.length > 1) {
-                    slider.max = layoutRatios.length - 1;
-                    sliderContainer.style.display = 'block';
-                    
-                    // Find initial option closest to 0.8
-                    let initialOption = [0, 100];
-                    layoutRatios.forEach((ratio, index) => {
-                        const dif = Math.abs(ratio - 0.8);
-                        if (dif < initialOption[1]) {
-                            initialOption = [index, dif];
-                        }
-                    });
-                    currentRatioIndex = initialOption[0];
-                    slider.value = initialOption[0];
-                } else {
-                    sliderContainer.style.display = 'none';
-                    currentRatioIndex = 0;
+            async function renderInput() {
+                if (!initialized) {
+                    await ensureInit();
                 }
-            } catch (error) {
-                console.error('Failed to get layout options:', error);
-                layoutRatios = [];
-            }
-        }
 
-        async function renderInput() {
-            if (!initialized) {
-                await ensureInit();
-            }
-
-            const input = document.getElementById('tokiInput');
-            const text = input.value;
-            const output = document.getElementById('sitelen');
-            const downloadBtn = document.getElementById('downloadBtn');
-
-            if (!text.trim()) {
-                output.innerHTML = '<p>Please enter some Toki Pona text.</p>';
-                downloadBtn.style.display = 'none';
-                document.getElementById('sliderContainer').style.display = 'none';
-                return;
-            }
-
-            // Update layout options
-            await updateLayoutOptions(text);
-
-            // Render with current ratio
-            await renderWithCurrentRatio(text);
-        }
-
-        async function renderWithCurrentRatio(text) {
-            const output = document.getElementById('sitelen');
-            const downloadBtn = document.getElementById('downloadBtn');
-
-            if (layoutRatios.length === 0) {
-                try {
-                    const svgContent = render_svg(text);
-                    output.innerHTML = svgContent;
-                    currentSvg = svgContent;
-                    downloadBtn.style.display = 'block';
-                } catch (error) {
-                    const errorMsg = error.message || String(error);
-                    output.innerHTML = `<p class="error">Error rendering: ${errorMsg}</p>`;
-                    downloadBtn.style.display = 'none';
-                    console.error('Rendering error:', error);
-                }
-            } else {
-                try {
-                    const ratio = layoutRatios[currentRatioIndex];
-                    const svgContent = render_svg(text, ratio);
-                    output.innerHTML = svgContent;
-                    currentSvg = svgContent;
-                    downloadBtn.style.display = 'block';
-                } catch (error) {
-                    const errorMsg = error.message || String(error);
-                    output.innerHTML = `<p class="error">Error rendering: ${errorMsg}</p>`;
-                    downloadBtn.style.display = 'none';
-                    console.error('Rendering error:', error);
-                }
-            }
-        }
-
-        function downloadSvg() {
-            if (!currentSvg) return;
-
-            const blob = new Blob([currentSvg], { type: 'image/svg+xml' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'sitelen-sitelen.svg';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        // Initialize on page load
-        window.addEventListener('load', async function () {
-            await ensureInit();
-
-            const input = document.getElementById('tokiInput');
-            const slider = document.getElementById('ratioSlider');
-            
-            input.addEventListener('input', renderInput);
-            
-            slider.addEventListener('input', async function() {
-                currentRatioIndex = parseInt(slider.value);
+                const input = document.getElementById("tokiInput");
                 const text = input.value;
-                if (text.trim()) {
-                    await renderWithCurrentRatio(text);
+                const output = document.getElementById("sitelen");
+                const downloadBtn = document.getElementById("downloadBtn");
+
+                if (!text.trim()) {
+                    output.innerHTML =
+                        "<p>Please enter some Toki Pona text.</p>";
+                    downloadBtn.style.display = "none";
+                    document.getElementById("sliderContainer").style.display =
+                        "none";
+                    return;
                 }
+
+                // Update layout options
+                await updateLayoutOptions(text);
+
+                // Render with current ratio
+                await renderWithCurrentRatio(text);
+            }
+
+            async function renderWithCurrentRatio(text) {
+                const output = document.getElementById("sitelen");
+                const downloadBtn = document.getElementById("downloadBtn");
+
+                if (layoutRatios.length === 0) {
+                    try {
+                        const svgContent = render_svg(text);
+                        output.innerHTML = svgContent;
+                        currentSvg = svgContent;
+                        downloadBtn.style.display = "block";
+                    } catch (error) {
+                        const errorMsg = error.message || String(error);
+                        output.innerHTML = `<p class="error">Error rendering: ${errorMsg}</p>`;
+                        downloadBtn.style.display = "none";
+                        console.error("Rendering error:", error);
+                    }
+                } else {
+                    try {
+                        const ratio = layoutRatios[currentRatioIndex];
+                        const svgContent = render_svg(text, ratio);
+                        output.innerHTML = svgContent;
+                        currentSvg = svgContent;
+                        downloadBtn.style.display = "block";
+                    } catch (error) {
+                        const errorMsg = error.message || String(error);
+                        output.innerHTML = `<p class="error">Error rendering: ${errorMsg}</p>`;
+                        downloadBtn.style.display = "none";
+                        console.error("Rendering error:", error);
+                    }
+                }
+            }
+
+            function downloadSvg() {
+                if (!currentSvg) return;
+
+                const blob = new Blob([currentSvg], { type: "image/svg+xml" });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "sitelen-sitelen.svg";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // Initialize on page load
+            window.addEventListener("load", async function () {
+                await ensureInit();
+
+                const input = document.getElementById("tokiInput");
+                const slider = document.getElementById("ratioSlider");
+
+                input.addEventListener("input", renderInput);
+
+                slider.addEventListener("input", async function () {
+                    currentRatioIndex = parseInt(slider.value);
+                    const text = input.value;
+                    if (text.trim()) {
+                        await renderWithCurrentRatio(text);
+                    }
+                });
+
+                input.value = "pilin pona li pana e sijelo pona.";
+                renderInput();
+
+                document
+                    .getElementById("downloadBtn")
+                    .addEventListener("click", downloadSvg);
             });
-            
-            input.value = 'pilin pona li pana e sijelo pona.';
-            renderInput();
+        </script>
 
-            document.getElementById('downloadBtn').addEventListener('click', downloadSvg);
-        });
-    </script>
+        <script>
+            function loadIssues() {
+                var xhr = new XMLHttpRequest();
+                xhr.open(
+                    "get",
+                    "https://api.github.com/repos/olafjanssen/sitelen-sitelen-renderer/issues",
+                    true,
+                );
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState != 4) return;
+                    try {
+                        var data = JSON.parse(xhr.response);
+                        data.forEach(function (issue) {
+                            var listItem = document.createElement("li"),
+                                link = document.createElement("a");
+                            link.setAttribute("href", issue.html_url);
+                            link.setAttribute("target", "_blank");
+                            link.appendChild(
+                                document.createTextNode(issue.title),
+                            );
+                            listItem.appendChild(link);
+                            document
+                                .getElementById("known-issues")
+                                .appendChild(listItem);
+                        });
+                    } catch (e) {
+                        console.error("Failed to load issues:", e);
+                    }
+                };
+                xhr.send();
+            }
 
-    <script>
-        function loadIssues() {
-            var xhr = new XMLHttpRequest;
-            xhr.open('get', 'https://api.github.com/repos/olafjanssen/sitelen-sitelen-renderer/issues', true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState != 4) return;
-                try {
-                    var data = JSON.parse(xhr.response);
-                    data.forEach(function (issue) {
-                        var listItem = document.createElement('li'),
-                            link = document.createElement('a');
-                        link.setAttribute('href', issue.html_url);
-                        link.setAttribute('target', '_blank');
-                        link.appendChild(document.createTextNode(issue.title));
-                        listItem.appendChild(link);
-                        document.getElementById('known-issues').appendChild(listItem);
-                    });
-                } catch (e) {
-                    console.error('Failed to load issues:', e);
-                }
-            };
-            xhr.send();
-        }
-
-        loadIssues();
-    </script>
-
-</body>
-
+            loadIssues();
+        </script>
+    </body>
 </html>
-
