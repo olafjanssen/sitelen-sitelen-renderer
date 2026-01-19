@@ -1364,9 +1364,9 @@
         </g>
 
     </symbol>
-<symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pon">
-        <g id="clpon">
-            <g id="clpon_1_">
+<symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pun">
+        <g id="clpun">
+            <g id="clpun_1_">
                 <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
                       fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
                       stroke-miterlimit="10"/>
@@ -1397,9 +1397,9 @@
         </g>
 
     </symbol>
-<symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pun">
-        <g id="cnpun">
-            <g id="cnpun_1_">
+<symbol viewBox="-2 -2 129.125 129" preserveAspectRatio="none" id="tp-syl-pon">
+        <g id="cnpon">
+            <g id="cnpon_1_">
                 <path d="M2.5 105.436c0-16.853 26.738-22.407 59.875-22.407s60.134 7.536 60.134 22.795c0 10.314-9.27 16.675-20.867 16.675-13 0-21-6.773-21-17.087 0 9.495-6.5 15.604-18 15.604-12.5 0-18-6.11-18-15.604 0 10.314-8.75 17.087-21.25 17.087-11.597 0-20.893-6.75-20.893-17.064z"
                       fill="#FFF" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"
                       stroke-miterlimit="10"/>
@@ -2140,7 +2140,7 @@
     <line x1="41.43" y1="108.29" x2="47.38" y2="128.01"/>
     <line x1="116.47" y1="114.76" x2="116.47" y2="133.27"/>
   </g>
-</symbol>    
+</symbol>
 <symbol viewBox="-2 -2 129.04500000000002 129.25" preserveAspectRatio="none" id="tp-wg-jelo">
         <g id="avjelo">
             <circle cx="63.159" cy="56.804" r="54.629" fill="#FFF"/>
@@ -2388,7 +2388,7 @@
     <path  d="M7.02,47.77s12.57-6.61,17.17-6.64c7.66.83,15.44,4.5,20.87,9.38,3.74,3.15,6.49,6.1,9.18,11.25,2.11,4.1,4.3,9.26,5.6,13.48,1.15,3.58-2.95,4.03-5.67,5.64-3.92,1.86-8.31,3.85-12.45,5.47-5.86,2.29-10.8,3.8-15.64,3.39-12.36-1.21-8.11-9.72-1.9-15.95,4.98-5.28,11.82-8.1,18.99-7.8,5.31.4,10.8,2.17,15.07,4.77"/>
     <path  d="M41.7,86.36c-1.82-3.09-9.06-15.36-10.37-17.58"/>
   </g>
-</symbol>    
+</symbol>
 <symbol viewBox="-2 -2 129 129" preserveAspectRatio="none" id="tp-wg-lape">
         <g id="bnlape" stroke-miterlimit="10">
             <path d="M54.5 19.833h38c16.57 0 30 13.43 30 30V62.5c0 33.137-26.863 60-60 60s-60-26.863-60-60V49.833c0-13.086 8.187-24.27 20.25-28.333"
@@ -2438,7 +2438,7 @@
     <line x1="106.08" y1="83.03" x2="106.08" y2="44.04"/>
     <polyline points="63.96 28.41 64.78 107.78 138.44 107.78"/>
   </g>
-</symbol>    
+</symbol>
 <symbol viewBox="-2 -2 132.125 129" preserveAspectRatio="none" id="tp-wg-len">
         <g id="bqlen" stroke-linecap="round" stroke-miterlimit="10">
             <path d="M120.125 92.5c0 16.57-13.43 30-30 30H32.5c-16.57 0-30-13.43-30-30v-30c0-33.137 26.863-60 60-60h63.125c-2.875 6.875-5.5 11.5-5.5 30.25V92.5z"
@@ -2640,7 +2640,7 @@
     <path d="M53.69,116.38c-.71,6.07-12.28,11.57-12.28,11.57"/>
     <path d="M86.16,55.81"/>
   </g>
-</symbol>    
+</symbol>
 <symbol viewBox="-2 -2 129.019 129" preserveAspectRatio="none" id="tp-wg-moku">
         <g id="ckmoku">
             <path id="ckmoku_1_"
