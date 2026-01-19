@@ -7,7 +7,7 @@ use once_cell::sync::Lazy;
 use std::sync::Mutex;
 
 // Embed the sprite file at compile time
-const SPRITE_CONTENT: &str = include_str!("../../images/new_sprite.css.svg");
+const SPRITE_CONTENT: &str = include_str!("../../images/glyphs.svg");
 
 #[wasm_bindgen]
 extern "C" {

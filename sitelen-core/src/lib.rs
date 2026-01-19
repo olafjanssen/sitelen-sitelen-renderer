@@ -1,5 +1,5 @@
 /// Sitelen Sitelen Renderer - Core Library
-/// 
+///
 /// This library converts Toki Pona text into the Sitelen Sitelen non-linear writing style.
 
 pub mod config;
@@ -35,7 +35,7 @@ impl Pipeline {
     /// Create a new pipeline with custom configuration
     pub fn with_config(config: RenderConfig) -> Result<Self, Box<dyn std::error::Error>> {
         // Load sprite if available
-        let sprite_path = "images/new_sprite.css.svg";
+        let sprite_path = "images/glyphs.svg";
         if let Ok(sprite_content) = fs::read_to_string(sprite_path) {
             init_glyph_registry(&sprite_content)?;
         }
@@ -109,17 +109,17 @@ impl Pipeline {
     /// Complete pipeline: parse, layout, and render
     pub fn render_text(&self, text: &str, format: OutputFormat) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
         let sentences = self.parse(text)?;
-        
+
         let mut compounds = Vec::new();
         let optimal_ratio = self.renderer.borrow().config.optimal_ratio;
-        
+
         for sentence in sentences {
             // Split sentence into compounds at punctuation marks (like JavaScript does)
             let mut sentence_compound = Vec::new();
-            
+
             for part in &sentence.parts {
                 sentence_compound.push(part.clone());
-                
+
                 // When we encounter punctuation, finalize current compound and start a new one
                 if matches!(part, SentencePart::Punctuation { .. }) {
                     let compound_sentence = Sentence {
@@ -134,7 +134,7 @@ impl Pipeline {
                     sentence_compound.clear();
                 }
             }
-            
+
             // If there are remaining parts (no trailing punctuation), add them as a final compound
             if !sentence_compound.is_empty() {
                 let compound_sentence = Sentence {
@@ -162,4 +162,3 @@ impl Default for Pipeline {
 }
 
 use crate::types::LayoutOption;
-
