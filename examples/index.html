@@ -1,365 +1,482 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sitelen Sitelen Renderer</title>
-    <meta name="description" content="Modern Rust-based library and command-line tool to turn Toki Pona text into the sitelen sitelen non-linear writing style">
-    <link rel="icon" href="data:,">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            background: white;
-            border-bottom: 2px solid #e0e0e0;
-            padding: 40px 20px;
-            margin-bottom: 40px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            text-decoration: none;
-            color: white;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        .badge:hover {
-            opacity: 0.8;
-        }
-
-        .badge-license {
-            background: #28a745;
-        }
-
-        .badge-version {
-            background: #007bff;
-        }
-
-        .badge-rust {
-            background: #ce412b;
-        }
-
-        .badge-wasm {
-            background: #654ff0;
-        }
-
-        .badge-crates {
-            background: #f46623;
-        }
-
-        main {
-            background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-
-        .example-image {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .example-image img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            color: #2c3e50;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 10px;
-        }
-
-        h2:first-of-type {
-            margin-top: 0;
-        }
-
-        h3 {
-            font-size: 1.4rem;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            color: #34495e;
-        }
-
-        p {
-            margin-bottom: 15px;
-        }
-
-        ul, ol {
-            margin-left: 30px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        code {
-            background: #f4f4f4;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9em;
-            color: #e83e8c;
-        }
-
-        pre {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 20px;
-            border-radius: 6px;
-            overflow-x: auto;
-            margin: 20px 0;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        pre code {
-            background: none;
-            padding: 0;
-            color: inherit;
-        }
-
-        .examples-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .example-card {
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .example-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .example-card a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .example-card a:hover {
-            text-decoration: underline;
-        }
-
-        .example-card p {
-            margin-top: 10px;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        .feature-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .feature-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-left: 4px solid #007bff;
-            border-radius: 4px;
-        }
-
-        .feature-item strong {
-            color: #007bff;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        footer {
-            background: white;
-            padding: 30px 20px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #e0e0e0;
-            margin-top: 40px;
-        }
-
-        .attribution {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 6px;
-            margin: 30px 0;
-        }
-
-        .attribution h3 {
-            margin-top: 0;
-        }
-
-        .attribution a {
-            color: #007bff;
-            text-decoration: none;
-        }
-
-        .attribution a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Sitelen Sitelen Renderer</title>
+        <meta
+            name="description"
+            content="Modern Rust-based library and command-line tool to turn Toki Pona text into the sitelen sitelen non-linear writing style"
+        />
+        <link rel="icon" href="data:," />
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
-            .subtitle {
-                font-size: 1rem;
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Oxygen, Ubuntu, Cantarell, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background: #f8f9fa;
             }
 
-            main {
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
                 padding: 20px;
             }
 
-            .examples-grid {
-                grid-template-columns: 1fr;
+            header {
+                background: white;
+                border-bottom: 2px solid #e0e0e0;
+                padding: 40px 20px;
+                margin-bottom: 40px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <h1>Sitelen Sitelen Renderer</h1>
-            <p class="subtitle">Modern Rust-based library and command-line tool to turn Toki Pona text into the <strong>sitelen sitelen</strong> non-linear writing style</p>
-            <div class="badges">
-                <a href="https://github.com/olafjanssen/sitelen-sitelen-renderer/blob/main/LICENSE" class="badge badge-license" target="_blank" rel="noopener">License: MIT</a>
-                <a href="https://github.com/olafjanssen/sitelen-sitelen-renderer/releases" class="badge badge-version" target="_blank" rel="noopener">Version: 0.3.0</a>
-                <a href="https://www.rust-lang.org/" class="badge badge-rust" target="_blank" rel="noopener">Rust</a>
-                <a href="https://webassembly.org/" class="badge badge-wasm" target="_blank" rel="noopener">WebAssembly</a>
-                <a href="https://crates.io/crates/sitelen-core" class="badge badge-crates" target="_blank" rel="noopener">crates.io</a>
-                <a href="https://github.com/olafjanssen/sitelen-sitelen-renderer" class="badge badge-version" target="_blank" rel="noopener">GitHub</a>
+
+            .header-content {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+                color: #2c3e50;
+            }
+
+            .subtitle {
+                font-size: 1.2rem;
+                color: #666;
+                margin-bottom: 20px;
+            }
+
+            .badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .badge {
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 4px;
+                font-size: 0.85rem;
+                text-decoration: none;
+                color: white;
+                font-weight: 500;
+                transition: opacity 0.2s;
+            }
+
+            .badge:hover {
+                opacity: 0.8;
+            }
+
+            .badge-license {
+                background: #28a745;
+            }
+
+            .badge-version {
+                background: #007bff;
+            }
+
+            .badge-rust {
+                background: #ce412b;
+            }
+
+            .badge-wasm {
+                background: #654ff0;
+            }
+
+            .badge-crates {
+                background: #f46623;
+            }
+
+            main {
+                background: white;
+                padding: 40px;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                margin-bottom: 40px;
+            }
+
+            .example-image {
+                text-align: center;
+                margin: 30px 0;
+            }
+
+            .example-image img {
+                max-width: 100%;
+                height: auto;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            h2 {
+                font-size: 1.8rem;
+                margin-top: 40px;
+                margin-bottom: 20px;
+                color: #2c3e50;
+                border-bottom: 2px solid #e0e0e0;
+                padding-bottom: 10px;
+            }
+
+            h2:first-of-type {
+                margin-top: 0;
+            }
+
+            h3 {
+                font-size: 1.4rem;
+                margin-top: 30px;
+                margin-bottom: 15px;
+                color: #34495e;
+            }
+
+            p {
+                margin-bottom: 15px;
+            }
+
+            ul,
+            ol {
+                margin-left: 30px;
+                margin-bottom: 15px;
+            }
+
+            li {
+                margin-bottom: 8px;
+            }
+
+            code {
+                background: #f4f4f4;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+                font-size: 0.9em;
+                color: #e83e8c;
+            }
+
+            pre {
+                background: #2d2d2d;
+                color: #f8f8f2;
+                padding: 20px;
+                border-radius: 6px;
+                overflow-x: auto;
+                margin: 20px 0;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            pre code {
+                background: none;
+                padding: 0;
+                color: inherit;
+            }
+
+            .examples-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                margin: 30px 0;
+            }
+
+            .example-card {
+                background: #f8f9fa;
+                border: 1px solid #e0e0e0;
+                border-radius: 6px;
+                padding: 20px;
+                transition:
+                    transform 0.2s,
+                    box-shadow 0.2s;
+            }
+
+            .example-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .example-card a {
+                text-decoration: none;
+                color: #007bff;
+                font-weight: 600;
+                font-size: 1.1rem;
+            }
+
+            .example-card a:hover {
+                text-decoration: underline;
+            }
+
+            .example-card p {
+                margin-top: 10px;
+                color: #666;
+                font-size: 0.9rem;
+            }
+
+            .feature-list {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            .feature-item {
+                background: #f8f9fa;
+                padding: 15px;
+                border-left: 4px solid #007bff;
+                border-radius: 4px;
+            }
+
+            .feature-item strong {
+                color: #007bff;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            footer {
+                background: white;
+                padding: 30px 20px;
+                text-align: center;
+                color: #666;
+                border-top: 1px solid #e0e0e0;
+                margin-top: 40px;
+            }
+
+            .attribution {
+                background: #f8f9fa;
+                padding: 20px;
+                border-radius: 6px;
+                margin: 30px 0;
+            }
+
+            .attribution h3 {
+                margin-top: 0;
+            }
+
+            .attribution a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+            .attribution a:hover {
+                text-decoration: underline;
+            }
+
+            @media (max-width: 768px) {
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .subtitle {
+                    font-size: 1rem;
+                }
+
+                main {
+                    padding: 20px;
+                }
+
+                .examples-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="header-content">
+                <h1>Sitelen Sitelen Renderer</h1>
+                <p class="subtitle">
+                    Modern Rust-based library and command-line tool to turn Toki
+                    Pona text into the
+                    <strong>sitelen sitelen</strong> non-linear writing style
+                </p>
+                <div class="badges">
+                    <a
+                        href="https://github.com/olafjanssen/sitelen-sitelen-renderer/blob/main/LICENSE"
+                        class="badge badge-license"
+                        target="_blank"
+                        rel="noopener"
+                        >License: MIT</a
+                    >
+                    <a
+                        href="https://github.com/olafjanssen/sitelen-sitelen-renderer/releases"
+                        class="badge badge-version"
+                        target="_blank"
+                        rel="noopener"
+                        >Version: 0.3.0</a
+                    >
+                    <a
+                        href="https://www.rust-lang.org/"
+                        class="badge badge-rust"
+                        target="_blank"
+                        rel="noopener"
+                        >Rust</a
+                    >
+                    <a
+                        href="https://webassembly.org/"
+                        class="badge badge-wasm"
+                        target="_blank"
+                        rel="noopener"
+                        >WebAssembly</a
+                    >
+                    <a
+                        href="https://crates.io/crates/sitelen-core"
+                        class="badge badge-crates"
+                        target="_blank"
+                        rel="noopener"
+                        >crates.io</a
+                    >
+                    <a
+                        href="https://github.com/olafjanssen/sitelen-sitelen-renderer"
+                        class="badge badge-version"
+                        target="_blank"
+                        rel="noopener"
+                        >GitHub</a
+                    >
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <div class="container">
-        <main>
-            <div class="example-image">
-                <img src="../images/example.svg" alt="Sitelen Sitelen example" />
-            </div>
+        <div class="container">
+            <main>
+                <div class="example-image">
+                    <img
+                        src="../images/example.svg"
+                        alt="Sitelen Sitelen example"
+                    />
+                </div>
 
-            <h2>Motivation</h2>
-            <p>I created <strong>Sitelen Sitelen Renderer</strong> because I am fascinated by combining the artificial language Toki Pona with the non-linear writing style <strong>sitelen sitelen</strong> by Jonathan Gabel. While drawing <strong>sitelen sitelen</strong> by hand is a meditative activity, I was wondering if I could create them algorithmically. My first attempt was in the beginning of 2015 when I experimented with CSS Flexbox using SVG for the Glyphs. The algorithm was limited and doomed, so in October 2015 I started anew and set out to create SVG-only sitelen sitelen that can be exported and reused.</p>
-            <p>The project had since then been mostly dormant, with only a few minor fixes here and there. Now, in 2025 the project has accumulated so much rust, its codebase is now rewritten in Rust. This Rust rewrite maintains the same visual output and algorithm spirit while providing better performance, type safety, and modern tooling. This is still a hobby project that I work on in my spare time.</p>
+                <h2>Motivation</h2>
+                <p>
+                    I created <strong>Sitelen Sitelen Renderer</strong> because
+                    I am fascinated by combining the artificial language Toki
+                    Pona with the non-linear writing style
+                    <strong>sitelen sitelen</strong> by Jonathan Gabel. While
+                    drawing <strong>sitelen sitelen</strong> by hand is a
+                    meditative activity, I was wondering if I could create them
+                    algorithmically. My first attempt was in the beginning of
+                    2015 when I experimented with CSS Flexbox using SVG for the
+                    Glyphs. The algorithm was limited and doomed, so in October
+                    2015 I started anew and set out to create SVG-only sitelen
+                    sitelen that can be exported and reused.
+                </p>
+                <p>
+                    The project had since then been mostly dormant, with only a
+                    few minor fixes here and there. Now, in 2025 the project has
+                    accumulated so much rust, its codebase is now rewritten in
+                    Rust. This Rust rewrite maintains the same visual output and
+                    algorithm spirit while providing better performance, type
+                    safety, and modern tooling. This is still a hobby project
+                    that I work on in my spare time.
+                </p>
 
-            <h2>Examples</h2>
-            <p>The project includes several example pages demonstrating different use cases:</p>
-            <div class="examples-grid">
-                <div class="example-card">
-                    <a href="liveinput/liveinput.html">Live Input</a>
-                    <p>Interactive input with live preview</p>
+                <h2>Examples</h2>
+                <p>
+                    The project includes several example pages demonstrating
+                    different use cases:
+                </p>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <a href="liveinput/liveinput.html">Live Input</a>
+                        <p>Interactive input with live preview</p>
+                    </div>
+                    <div class="example-card">
+                        <a href="editor/editor.html">Editor</a>
+                        <p>Markdown-style editor with live preview</p>
+                    </div>
+                    <div class="example-card">
+                        <a href="layout/layout.html">Layout Engine</a>
+                        <p>
+                            Optimally fills a page with Sitelen Sitelen by
+                            trying different layout ratios (experimental)
+                        </p>
+                    </div>
+                    <div class="example-card">
+                        <a href="proverbs/proverbs.html">Proverbs</a>
+                        <p>Overview of Toki Pona proverbs from Sonja's book</p>
+                    </div>
+                    <div class="example-card">
+                        <a href="tatoeba/tatoeba-book.html">Tatoeba Book</a>
+                        <p>Generates a book-like layout of Tatoeba sentences</p>
+                    </div>
                 </div>
-                <div class="example-card">
-                    <a href="editor/editor.html">Editor</a>
-                    <p>Markdown-style editor with live preview</p>
-                </div>
-                <div class="example-card">
-                    <a href="layout/layout.html">Layout Engine</a>
-                    <p>Optimally fills a page with Sitelen Sitelen by trying different layout ratios (experimental)</p>
-                </div>
-                <div class="example-card">
-                    <a href="proverbs/proverbs.html">Proverbs</a>
-                    <p>Overview of Toki Pona proverbs from Sonja's book</p>
-                </div>
-                <div class="example-card">
-                    <a href="tatoeba/tatoeba-book.html">Tatoeba Book</a>
-                    <p>Generates a book-like layout of Tatoeba sentences</p>
-                </div>
-            </div>
 
-            <h2>Writing Tips</h2>
-            <ul>
-                <li><strong>Lowercase text</strong>: All Toki Pona text is expected in lower case</li>
-                <li><strong>Sentence endings</strong>: All sentences should end with <code>.</code>, <code>!</code>, <code>?</code>, or <code>#</code> (for banners). The colon <code>:</code> and <code>,</code> are also recognized as punctuation</li>
-                <li><strong>Proper nouns in cartouches</strong>: Syllables appear in cartouches by writing words starting with an upper case letter: <code>jan Pona</code> vs <code>jan pona</code></li>
-                <li><strong>Multiple sentences</strong>: Multiple sentences are automatically split by punctuation. Each sentence is rendered separately unless using <code>render_sentences()</code></li>
-                <li><strong>Commas</strong>: Commas before <code>la</code> and <code>li</code> are automatically removed, so <code>tenpo, la</code> becomes <code>tenpo la</code></li>
-                <li><strong>Spacing</strong>: Double spaces are automatically normalized to single spaces</li>
-                <li><strong>Context separators</strong>: The <code>la</code> particle is recognized as a context separator and creates separate sentence parts</li>
-            </ul>
+                <h2>Writing Tips</h2>
+                <ul>
+                    <li>
+                        <strong>Lowercase text</strong>: All Toki Pona text is
+                        expected in lower case
+                    </li>
+                    <li>
+                        <strong>Sentence endings</strong>: All sentences should
+                        end with <code>.</code>, <code>!</code>, <code>?</code>,
+                        or <code>#</code> (for banners). The colon
+                        <code>:</code> and <code>,</code> are also recognized as
+                        punctuation
+                    </li>
+                    <li>
+                        <strong>Proper nouns in cartouches</strong>: Syllables
+                        appear in cartouches by writing words starting with an
+                        upper case letter: <code>jan Pona</code> vs
+                        <code>jan pona</code>
+                    </li>
+                    <li>
+                        <strong>Multiple sentences</strong>: Multiple sentences
+                        are automatically split by punctuation. Each sentence is
+                        rendered separately unless using
+                        <code>render_sentences()</code>
+                    </li>
+                    <li>
+                        <strong>Commas</strong>: Commas before
+                        <code>la</code> and <code>li</code> are automatically
+                        removed, so <code>tenpo, la</code> becomes
+                        <code>tenpo la</code>
+                    </li>
+                    <li>
+                        <strong>Spacing</strong>: Double spaces are
+                        automatically normalized to single spaces
+                    </li>
+                    <li>
+                        <strong>Context separators</strong>: The
+                        <code>la</code> particle is recognized as a context
+                        separator and creates separate sentence parts
+                    </li>
+                </ul>
 
-            <h2>Installation</h2>
-            <h3>CLI</h3>
-            <p>Install the CLI tool:</p>
-            <pre><code>cargo install --path sitelen-cli</code></pre>
-            <p>Or build from source:</p>
-            <pre><code>git clone https://github.com/olafjanssen/sitelen-sitelen-renderer.git
+                <h2>Installation</h2>
+                <h3>CLI</h3>
+                <p>Install the CLI tool:</p>
+                <pre><code>cargo install --path sitelen-cli</code></pre>
+                <p>Or build from source:</p>
+                <pre><code>git clone https://github.com/olafjanssen/sitelen-sitelen-renderer.git
 cd sitelen-sitelen-renderer
 cargo build --release</code></pre>
-            <p>The binary will be available at <code>target/release/sitelen</code>.</p>
+                <p>
+                    The binary will be available at
+                    <code>target/release/sitelen</code>.
+                </p>
 
-            <h3>WASM</h3>
-            <p>Build the WASM package for browser use:</p>
-            <pre><code>cd sitelen-wasm
+                <h3>WASM</h3>
+                <p>Build the WASM package for browser use:</p>
+                <pre><code>cd sitelen-wasm
 wasm-pack build --target web --out-dir pkg</code></pre>
-            <p>This creates a <code>pkg</code> directory with the compiled WebAssembly module and JavaScript bindings.</p>
+                <p>
+                    This creates a <code>pkg</code> directory with the compiled
+                    WebAssembly module and JavaScript bindings.
+                </p>
 
-            <h2>Usage</h2>
-            <h3>CLI</h3>
-            <p>The CLI tool can render Toki Pona text from command-line arguments, files, or stdin:</p>
-            <pre><code># Render text directly
+                <h2>Usage</h2>
+                <h3>CLI</h3>
+                <p>
+                    The CLI tool can render Toki Pona text from command-line
+                    arguments, files, or stdin:
+                </p>
+                <pre><code># Render text directly
 sitelen "mi pona. ale li jo e tenpo." --output output.svg
 
 # Render from file
@@ -375,9 +492,9 @@ sitelen --input text.txt --output output.svg --ratio 0.8 --stroke-width 2.0 --sh
 sitelen "mi pona. sina pona." --output output.svg
 # Creates: output_1.svg, output_2.svg</code></pre>
 
-            <h3>WASM (JavaScript)</h3>
-            <p>For web integration, use the WASM module:</p>
-            <pre><code>import init, { render_svg } from './pkg/sitelen_wasm.js';
+                <h3>WASM (JavaScript)</h3>
+                <p>For web integration, use the WASM module:</p>
+                <pre><code>import init, { render_svg } from './pkg/sitelen_wasm.js';
 
 async function main() {
     await init();  // Initialize the WASM module (required before use)
@@ -387,66 +504,169 @@ async function main() {
 
 main();</code></pre>
 
-            <p>With a specific layout ratio:</p>
-            <pre><code>await init();
+                <p>With a specific layout ratio:</p>
+                <pre><code>await init();
 const svgString = render_svg("ale li jo e tenpo. ale li pona.", 1.0);</code></pre>
 
-            <h4>Auto-rendering</h4>
-            <p>For automatic rendering of elements with the <code>data-sitelen</code> attribute:</p>
-            <pre><code>import './auto.js';</code></pre>
-            <p>Then in your HTML:</p>
-            <pre><code>&lt;section data-sitelen&gt;
+                <h4>Auto-rendering</h4>
+                <p>
+                    For automatic rendering of elements with the
+                    <code>data-sitelen</code> attribute:
+                </p>
+                <pre><code>import './auto.js';</code></pre>
+                <p>Then in your HTML:</p>
+                <pre><code>&lt;section data-sitelen&gt;
     ale li jo e tenpo. ale li pona.
 &lt;/section&gt;</code></pre>
 
-            <h4>Available WASM Functions</h4>
-            <ul>
-                <li><code>init(): Promise&lt;void&gt;</code> - Initialize the WASM module</li>
-                <li><code>render_svg(text: string, optimal_ratio?: number | null): string</code> - Render text to SVG string</li>
-                <li><code>render_png(text: string, optimal_ratio?: number | null): Uint8Array</code> - Render text to PNG bytes</li>
-                <li><code>get_layout_ratios(text: string): string</code> - Get all available layout ratios as JSON array</li>
-                <li><code>render_sentences(text: string, optimal_ratio?: number | null): string</code> - Render each sentence separately</li>
-                <li><code>init_glyphs(sprite_content: string): void</code> - Initialize with custom glyph sprite</li>
-            </ul>
+                <h4>Available WASM Functions</h4>
+                <ul>
+                    <li>
+                        <code>init(): Promise&lt;void&gt;</code> - Initialize
+                        the WASM module
+                    </li>
+                    <li>
+                        <code
+                            >render_svg(text: string, optimal_ratio?: number |
+                            null): string</code
+                        >
+                        - Render text to SVG string
+                    </li>
+                    <li>
+                        <code
+                            >render_png(text: string, optimal_ratio?: number |
+                            null): Uint8Array</code
+                        >
+                        - Render text to PNG bytes
+                    </li>
+                    <li>
+                        <code>get_layout_ratios(text: string): string</code> -
+                        Get all available layout ratios as JSON array
+                    </li>
+                    <li>
+                        <code
+                            >render_sentences(text: string, optimal_ratio?:
+                            number | null): string</code
+                        >
+                        - Render each sentence separately
+                    </li>
+                    <li>
+                        <code>init_glyphs(sprite_content: string): void</code> -
+                        Initialize with custom glyph sprite
+                    </li>
+                </ul>
 
-            <h2>Configuration</h2>
-            <p>The renderer supports various configuration options:</p>
-            <ul>
-                <li><code>optimal_ratio</code>: Preferred aspect ratio (height/width, default: 0.8)</li>
-                <li><code>stroke_width</code>: Stroke width for glyphs (default: 2.0)</li>
-                <li><code>shadow</code>: Enable shadow effects (default: false)</li>
-                <li><code>scale</code>: Base scale for glyphs (default: 1.2)</li>
-                <li><code>scale_skew</code>: Scale skew for container overflow (default: 1.3)</li>
-                <li><code>exportable</code>: Embed glyph definitions in SVG (default: true)</li>
-            </ul>
+                <h2>Configuration</h2>
+                <p>The renderer supports various configuration options:</p>
+                <ul>
+                    <li>
+                        <code>optimal_ratio</code>: Preferred aspect ratio
+                        (height/width, default: 0.8)
+                    </li>
+                    <li>
+                        <code>stroke_width</code>: Stroke width for glyphs
+                        (default: 2.0)
+                    </li>
+                    <li>
+                        <code>shadow</code>: Enable shadow effects (default:
+                        false)
+                    </li>
+                    <li>
+                        <code>scale</code>: Base scale for glyphs (default: 1.2)
+                    </li>
+                    <li>
+                        <code>scale_skew</code>: Scale skew for container
+                        overflow (default: 1.3)
+                    </li>
+                    <li>
+                        <code>exportable</code>: Embed glyph definitions in SVG
+                        (default: true)
+                    </li>
+                </ul>
 
-            <h2>Attribution</h2>
-            <div class="attribution">
-                <p>This live sitelen sitelen web project is made possible by the great work done before me.</p>
-                
-                <h3>Toki Pona</h3>
-                <p><a href="http://tokipona.org/" target="_blank" rel="noopener">Toki Pona</a> is an artificial language invented in 2001 by Sonja Lang as an attempt to understand the meaning of life in 120 words. In my own search, I am convinced this language should not be used to translate large bodies of text or as an actual means of communication but as a personal tool for soul searching.</p>
-                
-                <h3>Sitelen Sitelen or Sitelen Suwi</h3>
-                <p><a href="http://www.jonathangabel.com/archive/2012/projects_t47.html" target="_blank" rel="noopener">Sitelen Sitelen or Sitelen Suwi</a> is a project created by Jonathan Gabel in 2012 who created a non-linear writing style for Toki Pona inspired by Mayan script. I try to keep the algorithm behind the Sitelen Sitelen Renderer in the spirit of Jonathan's project and allow for the different ways of drawing the sitelen sitelen.</p>
-                
-                <h3>Vectorized Glyphs</h3>
-                <p>The <a href="http://forums.tokipona.org/viewtopic.php?f=7&p=13786#p13786" target="_blank" rel="noopener">vectorized glyphs</a> are based on the excellent work by jan Same. To make my SVGs scalable I sadly had to get rid of the non-uniform stroke widths. Also I have slightly different ideas about how to use the containers so I took the liberty of slightly altering some glyphs.</p>
-                
-                <p>Mind that this project is far from complete: many language constructs are not implemented yet. If you want to contribute in any way, you can for instance file issues you find or come up with clever new ways to put sitelen sitelen into action.</p>
-                
-                <p><strong>Cheers!</strong></p>
-            </div>
-        </main>
+                <h2>Attribution</h2>
+                <div class="attribution">
+                    <p>
+                        This live sitelen sitelen web project is made possible
+                        by the great work done before me.
+                    </p>
 
-        <footer>
-            <p><strong>License:</strong> MIT (c) Olaf Janssen</p>
-            <p><strong>Author:</strong> Olaf T.A. Janssen &lt;o.t.a.janssen@gmail.com&gt;</p>
-            <p style="margin-top: 15px;">
-                <a href="https://github.com/olafjanssen/sitelen-sitelen-renderer" target="_blank" rel="noopener" style="color: #007bff; text-decoration: none;">View on GitHub</a>
-            </p>
-        </footer>
-    </div>
-</body>
+                    <h3>Toki Pona</h3>
+                    <p>
+                        <a
+                            href="http://tokipona.org/"
+                            target="_blank"
+                            rel="noopener"
+                            >Toki Pona</a
+                        >
+                        is an artificial language invented in 2001 by Sonja Lang
+                        as an attempt to understand the meaning of life in 120
+                        words. In my own search, I am convinced this language
+                        should not be used to translate large bodies of text or
+                        as an actual means of communication but as a personal
+                        tool for soul searching.
+                    </p>
+
+                    <h3>Sitelen Sitelen or Sitelen Suwi</h3>
+                    <p>
+                        <a
+                            href="http://www.jonathangabel.com/archive/2012/projects_t47.html"
+                            target="_blank"
+                            rel="noopener"
+                            >Sitelen Sitelen or Sitelen Suwi</a
+                        >
+                        is a project created by Jonathan Gabel in 2012 who
+                        created a non-linear writing style for Toki Pona
+                        inspired by Mayan script. I try to keep the algorithm
+                        behind the Sitelen Sitelen Renderer in the spirit of
+                        Jonathan's project and allow for the different ways of
+                        drawing the sitelen sitelen.
+                    </p>
+
+                    <h3>Vectorized Glyphs</h3>
+                    <p>
+                        The
+                        <a
+                            href="http://forums.tokipona.org/viewtopic.php?f=7&p=13786#p13786"
+                            target="_blank"
+                            rel="noopener"
+                            >vectorized glyphs</a
+                        >
+                        are based on the excellent work by jan Same. To make my
+                        SVGs scalable I sadly had to get rid of the non-uniform
+                        stroke widths. Also I have slightly different ideas
+                        about how to use the containers so I took the liberty of
+                        slightly altering some glyphs.
+                    </p>
+
+                    <p>
+                        Mind that this project is far from complete: many
+                        language constructs are not implemented yet. If you want
+                        to contribute in any way, you can for instance file
+                        issues you find or come up with clever new ways to put
+                        sitelen sitelen into action.
+                    </p>
+
+                    <p><strong>Cheers!</strong></p>
+                </div>
+            </main>
+
+            <footer>
+                <p><strong>License:</strong> MIT (c) Olaf Janssen</p>
+                <p>
+                    <strong>Author:</strong> Olaf T.A. Janssen
+                    &lt;olaf.janssen@pm.me&gt;
+                </p>
+                <p style="margin-top: 15px">
+                    <a
+                        href="https://github.com/olafjanssen/sitelen-sitelen-renderer"
+                        target="_blank"
+                        rel="noopener"
+                        style="color: #007bff; text-decoration: none"
+                        >View on GitHub</a
+                    >
+                </p>
+            </footer>
+        </div>
+    </body>
 </html>
-

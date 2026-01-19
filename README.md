@@ -189,4 +189,4 @@ MIT (c) Olaf Janssen
 
 ## Author
 
-Olaf T.A. Janssen <o.t.a.janssen@gmail.com>
+Olaf T.A. Janssen <olaf.janssen@pm.me>
