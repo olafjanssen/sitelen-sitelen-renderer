@@ -1,22 +1,152 @@
-/// Toki Pona text parser
-
-use crate::types::SentencePart;
 use crate::types::Sentence;
+/// Toki Pona text parser
+use crate::types::SentencePart;
 use std::collections::HashSet;
 
 /// Allowed Toki Pona words
 const ALLOWED_WORDS: &[&str] = &[
-    "a", "akesi", "ala", "alasa", "ali", "anpa", "ante", "anu", "awen", "e", "en", "epiku", "esun",
-    "ijo", "ike", "ilo", "insa", "jaki", "jan", "jasima", "jelo", "jo", "kala", "kalama", "kama", "kasi",
-    "ken", "kepeken", "kili", "kin", "kiwen", "kijetesantakalu", "ko", "kokosila", "kon", "kule", "kulupu", "kute", "la", "lanpan", "lape",
-    "laso", "lawa", "leko", "len", "lete", "li", "lili", "linja", "lipu", "loje", "lon", "luka", "lukin",
-    "lupa", "ma", "mama", "mani", "meli", "meso", "mi", "mije", "misikeke", "moku", "moli", "monsi", "monsuta", "mu", "mun",
-    "musi", "mute", "n", "namako", "nanpa", "nasa", "nasin", "nena", "ni", "nimi", "noka", "o", "oko",
-    "olin", "ona", "open", "pakala", "pali", "palisa", "pan", "pana", "pi", "pilin", "pimeja",
-    "pini", "pipi", "poka", "poki", "pona", "pu", "sama", "seli", "selo", "seme", "sewi",
-    "sijelo", "sike", "sin", "sina", "sinpin", "sitelen", "soko", "sona", "soweli", "suli", "suno",
-    "supa", "suwi", "tan", "taso", "tawa", "telo", "tenpo", "toki", "tomo", "tonsi", "tu", "unpa", "uta",
-    "utala", "walo", "wan", "waso", "wawa", "weka", "wile", "ale", ".", "?", "!", ":", ",",
+    "a",
+    "akesi",
+    "ala",
+    "alasa",
+    "ali",
+    "anpa",
+    "ante",
+    "anu",
+    "awen",
+    "e",
+    "en",
+    "epiku",
+    "esun",
+    "ijo",
+    "ike",
+    "ilo",
+    "insa",
+    "jaki",
+    "jan",
+    "jasima",
+    "jelo",
+    "jo",
+    "kala",
+    "kalama",
+    "kama",
+    "kasi",
+    "ken",
+    "kepeken",
+    "kili",
+    "kin",
+    "kipisi",
+    "kiwen",
+    "kijetesantakalu",
+    "ko",
+    "kokosila",
+    "kon",
+    "kule",
+    "kulupu",
+    "kute",
+    "la",
+    "lanpan",
+    "lape",
+    "laso",
+    "lawa",
+    "leko",
+    "len",
+    "lete",
+    "li",
+    "lili",
+    "linja",
+    "lipu",
+    "loje",
+    "lon",
+    "luka",
+    "lukin",
+    "lupa",
+    "ma",
+    "mama",
+    "mani",
+    "meli",
+    "meso",
+    "mi",
+    "mije",
+    "misikeke",
+    "moku",
+    "moli",
+    "monsi",
+    "monsuta",
+    "mu",
+    "mun",
+    "musi",
+    "mute",
+    "n",
+    "namako",
+    "nanpa",
+    "nasa",
+    "nasin",
+    "nena",
+    "ni",
+    "nimi",
+    "noka",
+    "o",
+    "oko",
+    "olin",
+    "ona",
+    "open",
+    "pakala",
+    "pali",
+    "palisa",
+    "pan",
+    "pana",
+    "pi",
+    "pilin",
+    "pimeja",
+    "pini",
+    "pipi",
+    "poka",
+    "poki",
+    "pona",
+    "pu",
+    "sama",
+    "seli",
+    "selo",
+    "seme",
+    "sewi",
+    "sijelo",
+    "sike",
+    "sin",
+    "sina",
+    "sinpin",
+    "sitelen",
+    "soko",
+    "sona",
+    "soweli",
+    "suli",
+    "suno",
+    "supa",
+    "suwi",
+    "tan",
+    "taso",
+    "tawa",
+    "telo",
+    "tenpo",
+    "toki",
+    "tomo",
+    "tonsi",
+    "tu",
+    "unpa",
+    "uta",
+    "utala",
+    "walo",
+    "wan",
+    "waso",
+    "wawa",
+    "weka",
+    "wile",
+    "ale",
+    ".",
+    "?",
+    "!",
+    ":",
+    ",",
 ];
 
 /// Prepositions that create prepositional phrases
@@ -31,12 +161,12 @@ const PREPOSITION_CONTAINERS: &[&str] = &["lon", "tan", "kepeken", "tawa", "sama
 /// Allowed Toki Pona syllables
 const ALLOWED_SYLLABLES: &[&str] = &[
     "o", "u", "i", "a", "e", "mo", "mu", "mi", "ma", "me", "no", "nu", "ni", "na", "ne", "po",
-    "pu", "pi", "pa", "pe", "to", "tu", "ta", "te", "ko", "ku", "ki", "ka", "ke", "so", "su",
-    "si", "sa", "se", "wi", "wa", "we", "lo", "lu", "li", "la", "le", "jo", "ju", "ja", "je",
-    "on", "un", "in", "an", "en", "mon", "mun", "min", "man", "men", "non", "nun", "nin", "nan",
-    "nen", "pon", "pun", "pin", "pan", "pen", "ton", "tun", "tan", "ten", "kon", "kun", "kin",
-    "kan", "ken", "son", "sun", "sin", "san", "sen", "win", "wan", "wen", "lon", "lun", "lin",
-    "lan", "len", "jon", "jun", "jan", "jen",
+    "pu", "pi", "pa", "pe", "to", "tu", "ta", "te", "ko", "ku", "ki", "ka", "ke", "so", "su", "si",
+    "sa", "se", "wi", "wa", "we", "lo", "lu", "li", "la", "le", "jo", "ju", "ja", "je", "on", "un",
+    "in", "an", "en", "mon", "mun", "min", "man", "men", "non", "nun", "nin", "nan", "nen", "pon",
+    "pun", "pin", "pan", "pen", "ton", "tun", "tan", "ten", "kon", "kun", "kin", "kan", "ken",
+    "son", "sun", "sin", "san", "sen", "win", "wan", "wen", "lon", "lun", "lin", "lan", "len",
+    "jon", "jun", "jan", "jen",
 ];
 
 #[derive(Debug, thiserror::Error)]
@@ -76,7 +206,7 @@ impl Parser {
     pub fn parse(&self, text: &str) -> Result<Vec<Sentence>, ParseError> {
         let normalized = text.replace("  ", " ");
         let preformatted = self.preformat(&normalized)?;
-        
+
         preformatted
             .iter()
             .map(|sentence| self.parse_sentence(sentence))
@@ -87,16 +217,16 @@ impl Parser {
     fn preformat(&self, text: &str) -> Result<Vec<ParsableSentence>, ParseError> {
         use regex::Regex;
         let re = Regex::new(r"[^.!?#]+[.!?#]+").unwrap();
-        
+
         let matches: Vec<&str> = if let Some(_) = re.find(text) {
-            let match_ranges: Vec<(usize, usize)> = re.find_iter(text)
-                .map(|m| (m.start(), m.end()))
-                .collect();
-            
-            let mut result: Vec<&str> = match_ranges.iter()
+            let match_ranges: Vec<(usize, usize)> =
+                re.find_iter(text).map(|m| (m.start(), m.end())).collect();
+
+            let mut result: Vec<&str> = match_ranges
+                .iter()
                 .map(|(start, end)| &text[*start..*end])
                 .collect();
-            
+
             // Check if there's remaining text after the last match
             if let Some(&(_, last_end)) = match_ranges.last() {
                 if last_end < text.len() {
@@ -107,7 +237,7 @@ impl Parser {
                     }
                 }
             }
-            
+
             result
         } else {
             // Allow sentence fractions without punctuation
@@ -124,10 +254,12 @@ impl Parser {
             let mut parsable = ParsableSentence::new();
             // Only remove last character if it's punctuation
             // Check if the sentence ends with punctuation
-            let has_punctuation = trimmed.chars().last()
+            let has_punctuation = trimmed
+                .chars()
+                .last()
                 .map(|c| matches!(c, '.' | ':' | '!' | '?' | '#'))
                 .unwrap_or(false);
-            
+
             let body = if has_punctuation && trimmed.len() > 1 {
                 &trimmed[..trimmed.len() - 1]
             } else {
@@ -189,18 +321,19 @@ impl Parser {
                     // Find proper names (capitalized words)
                     let mut proper_names = Vec::new();
                     let mut content_with_placeholders = content.clone();
-                    
+
                     use regex::Regex;
                     let re = Regex::new(r"([A-Z][\w-]*)").unwrap();
                     for cap in re.captures_iter(content) {
                         if let Some(m) = cap.get(0) {
                             proper_names.push(m.as_str().to_string());
-                            content_with_placeholders = content_with_placeholders.replace(m.as_str(), "'Name'");
+                            content_with_placeholders =
+                                content_with_placeholders.replace(m.as_str(), "'Name'");
                         }
                     }
 
                     let value = self.get_simple_structured_sentence(&content_with_placeholders)?;
-                    
+
                     // Replace placeholders with actual names
                     // Reverse the vector so we can pop in the correct order
                     proper_names.reverse();
@@ -261,7 +394,8 @@ impl Parser {
                 current_part = sentence.len() - 1;
                 continue;
             } else if PREPOSITIONS.contains(&token_lower.as_str())
-                && (index == 0 || !OBJECT_MARKERS.contains(&tokens[index - 1].to_lowercase().as_str()))
+                && (index == 0
+                    || !OBJECT_MARKERS.contains(&tokens[index - 1].to_lowercase().as_str()))
                 && index < tokens.len() - 1
                 && !OBJECT_MARKERS.contains(&tokens[index + 1].to_lowercase().as_str())
             {
@@ -292,15 +426,11 @@ impl Parser {
             } else if token_lower == "a" {
                 if current_part < sentence.len() {
                     let has_separator = match &sentence[current_part] {
-                        SentencePart::Subject { tokens, separator, .. } => {
-                            !tokens.is_empty() && separator.is_some()
-                        }
-                        SentencePart::ObjectMarker { tokens, .. } => {
-                            !tokens.is_empty()
-                        }
-                        SentencePart::PrepPhrase { tokens, .. } => {
-                            !tokens.is_empty()
-                        }
+                        SentencePart::Subject {
+                            tokens, separator, ..
+                        } => !tokens.is_empty() && separator.is_some(),
+                        SentencePart::ObjectMarker { tokens, .. } => !tokens.is_empty(),
+                        SentencePart::PrepPhrase { tokens, .. } => !tokens.is_empty(),
                         _ => false,
                     };
                     if has_separator {
@@ -449,7 +579,8 @@ impl Parser {
                 | SentencePart::PrepPhrase { tokens, .. } => {
                     let mut split_index = None;
                     for (j, token) in tokens.iter().enumerate() {
-                        if PREPOSITION_CONTAINERS.contains(&token.as_str()) && j < tokens.len() - 1 {
+                        if PREPOSITION_CONTAINERS.contains(&token.as_str()) && j < tokens.len() - 1
+                        {
                             split_index = Some(j);
                         }
                     }
@@ -507,26 +638,33 @@ impl Parser {
             let name_indices: Vec<usize> = match &sentence[i] {
                 SentencePart::Subject { tokens, .. }
                 | SentencePart::ObjectMarker { tokens, .. }
-                | SentencePart::PrepPhrase { tokens, .. } => {
-                    tokens.iter().enumerate()
-                        .filter_map(|(idx, token)| {
-                            if token.chars().next().map(|c| c.is_uppercase()).unwrap_or(false) {
-                                Some(idx)
-                            } else {
-                                None
-                            }
-                        })
-                        .collect()
-                }
+                | SentencePart::PrepPhrase { tokens, .. } => tokens
+                    .iter()
+                    .enumerate()
+                    .filter_map(|(idx, token)| {
+                        if token
+                            .chars()
+                            .next()
+                            .map(|c| c.is_uppercase())
+                            .unwrap_or(false)
+                        {
+                            Some(idx)
+                        } else {
+                            None
+                        }
+                    })
+                    .collect(),
                 _ => continue,
             };
 
             if !name_indices.is_empty() {
                 let mut new_parts = Vec::new();
                 let mut last = 0;
-                
+
                 match &sentence[i] {
-                    SentencePart::Subject { tokens, separator, .. } => {
+                    SentencePart::Subject {
+                        tokens, separator, ..
+                    } => {
                         for &idx in &name_indices {
                             if idx > last {
                                 new_parts.push(SentencePart::Subject {
@@ -559,7 +697,9 @@ impl Parser {
                             parts: Some(new_parts),
                         };
                     }
-                    SentencePart::ObjectMarker { tokens, separator, .. } => {
+                    SentencePart::ObjectMarker {
+                        tokens, separator, ..
+                    } => {
                         for &idx in &name_indices {
                             if idx > last {
                                 new_parts.push(SentencePart::ObjectMarker {
@@ -592,7 +732,9 @@ impl Parser {
                             parts: Some(new_parts),
                         };
                     }
-                    SentencePart::PrepPhrase { tokens, separator, .. } => {
+                    SentencePart::PrepPhrase {
+                        tokens, separator, ..
+                    } => {
                         for &idx in &name_indices {
                             if idx > last {
                                 new_parts.push(SentencePart::PrepPhrase {
@@ -662,7 +804,8 @@ impl ParsableSentence {
     }
 
     fn push_punctuation(&mut self, punct: &str) {
-        self.parts.push(ParsablePart::Punctuation(punct.to_string()));
+        self.parts
+            .push(ParsablePart::Punctuation(punct.to_string()));
     }
 }
 
