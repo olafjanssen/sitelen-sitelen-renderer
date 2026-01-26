@@ -1,5 +1,4 @@
 /// Configuration for rendering
-
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -50,4 +49,3 @@ pub enum OutputFormat {
     Png,
     Html,
 }
-

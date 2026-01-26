@@ -136,4 +136,3 @@ pub enum LayoutType {
 pub struct Layout {
     pub compounds: Vec<LayoutOption>,
 }
-

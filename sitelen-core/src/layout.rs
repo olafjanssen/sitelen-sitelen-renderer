@@ -11,7 +11,6 @@
 ///
 /// The algorithm uses a recursive backtracking approach, exploring all valid
 /// placement combinations while respecting size compatibility constraints.
-
 use crate::types::*;
 use std::collections::HashMap;
 
@@ -47,10 +46,17 @@ impl LayoutEngine {
 
         for part in &sentence.parts {
             let (np_options, part_type, separator) = match part {
-                SentencePart::Subject { parts, tokens, separator, .. } => {
+                SentencePart::Subject {
+                    parts,
+                    tokens,
+                    separator,
+                    ..
+                } => {
                     let options = if let Some(parts) = parts {
                         // Recursively layout parts
-                        let sub_sentence = Sentence { parts: parts.clone() };
+                        let sub_sentence = Sentence {
+                            parts: parts.clone(),
+                        };
                         self.layout_compound(&sub_sentence)
                     } else if separator.as_deref() == Some("cartouche") {
                         self.convert_cartouche(tokens)
@@ -59,9 +65,16 @@ impl LayoutEngine {
                     };
                     (options, "container", separator.clone())
                 }
-                SentencePart::ObjectMarker { parts, tokens, separator, .. } => {
+                SentencePart::ObjectMarker {
+                    parts,
+                    tokens,
+                    separator,
+                    ..
+                } => {
                     let options = if let Some(parts) = parts {
-                        let sub_sentence = Sentence { parts: parts.clone() };
+                        let sub_sentence = Sentence {
+                            parts: parts.clone(),
+                        };
                         self.layout_compound(&sub_sentence)
                     } else if separator == "cartouche" {
                         self.convert_cartouche(tokens)
@@ -70,9 +83,16 @@ impl LayoutEngine {
                     };
                     (options, "container", Some(separator.clone()))
                 }
-                SentencePart::PrepPhrase { parts, tokens, separator, .. } => {
+                SentencePart::PrepPhrase {
+                    parts,
+                    tokens,
+                    separator,
+                    ..
+                } => {
                     let options = if let Some(parts) = parts {
-                        let sub_sentence = Sentence { parts: parts.clone() };
+                        let sub_sentence = Sentence {
+                            parts: parts.clone(),
+                        };
                         self.layout_compound(&sub_sentence)
                     } else if separator == "cartouche" {
                         self.convert_cartouche(tokens)
@@ -84,9 +104,13 @@ impl LayoutEngine {
                 SentencePart::Punctuation { tokens } => {
                     (self.convert_noun_phrase(tokens), "punctuation", None)
                 }
-                SentencePart::Address { tokens, separator, .. } => {
-                    (self.convert_noun_phrase(tokens), "container", Some(separator.clone()))
-                }
+                SentencePart::Address {
+                    tokens, separator, ..
+                } => (
+                    self.convert_noun_phrase(tokens),
+                    "container",
+                    Some(separator.clone()),
+                ),
                 SentencePart::Interjection { tokens } => {
                     (self.convert_noun_phrase(tokens), "container", None)
                 }
@@ -127,7 +151,7 @@ impl LayoutEngine {
     ) {
         for option in &hash_map[index].options {
             let mut new_units = units.clone();
-            
+
             let layout_type = if hash_map[index].part_type == "punctuation" {
                 LayoutType::Punctuation
             } else {
@@ -135,7 +159,7 @@ impl LayoutEngine {
             };
 
             let separator = hash_map[index].separator.clone();
-            
+
             // Create a layout unit for the container
             let container_unit = LayoutUnit::Container {
                 units: option.state.units.clone(),
@@ -143,7 +167,7 @@ impl LayoutEngine {
                 separator: separator.clone(),
                 layout_type: layout_type.clone(),
             };
-            
+
             new_units.push(container_unit);
 
             if index + 1 < hash_map.len() {
@@ -180,7 +204,14 @@ impl LayoutEngine {
         let mut hash: HashMap<String, LayoutOption> = HashMap::new();
         let mut min_surface = INITIAL_MIN_SURFACE;
 
-        self.layout_container_recursive(units, None, None, &mut options, &mut hash, &mut min_surface);
+        self.layout_container_recursive(
+            units,
+            None,
+            None,
+            &mut options,
+            &mut hash,
+            &mut min_surface,
+        );
 
         options
     }
@@ -242,33 +273,16 @@ impl LayoutEngine {
                         min_surface,
                     );
                 }
-                self.try_place_units(
-                    units,
-                    &new_state,
-                    1,
-                    j,
-                    true,
-                    options,
-                    hash,
-                    min_surface,
-                );
+                self.try_place_units(units, &new_state, 1, j, true, options, hash, min_surface);
             }
             return;
         }
 
         let state = state.unwrap();
         let placement = placement.unwrap();
-        
-        self.place_unit_group(
-            units,
-            state,
-            placement,
-            options,
-            hash,
-            min_surface,
-        );
-    }
 
+        self.place_unit_group(units, state, placement, options, hash, min_surface);
+    }
 
     /// Place a group of units according to the placement strategy
     fn place_unit_group(
@@ -280,7 +294,11 @@ impl LayoutEngine {
         hash: &mut HashMap<String, LayoutOption>,
         min_surface: &mut f64,
     ) {
-        let PlacementStrategy { goes_down, index, length } = placement;
+        let PlacementStrategy {
+            goes_down,
+            index,
+            length,
+        } = placement;
 
         let mut new_state = LayoutState {
             units: state.units.clone(),
@@ -292,7 +310,9 @@ impl LayoutEngine {
         let unit_position = self.calculate_placement_position(state, goes_down);
 
         // Check size compatibility and calculate size sum
-        let size_sum = match self.check_size_compatibility_and_sum(units, index, length, goes_down, prev_size) {
+        let size_sum = match self
+            .check_size_compatibility_and_sum(units, index, length, goes_down, prev_size)
+        {
             Some(sum) => sum,
             None => return, // Incompatible sizes
         };
@@ -301,13 +321,13 @@ impl LayoutEngine {
         let mut current_pos = unit_position;
         for i in index..index + length {
             let add_size = self.get_unit_size(&units[i]);
-            let glyph_size = self.calculate_glyph_size(
-                add_size,
-                &new_state.size,
-                &size_sum,
-                goes_down,
-            );
-            let add = if goes_down { glyph_size.height } else { glyph_size.width };
+            let glyph_size =
+                self.calculate_glyph_size(add_size, &new_state.size, &size_sum, goes_down);
+            let add = if goes_down {
+                glyph_size.height
+            } else {
+                glyph_size.width
+            };
 
             // Update container size when placing first unit of group
             if i == index {
@@ -339,15 +359,9 @@ impl LayoutEngine {
 
             // Mark next position as forbidden to prevent overlap
             let forbidden_pos = if goes_down {
-                Position::new(
-                    current_pos.x + glyph_size.width,
-                    current_pos.y,
-                )
+                Position::new(current_pos.x + glyph_size.width, current_pos.y)
             } else {
-                Position::new(
-                    current_pos.x,
-                    current_pos.y + glyph_size.height,
-                )
+                Position::new(current_pos.x, current_pos.y + glyph_size.height)
             };
             new_state.forbidden.push(forbidden_pos);
         }
@@ -359,7 +373,14 @@ impl LayoutEngine {
         }
 
         // Continue placing remaining units
-        self.continue_placement(units, &new_state, index + length, options, hash, min_surface);
+        self.continue_placement(
+            units,
+            &new_state,
+            index + length,
+            options,
+            hash,
+            min_surface,
+        );
     }
 
     /// Finalize a completed layout option
@@ -465,38 +486,69 @@ impl LayoutEngine {
         // This matches JavaScript's JSON.stringify behavior which includes the entire structure
         // We need to capture: type, size, ratio, and all units with their positions and types
         let mut key_parts = Vec::new();
-        
+
         // Add layout type and dimensions (matching JavaScript structure)
         key_parts.push(format!("type:{:?}", option.layout_type));
-        key_parts.push(format!("size:{:.4}:{:.4}", option.size.width, option.size.height));
+        key_parts.push(format!(
+            "size:{:.4}:{:.4}",
+            option.size.width, option.size.height
+        ));
         key_parts.push(format!("ratio:{:.4}", option.ratio));
         key_parts.push(format!("surface:{:.4}", option.surface));
-        
+
         // Add all units in order (JSON.stringify preserves array order)
         // Include unit type, token, position, and size to fully capture the layout
         for placed in &option.state.units {
             let unit_str = match &placed.unit {
                 LayoutUnit::WordGlyph { token, .. } => {
-                    format!("wg:{}:pos({:.4},{:.4}):size({:.4},{:.4})", 
-                        token, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
-                },
+                    format!(
+                        "wg:{}:pos({:.4},{:.4}):size({:.4},{:.4})",
+                        token,
+                        placed.position.x,
+                        placed.position.y,
+                        placed.size.width,
+                        placed.size.height
+                    )
+                }
                 LayoutUnit::SyllableGlyph { token, .. } => {
-                    format!("syl:{}:pos({:.4},{:.4}):size({:.4},{:.4})", 
-                        token, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
-                },
-                LayoutUnit::Container { layout_type, separator, .. } => {
-                    format!("cont:{:?}:sep:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})", 
-                        layout_type, separator.as_ref().map(|s| s.as_str()).unwrap_or("none"),
-                        placed.position.x, placed.position.y, placed.size.width, placed.size.height)
-                },
+                    format!(
+                        "syl:{}:pos({:.4},{:.4}):size({:.4},{:.4})",
+                        token,
+                        placed.position.x,
+                        placed.position.y,
+                        placed.size.width,
+                        placed.size.height
+                    )
+                }
+                LayoutUnit::Container {
+                    layout_type,
+                    separator,
+                    ..
+                } => {
+                    format!(
+                        "cont:{:?}:sep:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})",
+                        layout_type,
+                        separator.as_ref().map(|s| s.as_str()).unwrap_or("none"),
+                        placed.position.x,
+                        placed.position.y,
+                        placed.size.width,
+                        placed.size.height
+                    )
+                }
                 LayoutUnit::Punctuation { tokens, .. } => {
-                    format!("punct:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})", 
-                        tokens, placed.position.x, placed.position.y, placed.size.width, placed.size.height)
-                },
+                    format!(
+                        "punct:{:?}:pos({:.4},{:.4}):size({:.4},{:.4})",
+                        tokens,
+                        placed.position.x,
+                        placed.position.y,
+                        placed.size.width,
+                        placed.size.height
+                    )
+                }
             };
             key_parts.push(unit_str);
         }
-        
+
         key_parts.join("|")
     }
 
@@ -545,9 +597,9 @@ impl LayoutEngine {
 
     /// Check if a position is in the forbidden list
     fn is_position_forbidden(&self, forbidden: &[Position], pos: &Position) -> bool {
-        forbidden.iter().any(|p| {
-            (p.x - pos.x).abs() < EPSILON && (p.y - pos.y).abs() < EPSILON
-        })
+        forbidden
+            .iter()
+            .any(|p| (p.x - pos.x).abs() < EPSILON && (p.y - pos.y).abs() < EPSILON)
     }
 
     /// Calculate the size of a glyph when placed in a group
@@ -568,15 +620,9 @@ impl LayoutEngine {
         };
 
         if goes_down {
-            Size::new(
-                unit_size.width * add / unit_size.height,
-                add,
-            )
+            Size::new(unit_size.width * add / unit_size.height, add)
         } else {
-            Size::new(
-                add,
-                unit_size.height * add / unit_size.width,
-            )
+            Size::new(add, unit_size.height * add / unit_size.width)
         }
     }
 
@@ -706,4 +752,3 @@ struct PlacementStrategy {
     /// Number of units to place in this group
     length: usize,
 }
-

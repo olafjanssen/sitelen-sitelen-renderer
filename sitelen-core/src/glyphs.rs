@@ -1,8 +1,7 @@
+use roxmltree::Document;
 /// Glyph loading and management
-
 use std::collections::HashSet;
 use std::sync::OnceLock;
-use roxmltree::Document;
 
 #[derive(Debug, thiserror::Error)]
 pub enum GlyphError {
@@ -19,9 +18,7 @@ pub struct GlyphRegistry {
 
 impl GlyphRegistry {
     pub fn new() -> Self {
-        Self {
-            sprite: None,
-        }
+        Self { sprite: None }
     }
 
     /// Load sprite from SVG string
@@ -47,11 +44,12 @@ impl GlyphRegistry {
             let cleaned = Self::strip_doctype(sprite);
             let doc = Document::parse(&cleaned)
                 .map_err(|e| GlyphError::ParseError(format!("Failed to parse sprite: {}", e)))?;
-            
+
             // Find the symbol element with the given ID
-            if let Some(symbol) = doc.descendants().find(|n| {
-                n.has_tag_name("symbol") && n.attribute("id") == Some(id)
-            }) {
+            if let Some(symbol) = doc
+                .descendants()
+                .find(|n| n.has_tag_name("symbol") && n.attribute("id") == Some(id))
+            {
                 // Serialize the symbol node and all its children
                 Ok(self.serialize_node(&symbol))
             } else {
@@ -67,30 +65,32 @@ impl GlyphRegistry {
         use std::fmt::Write;
         let mut result = String::new();
         write!(result, "<{}", node.tag_name().name()).unwrap();
-        
+
         // Write attributes
         for attr in node.attributes() {
-            let value = attr.value()
+            let value = attr
+                .value()
                 .replace('&', "&amp;")
                 .replace('<', "&lt;")
                 .replace('>', "&gt;")
                 .replace('"', "&quot;");
             write!(result, " {}=\"{}\"", attr.name(), value).unwrap();
         }
-        
+
         // Check if node has children (elements or text)
         let has_element_children = node.children().any(|c| c.is_element());
-        let text_nodes: Vec<&str> = node.children()
+        let text_nodes: Vec<&str> = node
+            .children()
             .filter(|c| c.is_text())
             .map(|c| c.text().unwrap_or(""))
             .collect();
         let has_text = !text_nodes.is_empty();
-        
+
         if !has_element_children && !has_text {
             write!(result, "/>").unwrap();
         } else {
             write!(result, ">").unwrap();
-            
+
             // Add text content (preserve order with elements)
             for child in node.children() {
                 if child.is_text() {
@@ -105,7 +105,7 @@ impl GlyphRegistry {
                     result.push_str(&self.serialize_node(&child));
                 }
             }
-            
+
             write!(result, "</{}>", node.tag_name().name()).unwrap();
         }
         result
@@ -188,9 +188,9 @@ static GLYPH_REGISTRY: OnceLock<GlyphRegistry> = OnceLock::new();
 pub fn init_glyph_registry(sprite_content: &str) -> Result<(), GlyphError> {
     let mut registry = GlyphRegistry::new();
     registry.load_sprite(sprite_content)?;
-    GLYPH_REGISTRY.set(registry).map_err(|_| {
-        GlyphError::ParseError("Failed to initialize glyph registry".to_string())
-    })?;
+    GLYPH_REGISTRY
+        .set(registry)
+        .map_err(|_| GlyphError::ParseError("Failed to initialize glyph registry".to_string()))?;
     Ok(())
 }
 
@@ -198,4 +198,3 @@ pub fn init_glyph_registry(sprite_content: &str) -> Result<(), GlyphError> {
 pub fn get_glyph_registry() -> Option<&'static GlyphRegistry> {
     GLYPH_REGISTRY.get()
 }
-

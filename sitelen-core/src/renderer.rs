@@ -1,7 +1,6 @@
 /// SVG renderer for Sitelen Sitelen
-
 use crate::config::{OutputFormat, RenderConfig};
-use crate::glyphs::{get_glyph_registry, GlyphRegistry, GlyphError};
+use crate::glyphs::{get_glyph_registry, GlyphError, GlyphRegistry};
 use crate::types::*;
 use std::collections::HashSet;
 use std::fmt::Write;
@@ -31,7 +30,11 @@ impl Renderer {
     }
 
     /// Render a layout to SVG bytes
-    pub fn render(&mut self, layout: &Layout, format: OutputFormat) -> Result<Vec<u8>, RenderError> {
+    pub fn render(
+        &mut self,
+        layout: &Layout,
+        format: OutputFormat,
+    ) -> Result<Vec<u8>, RenderError> {
         match format {
             OutputFormat::Svg => self.render_svg(layout),
             OutputFormat::Png => self.render_png(layout),
@@ -43,24 +46,24 @@ impl Renderer {
     fn render_svg(&mut self, layout: &Layout) -> Result<Vec<u8>, RenderError> {
         // Clear used glyphs for this render
         self.used_glyphs.clear();
-        
+
         let mut svg = String::new();
-        
+
         // Calculate total size
         let mut x_size: f64 = 0.0;
         let mut y_size: f64 = 0.0;
-        
+
         for option in &layout.compounds {
             x_size = x_size.max(option.size.width);
         }
-        
+
         for option in &layout.compounds {
             y_size += option.size.height * x_size / option.size.width;
         }
 
         let box_width = x_size * 100.0;
         let box_height = y_size * 100.0;
-        
+
         let viewbox_x = -(box_width * self.config.scale_skew - box_width) / 2.0;
         let viewbox_y = -(box_height * self.config.scale - box_height) / 2.0;
         let viewbox_width = box_width * self.config.scale_skew;
@@ -92,7 +95,7 @@ impl Renderer {
         for option in &layout.compounds {
             let inner_width = x_size * 100.0;
             let inner_height = option.size.height * x_size / option.size.width * 100.0;
-            
+
             writeln!(
                 svg,
                 r#"<svg width="{}" height="{}" viewBox="0 0 100 100" y="{}" preserveAspectRatio="none"{} style="overflow: visible;">"#,
@@ -101,11 +104,11 @@ impl Renderer {
                 y_pos,
                 if self.config.shadow { r#" filter="url(#shadow)""# } else { "" }
             ).unwrap();
-            
+
             self.render_part_option(option, &mut svg, None, None, None)?;
-            
+
             writeln!(svg, r#"</svg>"#).unwrap();
-            
+
             y_pos += inner_height;
         }
 
@@ -154,7 +157,7 @@ impl Renderer {
                 let box_height = option.size.height * 100.0;
                 let box_x = 0.0;
                 let box_y = 0.0;
-                
+
                 let center_x = box_x + box_width / 2.0;
                 let center_y = box_y + box_height / 2.0;
 
@@ -199,12 +202,14 @@ impl Renderer {
         }
 
         // If we have a position, create a nested SVG container
-        if let (Some(pos), Some(size_p), Some(size_pn)) = (position, size_parent, size_parent_normed) {
+        if let (Some(pos), Some(size_p), Some(size_pn)) =
+            (position, size_parent, size_parent_normed)
+        {
             let box_x = pos.x * 100.0 / size_pn.width;
             let box_y = pos.y * 100.0 / size_pn.height;
             let box_width = size_p.width * 100.0 / size_pn.width;
             let box_height = size_p.height * 100.0 / size_pn.height;
-            
+
             let center_x = box_x + box_width / 2.0;
             let center_y = box_y + box_height / 2.0;
 
@@ -251,10 +256,14 @@ impl Renderer {
 
             // Create nested SVG container
             let viewbox_x = separator_scale[2] - (100.0 * container_scale - 100.0) / 2.0;
-            let viewbox_y = (if option.layout_type == LayoutType::Punctuation { 20.0 } else { separator_scale[3] }) - (100.0 * container_scale - 100.0) / 2.0;
+            let viewbox_y = (if option.layout_type == LayoutType::Punctuation {
+                20.0
+            } else {
+                separator_scale[3]
+            }) - (100.0 * container_scale - 100.0) / 2.0;
             let viewbox_width = 100.0 * container_scale;
             let viewbox_height = 100.0 * container_scale;
-            
+
             writeln!(
                 svg,
                 r#"<svg viewBox="{} {} {} {}" preserveAspectRatio="none" height="{}" width="{}" x="{}" y="{}" style="overflow: visible;">"#,
@@ -268,10 +277,15 @@ impl Renderer {
         // 2. Container is inserted at beginning (punctuation) or appended (regular)
         // Since we're building a string, we need to collect separators and write them first
         let mut containers = Vec::new();
-        
+
         for glyph in &option.state.units {
             match &glyph.unit {
-                LayoutUnit::Container { units, size, separator, layout_type } => {
+                LayoutUnit::Container {
+                    units,
+                    size,
+                    separator,
+                    layout_type,
+                } => {
                     let nested_ratio = size.ratio();
                     let nested_option = LayoutOption {
                         layout_type: layout_type.clone(),
@@ -283,7 +297,11 @@ impl Renderer {
                         },
                         size: *size,
                         ratio: nested_ratio,
-                        normed_ratio: if nested_ratio < 1.0 { nested_ratio } else { 1.0 / nested_ratio },
+                        normed_ratio: if nested_ratio < 1.0 {
+                            nested_ratio
+                        } else {
+                            1.0 / nested_ratio
+                        },
                         surface: size.surface(),
                     };
                     containers.push((nested_option, glyph.position, glyph.size));
@@ -294,7 +312,7 @@ impl Renderer {
                 }
             }
         }
-        
+
         // Render containers in reverse order
         // In JS: when renderPartOption is called, separator is inserted at beginning,
         // then container is inserted at beginning (punctuation) or appended (regular)
@@ -329,13 +347,16 @@ impl Renderer {
         let box_y = placed.position.y * 100.0 / container_size.height;
         let box_width = placed.size.width * 100.0 / container_size.width;
         let box_height = placed.size.height * 100.0 / container_size.height;
-        
+
         let center_x = box_x + box_width / 2.0;
         let center_y = box_y + box_height / 2.0;
-        
+
         let matrix = format!(
             "matrix({},{},{},{},{},{})",
-            glyph_scale, 0.0, 0.0, glyph_scale,
+            glyph_scale,
+            0.0,
+            0.0,
+            glyph_scale,
             center_x - glyph_scale * center_x,
             center_y - glyph_scale * center_y
         );
@@ -361,7 +382,9 @@ impl Renderer {
             }
             LayoutUnit::Container { .. } => {
                 // Containers are handled in render_part_option, not here
-                return Err(RenderError::Rendering("Container units should be handled in render_part_option".to_string()));
+                return Err(RenderError::Rendering(
+                    "Container units should be handled in render_part_option".to_string(),
+                ));
             }
             LayoutUnit::Punctuation { tokens, .. } => {
                 // Render punctuation
@@ -435,7 +458,17 @@ impl Renderer {
                     if (option.ratio - 1.0).abs() < 1e-6 {
                         scale[0] = base_scale * 0.9;
                         scale[1] = base_scale * 1.1;
-                        scale[3] = if separator == "poka" { -20.0 } else if separator == "sama" { -15.0 } else if separator == "kepeken" { -20.0 } else if separator == "tan" { -20.0 } else { -15.0 };
+                        scale[3] = if separator == "poka" {
+                            -20.0
+                        } else if separator == "sama" {
+                            -15.0
+                        } else if separator == "kepeken" {
+                            -20.0
+                        } else if separator == "tan" {
+                            -20.0
+                        } else {
+                            -15.0
+                        };
                     } else if option.ratio < 0.667 {
                         scale[0] = base_scale * 0.9;
                         scale[3] = -10.0;
@@ -497,20 +530,25 @@ impl Renderer {
         let svg_bytes = self.render_svg(layout)?;
         let svg_str = String::from_utf8(svg_bytes)
             .map_err(|e| RenderError::Rendering(format!("Invalid SVG: {}", e)))?;
-        
+
         // Use resvg to convert SVG to PNG
         let opt = usvg::Options::default();
         let rtree = usvg::Tree::from_str(&svg_str, &opt)
             .map_err(|e| RenderError::Rendering(format!("Failed to parse SVG: {}", e)))?;
-        
+
         let pixmap_size = rtree.size().to_int_size();
         let mut pixmap = tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height())
             .ok_or_else(|| RenderError::Rendering("Failed to create pixmap".to_string()))?;
-        
-        resvg::render(&rtree, tiny_skia::Transform::default(), &mut pixmap.as_mut());
-        
+
+        resvg::render(
+            &rtree,
+            tiny_skia::Transform::default(),
+            &mut pixmap.as_mut(),
+        );
+
         // Convert to PNG bytes
-        pixmap.encode_png()
+        pixmap
+            .encode_png()
             .map_err(|e| RenderError::Rendering(format!("Failed to encode PNG: {}", e)))
     }
 
@@ -519,7 +557,7 @@ impl Renderer {
         let svg_bytes = self.render_svg(layout)?;
         let svg_str = String::from_utf8(svg_bytes)
             .map_err(|e| RenderError::Rendering(format!("Invalid SVG: {}", e)))?;
-        
+
         let html = format!(
             r#"<!DOCTYPE html>
 <html>
@@ -548,8 +586,7 @@ impl Renderer {
 </html>"#,
             svg_str
         );
-        
+
         Ok(html.into_bytes())
     }
 }
-

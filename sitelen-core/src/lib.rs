@@ -1,7 +1,6 @@
 /// Sitelen Sitelen Renderer - Core Library
 ///
 /// This library converts Toki Pona text into the Sitelen Sitelen non-linear writing style.
-
 pub mod config;
 pub mod glyphs;
 pub mod layout;
@@ -16,7 +15,6 @@ pub use parser::{ParseError, Parser};
 pub use renderer::{RenderError, Renderer};
 pub use types::{Layout, Sentence, SentencePart};
 
-use std::fs;
 
 /// Main pipeline for rendering Toki Pona text
 pub struct Pipeline {
@@ -34,11 +32,9 @@ impl Pipeline {
 
     /// Create a new pipeline with custom configuration
     pub fn with_config(config: RenderConfig) -> Result<Self, Box<dyn std::error::Error>> {
-        // Load sprite if available
-        let sprite_path = "images/glyphs.svg";
-        if let Ok(sprite_content) = fs::read_to_string(sprite_path) {
-            init_glyph_registry(&sprite_content)?;
-        }
+        // Embed the sprite file at compile time
+        const SPRITE_CONTENT: &str = include_str!("../../images/glyphs.svg");
+        init_glyph_registry(SPRITE_CONTENT)?;
 
         Ok(Self {
             parser: Parser::new(),
@@ -58,11 +54,17 @@ impl Pipeline {
     }
 
     /// Select the best layout option based on optimal ratio
-    pub fn select_best_layout<'a>(&self, options: &'a [LayoutOption], optimal_ratio: f64) -> Option<&'a LayoutOption> {
+    pub fn select_best_layout<'a>(
+        &self,
+        options: &'a [LayoutOption],
+        optimal_ratio: f64,
+    ) -> Option<&'a LayoutOption> {
         options.iter().min_by(|a, b| {
             let a_diff = (a.ratio - optimal_ratio).abs();
             let b_diff = (b.ratio - optimal_ratio).abs();
-            a_diff.partial_cmp(&b_diff).unwrap_or(std::cmp::Ordering::Equal)
+            a_diff
+                .partial_cmp(&b_diff)
+                .unwrap_or(std::cmp::Ordering::Equal)
         })
     }
 
@@ -72,7 +74,11 @@ impl Pipeline {
     }
 
     /// Render a single parsed sentence to bytes
-    pub fn render_sentence(&self, sentence: &Sentence, format: OutputFormat) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+    pub fn render_sentence(
+        &self,
+        sentence: &Sentence,
+        format: OutputFormat,
+    ) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
         let mut compounds = Vec::new();
         let optimal_ratio = self.renderer.borrow().config.optimal_ratio;
 
@@ -81,7 +87,9 @@ impl Pipeline {
         for part in &sentence.parts {
             sentence_compound.push(part.clone());
             if matches!(part, SentencePart::Punctuation { .. }) {
-                let compound_sentence = Sentence { parts: sentence_compound.clone() };
+                let compound_sentence = Sentence {
+                    parts: sentence_compound.clone(),
+                };
                 let options = self.layout(&compound_sentence);
                 if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
                     compounds.push(best.clone());
@@ -92,7 +100,9 @@ impl Pipeline {
             }
         }
         if !sentence_compound.is_empty() {
-            let compound_sentence = Sentence { parts: sentence_compound };
+            let compound_sentence = Sentence {
+                parts: sentence_compound,
+            };
             let options = self.layout(&compound_sentence);
             if let Some(best) = self.select_best_layout(&options, optimal_ratio) {
                 compounds.push(best.clone());
@@ -107,7 +117,11 @@ impl Pipeline {
     }
 
     /// Complete pipeline: parse, layout, and render
-    pub fn render_text(&self, text: &str, format: OutputFormat) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
+    pub fn render_text(
+        &self,
+        text: &str,
+        format: OutputFormat,
+    ) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
         let sentences = self.parse(text)?;
 
         let mut compounds = Vec::new();
