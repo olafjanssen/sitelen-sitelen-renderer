@@ -29,6 +29,12 @@ function getStringFromWasm0(ptr, len) {
     ptr = ptr >>> 0;
     return decodeText(ptr, len);
 }
+/**
+ * Initialize glyph registry (called automatically, but can be called manually for custom sprites)
+ */
+export function init() {
+    wasm.init();
+}
 
 let WASM_VECTOR_LEN = 0;
 
@@ -84,69 +90,32 @@ function passStringToWasm0(arg, malloc, realloc) {
     return ptr;
 }
 
+function isLikeNone(x) {
+    return x === undefined || x === null;
+}
+
 function takeFromExternrefTable0(idx) {
     const value = wasm.__wbindgen_externrefs.get(idx);
     wasm.__externref_table_dealloc(idx);
     return value;
 }
 /**
- * Get all available layout option ratios for a text
- * Returns a JSON array of ratios sorted from smallest to largest
- * @param {string} text
- * @returns {string}
- */
-export function get_layout_ratios(text) {
-    let deferred3_0;
-    let deferred3_1;
-    try {
-        const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-        const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.get_layout_ratios(ptr0, len0);
-        var ptr2 = ret[0];
-        var len2 = ret[1];
-        if (ret[3]) {
-            ptr2 = 0; len2 = 0;
-            throw takeFromExternrefTable0(ret[2]);
-        }
-        deferred3_0 = ptr2;
-        deferred3_1 = len2;
-        return getStringFromWasm0(ptr2, len2);
-    } finally {
-        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
-    }
-}
-
-/**
- * Initialize the glyph registry with custom sprite content
- * This allows overriding the default embedded sprite with a custom one
- * @param {string} sprite_content
- */
-export function init_glyphs(sprite_content) {
-    const ptr0 = passStringToWasm0(sprite_content, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.init_glyphs(ptr0, len0);
-    if (ret[1]) {
-        throw takeFromExternrefTable0(ret[0]);
-    }
-}
-
-function isLikeNone(x) {
-    return x === undefined || x === null;
-}
-/**
- * Render each parsed sentence to its own SVG
- * Returns concatenated SVG strings, one per sentence
+ * Render text to SVG string
+ *
+ * # Arguments
+ * * `text` - Toki Pona text to render
+ * * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
  * @param {string} text
  * @param {number | null} [optimal_ratio]
  * @returns {string}
  */
-export function render_sentences(text, optimal_ratio) {
+export function render_svg(text, optimal_ratio) {
     let deferred3_0;
     let deferred3_1;
     try {
         const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.render_sentences(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
+        const ret = wasm.render_svg(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
         var ptr2 = ret[0];
         var len2 = ret[1];
         if (ret[3]) {
@@ -159,13 +128,6 @@ export function render_sentences(text, optimal_ratio) {
     } finally {
         wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
     }
-}
-
-/**
- * Initialize glyph registry (called automatically, but can be called manually for custom sprites)
- */
-export function init() {
-    wasm.init();
 }
 
 function getArrayU8FromWasm0(ptr, len) {
@@ -195,22 +157,18 @@ export function render_png(text, optimal_ratio) {
 }
 
 /**
- * Render text to SVG string
- *
- * # Arguments
- * * `text` - Toki Pona text to render
- * * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
+ * Get all available layout option ratios for a text
+ * Returns a JSON array of ratios sorted from smallest to largest
  * @param {string} text
- * @param {number | null} [optimal_ratio]
  * @returns {string}
  */
-export function render_svg(text, optimal_ratio) {
+export function get_layout_ratios(text) {
     let deferred3_0;
     let deferred3_1;
     try {
         const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
         const len0 = WASM_VECTOR_LEN;
-        const ret = wasm.render_svg(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
+        const ret = wasm.get_layout_ratios(ptr0, len0);
         var ptr2 = ret[0];
         var len2 = ret[1];
         if (ret[3]) {
@@ -222,6 +180,48 @@ export function render_svg(text, optimal_ratio) {
         return getStringFromWasm0(ptr2, len2);
     } finally {
         wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+    }
+}
+
+/**
+ * Render each parsed sentence to its own SVG
+ * Returns concatenated SVG strings, one per sentence
+ * @param {string} text
+ * @param {number | null} [optimal_ratio]
+ * @returns {string}
+ */
+export function render_sentences(text, optimal_ratio) {
+    let deferred3_0;
+    let deferred3_1;
+    try {
+        const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        const len0 = WASM_VECTOR_LEN;
+        const ret = wasm.render_sentences(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
+        var ptr2 = ret[0];
+        var len2 = ret[1];
+        if (ret[3]) {
+            ptr2 = 0; len2 = 0;
+            throw takeFromExternrefTable0(ret[2]);
+        }
+        deferred3_0 = ptr2;
+        deferred3_1 = len2;
+        return getStringFromWasm0(ptr2, len2);
+    } finally {
+        wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
+    }
+}
+
+/**
+ * Initialize the glyph registry with custom sprite content
+ * This allows overriding the default embedded sprite with a custom one
+ * @param {string} sprite_content
+ */
+export function init_glyphs(sprite_content) {
+    const ptr0 = passStringToWasm0(sprite_content, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.init_glyphs(ptr0, len0);
+    if (ret[1]) {
+        throw takeFromExternrefTable0(ret[0]);
     }
 }
 

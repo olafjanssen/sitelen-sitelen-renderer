@@ -1,24 +1,17 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Get all available layout option ratios for a text
- * Returns a JSON array of ratios sorted from smallest to largest
- */
-export function get_layout_ratios(text: string): string;
-/**
- * Initialize the glyph registry with custom sprite content
- * This allows overriding the default embedded sprite with a custom one
- */
-export function init_glyphs(sprite_content: string): void;
-/**
- * Render each parsed sentence to its own SVG
- * Returns concatenated SVG strings, one per sentence
- */
-export function render_sentences(text: string, optimal_ratio?: number | null): string;
-/**
  * Initialize glyph registry (called automatically, but can be called manually for custom sprites)
  */
 export function init(): void;
+/**
+ * Render text to SVG string
+ * 
+ * # Arguments
+ * * `text` - Toki Pona text to render
+ * * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
+ */
+export function render_svg(text: string, optimal_ratio?: number | null): string;
 /**
  * Render text to PNG bytes
  * 
@@ -28,24 +21,31 @@ export function init(): void;
  */
 export function render_png(text: string, optimal_ratio?: number | null): Uint8Array;
 /**
- * Render text to SVG string
- * 
- * # Arguments
- * * `text` - Toki Pona text to render
- * * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
+ * Get all available layout option ratios for a text
+ * Returns a JSON array of ratios sorted from smallest to largest
  */
-export function render_svg(text: string, optimal_ratio?: number | null): string;
+export function get_layout_ratios(text: string): string;
+/**
+ * Render each parsed sentence to its own SVG
+ * Returns concatenated SVG strings, one per sentence
+ */
+export function render_sentences(text: string, optimal_ratio?: number | null): string;
+/**
+ * Initialize the glyph registry with custom sprite content
+ * This allows overriding the default embedded sprite with a custom one
+ */
+export function init_glyphs(sprite_content: string): void;
 
 export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembly.Module;
 
 export interface InitOutput {
   readonly memory: WebAssembly.Memory;
-  readonly get_layout_ratios: (a: number, b: number) => [number, number, number, number];
   readonly init: () => void;
-  readonly init_glyphs: (a: number, b: number) => [number, number];
-  readonly render_png: (a: number, b: number, c: number, d: number) => [number, number, number, number];
-  readonly render_sentences: (a: number, b: number, c: number, d: number) => [number, number, number, number];
   readonly render_svg: (a: number, b: number, c: number, d: number) => [number, number, number, number];
+  readonly render_png: (a: number, b: number, c: number, d: number) => [number, number, number, number];
+  readonly get_layout_ratios: (a: number, b: number) => [number, number, number, number];
+  readonly render_sentences: (a: number, b: number, c: number, d: number) => [number, number, number, number];
+  readonly init_glyphs: (a: number, b: number) => [number, number];
   readonly __wbindgen_externrefs: WebAssembly.Table;
   readonly __wbindgen_malloc: (a: number, b: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number, d: number) => number;
