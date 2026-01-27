@@ -266,8 +266,8 @@ impl Parser {
                 trimmed
             };
 
-            // Remove comma before la-clause and before repeating li clause
-            let body = body.replace(", la ", " la ").replace(", li ", " li ");
+            // Remove comma before and after  la-clause and before repeating li clause
+            let body = body.replace(", la ", " la ").replace("la, ", "la ").replace(", li ", " li ");
 
             // Split on context separators
             let la_parts: Vec<&str> = body.split(" la ").collect();
