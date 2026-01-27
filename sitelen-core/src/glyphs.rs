@@ -185,7 +185,14 @@ impl Default for GlyphRegistry {
 static GLYPH_REGISTRY: OnceLock<GlyphRegistry> = OnceLock::new();
 
 /// Initialize glyph registry with sprite
+/// This function is idempotent - if the registry is already initialized, it returns Ok(())
 pub fn init_glyph_registry(sprite_content: &str) -> Result<(), GlyphError> {
+    // Check if registry is already initialized
+    if GLYPH_REGISTRY.get().is_some() {
+        // Already initialized, return success
+        return Ok(());
+    }
+    
     let mut registry = GlyphRegistry::new();
     registry.load_sprite(sprite_content)?;
     GLYPH_REGISTRY
