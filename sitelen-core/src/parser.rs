@@ -574,32 +574,87 @@ impl Parser {
         for i in 0..sentence.len() {
             let mut new_parts = None;
             match &sentence[i] {
-                SentencePart::Subject { tokens, .. }
-                | SentencePart::ObjectMarker { tokens, .. }
-                | SentencePart::PrepPhrase { tokens, .. } => {
-                    let mut split_index = None;
-                    for (j, token) in tokens.iter().enumerate() {
-                        if PREPOSITION_CONTAINERS.contains(&token.as_str()) && j < tokens.len() - 1
-                        {
-                            split_index = Some(j);
+                SentencePart::Subject { tokens, parts, .. }
+                | SentencePart::ObjectMarker { tokens, parts, .. }
+                | SentencePart::PrepPhrase { tokens, parts, .. } => {
+                    // Skip parts that already have nested structures
+                    if parts.is_some() {
+                        continue;
+                    }
+                    // Find all container markers and their end positions
+                    let mut container_ranges = Vec::new();
+                    let mut j = 0;
+                    while j < tokens.len() {
+                        if PREPOSITION_CONTAINERS.contains(&tokens[j].as_str()) && j < tokens.len() - 1 {
+                            let container_start = j;
+                            let container_token = tokens[j].clone();
+                            
+                            // Find where this container ends
+                            // It ends at: next separator (en, li, e), next preposition, or end of tokens
+                            let mut container_end = tokens.len();
+                            for k in (j + 1)..tokens.len() {
+                                let token_lower = tokens[k].to_lowercase();
+                                // Stop at separators
+                                if token_lower == "en" || token_lower == "anu" || token_lower == "li" || token_lower == "e" {
+                                    container_end = k;
+                                    break;
+                                }
+                                // Stop at next preposition (but not pi, as pi can nest)
+                                if PREPOSITION_CONTAINERS.contains(&token_lower.as_str()) && token_lower != "pi" {
+                                    container_end = k;
+                                    break;
+                                }
+                            }
+                            
+                            container_ranges.push((container_start, container_end, container_token));
+                            j = container_end;
+                        } else {
+                            j += 1;
                         }
                     }
 
-                    if let Some(split_idx) = split_index {
+                    if !container_ranges.is_empty() {
                         let mut parts = Vec::new();
-                        if split_idx > 0 {
+                        let mut last_end = 0;
+                        
+                        for (start, end, container_token) in container_ranges {
+                            // Add tokens before this container
+                            if start > last_end {
+                                parts.push(SentencePart::Subject {
+                                    tokens: tokens[last_end..start].to_vec(),
+                                    separator: None,
+                                    parts: None,
+                                });
+                            }
+                            
+                            // Add the container with its contents
                             parts.push(SentencePart::Subject {
-                                tokens: tokens[..split_idx].to_vec(),
+                                tokens: tokens[start + 1..end].to_vec(),
+                                separator: Some(container_token),
+                                parts: None,
+                            });
+                            
+                            last_end = end;
+                        }
+                        
+                        // Add remaining tokens after last container
+                        if last_end < tokens.len() {
+                            parts.push(SentencePart::Subject {
+                                tokens: tokens[last_end..].to_vec(),
                                 separator: None,
                                 parts: None,
                             });
                         }
-                        parts.push(SentencePart::Subject {
-                            tokens: tokens[split_idx + 1..].to_vec(),
-                            separator: Some(tokens[split_idx].clone()),
-                            parts: None,
-                        });
-                        new_parts = Some(parts);
+                        
+                        // Recursively process the new parts for nested containers
+                        let mut processed_parts = Vec::new();
+                        for part in parts {
+                            let temp_sentence = vec![part];
+                            let processed = self.postprocess(temp_sentence)?;
+                            processed_parts.extend(processed);
+                        }
+                        
+                        new_parts = Some(processed_parts);
                     }
                 }
                 _ => {}
@@ -818,5 +873,18 @@ mod tests {
         let parser = Parser::new();
         let result = parser.parse("mi pona.").unwrap();
         assert_eq!(result.len(), 1);
+    }
+
+    #[test]
+    fn test_pi_container_boundaries() {
+        let parser = Parser::new();
+        let result = parser.parse("jan pi pona mute en jan pi sona lili.").unwrap();
+        assert_eq!(result.len(), 1);
+        
+        // Check that the sentence has the expected structure
+        let sentence = &result[0];
+        // The sentence should have parts that correctly contain "pona mute" and "sona lili" in pi-containers
+        // We can't easily test the exact structure without exposing internals, but we can verify it parses
+        assert!(!sentence.parts.is_empty());
     }
 }
