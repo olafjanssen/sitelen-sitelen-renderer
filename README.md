@@ -84,9 +84,20 @@ echo "suno li pona." | sitelen --output output.svg
 # With custom settings
 sitelen --input text.txt --output output.svg --ratio 0.8 --stroke-width 2.0 --shadow
 
-# Multiple sentences are rendered to separate files (if no output given then everyhing is piped to stdout)
+# Multiple sentences: by default each sentence goes to a separate file (output_1.svg, output_2.svg, …)
 sitelen "mi pona. sina pona." --output output.svg
 # Creates: output_1.svg, output_2.svg
+
+# Combine all sentences into a single output file
+sitelen "mi pona. sina pona." --output combined.svg --single
+
+# Add box margin to prevent overflow (same on all sides, or per side)
+sitelen --input text.txt --output output.svg --margin 10
+sitelen --input text.txt --output output.svg --margin 10 --margin-top 20 --margin-bottom 20
+sitelen --input text.txt --output output.svg --margin-left 5 --margin-right 5
+
+# Output without embedded glyph definitions (references only)
+sitelen --input text.txt --output output.svg --no-embed-glyphs
 ```
 
 ### WASM (JavaScript)
@@ -164,6 +175,7 @@ The renderer supports various configuration options:
 - `scale`: Base scale for glyphs (default: 1.2)
 - `scale_skew`: Scale skew for container overflow (default: 1.3)
 - `exportable`: Embed glyph definitions in SVG (default: true)
+- `margin_top`, `margin_right`, `margin_bottom`, `margin_left`: Box margin around the outer SVG to prevent overflow (default: 0). CLI: `--margin <value>` sets all sides; `--margin-top`, `--margin-right`, `--margin-bottom`, `--margin-left` override per side.
 
 ## Migration from JavaScript Version
 

@@ -23,6 +23,11 @@ pub struct RenderConfig {
     pub ignore_height: bool,
     /// Whether to use random layout selection
     pub random: bool,
+    /// Margin around the outer SVG content (top, right, bottom, left) to prevent overflow
+    pub margin_top: f64,
+    pub margin_right: f64,
+    pub margin_bottom: f64,
+    pub margin_left: f64,
 }
 
 impl Default for RenderConfig {
@@ -38,6 +43,10 @@ impl Default for RenderConfig {
             exportable: true,
             ignore_height: false,
             random: false,
+            margin_top: 0.0,
+            margin_right: 0.0,
+            margin_bottom: 0.0,
+            margin_left: 0.0,
         }
     }
 }

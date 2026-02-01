@@ -69,10 +69,28 @@ impl Renderer {
         let viewbox_width = box_width * self.config.scale_skew;
         let viewbox_height = box_height * self.config.scale;
 
+        // Apply box margin: expand viewBox and shift content so margin prevents overflow
+        let (mt, mr, mb, ml) = (
+            self.config.margin_top,
+            self.config.margin_right,
+            self.config.margin_bottom,
+            self.config.margin_left,
+        );
+        let vb_x = viewbox_x - ml;
+        let vb_y = viewbox_y - mt;
+        let vb_w = viewbox_width + ml + mr;
+        let vb_h = viewbox_height + mt + mb;
+
         writeln!(
             svg,
             r#"<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.2" preserveAspectRatio="xMidYMin meet" viewBox="{} {} {} {}" style="overflow: visible;">"#,
-            viewbox_x, viewbox_y, viewbox_width, viewbox_height
+            vb_x, vb_y, vb_w, vb_h
+        ).unwrap();
+
+        writeln!(
+            svg,
+            r#"<g transform="translate({}, {})">"#,
+            ml, mt
         ).unwrap();
 
         // Add style
@@ -132,6 +150,7 @@ impl Renderer {
             }
         }
 
+        writeln!(svg, r#"</g>"#).unwrap();
         writeln!(svg, r#"</svg>"#).unwrap();
 
         Ok(svg.into_bytes())

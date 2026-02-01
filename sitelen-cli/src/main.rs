@@ -42,6 +42,26 @@ struct Cli {
     #[arg(long)]
     single: bool,
 
+    /// Box margin (same value for all sides). Prevents overflow by adding space around the outer SVG.
+    #[arg(long, allow_negative_numbers = true)]
+    margin: Option<f64>,
+
+    /// Box margin: top (overrides --margin for this side)
+    #[arg(long, allow_negative_numbers = true)]
+    margin_top: Option<f64>,
+
+    /// Box margin: right (overrides --margin for this side)
+    #[arg(long, allow_negative_numbers = true)]
+    margin_right: Option<f64>,
+
+    /// Box margin: bottom (overrides --margin for this side)
+    #[arg(long, allow_negative_numbers = true)]
+    margin_bottom: Option<f64>,
+
+    /// Box margin: left (overrides --margin for this side)
+    #[arg(long, allow_negative_numbers = true)]
+    margin_left: Option<f64>,
+
     /// Input text directly (alternative to --input)
     text: Option<String>,
 }
@@ -94,6 +114,26 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     config.stroke_width = cli.stroke_width;
     config.shadow = cli.shadow;
     config.exportable = !cli.no_embed_glyphs;
+
+    // Box margin: --margin sets all sides; individual --margin-* override
+    if let Some(m) = cli.margin {
+        config.margin_top = m;
+        config.margin_right = m;
+        config.margin_bottom = m;
+        config.margin_left = m;
+    }
+    if let Some(m) = cli.margin_top {
+        config.margin_top = m;
+    }
+    if let Some(m) = cli.margin_right {
+        config.margin_right = m;
+    }
+    if let Some(m) = cli.margin_bottom {
+        config.margin_bottom = m;
+    }
+    if let Some(m) = cli.margin_left {
+        config.margin_left = m;
+    }
 
     // Create pipeline
     let pipeline = Pipeline::with_config(config)?;
