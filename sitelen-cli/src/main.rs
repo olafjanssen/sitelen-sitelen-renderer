@@ -38,6 +38,10 @@ struct Cli {
     #[arg(long = "no-embed-glyphs", action = clap::ArgAction::SetTrue)]
     no_embed_glyphs: bool,
 
+    /// Render all sentences to a single output file (or stdout). By default, multiple sentences produce multiple output files.
+    #[arg(long)]
+    single: bool,
+
     /// Input text directly (alternative to --input)
     text: Option<String>,
 }
@@ -106,12 +110,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         Format::Html => "html",
     };
 
-    // If only one sentence, keep previous behavior (single output file)
-    if sentences.len() <= 1 {
-        let bytes = if let Some(sentence) = sentences.first() {
+    // Single output: one sentence, or --single with any number of sentences
+    let use_single_output = sentences.len() <= 1 || cli.single;
+    if use_single_output {
+        let bytes = if cli.single && !sentences.is_empty() {
+            // Combined: render full text so all sentences go into one layout
+            pipeline.render_text(&text, format)?
+        } else if let Some(sentence) = sentences.first() {
             pipeline.render_sentence(sentence, format)?
         } else {
-            // No sentences parsed; render empty input to maintain behavior
             pipeline.render_text("", format)?
         };
 
@@ -127,7 +134,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
 
-    // Multiple sentences -> write multiple files with index suffix
+    // Multiple sentences, no --single: write multiple files with index suffix
     let (base_dir, base_stem) = match &cli.output {
         Some(path) => {
             if path.is_dir() {
