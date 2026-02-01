@@ -94,6 +94,17 @@
                 margin: 0 auto 1.5rem;
             }
 
+            .ratio-display {
+                font-size: 0.9rem;
+                color: var(--color-text-light);
+                margin-bottom: 0.5rem;
+                text-align: center;
+            }
+
+            .ratio-display strong {
+                color: var(--color-text);
+            }
+
             #ratioSlider {
                 width: 100%;
                 height: 0.5rem;
@@ -252,6 +263,9 @@
                 />
 
                 <div id="sliderContainer" class="slider-container">
+                    <p id="ratioDisplay" class="ratio-display" aria-live="polite">
+                        <strong>Layout ratio:</strong> <span id="ratioValue">—</span>
+                    </p>
                     <input
                         type="range"
                         id="ratioSlider"
@@ -471,9 +485,21 @@
                 }
             }
 
+            function updateRatioDisplay() {
+                const el = document.getElementById("ratioValue");
+                if (!el) return;
+                if (layoutRatios.length === 0) {
+                    el.textContent = "—";
+                    return;
+                }
+                const ratio = layoutRatios[currentRatioIndex];
+                el.textContent = typeof ratio === "number" ? ratio.toFixed(4) : String(ratio);
+            }
+
             async function updateLayoutOptions(text) {
                 if (!text.trim()) {
                     layoutRatios = [];
+                    updateRatioDisplay();
                     return;
                 }
 
@@ -503,9 +529,11 @@
                         sliderContainer.style.display = "none";
                         currentRatioIndex = 0;
                     }
+                    updateRatioDisplay();
                 } catch (error) {
                     console.error("Failed to get layout options:", error);
                     layoutRatios = [];
+                    updateRatioDisplay();
                 }
             }
 
@@ -553,6 +581,7 @@
                     }
                 } else {
                     try {
+                        updateRatioDisplay();
                         const ratio = layoutRatios[currentRatioIndex];
                         const svgContent = render_svg(text, ratio);
                         output.innerHTML = svgContent;
@@ -591,7 +620,8 @@
                 input.addEventListener("input", renderInput);
 
                 slider.addEventListener("input", async function () {
-                    currentRatioIndex = parseInt(slider.value);
+                    currentRatioIndex = parseInt(slider.value, 10);
+                    updateRatioDisplay();
                     const text = input.value;
                     if (text.trim()) {
                         await renderWithCurrentRatio(text);

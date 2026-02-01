@@ -90,18 +90,20 @@ impl Renderer {
             ).unwrap();
         }
 
-        // Render each compound
+        // Render each compound (option.ratio is the computed ratio from the layout phase)
         let mut y_pos = 0.0;
         for option in &layout.compounds {
             let inner_width = x_size * 100.0;
             let inner_height = option.size.height * x_size / option.size.width * 100.0;
+            let ratio_str = format!("{:.4}", option.ratio);
 
             writeln!(
                 svg,
-                r#"<svg width="{}" height="{}" viewBox="0 0 100 100" y="{}" preserveAspectRatio="none"{} style="overflow: visible;">"#,
+                r#"<svg width="{}" height="{}" viewBox="0 0 100 100" y="{}" preserveAspectRatio="none" data-ratio="{}"{} style="overflow: visible;">"#,
                 inner_width,
                 inner_height,
                 y_pos,
+                ratio_str,
                 if self.config.shadow { r#" filter="url(#shadow)""# } else { "" }
             ).unwrap();
 
