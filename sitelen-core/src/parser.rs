@@ -581,12 +581,18 @@ impl Parser {
                     if parts.is_some() {
                         continue;
                     }
+                    let is_object_marker = matches!(&sentence[i], SentencePart::ObjectMarker { .. });
                     // Find all container markers and their end positions
                     let mut container_ranges = Vec::new();
                     let mut j = 0;
                     while j < tokens.len() {
                         if PREPOSITION_CONTAINERS.contains(&tokens[j].as_str()) && j < tokens.len() - 1 {
                             let container_start = j;
+                            // In li/e container, preposition directly after li stays as isolated glyph(s) inside li
+                            if is_object_marker && container_start == 0 {
+                                j += 1;
+                                continue;
+                            }
                             let container_token = tokens[j].clone();
                             
                             // Find where this container ends
