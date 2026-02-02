@@ -252,22 +252,48 @@ impl Parser {
             }
 
             let mut parsable = ParsableSentence::new();
-            // Only remove last character if it's punctuation
-            // Check if the sentence ends with punctuation
-            let has_punctuation = trimmed
-                .chars()
-                .last()
-                .map(|c| matches!(c, '.' | ':' | '!' | '?' | '#'))
-                .unwrap_or(false);
-
-            let body = if has_punctuation && trimmed.len() > 1 {
-                &trimmed[..trimmed.len() - 1]
+            
+            // Check if sentence ends with 'la' (as punctuation)
+            // Handle cases like "ni pona la" or "ni pona la."
+            // Check if the last word is 'la' (to avoid matching words like "kala" or "ala")
+            let words: Vec<&str> = trimmed.split_whitespace().collect();
+            let ends_with_la = words.last().map(|w| {
+                // Remove any trailing punctuation from the word
+                w.trim_end_matches(|c: char| matches!(c, '.' | ':' | '!' | '?' | '#')) == "la"
+            }).unwrap_or(false);
+            
+            let mut trailing_punctuation = Vec::new();
+            
+            // Extract punctuation and prepare body
+            let body_str = if ends_with_la {
+                // Extract all punctuation marks after 'la'
+                let mut temp = trimmed.trim_end();
+                while let Some(last_char) = temp.chars().last() {
+                    if matches!(last_char, '.' | ':' | '!' | '?' | '#') {
+                        trailing_punctuation.insert(0, last_char);
+                        temp = temp.trim_end_matches(last_char).trim_end();
+                    } else {
+                        break;
+                    }
+                }
+                // Remove 'la' and any trailing punctuation from body
+                temp.trim_end_matches(" la").trim_end_matches("la")
             } else {
-                trimmed
+                // Check if the sentence ends with punctuation marks (when not ending with 'la')
+                let mut temp = trimmed;
+                while let Some(last_char) = temp.chars().last() {
+                    if matches!(last_char, '.' | ':' | '!' | '?' | '#') {
+                        trailing_punctuation.insert(0, last_char);
+                        temp = temp.trim_end_matches(last_char).trim_end();
+                    } else {
+                        break;
+                    }
+                }
+                temp
             };
 
             // Remove comma before and after  la-clause and before repeating li clause
-            let body = body.replace(", la ", " la ").replace("la, ", "la ").replace(", li ", " li ");
+            let body = body_str.replace(", la ", " la ").replace("la, ", "la ").replace(", li ", " li ");
 
             // Split on context separators
             let la_parts: Vec<&str> = body.split(" la ").collect();
@@ -288,14 +314,20 @@ impl Parser {
                         parsable.push_punctuation("colon");
                     }
                 }
-                if la_parts.len() == 2 && i == 0 {
+                // Only add 'la' as separator if it's in the middle (not at the end)
+                if la_parts.len() == 2 && i == 0 && !ends_with_la {
                     parsable.push_punctuation("la");
                 }
             }
 
-            // Add terminator
-            if let Some(terminator) = trimmed.chars().last() {
-                match terminator {
+            // Add 'la' as punctuation if sentence ended with it
+            if ends_with_la {
+                parsable.push_punctuation("la");
+            }
+
+            // Add trailing punctuation marks (after 'la' or at end)
+            for punct_char in trailing_punctuation.iter() {
+                match punct_char {
                     '.' => parsable.push_punctuation("period"),
                     ':' => parsable.push_punctuation("colon"),
                     '!' => parsable.push_punctuation("exclamation"),
