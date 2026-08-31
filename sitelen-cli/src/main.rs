@@ -1,10 +1,9 @@
 /// CLI application for Sitelen Sitelen renderer
-
 use clap::{Parser, ValueEnum};
-use sitelen_core::{OutputFormat, Pipeline, RenderConfig, Sentence};
+use sitelen_core::{OutputFormat, Pipeline, RenderConfig};
 use std::fs;
+use std::io::{self, IsTerminal, Read, Write};
 use std::path::PathBuf;
-use std::io::{self, Write, Read, IsTerminal};
 
 #[derive(Parser)]
 #[command(name = "sitelen")]
@@ -104,7 +103,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     } else if let Some(text) = &cli.text {
         text.clone()
     } else {
-        eprintln!("Error: No input provided. Pipe text via stdin, or use --input <file> or --text.");
+        eprintln!(
+            "Error: No input provided. Pipe text via stdin, or use --input <file> or --text."
+        );
         std::process::exit(1);
     };
 
@@ -139,7 +140,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let pipeline = Pipeline::with_config(config)?;
 
     // Parse into sentences
-    let sentences: Vec<Sentence> = pipeline.parse(&text)?;
+    let result = pipeline.parse(&text);
+    let sentences = result.sentences;
 
     let format: OutputFormat = cli.format.clone().into();
 
@@ -167,7 +169,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             stdout.write_all(&bytes)?;
             stdout.flush()?;
         } else {
-            let output_path = cli.output.unwrap_or_else(|| PathBuf::from(format!("output.{}", ext)));
+            let output_path = cli
+                .output
+                .unwrap_or_else(|| PathBuf::from(format!("output.{}", ext)));
             fs::write(&output_path, bytes)?;
             eprintln!("Rendered to: {}", output_path.display());
         }
@@ -180,8 +184,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             if path.is_dir() {
                 (path.clone(), String::from("output"))
             } else {
-                let dir = path.parent().map(|p| p.to_path_buf()).unwrap_or_else(|| PathBuf::from("."));
-                let stem = path.file_stem().and_then(|s| s.to_str()).unwrap_or("output").to_string();
+                let dir = path
+                    .parent()
+                    .map(|p| p.to_path_buf())
+                    .unwrap_or_else(|| PathBuf::from("."));
+                let stem = path
+                    .file_stem()
+                    .and_then(|s| s.to_str())
+                    .unwrap_or("output")
+                    .to_string();
                 (dir, stem)
             }
         }
@@ -209,4 +220,3 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     Ok(())
 }
-

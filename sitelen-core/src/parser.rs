@@ -169,12 +169,63 @@ const ALLOWED_SYLLABLES: &[&str] = &[
     "jon", "jun", "jan", "jen",
 ];
 
-#[derive(Debug, thiserror::Error)]
-pub enum ParseError {
-    #[error("Illegal token: {0}")]
+/// Warning generated during parsing
+#[derive(Debug, Clone)]
+pub enum ParseWarning {
+    /// Token is not a valid Toki Pona word
     IllegalToken(String),
-    #[error("Illegal syllable: {0}")]
+    /// Syllable is not valid in proper name
     IllegalSyllable(String),
+    /// Characters were filtered from input
+    FilteredChars(String),
+}
+
+impl serde::Serialize for ParseWarning {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut map = serializer.serialize_map(Some(2))?;
+        match self {
+            ParseWarning::IllegalToken(token) => {
+                map.serialize_entry("type", "illegal_token")?;
+                map.serialize_entry("value", token)?;
+            }
+            ParseWarning::IllegalSyllable(syllable) => {
+                map.serialize_entry("type", "illegal_syllable")?;
+                map.serialize_entry("value", syllable)?;
+            }
+            ParseWarning::FilteredChars(chars) => {
+                map.serialize_entry("type", "filtered_chars")?;
+                map.serialize_entry("value", chars)?;
+            }
+        }
+        map.end()
+    }
+}
+
+/// Result of parsing with potential warnings
+pub struct ParseResult {
+    /// Parsed sentences
+    pub sentences: Vec<Sentence>,
+    /// Warnings generated during parsing
+    pub warnings: Vec<ParseWarning>,
+}
+
+impl ParseResult {
+    /// Create a new parse result
+    pub fn new(sentences: Vec<Sentence>, warnings: Vec<ParseWarning>) -> Self {
+        Self {
+            sentences,
+            warnings,
+        }
+    }
+
+    /// Check if there are any warnings
+    pub fn has_warnings(&self) -> bool {
+        !self.warnings.is_empty()
+    }
 }
 
 /// Parser for Toki Pona text
@@ -202,19 +253,64 @@ impl Parser {
         }
     }
 
-    /// Parse text into structured sentences
-    pub fn parse(&self, text: &str) -> Result<Vec<Sentence>, ParseError> {
-        let normalized = text.replace("  ", " ");
-        let preformatted = self.preformat(&normalized)?;
+    /// Filter out problematic characters from text and return cleaned text with warnings
+    fn filter_and_warn(&self, text: &str) -> (String, Vec<ParseWarning>) {
+        // Characters to filter out (common problematic punctuation)
+        let filter_chars: Vec<char> = vec!['"', '\'', '`', '{', '}', '[', ']'];
 
-        preformatted
-            .iter()
-            .map(|sentence| self.parse_sentence(sentence))
-            .collect()
+        let mut cleaned = String::with_capacity(text.len());
+        let mut removed_chars = Vec::new();
+
+        for ch in text.chars() {
+            if filter_chars.contains(&ch) {
+                // Track this character as removed
+                if !removed_chars.contains(&ch) {
+                    removed_chars.push(ch);
+                }
+            } else {
+                cleaned.push(ch);
+            }
+        }
+
+        // Create warnings for removed characters
+        let warnings = if !removed_chars.is_empty() {
+            vec![ParseWarning::FilteredChars(
+                removed_chars.into_iter().collect(),
+            )]
+        } else {
+            Vec::new()
+        };
+
+        (cleaned, warnings)
+    }
+
+    /// Parse text into structured sentences with input filtering and warning collection
+    pub fn parse(&self, text: &str) -> ParseResult {
+        // Filter out problematic characters
+        let (filtered_text, filter_warnings) = self.filter_and_warn(text);
+
+        // Normalize spaces
+        let normalized = filtered_text.replace("  ", " ");
+
+        // Parse with the cleaned text
+        let preformatted = self.preformat(&normalized);
+
+        let mut sentences = Vec::new();
+        let mut all_warnings = filter_warnings;
+
+        for sentence in &preformatted {
+            let (parsed_sentence, sentence_warnings) = self.parse_sentence_with_warnings(sentence);
+            if let Some(parsed) = parsed_sentence {
+                sentences.push(parsed);
+            }
+            all_warnings.extend(sentence_warnings);
+        }
+
+        ParseResult::new(sentences, all_warnings)
     }
 
     /// Preformat text, splitting on punctuation
-    fn preformat(&self, text: &str) -> Result<Vec<ParsableSentence>, ParseError> {
+    fn preformat(&self, text: &str) -> Vec<ParsableSentence> {
         use regex::Regex;
         let re = Regex::new(r"[^.!?#]+[.!?#]+").unwrap();
 
@@ -252,18 +348,21 @@ impl Parser {
             }
 
             let mut parsable = ParsableSentence::new();
-            
+
             // Check if sentence ends with 'la' (as punctuation)
             // Handle cases like "ni pona la" or "ni pona la."
             // Check if the last word is 'la' (to avoid matching words like "kala" or "ala")
             let words: Vec<&str> = trimmed.split_whitespace().collect();
-            let ends_with_la = words.last().map(|w| {
-                // Remove any trailing punctuation from the word
-                w.trim_end_matches(|c: char| matches!(c, '.' | ':' | '!' | '?' | '#')) == "la"
-            }).unwrap_or(false);
-            
+            let ends_with_la = words
+                .last()
+                .map(|w| {
+                    // Remove any trailing punctuation from the word
+                    w.trim_end_matches(|c: char| matches!(c, '.' | ':' | '!' | '?' | '#')) == "la"
+                })
+                .unwrap_or(false);
+
             let mut trailing_punctuation = Vec::new();
-            
+
             // Extract punctuation and prepare body
             let body_str = if ends_with_la {
                 // Extract all punctuation marks after 'la'
@@ -293,7 +392,10 @@ impl Parser {
             };
 
             // Remove comma before and after  la-clause and before repeating li clause
-            let body = body_str.replace(", la ", " la ").replace("la, ", "la ").replace(", li ", " li ");
+            let body = body_str
+                .replace(", la ", " la ")
+                .replace("la, ", "la ")
+                .replace(", li ", " li ");
 
             // Split on context separators
             let la_parts: Vec<&str> = body.split(" la ").collect();
@@ -340,12 +442,16 @@ impl Parser {
             result.push(parsable);
         }
 
-        Ok(result)
+        result
     }
 
-    /// Parse a single sentence
-    fn parse_sentence(&self, sentence: &ParsableSentence) -> Result<Sentence, ParseError> {
+    /// Parse a single sentence, returning the parsed sentence and any warnings
+    fn parse_sentence_with_warnings(
+        &self,
+        sentence: &ParsableSentence,
+    ) -> (Option<Sentence>, Vec<ParseWarning>) {
         let mut structured = Vec::new();
+        let mut all_warnings = Vec::new();
 
         for part in &sentence.parts {
             match part {
@@ -364,7 +470,9 @@ impl Parser {
                         }
                     }
 
-                    let value = self.get_simple_structured_sentence(&content_with_placeholders)?;
+                    let (value, sentence_warnings) = self
+                        .get_simple_structured_sentence_with_warnings(&content_with_placeholders);
+                    all_warnings.extend(sentence_warnings);
 
                     // Replace placeholders with actual names
                     // Reverse the vector so we can pop in the correct order
@@ -397,15 +505,21 @@ impl Parser {
             }
         }
 
-        let structured = self.postprocess(structured)?;
-        Ok(Sentence { parts: structured })
+        let (structured, postprocess_warnings) = self.postprocess_with_warnings(structured);
+        all_warnings.extend(postprocess_warnings);
+
+        if structured.is_empty() && !all_warnings.is_empty() {
+            (None, all_warnings)
+        } else {
+            (Some(Sentence { parts: structured }), all_warnings)
+        }
     }
 
-    /// Get simple structured sentence from parseable text
-    fn get_simple_structured_sentence(
+    /// Get simple structured sentence from parseable text, filtering out illegal tokens and collecting warnings
+    fn get_simple_structured_sentence_with_warnings(
         &self,
         parseable: &str,
-    ) -> Result<Vec<SentencePart>, ParseError> {
+    ) -> (Vec<SentencePart>, Vec<ParseWarning>) {
         let tokens: Vec<&str> = parseable.split_whitespace().collect();
         let mut sentence = vec![SentencePart::Subject {
             tokens: Vec::new(),
@@ -413,6 +527,7 @@ impl Parser {
             parts: None,
         }];
         let mut current_part = 0;
+        let mut warnings = Vec::new();
 
         for (index, token) in tokens.iter().enumerate() {
             let token_lower = token.to_lowercase();
@@ -478,7 +593,9 @@ impl Parser {
             // Validate token (preserve 'Name' placeholder case)
             let is_name_placeholder = *token == "'Name'";
             if !self.allowed_words.contains(&token_lower) && token_lower != "'name'" {
-                return Err(ParseError::IllegalToken(token_lower));
+                // Skip illegal token and add warning
+                warnings.push(ParseWarning::IllegalToken(token_lower));
+                continue;
             }
 
             // Add token to current part (preserve case for 'Name' placeholder)
@@ -507,18 +624,22 @@ impl Parser {
             | SentencePart::Punctuation { tokens, .. } => !tokens.is_empty(),
         });
 
-        Ok(sentence)
+        (sentence, warnings)
     }
 
-    /// Split proper name into syllables
-    fn split_proper_into_syllables(&self, proper_name: &str) -> Result<Vec<String>, ParseError> {
+    /// Split proper name into syllables, returning syllables and any warnings for illegal ones
+    fn split_proper_into_syllables_with_warnings(
+        &self,
+        proper_name: &str,
+    ) -> (Vec<String>, Vec<ParseWarning>) {
         if proper_name.is_empty() {
-            return Ok(Vec::new());
+            return (Vec::new(), Vec::new());
         }
 
         let name = proper_name.to_lowercase();
         let chars: Vec<char> = name.chars().collect();
         let mut syllables = Vec::new();
+        let mut warnings = Vec::new();
 
         let mut i = 0;
         while i < chars.len() {
@@ -540,7 +661,9 @@ impl Parser {
                     if i + 3 <= chars.len() {
                         let syllable: String = chars[i..i + 3].iter().collect();
                         if !self.allowed_syllables.contains(&syllable) {
-                            return Err(ParseError::IllegalSyllable(syllable));
+                            warnings.push(ParseWarning::IllegalSyllable(syllable));
+                            i += 3;
+                            continue;
                         }
                         syllables.push(syllable);
                         i += 3;
@@ -552,7 +675,9 @@ impl Parser {
                     if i + 2 <= chars.len() {
                         let syllable: String = chars[i..i + 2].iter().collect();
                         if !self.allowed_syllables.contains(&syllable) {
-                            return Err(ParseError::IllegalSyllable(syllable));
+                            warnings.push(ParseWarning::IllegalSyllable(syllable));
+                            i += 2;
+                            continue;
                         }
                         syllables.push(syllable);
                         i += 2;
@@ -566,7 +691,9 @@ impl Parser {
                     // 2-character word
                     let syllable: String = chars[i..].iter().collect();
                     if !self.allowed_syllables.contains(&syllable) {
-                        return Err(ParseError::IllegalSyllable(syllable));
+                        warnings.push(ParseWarning::IllegalSyllable(syllable));
+                        i += 2;
+                        continue;
                     }
                     syllables.push(syllable);
                     break;
@@ -575,7 +702,9 @@ impl Parser {
                     if i + 2 <= chars.len() {
                         let syllable: String = chars[i..i + 2].iter().collect();
                         if !self.allowed_syllables.contains(&syllable) {
-                            return Err(ParseError::IllegalSyllable(syllable));
+                            warnings.push(ParseWarning::IllegalSyllable(syllable));
+                            i += 2;
+                            continue;
                         }
                         syllables.push(syllable);
                         i += 2;
@@ -586,7 +715,9 @@ impl Parser {
                     // 1-character syllable
                     let syllable = first.to_string();
                     if !self.allowed_syllables.contains(&syllable) {
-                        return Err(ParseError::IllegalSyllable(syllable));
+                        warnings.push(ParseWarning::IllegalSyllable(syllable));
+                        i += 1;
+                        continue;
                     }
                     syllables.push(syllable);
                     i += 1;
@@ -594,14 +725,16 @@ impl Parser {
             }
         }
 
-        Ok(syllables)
+        (syllables, warnings)
     }
 
-    /// Postprocess structured sentence
-    fn postprocess(
+    /// Postprocess structured sentence, collecting warnings for illegal syllables in proper names
+    fn postprocess_with_warnings(
         &self,
         mut sentence: Vec<SentencePart>,
-    ) -> Result<Vec<SentencePart>, ParseError> {
+    ) -> (Vec<SentencePart>, Vec<ParseWarning>) {
+        let mut all_warnings = Vec::new();
+
         // Split prepositional phrases inside containers
         for i in 0..sentence.len() {
             let mut new_parts = None;
@@ -613,12 +746,15 @@ impl Parser {
                     if parts.is_some() {
                         continue;
                     }
-                    let is_object_marker = matches!(&sentence[i], SentencePart::ObjectMarker { .. });
+                    let is_object_marker =
+                        matches!(&sentence[i], SentencePart::ObjectMarker { .. });
                     // Find all container markers and their end positions
                     let mut container_ranges = Vec::new();
                     let mut j = 0;
                     while j < tokens.len() {
-                        if PREPOSITION_CONTAINERS.contains(&tokens[j].as_str()) && j < tokens.len() - 1 {
+                        if PREPOSITION_CONTAINERS.contains(&tokens[j].as_str())
+                            && j < tokens.len() - 1
+                        {
                             let container_start = j;
                             // In li/e container, preposition directly after li stays as isolated glyph(s) inside li
                             if is_object_marker && container_start == 0 {
@@ -626,25 +762,35 @@ impl Parser {
                                 continue;
                             }
                             let container_token = tokens[j].clone();
-                            
+
                             // Find where this container ends
                             // It ends at: next separator (en, li, e), next preposition, or end of tokens
                             let mut container_end = tokens.len();
                             for k in (j + 1)..tokens.len() {
                                 let token_lower = tokens[k].to_lowercase();
                                 // Stop at separators
-                                if token_lower == "en" || token_lower == "anu" || token_lower == "li" || token_lower == "e" {
+                                if token_lower == "en"
+                                    || token_lower == "anu"
+                                    || token_lower == "li"
+                                    || token_lower == "e"
+                                {
                                     container_end = k;
                                     break;
                                 }
                                 // Stop at next preposition (but not pi, as pi can nest)
-                                if PREPOSITION_CONTAINERS.contains(&token_lower.as_str()) && token_lower != "pi" {
+                                if PREPOSITION_CONTAINERS.contains(&token_lower.as_str())
+                                    && token_lower != "pi"
+                                {
                                     container_end = k;
                                     break;
                                 }
                             }
-                            
-                            container_ranges.push((container_start, container_end, container_token));
+
+                            container_ranges.push((
+                                container_start,
+                                container_end,
+                                container_token,
+                            ));
                             j = container_end;
                         } else {
                             j += 1;
@@ -654,7 +800,7 @@ impl Parser {
                     if !container_ranges.is_empty() {
                         let mut parts = Vec::new();
                         let mut last_end = 0;
-                        
+
                         for (start, end, container_token) in container_ranges {
                             // Add tokens before this container
                             if start > last_end {
@@ -664,17 +810,17 @@ impl Parser {
                                     parts: None,
                                 });
                             }
-                            
+
                             // Add the container with its contents
                             parts.push(SentencePart::Subject {
                                 tokens: tokens[start + 1..end].to_vec(),
                                 separator: Some(container_token),
                                 parts: None,
                             });
-                            
+
                             last_end = end;
                         }
-                        
+
                         // Add remaining tokens after last container
                         if last_end < tokens.len() {
                             parts.push(SentencePart::Subject {
@@ -683,15 +829,19 @@ impl Parser {
                                 parts: None,
                             });
                         }
-                        
+
                         // Recursively process the new parts for nested containers
                         let mut processed_parts = Vec::new();
+                        let mut container_warnings = Vec::new();
                         for part in parts {
                             let temp_sentence = vec![part];
-                            let processed = self.postprocess(temp_sentence)?;
+                            let (processed, warnings) =
+                                self.postprocess_with_warnings(temp_sentence);
                             processed_parts.extend(processed);
+                            container_warnings.extend(warnings);
                         }
-                        
+                        all_warnings.extend(container_warnings);
+
                         new_parts = Some(processed_parts);
                     }
                 }
@@ -767,12 +917,16 @@ impl Parser {
                                 });
                             }
                             let name = tokens[idx].clone();
-                            let syllables = self.split_proper_into_syllables(&name)?;
-                            new_parts.push(SentencePart::Subject {
-                                tokens: syllables,
-                                separator: Some("cartouche".to_string()),
-                                parts: None,
-                            });
+                            let (syllables, name_warnings) =
+                                self.split_proper_into_syllables_with_warnings(&name);
+                            all_warnings.extend(name_warnings);
+                            if !syllables.is_empty() {
+                                new_parts.push(SentencePart::Subject {
+                                    tokens: syllables,
+                                    separator: Some("cartouche".to_string()),
+                                    parts: None,
+                                });
+                            }
                             last = idx + 1;
                         }
                         if let Some(&last_idx) = name_indices.last() {
@@ -802,12 +956,16 @@ impl Parser {
                                 });
                             }
                             let name = tokens[idx].clone();
-                            let syllables = self.split_proper_into_syllables(&name)?;
-                            new_parts.push(SentencePart::ObjectMarker {
-                                separator: "cartouche".to_string(),
-                                tokens: syllables,
-                                parts: None,
-                            });
+                            let (syllables, name_warnings) =
+                                self.split_proper_into_syllables_with_warnings(&name);
+                            all_warnings.extend(name_warnings);
+                            if !syllables.is_empty() {
+                                new_parts.push(SentencePart::ObjectMarker {
+                                    separator: "cartouche".to_string(),
+                                    tokens: syllables,
+                                    parts: None,
+                                });
+                            }
                             last = idx + 1;
                         }
                         if let Some(&last_idx) = name_indices.last() {
@@ -837,12 +995,16 @@ impl Parser {
                                 });
                             }
                             let name = tokens[idx].clone();
-                            let syllables = self.split_proper_into_syllables(&name)?;
-                            new_parts.push(SentencePart::PrepPhrase {
-                                separator: "cartouche".to_string(),
-                                tokens: syllables,
-                                parts: None,
-                            });
+                            let (syllables, name_warnings) =
+                                self.split_proper_into_syllables_with_warnings(&name);
+                            all_warnings.extend(name_warnings);
+                            if !syllables.is_empty() {
+                                new_parts.push(SentencePart::PrepPhrase {
+                                    separator: "cartouche".to_string(),
+                                    tokens: syllables,
+                                    parts: None,
+                                });
+                            }
                             last = idx + 1;
                         }
                         if let Some(&last_idx) = name_indices.last() {
@@ -865,7 +1027,7 @@ impl Parser {
             }
         }
 
-        Ok(sentence)
+        (sentence, all_warnings)
     }
 }
 
@@ -909,18 +1071,18 @@ mod tests {
     #[test]
     fn test_parse_simple() {
         let parser = Parser::new();
-        let result = parser.parse("mi pona.").unwrap();
-        assert_eq!(result.len(), 1);
+        let result = parser.parse("mi pona.");
+        assert_eq!(result.sentences.len(), 1);
     }
 
     #[test]
     fn test_pi_container_boundaries() {
         let parser = Parser::new();
-        let result = parser.parse("jan pi pona mute en jan pi sona lili.").unwrap();
-        assert_eq!(result.len(), 1);
-        
+        let result = parser.parse("jan pi pona mute en jan pi sona lili.");
+        assert_eq!(result.sentences.len(), 1);
+
         // Check that the sentence has the expected structure
-        let sentence = &result[0];
+        let sentence = &result.sentences[0];
         // The sentence should have parts that correctly contain "pona mute" and "sona lili" in pi-containers
         // We can't easily test the exact structure without exposing internals, but we can verify it parses
         assert!(!sentence.parts.is_empty());

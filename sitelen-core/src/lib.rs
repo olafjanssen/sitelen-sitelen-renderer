@@ -11,10 +11,9 @@ pub mod types;
 pub use config::{OutputFormat, RenderConfig};
 pub use glyphs::{init_glyph_registry, GlyphError, GlyphRegistry};
 pub use layout::LayoutEngine;
-pub use parser::{ParseError, Parser};
+pub use parser::{ParseResult, ParseWarning, Parser};
 pub use renderer::{RenderError, Renderer};
 pub use types::{Layout, Sentence, SentencePart};
-
 
 /// Main pipeline for rendering Toki Pona text
 pub struct Pipeline {
@@ -43,8 +42,8 @@ impl Pipeline {
         })
     }
 
-    /// Parse Toki Pona text into structured sentences
-    pub fn parse(&self, text: &str) -> Result<Vec<Sentence>, ParseError> {
+    /// Parse Toki Pona text into structured sentences with input filtering and warnings
+    pub fn parse(&self, text: &str) -> ParseResult {
         self.parser.parse(text)
     }
 
@@ -122,7 +121,8 @@ impl Pipeline {
         text: &str,
         format: OutputFormat,
     ) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
-        let sentences = self.parse(text)?;
+        let result = self.parse(text);
+        let sentences = result.sentences;
 
         let mut compounds = Vec::new();
         let optimal_ratio = self.renderer.borrow().config.optimal_ratio;

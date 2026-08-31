@@ -175,6 +175,27 @@
                 text-align: center;
             }
 
+            .warnings {
+                color: var(--color-primary);
+                margin: 1rem 0;
+                text-align: center;
+                font-size: 0.9rem;
+                background: #fff3cd;
+                padding: 0.5rem;
+                border-radius: 0.375rem;
+                border: 1px solid #ffc107;
+            }
+
+            .warning {
+                display: block;
+                margin: 0.25rem 0;
+                padding: 0.25rem 0.5rem;
+                background: #ffc107;
+                color: var(--color-text);
+                border-radius: 0.25rem;
+                font-size: 0.85rem;
+            }
+
             section {
                 margin-bottom: 3rem;
             }
@@ -279,6 +300,8 @@
                 <div id="sitelen">
                     <p class="loading">Loading WASM module...</p>
                 </div>
+
+                <div id="warnings" class="warnings" style="display: none;"></div>
 
                 <button id="downloadBtn" class="download-btn">
                     Download as SVG
@@ -461,6 +484,7 @@
         <script type="module">
             import init, {
                 render_svg,
+                render_with_warnings,
                 get_layout_ratios,
             } from "../sitelen-sitelen-renderer/sitelen_wasm.js";
 
@@ -563,34 +587,69 @@
                 await renderWithCurrentRatio(text);
             }
 
+            function displayWarnings(warningsJson) {
+                const warningsContainer = document.getElementById("warnings");
+                if (!warningsJson || warningsJson === "[]") {
+                    warningsContainer.style.display = "none";
+                    return;
+                }
+                try {
+                    const warnings = JSON.parse(warningsJson);
+                    if (warnings && warnings.length > 0) {
+                        let html = warnings.map(w => {
+                            if (w.type === "filtered_chars") {
+                                return `<span class="warning">Filtered characters removed: ${w.value.split('').map(c => `"${c}"`).join(', ')}</span>`;
+                            } else if (w.type === "illegal_token") {
+                                return `<span class="warning">Unknown word removed: "${w.value}"</span>`;
+                            } else if (w.type === "illegal_syllable") {
+                                return `<span class="warning">Invalid syllable removed: "${w.value}"</span>`;
+                            }
+                            return "";
+                        }).join("");
+                        warningsContainer.innerHTML = html;
+                        warningsContainer.style.display = "block";
+                        console.warn("Parse warnings:", warnings);
+                    } else {
+                        warningsContainer.style.display = "none";
+                    }
+                } catch (e) {
+                    warningsContainer.style.display = "none";
+                    console.error("Failed to parse warnings:", e);
+                }
+            }
+
             async function renderWithCurrentRatio(text) {
                 const output = document.getElementById("sitelen");
                 const downloadBtn = document.getElementById("downloadBtn");
 
                 if (layoutRatios.length === 0) {
                     try {
-                        const svgContent = render_svg(text);
-                        output.innerHTML = svgContent;
-                        currentSvg = svgContent;
+                        const result = render_with_warnings(text);
+                        output.innerHTML = result.svg;
+                        currentSvg = result.svg;
                         downloadBtn.style.display = "block";
+                        displayWarnings(result.warnings);
                     } catch (error) {
                         const errorMsg = error.message || String(error);
                         output.innerHTML = `<p class="error">Error rendering: ${errorMsg}</p>`;
                         downloadBtn.style.display = "none";
+                        document.getElementById("warnings").style.display = "none";
                         console.error("Rendering error:", error);
                     }
                 } else {
                     try {
                         updateRatioDisplay();
                         const ratio = layoutRatios[currentRatioIndex];
-                        const svgContent = render_svg(text, ratio);
-                        output.innerHTML = svgContent;
-                        currentSvg = svgContent;
+                        const result = render_with_warnings(text, ratio);
+                        output.innerHTML = result.svg;
+                        currentSvg = result.svg;
                         downloadBtn.style.display = "block";
+                        displayWarnings(result.warnings);
                     } catch (error) {
                         const errorMsg = error.message || String(error);
                         output.innerHTML = `<p class="error">Error rendering: ${errorMsg}</p>`;
                         downloadBtn.style.display = "none";
+                        document.getElementById("warnings").style.display = "none";
                         console.error("Rendering error:", error);
                     }
                 }

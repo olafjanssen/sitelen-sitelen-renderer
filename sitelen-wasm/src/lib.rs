@@ -1,10 +1,12 @@
+use once_cell::sync::Lazy;
 /// WASM bindings for Sitelen Sitelen renderer
-
-use sitelen_core::{OutputFormat, Pipeline, RenderConfig, init_glyph_registry};
+use serde_json;
+use sitelen_core::{
+    init_glyph_registry, OutputFormat, ParseResult, ParseWarning, Pipeline, RenderConfig,
+};
+use std::sync::Mutex;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
-use once_cell::sync::Lazy;
-use std::sync::Mutex;
 
 // Embed the sprite file at compile time
 const SPRITE_CONTENT: &str = include_str!("../../images/glyphs.svg");
@@ -20,9 +22,7 @@ macro_rules! console_log {
 }
 
 // Singleton pipeline instance (using Mutex for thread safety, though WASM is single-threaded)
-static PIPELINE: Lazy<Mutex<Option<Pipeline>>> = Lazy::new(|| {
-    Mutex::new(None)
-});
+static PIPELINE: Lazy<Mutex<Option<Pipeline>>> = Lazy::new(|| Mutex::new(None));
 
 /// Get or create the pipeline singleton and execute a closure with it
 fn with_pipeline<F, R>(f: F) -> Result<R, JsValue>
@@ -30,14 +30,14 @@ where
     F: FnOnce(&mut Pipeline) -> Result<R, JsValue>,
 {
     let mut pipeline_opt = PIPELINE.lock().unwrap();
-    
+
     if pipeline_opt.is_none() {
         let config = RenderConfig::default();
         let pipeline = Pipeline::with_config(config)
             .map_err(|e| JsValue::from_str(&format!("Failed to create pipeline: {}", e)))?;
         *pipeline_opt = Some(pipeline);
     }
-    
+
     f(pipeline_opt.as_mut().unwrap())
 }
 
@@ -59,7 +59,7 @@ pub fn init() {
 }
 
 /// Render text to SVG string
-/// 
+///
 /// # Arguments
 /// * `text` - Toki Pona text to render
 /// * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
@@ -67,21 +67,22 @@ pub fn init() {
 pub fn render_svg(text: &str, optimal_ratio: Option<f64>) -> Result<String, JsValue> {
     let bytes = if let Some(ratio) = optimal_ratio {
         let pipeline = get_pipeline_with_ratio(ratio)?;
-        pipeline.render_text(text, OutputFormat::Svg)
+        pipeline
+            .render_text(text, OutputFormat::Svg)
             .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?
     } else {
         with_pipeline(|pipeline| {
-            pipeline.render_text(text, OutputFormat::Svg)
+            pipeline
+                .render_text(text, OutputFormat::Svg)
                 .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))
         })?
     };
-    
-    String::from_utf8(bytes)
-        .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))
+
+    String::from_utf8(bytes).map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))
 }
 
 /// Render text to PNG bytes
-/// 
+///
 /// # Arguments
 /// * `text` - Toki Pona text to render
 /// * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
@@ -89,11 +90,13 @@ pub fn render_svg(text: &str, optimal_ratio: Option<f64>) -> Result<String, JsVa
 pub fn render_png(text: &str, optimal_ratio: Option<f64>) -> Result<Vec<u8>, JsValue> {
     if let Some(ratio) = optimal_ratio {
         let pipeline = get_pipeline_with_ratio(ratio)?;
-        pipeline.render_text(text, OutputFormat::Png)
+        pipeline
+            .render_text(text, OutputFormat::Png)
             .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))
     } else {
         with_pipeline(|pipeline| {
-            pipeline.render_text(text, OutputFormat::Png)
+            pipeline
+                .render_text(text, OutputFormat::Png)
                 .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))
         })
     }
@@ -104,21 +107,21 @@ pub fn render_png(text: &str, optimal_ratio: Option<f64>) -> Result<Vec<u8>, JsV
 #[wasm_bindgen]
 pub fn get_layout_ratios(text: &str) -> Result<String, JsValue> {
     with_pipeline(|pipeline| {
-        let sentences = pipeline.parse(text)
-            .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
-        
+        let result = pipeline.parse(text);
+        let sentences = result.sentences;
+
         if sentences.is_empty() {
             return Ok("[]".to_string());
         }
-        
+
         // For interactive rendering, we work with the first sentence as a whole
         // (not split by punctuation like in render_text)
         let sentence = &sentences[0];
         let options = pipeline.layout(sentence);
-        
+
         let mut ratios: Vec<f64> = options.iter().map(|opt| opt.ratio).collect();
         ratios.sort_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal));
-        
+
         serde_json::to_string(&ratios)
             .map_err(|e| JsValue::from_str(&format!("Failed to serialize ratios: {}", e)))
     })
@@ -130,11 +133,14 @@ pub fn get_layout_ratios(text: &str) -> Result<String, JsValue> {
 pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String, JsValue> {
     if let Some(ratio) = optimal_ratio {
         let pipeline = get_pipeline_with_ratio(ratio)?;
-        let sentences = pipeline.parse(text)
-            .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
+        let result = pipeline.parse(text);
+        let sentences = result.sentences;
 
         // Filter out sentences with no parts (they won't render anything useful)
-        let sentences: Vec<_> = sentences.into_iter().filter(|s| !s.parts.is_empty()).collect();
+        let sentences: Vec<_> = sentences
+            .into_iter()
+            .filter(|s| !s.parts.is_empty())
+            .collect();
 
         if sentences.is_empty() {
             return Ok(String::new());
@@ -142,7 +148,8 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
 
         let mut result = String::new();
         for sentence in &sentences {
-            let bytes = pipeline.render_sentence(sentence, OutputFormat::Svg)
+            let bytes = pipeline
+                .render_sentence(sentence, OutputFormat::Svg)
                 .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
             let svg = String::from_utf8(bytes)
                 .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
@@ -156,11 +163,14 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
         Ok(result)
     } else {
         with_pipeline(|pipeline| {
-            let sentences = pipeline.parse(text)
-                .map_err(|e| JsValue::from_str(&format!("Parse failed: {}", e)))?;
+            let result = pipeline.parse(text);
+            let sentences = result.sentences;
 
             // Filter out sentences with no parts (they won't render anything useful)
-            let sentences: Vec<_> = sentences.into_iter().filter(|s| !s.parts.is_empty()).collect();
+            let sentences: Vec<_> = sentences
+                .into_iter()
+                .filter(|s| !s.parts.is_empty())
+                .collect();
 
             if sentences.is_empty() {
                 return Ok(String::new());
@@ -168,7 +178,8 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
 
             let mut result = String::new();
             for sentence in &sentences {
-                let bytes = pipeline.render_sentence(sentence, OutputFormat::Svg)
+                let bytes = pipeline
+                    .render_sentence(sentence, OutputFormat::Svg)
                     .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
                 let svg = String::from_utf8(bytes)
                     .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
@@ -190,4 +201,100 @@ pub fn render_sentences(text: &str, optimal_ratio: Option<f64>) -> Result<String
 pub fn init_glyphs(sprite_content: &str) -> Result<(), JsValue> {
     init_glyph_registry(sprite_content)
         .map_err(|e| JsValue::from_str(&format!("Failed to initialize glyphs: {}", e)))
+}
+
+// Struct to hold both parse result and rendered SVG
+#[wasm_bindgen]
+pub struct RenderResult {
+    svg: String,
+    warnings: JsValue,
+}
+
+#[wasm_bindgen]
+impl RenderResult {
+    #[wasm_bindgen(getter)]
+    pub fn svg(&self) -> String {
+        self.svg.clone()
+    }
+
+    #[wasm_bindgen(getter)]
+    pub fn warnings(&self) -> JsValue {
+        self.warnings.clone()
+    }
+}
+
+/// Parse text and return both render result and warnings
+#[wasm_bindgen]
+pub fn render_with_warnings(
+    text: &str,
+    optimal_ratio: Option<f64>,
+) -> Result<RenderResult, JsValue> {
+    if let Some(ratio) = optimal_ratio {
+        let pipeline = get_pipeline_with_ratio(ratio)?;
+        let result: ParseResult = pipeline.parse(text);
+
+        // Convert warnings to JSON string
+        let warnings_json = serde_json::to_string::<Vec<ParseWarning>>(&result.warnings)
+            .map_err(|e| JsValue::from_str(&format!("Failed to serialize warnings: {}", e)))?;
+        let warnings_js = JsValue::from_str(&warnings_json);
+
+        // Filter out sentences with no parts and render
+        let sentences: Vec<_> = result
+            .sentences
+            .into_iter()
+            .filter(|s| !s.parts.is_empty())
+            .collect();
+
+        let mut svg_result = String::new();
+        for sentence in &sentences {
+            let bytes = pipeline
+                .render_sentence(&sentence, OutputFormat::Svg)
+                .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
+            let svg = String::from_utf8(bytes)
+                .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
+            if !svg.trim().is_empty() && svg.contains("<svg") {
+                svg_result.push_str(&svg);
+                svg_result.push('\n');
+            }
+        }
+
+        Ok(RenderResult {
+            svg: svg_result,
+            warnings: warnings_js,
+        })
+    } else {
+        with_pipeline(|pipeline| {
+            let result: ParseResult = pipeline.parse(text);
+
+            // Convert warnings to JSON string
+            let warnings_json = serde_json::to_string::<Vec<ParseWarning>>(&result.warnings)
+                .map_err(|e| JsValue::from_str(&format!("Failed to serialize warnings: {}", e)))?;
+            let warnings_js = JsValue::from_str(&warnings_json);
+
+            // Filter out sentences with no parts and render
+            let sentences: Vec<_> = result
+                .sentences
+                .into_iter()
+                .filter(|s| !s.parts.is_empty())
+                .collect();
+
+            let mut svg_result = String::new();
+            for sentence in &sentences {
+                let bytes = pipeline
+                    .render_sentence(&sentence, OutputFormat::Svg)
+                    .map_err(|e| JsValue::from_str(&format!("Rendering failed: {}", e)))?;
+                let svg = String::from_utf8(bytes)
+                    .map_err(|e| JsValue::from_str(&format!("Invalid SVG UTF-8: {}", e)))?;
+                if !svg.trim().is_empty() && svg.contains("<svg") {
+                    svg_result.push_str(&svg);
+                    svg_result.push('\n');
+                }
+            }
+
+            Ok(RenderResult {
+                svg: svg_result,
+                warnings: warnings_js,
+            })
+        })
+    }
 }

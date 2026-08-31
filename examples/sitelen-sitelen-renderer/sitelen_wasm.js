@@ -29,12 +29,6 @@ function getStringFromWasm0(ptr, len) {
     ptr = ptr >>> 0;
     return decodeText(ptr, len);
 }
-/**
- * Initialize glyph registry (called automatically, but can be called manually for custom sprites)
- */
-export function init() {
-    wasm.init();
-}
 
 let WASM_VECTOR_LEN = 0;
 
@@ -90,15 +84,70 @@ function passStringToWasm0(arg, malloc, realloc) {
     return ptr;
 }
 
-function isLikeNone(x) {
-    return x === undefined || x === null;
-}
-
 function takeFromExternrefTable0(idx) {
     const value = wasm.__wbindgen_externrefs.get(idx);
     wasm.__externref_table_dealloc(idx);
     return value;
 }
+/**
+ * Initialize the glyph registry with custom sprite content
+ * This allows overriding the default embedded sprite with a custom one
+ * @param {string} sprite_content
+ */
+export function init_glyphs(sprite_content) {
+    const ptr0 = passStringToWasm0(sprite_content, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.init_glyphs(ptr0, len0);
+    if (ret[1]) {
+        throw takeFromExternrefTable0(ret[0]);
+    }
+}
+
+function isLikeNone(x) {
+    return x === undefined || x === null;
+}
+/**
+ * Parse text and return both render result and warnings
+ * @param {string} text
+ * @param {number | null} [optimal_ratio]
+ * @returns {RenderResult}
+ */
+export function render_with_warnings(text, optimal_ratio) {
+    const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.render_with_warnings(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
+    if (ret[2]) {
+        throw takeFromExternrefTable0(ret[1]);
+    }
+    return RenderResult.__wrap(ret[0]);
+}
+
+function getArrayU8FromWasm0(ptr, len) {
+    ptr = ptr >>> 0;
+    return getUint8ArrayMemory0().subarray(ptr / 1, ptr / 1 + len);
+}
+/**
+ * Render text to PNG bytes
+ *
+ * # Arguments
+ * * `text` - Toki Pona text to render
+ * * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
+ * @param {string} text
+ * @param {number | null} [optimal_ratio]
+ * @returns {Uint8Array}
+ */
+export function render_png(text, optimal_ratio) {
+    const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+    const len0 = WASM_VECTOR_LEN;
+    const ret = wasm.render_png(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
+    if (ret[3]) {
+        throw takeFromExternrefTable0(ret[2]);
+    }
+    var v2 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
+    wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
+    return v2;
+}
+
 /**
  * Render text to SVG string
  *
@@ -130,32 +179,6 @@ export function render_svg(text, optimal_ratio) {
     }
 }
 
-function getArrayU8FromWasm0(ptr, len) {
-    ptr = ptr >>> 0;
-    return getUint8ArrayMemory0().subarray(ptr / 1, ptr / 1 + len);
-}
-/**
- * Render text to PNG bytes
- *
- * # Arguments
- * * `text` - Toki Pona text to render
- * * `optimal_ratio` - Optional optimal ratio for layout (if None, uses default)
- * @param {string} text
- * @param {number | null} [optimal_ratio]
- * @returns {Uint8Array}
- */
-export function render_png(text, optimal_ratio) {
-    const ptr0 = passStringToWasm0(text, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.render_png(ptr0, len0, !isLikeNone(optimal_ratio), isLikeNone(optimal_ratio) ? 0 : optimal_ratio);
-    if (ret[3]) {
-        throw takeFromExternrefTable0(ret[2]);
-    }
-    var v2 = getArrayU8FromWasm0(ret[0], ret[1]).slice();
-    wasm.__wbindgen_free(ret[0], ret[1] * 1, 1);
-    return v2;
-}
-
 /**
  * Get all available layout option ratios for a text
  * Returns a JSON array of ratios sorted from smallest to largest
@@ -181,6 +204,13 @@ export function get_layout_ratios(text) {
     } finally {
         wasm.__wbindgen_free(deferred3_0, deferred3_1, 1);
     }
+}
+
+/**
+ * Initialize glyph registry (called automatically, but can be called manually for custom sprites)
+ */
+export function init() {
+    wasm.init();
 }
 
 /**
@@ -211,19 +241,55 @@ export function render_sentences(text, optimal_ratio) {
     }
 }
 
-/**
- * Initialize the glyph registry with custom sprite content
- * This allows overriding the default embedded sprite with a custom one
- * @param {string} sprite_content
- */
-export function init_glyphs(sprite_content) {
-    const ptr0 = passStringToWasm0(sprite_content, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
-    const len0 = WASM_VECTOR_LEN;
-    const ret = wasm.init_glyphs(ptr0, len0);
-    if (ret[1]) {
-        throw takeFromExternrefTable0(ret[0]);
+const RenderResultFinalization = (typeof FinalizationRegistry === 'undefined')
+    ? { register: () => {}, unregister: () => {} }
+    : new FinalizationRegistry(ptr => wasm.__wbg_renderresult_free(ptr >>> 0, 1));
+
+export class RenderResult {
+
+    static __wrap(ptr) {
+        ptr = ptr >>> 0;
+        const obj = Object.create(RenderResult.prototype);
+        obj.__wbg_ptr = ptr;
+        RenderResultFinalization.register(obj, obj.__wbg_ptr, obj);
+        return obj;
+    }
+
+    __destroy_into_raw() {
+        const ptr = this.__wbg_ptr;
+        this.__wbg_ptr = 0;
+        RenderResultFinalization.unregister(this);
+        return ptr;
+    }
+
+    free() {
+        const ptr = this.__destroy_into_raw();
+        wasm.__wbg_renderresult_free(ptr, 0);
+    }
+    /**
+     * @returns {string}
+     */
+    get svg() {
+        let deferred1_0;
+        let deferred1_1;
+        try {
+            const ret = wasm.renderresult_svg(this.__wbg_ptr);
+            deferred1_0 = ret[0];
+            deferred1_1 = ret[1];
+            return getStringFromWasm0(ret[0], ret[1]);
+        } finally {
+            wasm.__wbindgen_free(deferred1_0, deferred1_1, 1);
+        }
+    }
+    /**
+     * @returns {any}
+     */
+    get warnings() {
+        const ret = wasm.renderresult_warnings(this.__wbg_ptr);
+        return ret;
     }
 }
+if (Symbol.dispose) RenderResult.prototype[Symbol.dispose] = RenderResult.prototype.free;
 
 const EXPECTED_RESPONSE_TYPES = new Set(['basic', 'cors', 'default']);
 
@@ -263,6 +329,9 @@ async function __wbg_load(module, imports) {
 function __wbg_get_imports() {
     const imports = {};
     imports.wbg = {};
+    imports.wbg.__wbg___wbindgen_throw_b855445ff6a94295 = function(arg0, arg1) {
+        throw new Error(getStringFromWasm0(arg0, arg1));
+    };
     imports.wbg.__wbg_log_ceecb5fbf128b811 = function(arg0, arg1) {
         console.log(getStringFromWasm0(arg0, arg1));
     };
